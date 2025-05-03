@@ -8,6 +8,8 @@ import pluginImportX from "eslint-plugin-import-x";
 import tsParser from "@typescript-eslint/parser";
 import jsxAlly from "eslint-plugin-jsx-a11y";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
+import eslintPluginPrettier from 'eslint-plugin-prettier/recommended'; 
+import { rules } from 'eslint-config-prettier';
 
 /** @type {import('eslint').Linter.Config} */
 export default tseslint.config(
@@ -21,6 +23,7 @@ export default tseslint.config(
       eslintReact.configs.flat.recommended,
       pluginImportX.flatConfigs.recommended,
       jsxAlly.flatConfigs.recommended,
+      eslintPluginPrettier,
     ],
     },
     {
@@ -64,7 +67,7 @@ export default tseslint.config(
     {
       rules: {
         ...reactHooks.configs.recommended.rules,
- 
+        ...rules,
         'react-refresh/only-export-components': [
           'warn',
           { allowConstantExport: true },
