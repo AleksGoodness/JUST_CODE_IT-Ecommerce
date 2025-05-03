@@ -1,38 +1,54 @@
-# JUST_CODE_IT-Ecommerce
-# E-Commerce Application Development Team
+# React + TypeScript + Vite
 
-## Team Members
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-### Elena Khadasevich  
-- **Discord**: [@lena07193](https://discordapp.com/users/lena07193)  
-- **GitHub**: [lena523](https://github.com/lena523)  
+Currently, two official plugins are available:
 
-### Aleksei Gomeniuk  
-- **Discord**: [@_aleksg](https://discordapp.com/users/_aleksg)  
-- **GitHub**: [aleksgoodomens](https://github.com/aleksgoodomens)  
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-### Daniyar Hapurzhonau  
-- **Discord**: [@_donadoni_](https://discordapp.com/users/_donadoni_)  
-- **GitHub**: [hapurzhonau](https://github.com/hapurzhonau)  
+## Expanding the ESLint configuration
 
----
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-## Project Overview  
-We are developing a **modern E-Commerce application** using agile methodologies and cutting-edge technologies.  
+```js
+export default tseslint.config({
+  extends: [
+    // Remove ...tseslint.configs.recommended and replace with this
+    ...tseslint.configs.recommendedTypeChecked,
+    // Alternatively, use this for stricter rules
+    ...tseslint.configs.strictTypeChecked,
+    // Optionally, add this for stylistic rules
+    ...tseslint.configs.stylisticTypeChecked,
+  ],
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
+```
 
-### Development Approach  
-- **Agile (Kanban)**: Tasks are managed in sprints with clear progress tracking.  
-- **Three-Phase Workflow**:  
-  1. **Sprint - 1 Planning & Design** – UI/UX prototyping, architecture setup.  
-  2. **Sprint - 2 Development** – Feature implementation and integration.  
-  3. **Sprint - 3 Testing & Deployment** – QA, optimization, and release.  
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-### Tech Stack  
-- **Frontend**: React.js, TypeScript
-- **Backend**: ...
-- **DevOps**: ...
-- **Additional Tools**: Trello, Figma
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
----
-
-**Goal**: Deliver a scalable, user-friendly E-Commerce platform with ...  
+export default tseslint.config({
+  plugins: {
+    // Add the react-x and react-dom plugins
+    'react-x': reactX,
+    'react-dom': reactDom,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended typescript rules
+    ...reactX.configs['recommended-typescript'].rules,
+    ...reactDom.configs.recommended.rules,
+  },
+})
+```
