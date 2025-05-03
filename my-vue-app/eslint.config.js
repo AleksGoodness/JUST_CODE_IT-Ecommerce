@@ -16,6 +16,8 @@ export default tseslint.config(
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommended,
+      ...tseslint.configs.strictTypeChecked,
+      ...tseslint.configs.stylisticTypeChecked,
       eslintReact.configs.flat.recommended,
       pluginImportX.flatConfigs.recommended,
       jsxAlly.flatConfigs.recommended,
