@@ -62,3 +62,31 @@ to run the project locally, you can follow the following steps:
 
 - **Discord**: [@_donadoni_](https://discordapp.com/users/_donadoni_)
 - **GitHub**: [hapurzhonau](https://github.com/hapurzhonau)
+
+## React + TypeScript + Vite
+
+### Expanding the ESLint configuration
+
+Our developing mode enable type-aware lint rules:
+
+```js
+export default tseslint.config({
+  extends: [
+    ...tseslint.configs.recommendedTypeChecked,
+    ...tseslint.configs.strictTypeChecked,
+    ...tseslint.configs.stylisticTypeChecked,
+  ],
+})
+plugins: {
+  // Add the react-x and react-dom plugins
+  'react-x': reactX,
+  'react-dom': reactDom,
+},
+rules: {
+  // other rules...
+  // Enable its recommended typescript rules
+  ...reactX.configs['recommended-typescript'].rules,
+  ...reactDom.configs.recommended.rules,
+},
+})
+```
