@@ -1,54 +1,92 @@
-# React + TypeScript + Vite
+# JUST_CODE_IT-Ecommerce
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
 
-Currently, two official plugins are available:
+This eCommerce application replicates real-world shopping experiences in a digital environment 🏪. It's a comprehensive online shopping portal that provides an interactive and seamless experience to users. From product discovery to checkout, the application ensures a smooth journey for the user, enhancing their engagement and boosting their purchasing confidence 🚀.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Users can browse through a vast range of categories and products 📚👗👟, view detailed descriptions, add their favorite items to the basket 🛒, and proceed to checkout 💳. It includes features such as user registration and login 📝🔐, product search 🔍, product categorization, and sorting to make the shopping experience more streamlined and convenient.
 
-## Expanding the ESLint configuration
+An important aspect of our application is that it's responsive 📲, ensuring it looks great on various devices. This feature makes the shopping experience enjoyable, irrespective of the device users prefer.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Key pages in the application include:
+
+- Login and Registration pages 🖥️
+- Main page 🏠
+- Catalog Product page 📋
+- Detailed Product page 🔎
+- User Profile page 👤
+- Basket page 🛒
+- About Us page 👩👨👨
+
+The application is powered by CommerceTools 🌐, a leading provider of commerce solutions for B2C and B2B enterprises. CommerceTools offers a cloud-native, microservices-based commerce platform that enables brands to create unique and engaging digital commerce experiences.
+The application was developed by a team of three 👨‍💻👩‍💻👨‍💻.
+
+---
+
+### Tech Stack
+
+- **Methodology**: Agile (Kanban). Tasks are managed in sprints with clear progress tracking.
+- **Frontend**: React.js, TypeScript, SCSS, Redux Toolkit.
+- **Backend**: CommerceTools as an API for our application.
+- **CI/CD**: Integrates GitHub Actions and Netlify for continuous integration and deployment.
+- **Code Quality**: Ensured code quality through rigorous checks by Husky, Prettier, ESLint, Stylelint maintaining consistency and best practices throughout the codebase.
+- **Testing**: Thorough testing conducted with Jest, ensuring the reliability and robustness of the application's functionalities.
+- **Additional Tools**: Figma
+
+---
+
+### How to Run the Project Locally ⚙️
+
+to run the project locally, you can follow the following steps:
+
+- Clone the repository: git clone `https://github.com/AleksGoodOmens/JUST_CODE_IT-Ecommerce`
+- Navigate to the project directory: `cd ecommerce`
+- Install dependencies: `npm install`
+- Run the project: `npm run start`
+
+---
+
+### Contact us 📩
+
+#### Elena Khadasevich 🙋‍♀️
+
+- Discord: [@lena07193](https://discordapp.com/users/lena07193)
+- GitHub: [lena523](https://github.com/lena523)
+
+#### Aleksei Gomeniuk 🙋
+
+- Discord: [@\_aleksg](https://discordapp.com/users/_aleksg)
+- GitHub: [aleksgoodomens](https://github.com/aleksgoodomens)
+
+#### Daniyar Hapurzhonau 🙋‍♂️
+
+- **Discord**: [@_donadoni_](https://discordapp.com/users/_donadoni_)
+- **GitHub**: [hapurzhonau](https://github.com/hapurzhonau)
+
+## React + TypeScript + Vite
+
+### Expanding the ESLint configuration
+
+Our developing mode enable type-aware lint rules:
 
 ```js
 export default tseslint.config({
   extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
     ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
     ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
     ...tseslint.configs.stylisticTypeChecked,
   ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
 })
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
+plugins: {
+  // Add the react-x and react-dom plugins
+  'react-x': reactX,
+  'react-dom': reactDom,
+},
+rules: {
+  // other rules...
+  // Enable its recommended typescript rules
+  ...reactX.configs['recommended-typescript'].rules,
+  ...reactDom.configs.recommended.rules,
+},
 })
 ```
