@@ -46,6 +46,21 @@ to run the project locally, you can follow the following steps:
 
 ---
 
+### Available Scripts 📑
+
+you can run the following scripts in the project directory:
+
+ - `npm run dev`: Starts the development server using Vite.
+ - `npm run build`: Builds the TypeScript project and bundles the app with Vite.
+ - `npm run preview`: Previews the production build locally.
+ - `npm run lint`: Lints the entire codebase using ESLint.
+ - `npm run lintfix`: Automatically fixes linting issues using ESLint.
+ - `npm run format`: Formats code files using Prettier.
+ - `npm run prepare`: Sets up Husky for managing Git hooks.
+ - `npm run test`: Runs unit tests using Jest.
+
+---
+
 ### Contact us 📩
 
 #### Elena Khadasevich 🙋‍♀️
@@ -76,17 +91,16 @@ export default tseslint.config({
     ...tseslint.configs.strictTypeChecked,
     ...tseslint.configs.stylisticTypeChecked,
   ],
-})
-plugins: {
-  // Add the react-x and react-dom plugins
-  'react-x': reactX,
-  'react-dom': reactDom,
-},
-rules: {
-  // other rules...
-  // Enable its recommended typescript rules
-  ...reactX.configs['recommended-typescript'].rules,
-  ...reactDom.configs.recommended.rules,
-},
-})
+  plugins: {
+    // Add the react-x and react-dom plugins
+    'react-x': reactX,
+    'react-dom': reactDom,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended typescript rules
+    ...reactX.configs['recommended-typescript'].rules,
+    ...reactDom.configs.recommended.rules,
+  },
+});
 ```
