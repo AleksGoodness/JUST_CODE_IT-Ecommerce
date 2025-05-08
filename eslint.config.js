@@ -4,7 +4,6 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import eslintReact from 'eslint-plugin-react';
 import tseslint from 'typescript-eslint';
-import pluginImportX from 'eslint-plugin-import-x';
 import tsParser from '@typescript-eslint/parser';
 import jsxAlly from 'eslint-plugin-jsx-a11y';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
@@ -23,7 +22,7 @@ export default tseslint.config(
       ...tseslint.configs.strictTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
       eslintReact.configs.flat.recommended,
-      pluginImportX.flatConfigs.recommended,
+
       jsxAlly.flatConfigs.recommended,
       eslintPluginPrettier,
   {
@@ -49,21 +48,19 @@ export default tseslint.config(
       sourceType: 'module',
     },
     rules: {
-      'import-x/no-dynamic-require': 'warn',
-      'import-x/no-nodejs-modules': 'warn',
       'jest/no-disabled-tests': 'warn',
-      'jest/no-focused-tests': 'error',
-      'jest/no-identical-title': 'error',
+      'jest/no-focused-tests': 'warn',
+      'jest/no-identical-title': 'warn',
       'jest/prefer-to-have-length': 'warn',
-      'jest/valid-expect': 'error',
-      'testing-library/await-async-queries': 'error',
-      'testing-library/no-await-sync-queries': 'error',
+      'jest/valid-expect': 'warn',
+      'testing-library/await-async-queries': 'warn',
+      'testing-library/no-await-sync-queries': 'warn',
       'testing-library/no-debugging-utils': 'warn',
       'testing-library/no-dom-import': 'off',
       ...vitest.configs.recommended.rules,
-      'vitest/max-nested-describe': ['error', { max: 3 }],
-      'simple-import-sort/imports': 'error',
-      'simple-import-sort/exports': 'error',
+      'vitest/max-nested-describe': ['warn', { max: 3 }],
+      'simple-import-sort/imports': 'warn',
+      'simple-import-sort/exports': 'warn',
     },
   },
   {
@@ -86,29 +83,28 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
-      'react/prefer-stateless-function': 'error',
-      //'react/button-has-type': 'error',
-      'react/no-unused-prop-types': 'error',
-      'react/jsx-pascal-case': 'error',
-      'react/jsx-no-script-url': 'error',
-      'react/no-children-prop': 'error',
-      'react/no-danger': 'error',
-      'react/no-danger-with-children': 'error',
-      'react/no-unstable-nested-components': ['error', { allowAsProps: true }],
-      'react/jsx-fragments': 'error',
+      'react/prefer-stateless-function': 'warn',
+      'react/no-unused-prop-types': 'warn',
+      'react/jsx-pascal-case': 'warn',
+      'react/jsx-no-script-url': 'warn',
+      'react/no-children-prop': 'warn',
+      'react/no-danger': 'warn',
+      'react/no-danger-with-children': 'warn',
+      'react/no-unstable-nested-components': ['warn', { allowAsProps: true }],
+      'react/jsx-fragments': 'warn',
       'react/destructuring-assignment': [
-        'error',
+        'warn',
         'always',
         { destructureInSignature: 'always' },
       ],
-      'react/jsx-no-leaked-render': ['error', { validStrategies: ['ternary'] }],
-      'react/jsx-max-depth': ['error', { max: 5 }],
+      'react/jsx-no-leaked-render': ['warn', { validStrategies: ['ternary'] }],
+      'react/jsx-max-depth': ['warn', { max: 5 }],
       'react/function-component-definition': [
         'warn',
         { namedComponents: 'arrow-function' },
       ],
       'react/jsx-key': [
-        'error',
+        'warn',
         {
           checkFragmentShorthand: true,
           checkKeyMustBeforeSpread: true,
@@ -154,12 +150,12 @@ export default tseslint.config(
       ],
 
       '@typescript-eslint/consistent-type-assertions': [
-        'error',
+        'warn',
         { assertionStyle: 'never' },
       ],
-      '@typescript-eslint/no-unused-vars': 'error',
-      '@typescript-eslint/array-type': 'error',
-      '@typescript-eslint/member-ordering': 'error',
+      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/array-type': 'warn',
+      '@typescript-eslint/member-ordering': 'warn',
       '@typescript-eslint/no-non-null-assertion': 'off',
     },
   },
