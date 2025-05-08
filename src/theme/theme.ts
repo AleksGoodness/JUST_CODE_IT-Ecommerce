@@ -1,20 +1,90 @@
 import { Components, createTheme } from '@mui/material/styles';
 
-const commonComponents: Components = {
+const commonComponents: Components<typeof lightTheme> = {
+  MuiTypography: {
+    variants: [
+      {
+        props: { variant: 'mainTitle' },
+        style: {
+          lineHeight: 1,
+          fontWeight: 900,
+          fontSize: '4.375rem',
+          textTransform: 'uppercase',
+        },
+      },
+      {
+        props: { variant: 'sectionTitle' },
+        style: {
+          lineHeight: 1,
+          fontWeight: 700,
+          fontSize: '1.875rem',
+          textTransform: 'capitalize',
+        },
+      },
+      {
+        props: { variant: 'cardTitle' },
+        style: {
+          lineHeight: 1.3,
+          fontWeight: 700,
+          fontSize: '1.25rem',
+          textTransform: 'capitalize',
+        },
+      },
+      {
+        props: { variant: 'listTitle' },
+        style: {
+          lineHeight: 1.3,
+          fontWeight: 900,
+          fontSize: '1.125rem',
+          textTransform: 'capitalize',
+        },
+      },
+    ],
+  },
+
   MuiButton: {
     styleOverrides: {
       root: {
         textTransform: 'capitalize',
-        fontWeight: '600',
+        fontWeight: '500',
       },
     },
+    variants: [
+      {
+        props: { variant: 'pagination' },
+        style: ({ theme }) => ({
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '32px',
+          height: '32px',
+          borderRadius: '4px',
+          border: '1px solid #3d3d3d',
+          color: '#3d3d3d',
+          padding: 0,
+          minWidth: 0,
+          '&:hover': {
+            backgroundColor: theme.palette.action.active,
+            color: theme.palette.common.white,
+            borderColor: theme.palette.action.active,
+          },
+        }),
+      },
+    ],
+  },
+};
+
+const typography = {
+  fontFamily: 'Poppins, sans-serif',
+
+  body2: {
+    lineHeight: 1.7,
+    color: 'text.secondary',
   },
 };
 
 export const lightTheme = createTheme({
-  typography: {
-    fontFamily: 'Poppins',
-  },
+  typography: typography,
   components: commonComponents,
   palette: {
     mode: 'light',
@@ -40,6 +110,8 @@ export const lightTheme = createTheme({
 
 export const darkTheme = createTheme({
   components: commonComponents,
+  typography: typography,
+
   palette: {
     mode: 'dark',
     primary: {
