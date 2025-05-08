@@ -1,4 +1,7 @@
-import { DarkMode, East, LightMode, Login } from '@mui/icons-material';
+import DarkMode from '@mui/icons-material/DarkMode';
+import East from '@mui/icons-material/East';
+import LightMode from '@mui/icons-material/LightMode';
+import Login from '@mui/icons-material/Login';
 import { Button, Container } from '@mui/material';
 import { useContext } from 'react';
 

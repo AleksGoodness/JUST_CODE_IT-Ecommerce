@@ -1,5 +1,5 @@
 // src/components/UI/ButtonLink.tsx
-import { Button, ButtonProps } from '@mui/material';
+import Button, { ButtonProps } from '@mui/material/Button';
 import { PropsWithChildren } from 'react';
 import { Link, LinkProps } from 'react-router';
 
