@@ -5,12 +5,16 @@ const commonComponents: Components = {
     styleOverrides: {
       root: {
         textTransform: 'capitalize',
+        fontWeight: '600',
       },
     },
   },
 };
 
 export const lightTheme = createTheme({
+  typography: {
+    fontFamily: 'Poppins',
+  },
   components: commonComponents,
   palette: {
     mode: 'light',
