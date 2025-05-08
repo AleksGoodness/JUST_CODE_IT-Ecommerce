@@ -1,10 +1,8 @@
-
 import js from '@eslint/js';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import eslintReact from 'eslint-plugin-react';
 import tseslint from 'typescript-eslint';
-import pluginImportX from 'eslint-plugin-import-x';
 import tsParser from '@typescript-eslint/parser';
 import jsxAlly from 'eslint-plugin-jsx-a11y';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
@@ -18,21 +16,21 @@ import vitest from 'eslint-plugin-vitest';
 export default tseslint.config(
   { ignores: ['dist/**/*.ts', 'dist/**', '**/*.js', 'node_modules'] },
 
-      js.configs.recommended,
-      ...tseslint.configs.recommended,
-      ...tseslint.configs.strictTypeChecked,
-      ...tseslint.configs.stylisticTypeChecked,
-      eslintReact.configs.flat.recommended,
-      pluginImportX.flatConfigs.recommended,
-      jsxAlly.flatConfigs.recommended,
-      eslintPluginPrettier,
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  ...tseslint.configs.strictTypeChecked,
+  ...tseslint.configs.stylisticTypeChecked,
+  eslintReact.configs.flat.recommended,
+  // pluginImportX.flatConfigs.recommended,
+  jsxAlly.flatConfigs.recommended,
+  eslintPluginPrettier,
   {
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       'simple-import-sort': simpleImportSort,
-      'jest': jestPlugin,
-       vitest,
+      jest: jestPlugin,
+      vitest,
       'testing-library': testingLibrary,
     },
   },
@@ -49,8 +47,6 @@ export default tseslint.config(
       sourceType: 'module',
     },
     rules: {
-      'import-x/no-dynamic-require': 'warn',
-      'import-x/no-nodejs-modules': 'warn',
       'jest/no-disabled-tests': 'warn',
       'jest/no-focused-tests': 'error',
       'jest/no-identical-title': 'error',
@@ -163,5 +159,4 @@ export default tseslint.config(
       '@typescript-eslint/no-non-null-assertion': 'off',
     },
   },
-  
 );

@@ -1,7 +1,8 @@
 import { DarkMode, East, LightMode, Login } from '@mui/icons-material';
-import { Button, ButtonGroup, Container } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import { useContext } from 'react';
 
+import ButtonLink from '../../components/buttonLink/ButtonLink.tsx';
 import { AppThemeContext } from '../../theme/AppThemeContext.tsx';
 
 export const View = () => {
@@ -9,25 +10,30 @@ export const View = () => {
 
   return (
     <Container>
-      <ButtonGroup sx={{ display: 'flex', gap: 1, padding: 1 }}>
-        <Button
-          startIcon={<Login sx={{ marginRight: 0.5 }} />}
-          variant="contained"
-        >
-          Login
-        </Button>
-        <Button sx={{ textTransform: 'uppercase' }} variant="contained">
-          Shop Now
-        </Button>
-        <Button endIcon={<East sx={{ marginLeft: 0.5 }} />} variant="contained">
-          Find more
-        </Button>
-        <Button variant="contained">Filter</Button>
-        <Button onClick={toggleTheme} variant="contained">
-          {isDarkMode ? <DarkMode /> : <LightMode />}
-          Change Theme
-        </Button>
-      </ButtonGroup>
+      <ButtonLink
+        startIcon={<Login sx={{ marginRight: 0.5 }} />}
+        to="/"
+        variant="contained"
+      >
+        Login
+      </ButtonLink>
+      <ButtonLink
+        sx={{ textTransform: 'uppercase' }}
+        to="/"
+        variant="contained"
+      >
+        Shop Now
+      </ButtonLink>
+
+      <Button variant="contained">Filter</Button>
+      <Button onClick={toggleTheme} variant="contained">
+        {isDarkMode ? <DarkMode /> : <LightMode />}
+        Change Theme
+      </Button>
+
+      <ButtonLink endIcon={<East />} to="/" variant="contained">
+        Find more
+      </ButtonLink>
     </Container>
   );
 };
