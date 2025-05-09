@@ -13,6 +13,13 @@ const commonComponents: Components<typeof lightTheme> = {
         },
       },
       {
+        props: { variant: 'secondTitle' },
+        style: ({ theme }) => ({
+          color: theme.palette.action.active,
+          background: theme.palette.action.active,
+        }),
+      },
+      {
         props: { variant: 'sectionTitle' },
         style: {
           lineHeight: 1,
@@ -75,11 +82,10 @@ const commonComponents: Components<typeof lightTheme> = {
 };
 
 const typography = {
-  fontFamily: 'Poppins, sans-serif',
+  fontFamily: ['Poppins', 'sans-serif'].join(','),
 
   body2: {
     lineHeight: 1.7,
-    color: 'text.secondary',
   },
 };
 

@@ -4,6 +4,7 @@ declare module '@mui/material/typography' {
     sectionTitle: true;
     cardTitle: true;
     listTitle: true;
+    secondTitle: true;
   }
 }
 declare module '@mui/material/button' {

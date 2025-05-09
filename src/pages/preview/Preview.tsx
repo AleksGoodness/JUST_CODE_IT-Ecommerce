@@ -2,13 +2,16 @@ import DarkMode from '@mui/icons-material/DarkMode';
 import East from '@mui/icons-material/East';
 import LightMode from '@mui/icons-material/LightMode';
 import Login from '@mui/icons-material/Login';
-import { Box, Button, Container, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 import { useContext } from 'react';
 
-import ButtonLink from '../../components/buttonLink/ButtonLink.tsx';
+import { ButtonLink } from '../../components/index.ts';
 import { AppThemeContext } from '../../theme/AppThemeContext.tsx';
 
-export const View = () => {
+export const Preview = () => {
   const { toggleTheme, isDarkMode } = useContext(AppThemeContext);
 
   return (
@@ -17,6 +20,19 @@ export const View = () => {
         <Typography align="center" variant="h3">
           Titles
         </Typography>
+        <Typography />
+
+        <Typography
+          component="p"
+          sx={{
+            textAlign: 'right',
+            backgroundColor: '#red',
+          }}
+          variant="secondTitle"
+        >
+          Some text
+        </Typography>
+
         <Typography component="h1" variant="mainTitle">
           Let’s Make a Better
           <Typography

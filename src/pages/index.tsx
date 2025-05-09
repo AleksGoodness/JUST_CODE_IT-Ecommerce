@@ -1,4 +1,4 @@
 import { Home } from './home/Home.tsx';
-import { View } from './view/view.tsx';
+import { Preview } from './preview/Preview.tsx';
 
-export { Home, View };
+export { Home, Preview };
