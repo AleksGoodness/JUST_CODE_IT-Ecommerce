@@ -1,13 +1,13 @@
 import { BrowserRouter, Link, Route, Routes } from 'react-router';
 
-import { Home, View } from '../pages/index.tsx';
+import { Home, Preview } from '../pages/index.tsx';
 
 export const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Home />} path="/" />
-        <Route element={<View />} path="/view" />
+        <Route element={<Preview />} path="/preview" />
         <Route
           element={
             <div>
