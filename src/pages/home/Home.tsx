@@ -1,4 +1,5 @@
 import { Container, Typography } from '@mui/material';
+import { NavLink } from 'react-router';
 export const Home = () => {
   return (
     <Container>
@@ -8,6 +9,7 @@ export const Home = () => {
       <Typography sx={{ color: 'green', textAlign: 'center' }}>
         This is example of usage Material UI
       </Typography>
+      <NavLink to="/login">Login</NavLink>
     </Container>
   );
 };

@@ -7,8 +7,7 @@ import tseslint from 'typescript-eslint';
 import tsParser from '@typescript-eslint/parser';
 import jsxAlly from 'eslint-plugin-jsx-a11y';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
-import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
-import { rules } from 'eslint-config-prettier';
+import eslintConfigPrettier from "eslint-config-prettier/flat";
 import jestPlugin from 'eslint-plugin-jest';
 import testingLibrary from 'eslint-plugin-testing-library';
 import vitest from 'eslint-plugin-vitest';
@@ -24,7 +23,7 @@ export default tseslint.config(
       eslintReact.configs.flat.recommended,
 
       jsxAlly.flatConfigs.recommended,
-      eslintPluginPrettier,
+      eslintConfigPrettier,
   {
     plugins: {
       'react-hooks': reactHooks,
@@ -78,7 +77,6 @@ export default tseslint.config(
   {
     rules: {
       ...reactHooks.configs.recommended.rules,
-      ...rules,
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
@@ -112,13 +110,13 @@ export default tseslint.config(
         },
       ],
       'react/jsx-no-useless-fragment': 'warn',
-      'react/jsx-curly-brace-presence': 'warn',
+      //'react/jsx-curly-brace-presence': 'warn',
       'react/no-typos': 'warn',
       'react/display-name': 'warn',
       'react/self-closing-comp': 'warn',
       'react/jsx-sort-props': 'warn',
       'react/react-in-jsx-scope': 'off',
-      'react/jsx-one-expression-per-line': 'off',
+      //'react/jsx-one-expression-per-line': 'off',
       'react/prop-types': 'off',
       '@typescript-eslint/naming-convention': [
         'warn',
@@ -157,6 +155,13 @@ export default tseslint.config(
       '@typescript-eslint/array-type': 'warn',
       '@typescript-eslint/member-ordering': 'warn',
       '@typescript-eslint/no-non-null-assertion': 'off',
+      "@typescript-eslint/no-misused-promises": [
+        "error",
+        {
+          "checksVoidReturn": false
+        }
+      ],
+      "@typescript-eslint/no-base-to-string": 'off'
     },
   },
   
