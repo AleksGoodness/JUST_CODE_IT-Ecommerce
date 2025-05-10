@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import { useContext } from 'react';
 
 import { ButtonLink } from '../../components/index.ts';
+import { Saver } from '../../components/saver/saver.tsx';
 import { AppThemeContext } from '../../theme/AppThemeContext.tsx';
 
 export const Preview = () => {
@@ -103,6 +104,9 @@ export const Preview = () => {
           plants. Use our plants to create an unique Urban Jungle. Order your
           favorite plants!
         </Typography>
+      </Box>
+      <Box>
+        <Saver />
       </Box>
     </Container>
   );

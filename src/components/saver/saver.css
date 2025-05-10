@@ -1,0 +1,50 @@
+#handboy {
+  transform-box: fill-box;
+  transform-origin: 98% 98%;
+  animation: swing ease-in-out 1.3s infinite alternate;
+}
+
+#girllight {
+  transform-box: fill-box;
+  transform-origin: 0% 97%;
+  animation: swing ease-in-out 1.3s infinite alternate;
+}
+
+#hairgirl {
+  transform-box: fill-box;
+  transform-origin: 60% 0%;
+  animation: swinghair ease-in-out 1.3s infinite alternate;
+}
+
+#zero {
+  transform-box: fill-box;
+  transform-origin: left;
+  animation: jump ease-in-out 1.3s infinite alternate;
+}
+
+@keyframes swing {
+  0% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(-10deg);
+  }
+}
+
+@keyframes swinghair {
+  0% {
+    transform: rotate(6deg);
+  }
+  100% {
+    transform: rotate(-6deg);
+  }
+}
+
+@keyframes jump {
+  0% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(-10deg);
+  }
+}
