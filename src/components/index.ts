@@ -1,1 +1,3 @@
-//todo reexport all components from that index file;
+import ButtonLink from './buttonLink/ButtonLink.tsx';
+
+export { ButtonLink };
