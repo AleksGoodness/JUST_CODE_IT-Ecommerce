@@ -1,6 +1,5 @@
 import { BrowserRouter, Link, Route, Routes } from 'react-router';
 
-import { Home } from '../pages/index.tsx';
 import { Login } from '../pages/login/Login';
 import { Register } from '../pages/register/Register.tsx';
 
@@ -8,7 +7,6 @@ export const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Home />} path="/" />
         <Route
           element={
             <div>
@@ -17,7 +15,6 @@ export const Router = () => {
           }
           path="*"
         />
-        <Route element={<Home />} path="/" />
         <Route element={<Login />} path="/login" />
         <Route element={<Register />} path="/register" />
       </Routes>

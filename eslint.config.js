@@ -1,4 +1,3 @@
-
 import js from '@eslint/js';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
@@ -24,13 +23,14 @@ export default tseslint.config(
 
       jsxAlly.flatConfigs.recommended,
       eslintConfigPrettier,
+
   {
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       'simple-import-sort': simpleImportSort,
-      'jest': jestPlugin,
-       vitest,
+      jest: jestPlugin,
+      vitest,
       'testing-library': testingLibrary,
     },
   },
@@ -164,5 +164,4 @@ export default tseslint.config(
       "@typescript-eslint/no-base-to-string": 'off'
     },
   },
-  
 );

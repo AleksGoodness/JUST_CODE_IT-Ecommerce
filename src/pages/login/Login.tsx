@@ -1,11 +1,11 @@
 import './login.module.scss';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Container, ButtonGroup, Button, Typography } from '@mui/material';
+import { Button, ButtonGroup, Container, Typography } from '@mui/material';
 import { FC } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { NavLink } from 'react-router';
+import * as yup from 'yup';
 
 import { LoginEmail } from '../../components/login_email';
 import { LoginPassword } from '../../components/login_password';
@@ -43,7 +43,7 @@ export const Login: FC = () => {
         <form onSubmit={methods.handleSubmit(formSubmitHandler)}>
           <LoginEmail />
           <LoginPassword />
-          <Button variant="contained" type="submit">
+          <Button type="submit" variant="contained">
             <NavLink to="/">Register</NavLink>
           </Button>
         </form>
