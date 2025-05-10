@@ -21,7 +21,6 @@ export default tseslint.config(
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
   eslintReact.configs.flat.recommended,
-  // pluginImportX.flatConfigs.recommended,
   jsxAlly.flatConfigs.recommended,
   eslintPluginPrettier,
   {
