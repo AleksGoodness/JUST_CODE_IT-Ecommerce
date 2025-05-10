@@ -1,5 +1,6 @@
-import { TextField } from '@mui/material';
-import { FC } from 'react';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { IconButton, InputAdornment, TextField } from '@mui/material';
+import { FC, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 export const RegisterConfirmPassword: FC = () => {
@@ -7,6 +8,12 @@ export const RegisterConfirmPassword: FC = () => {
     control,
     formState: { errors },
   } = useFormContext();
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePassword = () => {
+    setShowPassword(prev => !prev);
+  };
 
   return (
     <Controller
@@ -17,13 +24,25 @@ export const RegisterConfirmPassword: FC = () => {
         <TextField
           {...field}
           error={!!errors.password_confirm}
+          fullWidth
           helperText={
             errors.password_confirm
               ? errors.password_confirm.message?.toString()
               : ''
           }
           label="Confirm password"
-          type="password"
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton edge="end" onClick={handleTogglePassword}>
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
+          }}
+          type={showPassword ? 'text' : 'password'}
           variant="outlined"
         />
       )}

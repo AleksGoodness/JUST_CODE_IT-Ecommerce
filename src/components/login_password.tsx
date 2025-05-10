@@ -1,14 +1,20 @@
-import { TextField } from '@mui/material';
-import { FC } from 'react';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { IconButton, InputAdornment, TextField } from '@mui/material';
+import { FC, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-//import VisibilityIcon from '@mui/icons-material/Visibility';
-//import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 export const LoginPassword: FC = () => {
   const {
     control,
     formState: { errors },
   } = useFormContext();
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePassword = () => {
+    setShowPassword(prev => !prev);
+  };
+
   return (
     <Controller
       control={control}
@@ -22,7 +28,18 @@ export const LoginPassword: FC = () => {
             errors.password ? errors.password.message?.toString() : ''
           }
           label="Password"
-          type="password"
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton edge="end" onClick={handleTogglePassword}>
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
+          }}
+          type={showPassword ? 'text' : 'password'} // ✔ Исправлено!
           variant="outlined"
         />
       )}

@@ -16,7 +16,7 @@ export const RegisterPostCode: FC = () => {
         <TextField
           {...field}
           error={!!errors.postcode}
-          label="Postode"
+          label="Postcode"
           type="text"
           variant="outlined"
         />

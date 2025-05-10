@@ -32,8 +32,17 @@ interface IFormInputs {
 const schema = yup.object().shape({
   firstName: yup.string().required(),
   lastName: yup.string().required(),
-  password: yup.string().min(4).max(10).required(),
-  password_confirm: yup.string().min(4).max(10).required(),
+  password: yup
+    .string()
+    .required('Please enter your password')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})$/,
+      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Character',
+    ),
+  password_confirm: yup
+    .string()
+    .oneOf([yup.ref('password')], 'Passwords must match')
+    .required('Required'),
   country: yup.string().required(),
   city: yup.string().required(),
   address: yup.string().required(),

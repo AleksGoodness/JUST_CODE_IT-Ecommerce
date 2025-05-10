@@ -11,7 +11,7 @@ export const RegisterDateBirth: FC = () => {
 
   return (
     <Box>
-      <Typography variant="h6">Date of your birth</Typography>
+      <Typography variant="h6">Date of Birth</Typography>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Controller
           control={control}
