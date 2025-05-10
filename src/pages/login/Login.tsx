@@ -44,7 +44,7 @@ export const Login: FC = () => {
           <LoginEmail />
           <LoginPassword />
           <Button type="submit" variant="contained">
-            <NavLink to="/">Register</NavLink>
+            Register
           </Button>
         </form>
       </FormProvider>
