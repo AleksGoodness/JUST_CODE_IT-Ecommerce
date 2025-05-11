@@ -1,4 +1,4 @@
-import { TextField } from '@mui/material';
+import TextField from '@mui/material/TextField';
 import { FC } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
