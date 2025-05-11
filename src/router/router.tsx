@@ -1,6 +1,7 @@
-import { BrowserRouter, Link, Route, Routes } from 'react-router';
+import { BrowserRouter, Route, Routes } from 'react-router';
 
 import { Home, Preview } from '../pages/index.tsx';
+import { NotFound } from '../pages/notFound/NotFound.tsx';
 
 export const Router = () => {
   return (
@@ -8,14 +9,7 @@ export const Router = () => {
       <Routes>
         <Route element={<Home />} path="/" />
         <Route element={<Preview />} path="/preview" />
-        <Route
-          element={
-            <div>
-              page not found <Link to="/">home</Link>
-            </div>
-          }
-          path="*"
-        />
+        <Route element={<NotFound />} path="*" />
       </Routes>
     </BrowserRouter>
   );
