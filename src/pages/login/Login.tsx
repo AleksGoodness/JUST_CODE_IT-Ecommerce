@@ -3,8 +3,8 @@ import { Button, ButtonGroup, Container, Typography } from '@mui/material';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { NavLink } from 'react-router';
 
+import { AuthInput } from '../../components/login_register_inputs/auth_input';
 import schema from './login_schema';
-import { LoginEmail, LoginPassword } from '../../components';
 
 interface IFormInputs {
   email: string;
@@ -14,28 +14,37 @@ interface IFormInputs {
 export const Login = () => {
   const methods = useForm<IFormInputs>({
     resolver: yupResolver(schema),
+    defaultValues: { email: '', password: '' },
   });
 
-  console.log('watch variable email', methods.watch('email'));
-  const formSubmitHandler: SubmitHandler<IFormInputs> = (data: IFormInputs) => {
-    console.log('form data is', data);
+  const formSubmitHandler: SubmitHandler<IFormInputs> = data => {
+    console.log('Form data:', data);
   };
 
   return (
-    <Container sx={{ width: 500, backgroundColor: '#FFFFFF' }}>
+    <Container sx={{ width: 500, backgroundColor: '#FFFFFF', padding: 3 }}>
       <FormProvider {...methods}>
-        <ButtonGroup variant="outlined">
-          <Button>Login</Button>
+        <ButtonGroup sx={{ marginBottom: 2 }} variant="outlined">
+          <Button>
+            <NavLink to="/login">Login</NavLink>
+          </Button>
           <Button>
             <NavLink to="/register">Register</NavLink>
           </Button>
         </ButtonGroup>
-        <Typography>Enter your username and password to login.</Typography>
+        <Typography sx={{ marginBottom: 2 }}>
+          Enter your username and password to log in.
+        </Typography>
         <form onSubmit={methods.handleSubmit(formSubmitHandler)}>
-          <LoginEmail />
-          <LoginPassword />
-          <Button type="submit" variant="contained">
-            Register
+          <AuthInput label="Email" name="email" />
+          <AuthInput label="Password" name="password" />
+          <Button
+            fullWidth
+            sx={{ marginTop: 2 }}
+            type="submit"
+            variant="contained"
+          >
+            Login
           </Button>
         </form>
       </FormProvider>
