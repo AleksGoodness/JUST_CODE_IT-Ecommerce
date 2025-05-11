@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
 
-import { Home, Preview } from '../pages/index.tsx';
-import { NotFound } from '../pages/notFound/NotFound.tsx';
+import { Home, NotFound, Preview, Login, Register } from '../pages/index.tsx';
 
 export const Router = () => {
   return (
@@ -9,6 +8,8 @@ export const Router = () => {
       <Routes>
         <Route element={<Home />} path="/" />
         <Route element={<Preview />} path="/preview" />
+        <Route element={<Login />} path="/login" />
+        <Route element={<Register />} path="/register" />
         <Route element={<NotFound />} path="*" />
       </Routes>
     </BrowserRouter>

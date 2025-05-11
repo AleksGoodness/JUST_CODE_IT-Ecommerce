@@ -3,8 +3,7 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router';
-
-import { Saver } from '../../components/saver/saver';
+import { Saver } from '../../components';
 
 export const NotFound = () => {
   return (
