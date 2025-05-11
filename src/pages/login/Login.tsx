@@ -1,26 +1,17 @@
-import './login.module.scss';
-
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, ButtonGroup, Container, Typography } from '@mui/material';
-import { FC } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { NavLink } from 'react-router';
-import * as yup from 'yup';
 
-import { LoginEmail } from '../../components/login_email';
-import { LoginPassword } from '../../components/login_password';
+import schema from './login_schema';
+import { LoginEmail, LoginPassword } from '../../components';
 
 interface IFormInputs {
   email: string;
   password: string;
 }
 
-const schema = yup.object().shape({
-  email: yup.string().email().required(),
-  password: yup.string().min(4).max(10).required(),
-});
-
-export const Login: FC = () => {
+export const Login = () => {
   const methods = useForm<IFormInputs>({
     resolver: yupResolver(schema),
   });

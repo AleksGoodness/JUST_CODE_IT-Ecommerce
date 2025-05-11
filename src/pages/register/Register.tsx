@@ -1,92 +1,22 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Container,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Button, ButtonGroup, Container, Typography } from '@mui/material';
 import { FC } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { NavLink } from 'react-router';
-import * as yup from 'yup';
-
-import { RegisterDateBirth } from '../../components/date_birth';
-import { LoginEmail } from '../../components/login_email';
-import { LoginPassword } from '../../components/login_password';
-import { RegisterAddress } from '../../components/register_address';
-import { RegisterCity } from '../../components/register_city';
-import { RegisterConfirmPassword } from '../../components/register_confirm_password';
-import { RegisterCountry } from '../../components/register_country';
-import { RegisterFirstName } from '../../components/register_first_name';
-import { RegisterLastName } from '../../components/register_last_name';
-import { RegisterPostCode } from '../../components/register_postcode';
-
-interface ShippingAddress {
-  country: string;
-  city: string;
-  address: string;
-  postcode: string;
-}
-
-interface BillingAddress {
-  country?: string;
-  city?: string;
-  address?: string;
-  postcode?: string;
-}
-
-interface IFormInputs {
-  firstName: string;
-  lastName: string;
-  password: string;
-  password_confirm: string;
-  shipping_address: ShippingAddress;
-  billing_address: BillingAddress;
-  email: string;
-  dateOfBirth: Date;
-}
-
-const schema = yup.object().shape({
-  firstName: yup.string().required(),
-  lastName: yup.string().required(),
-  password: yup
-    .string()
-    .required('Please enter your password')
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/,
-      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Character',
-    ),
-  password_confirm: yup
-    .string()
-    .oneOf([yup.ref('password')], 'Passwords must match')
-    .required('Required'),
-  shipping_address: yup
-    .object()
-    .shape({
-      country: yup.string().required(),
-      city: yup.string().required(),
-      address: yup.string().required(),
-      postcode: yup.string().required(),
-    })
-    .required(),
-  billing_address: yup
-    .object()
-    .shape({
-      country: yup.string().optional(),
-      city: yup.string().optional(),
-      address: yup.string().optional(),
-      postcode: yup.string().optional(),
-    })
-    .required(),
-
-  email: yup.string().email().required(),
-  dateOfBirth: yup
-    .date()
-    .min(new Date(1900, 0, 1))
-    .required(),
-});
+import {
+  LoginEmail,
+  LoginPassword,
+  RegisterAddress,
+  RegisterCity,
+  RegisterConfirmPassword,
+  RegisterCountry,
+  RegisterDateBirth,
+  RegisterFirstName,
+  RegisterLastName,
+  RegisterPostCode,
+} from '../../components';
+import schema from './register_schema';
+import { IFormInputs } from './interfaces';
 
 export const Register: FC = () => {
   const methods = useForm<IFormInputs>({

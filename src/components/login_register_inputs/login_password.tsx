@@ -39,7 +39,7 @@ export const LoginPassword: FC = () => {
               ),
             },
           }}
-          type={showPassword ? 'text' : 'password'} //✔ Исправлено!
+          type={showPassword ? 'text' : 'password'}
           variant="outlined"
         />
       )}
