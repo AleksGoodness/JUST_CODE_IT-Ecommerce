@@ -34,22 +34,22 @@ const Preview = () => {
         </Typography>
 
         <Typography component="h1" variant="mainTitle">
-          Let’s Make a Better
+          main
           <Typography
             sx={theme => ({
               color: theme.palette.action.active,
             })}
             variant="mainTitle"
           >
-            Planet
+            Title
           </Typography>
         </Typography>
         <Typography component="h2" variant="sectionTitle">
-          Our Blog Posts
+          sectionTitle
         </Typography>
 
         <Typography component="h3" variant="cardTitle">
-          Cactus & Succulent Care Tips
+          cardTitle
         </Typography>
 
         <Typography component="h4" variant="listTitle">
@@ -61,13 +61,13 @@ const Preview = () => {
         <Typography align="center" variant="h3">
           Buttons
         </Typography>
-        <Button variant="pagination">1</Button>
+        <Button variant="pagination">pagination</Button>
         <ButtonLink
           startIcon={<Login sx={{ marginRight: 0.5 }} />}
           to="/"
           variant="contained"
         >
-          Login
+          contained
         </ButtonLink>
         <ButtonLink
           sx={{ textTransform: 'uppercase' }}
@@ -99,9 +99,9 @@ const Preview = () => {
           favorite plants!
         </Typography>
         <Typography variant="body2">
-          We are an online plant shop offering a wide range of cheap and trendy
-          plants. Use our plants to create an unique Urban Jungle. Order your
-          favorite plants!
+          body2 - Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Adipisci eveniet, ratione tenetur debitis at similique sapiente magni
+          placeat natus consequatur architecto, saepe necessitatibus rerum
         </Typography>
       </Box>
       <Box>

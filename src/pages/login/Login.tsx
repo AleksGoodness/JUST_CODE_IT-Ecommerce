@@ -1,8 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, ButtonGroup, Container, Typography } from '@mui/material';
+import { Box, Button, Container, Typography } from '@mui/material';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { NavLink } from 'react-router';
 
-import { AuthInput, ButtonLink } from '../../components';
+import { AuthInput } from '../../components';
 import schema from './login_schema';
 
 interface IFormInputs {
@@ -31,37 +32,50 @@ const Login = () => {
         }}
       >
         <FormProvider {...methods}>
-          <ButtonGroup
+          <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              gap: '40px',
-              marginBottom: '50px',
+              display: 'grid',
+              placeContent: 'center',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(auto, 150px))',
+              gap: 5,
+              paddingBottom: 2,
             }}
-            variant="outlined"
           >
-            <ButtonLink sx={{ fontSize: '1.2rem' }} to="/login">
+            <Button
+              component={NavLink}
+              sx={theme => ({
+                fontSize: '1.2rem',
+                '&.active': {
+                  bgcolor: theme.palette.action.active,
+                  color: theme.palette.primary.contrastText,
+                },
+              })}
+              to="/login"
+              variant="outlined"
+            >
               Login
-            </ButtonLink>
-            <ButtonLink sx={{ fontSize: '1.2rem' }} to="/register">
+            </Button>
+            <Button
+              component={NavLink}
+              sx={{ fontSize: '1.2rem' }}
+              to="/register"
+              variant="outlined"
+            >
               Register
-            </ButtonLink>
-          </ButtonGroup>
+            </Button>
+          </Box>
           <Typography
-            sx={{
-              fontSize: '1.2rem',
-              textAlign: 'center',
-              marginBottom: '15px',
-            }}
+            component="h3"
+            sx={{ textAlign: 'center', paddingBlock: 3 }}
+            variant="cardTitle"
           >
             Enter your username and password to log in.
           </Typography>
           <form onSubmit={methods.handleSubmit(formSubmitHandler)}>
             <Box
               sx={{
-                display: 'flex',
+                display: 'grid',
                 alignItems: 'center',
-                flexDirection: 'column',
                 gap: '10px',
               }}
             >

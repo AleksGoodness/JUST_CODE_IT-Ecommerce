@@ -26,14 +26,11 @@ const AuthInput = ({ name, label }: AuthInputProps) => {
       name={name}
       render={({ field }) => (
         <TextField
-          sx={{
-            width: '100%',
-            '& .MuiInputBase-root': { height: '40px' },
-          }}
           {...field}
           error={!!errors[name]}
           helperText={errors[name]?.message?.toString()}
           label={label}
+          size="small"
           slotProps={
             name === 'password'
               ? {
