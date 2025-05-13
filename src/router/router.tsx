@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
 
-import { Home, NotFound, Preview, Login, Register } from '../pages/index.tsx';
+import { Home, Login, NotFound, Preview, Register } from '../pages/index.tsx';
 
 export const Router = () => {
   return (

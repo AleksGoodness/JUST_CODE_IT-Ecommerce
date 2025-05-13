@@ -8,11 +8,10 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { useContext } from 'react';
 
-import { ButtonLink } from '../../components/index.ts';
-import { Saver } from '../../components/saver/saver.tsx';
+import { ButtonLink, Saver } from '../../components/index.ts';
 import { AppThemeContext } from '../../theme/AppThemeContext.tsx';
 
-export const Preview = () => {
+const Preview = () => {
   const { toggleTheme, isDarkMode } = useContext(AppThemeContext);
 
   return (
@@ -111,3 +110,5 @@ export const Preview = () => {
     </Container>
   );
 };
+
+export default Preview;
