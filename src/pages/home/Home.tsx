@@ -2,7 +2,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { NavLink } from 'react-router';
 
-export const Home = () => {
+const Home = () => {
   return (
     <Container>
       <Typography align="center" variant="h1">
@@ -15,3 +15,4 @@ export const Home = () => {
     </Container>
   );
 };
+export default Home;

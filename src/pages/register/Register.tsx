@@ -1,10 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import Container from '@mui/material/Container';
-import Checkbox from '@mui/material/Checkbox';
-import Typography from '@mui/material/Typography';
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Container,
+  Checkbox,
+  Typography,
+} from '@mui/material';
 import {
   FormProvider,
   SubmitHandler,
@@ -12,10 +14,8 @@ import {
   useWatch,
 } from 'react-hook-form';
 
-import { ButtonLink } from '../../components';
-import { FormInput } from '../../components/login_register_inputs/form_input';
-import { RegisterInputProps } from './interfaces';
-import { countries } from './interfaces';
+import { ButtonLink, FormInput } from '../../components';
+import { countries, RegisterInputProps } from './interfaces';
 import schema from './register_schema';
 
 export const Register = () => {
@@ -209,3 +209,5 @@ export const Register = () => {
     </Container>
   );
 };
+
+export default Register;

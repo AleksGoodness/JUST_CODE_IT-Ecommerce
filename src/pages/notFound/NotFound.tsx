@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { Link } from 'react-router';
 import { Saver } from '../../components';
 
-export const NotFound = () => {
+const NotFound = () => {
   return (
     <Container
       disableGutters
@@ -43,3 +43,5 @@ export const NotFound = () => {
     </Container>
   );
 };
+
+export default NotFound;

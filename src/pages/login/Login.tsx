@@ -1,13 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
+import { Box, Button, ButtonGroup, Container, Typography } from '@mui/material';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
-import { ButtonLink } from '../../components';
-import { AuthInput } from '../../components/login_register_inputs/auth_input';
+import { AuthInput, ButtonLink } from '../../components';
 import schema from './login_schema';
 
 interface IFormInputs {
@@ -15,7 +10,7 @@ interface IFormInputs {
   password: string;
 }
 
-export const Login = () => {
+const Login = () => {
   const methods = useForm<IFormInputs>({
     resolver: yupResolver(schema),
     defaultValues: { email: '', password: '' },
@@ -31,7 +26,7 @@ export const Login = () => {
         sx={{
           maxWidth: '500px',
           width: '100%',
-          paddingTop: '30%',
+          transform: 'translateY(50%)',
           margin: '0 auto',
         }}
       >
@@ -87,3 +82,5 @@ export const Login = () => {
     </Container>
   );
 };
+
+export default Login;

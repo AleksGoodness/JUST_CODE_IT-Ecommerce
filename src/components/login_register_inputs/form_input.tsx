@@ -1,11 +1,14 @@
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import Autocomplete from '@mui/material/Autocomplete';
-import Box from '@mui/material/Box';
-import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import {
+  Autocomplete,
+  Box,
+  Checkbox,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -26,7 +29,7 @@ interface FormInputProps extends Partial<RegisterInputProps> {
   sx?: object;
 }
 
-export const FormInput = ({ name, label, options }: FormInputProps) => {
+const FormInput = ({ name, label, options }: FormInputProps) => {
   const {
     control,
     setValue,
@@ -163,3 +166,5 @@ export const FormInput = ({ name, label, options }: FormInputProps) => {
     </Box>
   );
 };
+
+export default FormInput;

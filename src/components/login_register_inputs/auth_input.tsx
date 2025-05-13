@@ -1,7 +1,6 @@
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import TextField from '@mui/material/TextField';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { IconButton, InputAdornment, TextField } from '@mui/material';
 import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
@@ -10,7 +9,7 @@ interface AuthInputProps {
   label: string;
 }
 
-export const AuthInput = ({ name, label }: AuthInputProps) => {
+const AuthInput = ({ name, label }: AuthInputProps) => {
   const {
     control,
     formState: { errors },
@@ -29,6 +28,7 @@ export const AuthInput = ({ name, label }: AuthInputProps) => {
         <TextField
           sx={{
             width: '100%',
+            '& .MuiInputBase-root': { height: '40px' },
           }}
           {...field}
           error={!!errors[name]}
@@ -56,3 +56,5 @@ export const AuthInput = ({ name, label }: AuthInputProps) => {
     />
   );
 };
+
+export default AuthInput;
