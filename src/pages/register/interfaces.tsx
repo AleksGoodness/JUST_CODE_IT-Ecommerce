@@ -5,7 +5,7 @@ export interface FormFieldProps {
   type?: string;
 }
 
-export interface FormInputProps {
+export interface RegisterInputProps {
   firstName: string;
   lastName: string;
   email: string;
@@ -78,3 +78,23 @@ export const countries: string[] = [
   'Uzbekistan',
   'Vietnam',
 ];
+
+export const isValidShippingAddress = (
+  value: unknown,
+): value is RegisterInputProps['shipping_address'] => {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'country' in value &&
+    'city' in value &&
+    'address' in value &&
+    'postcode' in value
+  );
+};
+
+export interface FormInputProps extends Partial<RegisterInputProps> {
+  name: string;
+  label: string;
+  options?: string[];
+  type?: string;
+}

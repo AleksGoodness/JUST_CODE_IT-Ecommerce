@@ -1,8 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, ButtonGroup, Container, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { NavLink } from 'react-router';
 
+import { ButtonLink } from '../../components';
 import { AuthInput } from '../../components/login_register_inputs/auth_input';
 import schema from './login_schema';
 
@@ -22,25 +26,44 @@ export const Login = () => {
   };
 
   return (
-    <Container sx={{ width: 500, backgroundColor: '#FFFFFF', padding: 3 }}>
+    <Container sx={{ maxWidth: '500px', width: '100%', paddingTop: '30%' }}>
       <FormProvider {...methods}>
-        <ButtonGroup sx={{ marginBottom: 2 }} variant="outlined">
-          <Button>
-            <NavLink to="/login">Login</NavLink>
-          </Button>
-          <Button>
-            <NavLink to="/register">Register</NavLink>
-          </Button>
+        <ButtonGroup
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '40px',
+            marginBottom: '50px',
+          }}
+          variant="outlined"
+        >
+          <ButtonLink sx={{ fontSize: '1.2rem' }} to="/login">
+            Login
+          </ButtonLink>
+          <ButtonLink sx={{ fontSize: '1.2rem' }} to="/register">
+            Register
+          </ButtonLink>
         </ButtonGroup>
-        <Typography sx={{ marginBottom: 2 }}>
+        <Typography
+          sx={{ fontSize: '1.2rem', textAlign: 'center', marginBottom: '15px' }}
+        >
           Enter your username and password to log in.
         </Typography>
         <form onSubmit={methods.handleSubmit(formSubmitHandler)}>
-          <AuthInput label="Email" name="email" />
-          <AuthInput label="Password" name="password" />
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              flexDirection: 'column',
+              gap: '10px',
+            }}
+          >
+            <AuthInput label="Email" name="email" />
+            <AuthInput label="Password" name="password" />
+          </Box>
           <Button
             fullWidth
-            sx={{ marginTop: 2 }}
+            sx={{ marginTop: '20px', height: '45px', fontSize: '1.2rem' }}
             type="submit"
             variant="contained"
           >
