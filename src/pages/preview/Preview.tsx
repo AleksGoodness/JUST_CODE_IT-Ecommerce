@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import { useContext } from 'react';
 
 import { ButtonLink, Saver } from '../../components/index.ts';
+import { getProjectDetails } from '../../ecommerce/CtpClient.ts';
 import { AppThemeContext } from '../../theme/AppThemeContext.tsx';
 
 const Preview = () => {
@@ -62,6 +63,13 @@ const Preview = () => {
           Buttons
         </Typography>
         <Button variant="pagination">pagination</Button>
+        <Button
+          onClick={getProjectDetails}
+          sx={{ bgcolor: 'red' }}
+          variant="contained"
+        >
+          getProjectDetails
+        </Button>
         <ButtonLink
           startIcon={<Login sx={{ marginRight: 0.5 }} />}
           to="/"

@@ -13,7 +13,15 @@ import vitest from 'eslint-plugin-vitest';
 
 /** @type {import('eslint').Linter.Config} */
 export default tseslint.config(
-  { ignores: ['dist/**/*.ts', 'dist/**', '**/*.js', 'node_modules'] },
+  {
+    ignores: [
+      'dist/**/*.ts',
+      'dist/**',
+      '**/*.js',
+      'node_modules',
+      'src/ecommerce',
+    ],
+  },
 
   js.configs.recommended,
   ...tseslint.configs.recommended,
