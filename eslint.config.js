@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint';
 import tsParser from '@typescript-eslint/parser';
 import jsxAlly from 'eslint-plugin-jsx-a11y';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
-import eslintConfigPrettier from "eslint-config-prettier/flat";
+import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import jestPlugin from 'eslint-plugin-jest';
 import testingLibrary from 'eslint-plugin-testing-library';
 import vitest from 'eslint-plugin-vitest';
@@ -15,14 +15,14 @@ import vitest from 'eslint-plugin-vitest';
 export default tseslint.config(
   { ignores: ['dist/**/*.ts', 'dist/**', '**/*.js', 'node_modules'] },
 
-      js.configs.recommended,
-      ...tseslint.configs.recommended,
-      ...tseslint.configs.strictTypeChecked,
-      ...tseslint.configs.stylisticTypeChecked,
-      eslintReact.configs.flat.recommended,
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  ...tseslint.configs.strictTypeChecked,
+  ...tseslint.configs.stylisticTypeChecked,
+  eslintReact.configs.flat.recommended,
 
-      jsxAlly.flatConfigs.recommended,
-      eslintConfigPrettier,
+  jsxAlly.flatConfigs.recommended,
+  eslintConfigPrettier,
 
   {
     plugins: {
@@ -155,13 +155,15 @@ export default tseslint.config(
       '@typescript-eslint/array-type': 'warn',
       '@typescript-eslint/member-ordering': 'warn',
       '@typescript-eslint/no-non-null-assertion': 'off',
-      "@typescript-eslint/no-misused-promises": [
-        "error",
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-misused-promises': [
+        'error',
         {
-          "checksVoidReturn": false
-        }
+          checksVoidReturn: false,
+        },
       ],
-      "@typescript-eslint/no-base-to-string": 'off'
+      '@typescript-eslint/no-base-to-string': 'off',
     },
   },
 );

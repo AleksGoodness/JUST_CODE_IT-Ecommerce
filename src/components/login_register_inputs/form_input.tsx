@@ -26,10 +26,9 @@ interface FormInputProps extends Partial<RegisterInputProps> {
   label: string;
   options?: string[];
   type?: string;
-  sx?: object;
 }
 
-const FormInput = ({ name, label, options }: FormInputProps) => {
+const FormInput = ({ name, label, options, ...props }: FormInputProps) => {
   const {
     control,
     setValue,
@@ -64,7 +63,7 @@ const FormInput = ({ name, label, options }: FormInputProps) => {
     }
   };
   return (
-    <Box>
+    <Box {...props}>
       {name === 'billing_address' ? (
         <Box>
           <Checkbox
@@ -92,6 +91,7 @@ const FormInput = ({ name, label, options }: FormInputProps) => {
                 slotProps={{
                   textField: {
                     variant: 'outlined',
+                    size: 'small',
                     fullWidth: true,
                     error: !!errors[name],
                     helperText: errors[name]?.message?.toString(),
@@ -103,10 +103,7 @@ const FormInput = ({ name, label, options }: FormInputProps) => {
           ) : options ? (
             <Autocomplete
               fullWidth
-              sx={{
-                width: '100%',
-                '& .MuiInputBase-root': { height: '40px' },
-              }}
+              size="small"
               {...field}
               onChange={(_, value) => {
                 field.onChange(value);
@@ -125,11 +122,11 @@ const FormInput = ({ name, label, options }: FormInputProps) => {
           ) : (
             <TextField
               {...field}
-              fullWidth
-              sx={{ width: '100%', '& .MuiInputBase-root': { height: '40px' } }}
               error={!!errors[name]}
+              fullWidth
               helperText={errors[name]?.message?.toString()}
               label={label}
+              size="small"
               slotProps={
                 name === 'password' || name === 'password_confirm'
                   ? {
@@ -152,6 +149,7 @@ const FormInput = ({ name, label, options }: FormInputProps) => {
                     }
                   : undefined
               }
+              sx={{ width: '100%', '& .MuiInputBase-root': { height: '40px' } }}
               type={
                 (name === 'password' || name === 'password_confirm') &&
                 !isShowPassword
