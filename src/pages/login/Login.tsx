@@ -26,51 +26,64 @@ export const Login = () => {
   };
 
   return (
-    <Container sx={{ maxWidth: '500px', width: '100%', paddingTop: '30%' }}>
-      <FormProvider {...methods}>
-        <ButtonGroup
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '40px',
-            marginBottom: '50px',
-          }}
-          variant="outlined"
-        >
-          <ButtonLink sx={{ fontSize: '1.2rem' }} to="/login">
-            Login
-          </ButtonLink>
-          <ButtonLink sx={{ fontSize: '1.2rem' }} to="/register">
-            Register
-          </ButtonLink>
-        </ButtonGroup>
-        <Typography
-          sx={{ fontSize: '1.2rem', textAlign: 'center', marginBottom: '15px' }}
-        >
-          Enter your username and password to log in.
-        </Typography>
-        <form onSubmit={methods.handleSubmit(formSubmitHandler)}>
-          <Box
+    <Container>
+      <Box
+        sx={{
+          maxWidth: '500px',
+          width: '100%',
+          paddingTop: '30%',
+          margin: '0 auto',
+        }}
+      >
+        <FormProvider {...methods}>
+          <ButtonGroup
             sx={{
               display: 'flex',
-              alignItems: 'center',
-              flexDirection: 'column',
-              gap: '10px',
+              justifyContent: 'center',
+              gap: '40px',
+              marginBottom: '50px',
+            }}
+            variant="outlined"
+          >
+            <ButtonLink sx={{ fontSize: '1.2rem' }} to="/login">
+              Login
+            </ButtonLink>
+            <ButtonLink sx={{ fontSize: '1.2rem' }} to="/register">
+              Register
+            </ButtonLink>
+          </ButtonGroup>
+          <Typography
+            sx={{
+              fontSize: '1.2rem',
+              textAlign: 'center',
+              marginBottom: '15px',
             }}
           >
-            <AuthInput label="Email" name="email" />
-            <AuthInput label="Password" name="password" />
-          </Box>
-          <Button
-            fullWidth
-            sx={{ marginTop: '20px', height: '45px', fontSize: '1.2rem' }}
-            type="submit"
-            variant="contained"
-          >
-            Login
-          </Button>
-        </form>
-      </FormProvider>
+            Enter your username and password to log in.
+          </Typography>
+          <form onSubmit={methods.handleSubmit(formSubmitHandler)}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                flexDirection: 'column',
+                gap: '10px',
+              }}
+            >
+              <AuthInput label="Email" name="email" />
+              <AuthInput label="Password" name="password" />
+            </Box>
+            <Button
+              fullWidth
+              sx={{ marginTop: '20px', height: '45px', fontSize: '1.2rem' }}
+              type="submit"
+              variant="contained"
+            >
+              Login
+            </Button>
+          </form>
+        </FormProvider>
+      </Box>
     </Container>
   );
 };

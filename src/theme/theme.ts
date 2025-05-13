@@ -49,6 +49,20 @@ const commonComponents: Components<typeof lightTheme> = {
     ],
   },
 
+  MuiOutlinedInput: {
+    styleOverrides: {
+      root: {
+        height: '40px',
+      },
+      input: {
+        paddingTop: '10px',
+        paddingBottom: '10px',
+        display: 'flex',
+        alignItems: 'center',
+      },
+    },
+  },
+
   MuiButton: {
     styleOverrides: {
       root: {

@@ -29,8 +29,6 @@ export const AuthInput = ({ name, label }: AuthInputProps) => {
         <TextField
           sx={{
             width: '100%',
-            '& .MuiInputBase-root': { height: '40px' },
-            '& input': { paddingBottom: '3px' },
           }}
           {...field}
           error={!!errors[name]}
