@@ -1,5 +1,5 @@
 import './saver.css';
-export const Saver = () => {
+const Saver = () => {
   return (
     <svg
       fill="none"
@@ -1173,3 +1173,5 @@ export const Saver = () => {
     </svg>
   );
 };
+
+export default Saver;
