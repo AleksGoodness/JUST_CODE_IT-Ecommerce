@@ -41,7 +41,7 @@ export const loginClient = (email: string, password: string) => {
           clientSecret,
           user: { username: email, password },
         },
-        scopes: ['manage_customers:{projectKey}'],
+        scopes: [],
       }),
       createHttpMiddleware({ host: hostApi }),
     ],
