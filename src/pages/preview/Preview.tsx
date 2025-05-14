@@ -6,14 +6,17 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import { useContext } from 'react';
 
 import { ButtonLink, Saver } from '../../components/index.ts';
 import { getProjectDetails } from '../../ecommerce/CtpClient.ts';
-import { AppThemeContext } from '../../theme/AppThemeContext.tsx';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks.ts';
+import { getThemeName } from '../../redux/selectors.ts';
+import { setTheme } from '../../redux/slices/themeSlice.ts';
 
 const Preview = () => {
-  const { toggleTheme, isDarkMode } = useContext(AppThemeContext);
+  const theme = useAppSelector(getThemeName);
+
+  const dispatch = useAppDispatch();
 
   return (
     <Container>
@@ -86,8 +89,13 @@ const Preview = () => {
         </ButtonLink>
 
         <Button variant="contained">Filter</Button>
-        <Button onClick={toggleTheme} variant="contained">
-          {isDarkMode ? <DarkMode /> : <LightMode />}
+        <Button
+          onClick={() => {
+            dispatch(setTheme(theme === 'light' ? 'dark' : 'light'));
+          }}
+          variant="contained"
+        >
+          {theme === 'light' ? <LightMode /> : <DarkMode />}
           Change Theme
         </Button>
 
