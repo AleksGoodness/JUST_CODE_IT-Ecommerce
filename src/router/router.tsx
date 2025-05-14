@@ -1,16 +1,29 @@
-import { BrowserRouter, Route, Routes } from 'react-router';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router';
 
+import { Header, NotFound } from '../components/index.ts';
 import { Home, Preview } from '../pages/index.tsx';
-import { NotFound } from '../pages/notFound/NotFound.tsx';
+import CONSTANTS from '../utils/CONSTANTS.ts';
 
+const AppRoutes = () => {
+  const location = useLocation();
+  const isKnownRoute = [CONSTANTS.home, CONSTANTS.preview].includes(
+    location.pathname,
+  );
+  return (
+    <>
+      {isKnownRoute ? <Header /> : null}
+      <Routes>
+        <Route element={<Home />} path={CONSTANTS.home} />
+        <Route element={<Preview />} path={CONSTANTS.preview} />
+        <Route element={<NotFound />} path="*" />
+      </Routes>
+    </>
+  );
+};
 export const Router = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route element={<Home />} path="/" />
-        <Route element={<Preview />} path="/preview" />
-        <Route element={<NotFound />} path="*" />
-      </Routes>
+      <AppRoutes />
     </BrowserRouter>
   );
 };

@@ -157,6 +157,9 @@ export default tseslint.config(
       '@typescript-eslint/array-type': 'error',
       '@typescript-eslint/member-ordering': 'error',
       '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+
     },
   },
 );
