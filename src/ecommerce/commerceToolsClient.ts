@@ -6,41 +6,12 @@ import {
 } from '@commercetools/ts-client';
 import { RegisterInputProps } from '../pages/register/interfaces';
 
-import axios, { AxiosRequestConfig } from 'axios';
-
 const projectKey = import.meta.env.VITE_CTP_PROJECT_KEY;
 const clientId = import.meta.env.VITE_CTP_CLIENT_ID;
 const clientSecret = import.meta.env.VITE_CTP_CLIENT_SECRET;
 const scopes = import.meta.env.VITE_CTP_SCOPES?.split(' ') || [];
 const hostAuth = import.meta.env.VITE_CTP_AUTH_URL;
 const hostApi = import.meta.env.VITE_CTP_API_URL;
-
-const axiosAdapter = (config: any) => {
-  const axiosConfig: AxiosRequestConfig = {
-    url: config.uri,
-    method: config.method,
-    data: config.body,
-    headers: config.headers,
-    responseType: 'json',
-  };
-
-  return axios(axiosConfig)
-    .then(response => ({
-      statusCode: response.status,
-      headers: response.headers,
-      body: response.data,
-    }))
-    .catch(error => {
-      if (error.response) {
-        return {
-          statusCode: error.response.status,
-          headers: error.response.headers,
-          body: error.response.data,
-        };
-      }
-      throw error;
-    });
-};
 
 // 🔹 1. AdminClient
 export const client = createClient({
@@ -53,11 +24,11 @@ export const client = createClient({
         clientSecret,
       },
       scopes,
-      httpClient: axiosAdapter,
+      httpClient: fetch,
     }),
     createHttpMiddleware({
       host: hostApi,
-      httpClient: axiosAdapter,
+      httpClient: fetch,
     }),
   ],
 });
@@ -75,11 +46,11 @@ export const loginClient = (email: string, password: string) => {
           user: { username: email, password },
         },
         scopes: [], //todo user scopes
-        httpClient: axiosAdapter,
+        httpClient: fetch,
       }),
       createHttpMiddleware({
         host: hostApi,
-        httpClient: axiosAdapter,
+        httpClient: fetch,
       }),
     ],
   });
@@ -90,7 +61,7 @@ export const signUpCustomer = async (data: RegisterInputProps) => {
   const response = await client.execute({
     uri: `/${projectKey}/customers`,
     method: 'POST',
-    body: JSON.stringify(data),
+    body: data,
   });
 
   if (response.statusCode === 201) {

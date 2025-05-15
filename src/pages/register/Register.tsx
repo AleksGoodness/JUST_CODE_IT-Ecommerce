@@ -23,21 +23,21 @@ export const Register = () => {
       firstName: '',
       lastName: '',
       password: '',
-      password_confirm: '',
+      // password_confirm: '',
       email: '',
-      dateOfBirth: new Date(),
-      shipping_address: {
-        country: '',
-        city: '',
-        address: '',
-        postcode: '',
-      },
-      billing_address: {
-        country: '',
-        city: '',
-        address: '',
-        postcode: '',
-      },
+      // dateOfBirth: new Date(),
+      // shipping_address: {
+      //   country: '',
+      //   city: '',
+      //   address: '',
+      //   postcode: '',
+      // },
+      // billing_address: {
+      //   country: '',
+      //   city: '',
+      //   address: '',
+      //   postcode: '',
+      // },
     },
   });
 
@@ -60,7 +60,6 @@ export const Register = () => {
   };
 
   const formSubmitHandler: SubmitHandler<RegisterInputProps> = async data => {
-    console.log(data);
     await dispatch(registerUser(data));
   };
 

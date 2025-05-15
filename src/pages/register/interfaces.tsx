@@ -10,15 +10,15 @@ export interface RegisterInputProps {
   lastName: string;
   email: string;
   password: string;
-  password_confirm: string;
-  dateOfBirth: Date;
-  shipping_address: {
+  password_confirm?: string;
+  dateOfBirth?: Date;
+  shipping_address?: {
     country: string;
     city: string;
     address: string;
     postcode: string;
   };
-  billing_address: {
+  billing_address?: {
     country: string;
     city: string;
     address: string;
