@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import { NavLink } from 'react-router';
 
@@ -8,6 +8,7 @@ const links = [
   { name: 'home', path: CONSTANTS.home },
   { name: 'shop', path: CONSTANTS.shop },
   { name: 'preview', path: CONSTANTS.preview },
+  { name: 'login/register', path: CONSTANTS.register },
 ];
 
 const Navigation = () => {
@@ -23,7 +24,7 @@ const Navigation = () => {
       sx={{
         display: 'flex',
         justifyContent: 'center',
-        gap: '1vw',
+        gap: '0.6vw',
         flexShrink: '1',
       }}
     >
