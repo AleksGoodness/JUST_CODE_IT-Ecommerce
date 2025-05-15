@@ -1,6 +1,7 @@
+import type { Theme } from '@mui/material';
 import { Components, createTheme } from '@mui/material/styles';
 
-const commonComponents: Components<typeof lightTheme> = {
+const commonComponents: Components<Theme> = {
   MuiTypography: {
     variants: [
       {
@@ -74,6 +75,46 @@ const commonComponents: Components<typeof lightTheme> = {
             backgroundColor: theme.palette.action.active,
             color: theme.palette.common.white,
             borderColor: theme.palette.action.active,
+          },
+        }),
+      },
+    ],
+  },
+  MuiLink: {
+    variants: [
+      {
+        props: { variant: 'navLink' },
+        style: ({ theme }) => ({
+          textTransform: 'capitalize',
+          transition: 'border-bottom 0.5s ease-in-out',
+          textDecoration: 'none',
+          padding: '0 0.7em',
+          position: 'relative',
+          fontSize: 'clamp(0.9rem, 1.6vw, 1.3rem)',
+
+          '&::after': {
+            content: '""',
+            display: 'block',
+            position: 'absolute',
+            bottom: '-0.8em',
+            left: '12.5%',
+            height: '3px',
+            transition: 'transform 0.3s ease',
+            transformOrigin: 'center',
+            transform: 'scaleX(0)',
+            width: '75%',
+          },
+
+          '&.active': {
+            fontWeight: 'bold',
+            color: theme.palette.primary.main,
+            '&::after': {
+              transform: 'scaleX(1)',
+              backgroundColor: theme.palette.primary.main,
+            },
+          },
+          '&.pending': {
+            opacity: 0.6,
           },
         }),
       },
