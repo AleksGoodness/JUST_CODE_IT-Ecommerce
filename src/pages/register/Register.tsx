@@ -9,10 +9,14 @@ import {
 import { NavLink } from 'react-router';
 
 import { FormInput } from '../../components';
+import { useAppDispatch } from '../../redux/hooks';
+import registerUser from '../../redux/slices/asyncThunks/asyncThunks';
 import { countries, RegisterInputProps } from './interfaces';
 import schema from './register_schema';
 
 export const Register = () => {
+  const dispatch = useAppDispatch();
+
   const methods = useForm<RegisterInputProps>({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -55,9 +59,9 @@ export const Register = () => {
     }
   };
 
-  console.log('Validation errors:', methods.formState.errors);
-  const formSubmitHandler: SubmitHandler<RegisterInputProps> = data => {
-    console.log('form send', data);
+  const formSubmitHandler: SubmitHandler<RegisterInputProps> = async data => {
+    console.log(data);
+    await dispatch(registerUser(data));
   };
 
   return (
@@ -178,7 +182,13 @@ export const Register = () => {
 
             <FormInput label="City" name="billing_address.city" />
             <FormInput label="Postcode" name="billing_address.postcode" />
-
+            <Typography
+              component="h4"
+              sx={{ gridColumn: 'span 2', textAlign: 'center' }}
+              variant="cardTitle"
+            >
+              Your DOB and Email
+            </Typography>
             <FormInput label="Email" name="email" type="email" />
             <FormInput label="Date of Birth" name="dateOfBirth" />
 

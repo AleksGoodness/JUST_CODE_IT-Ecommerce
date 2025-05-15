@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AuthState, Customer } from '../interfaces';
+import registerUser from './asyncThunks/asyncThunks';
 
 const initialState: AuthState = {
   customer: null,
@@ -29,9 +30,21 @@ const authSlice = createSlice({
       state.customer = null;
     },
   },
-  // extraReducers(builder) {
-  //   builder.addCase();
-  // },
+  extraReducers: builder => {
+    // Add reducers for additional action types here, and handle loading state as needed
+    builder.addCase(registerUser.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.customer = action.payload;
+    });
+    builder.addCase(registerUser.rejected, (state, action) => {
+      state.isLoading = false;
+      console.log('===========>', action);
+      state.error = action.error.message ?? 'something go wrong';
+    });
+    builder.addCase(registerUser.pending, state => {
+      state.isLoading = true;
+    });
+  },
 });
 
 export const { loginStart, loginSuccess, loginFailure, logout } =
