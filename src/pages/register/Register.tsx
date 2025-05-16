@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Checkbox, Container, Typography } from '@mui/material';
+import { useEffect } from 'react';
 import {
   FormProvider,
   SubmitHandler,
@@ -7,15 +8,24 @@ import {
   useWatch,
 } from 'react-hook-form';
 import { NavLink } from 'react-router';
+import { toast } from 'react-toastify';
 
-import { FormInput } from '../../components';
-import { useAppDispatch } from '../../redux/hooks';
-import registerUser from '../../redux/slices/asyncThunks/asyncThunks';
+import { FormInput, Loading } from '../../components';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { getCustomer } from '../../redux/selectors';
+import registerUser from '../../redux/slices/asyncThunks/registerCustomer';
 import { countries, RegisterInputProps } from './interfaces';
 import schema from './register_schema';
 
 export const Register = () => {
   const dispatch = useAppDispatch();
+
+  const { isLoading, customer, error } = useAppSelector(getCustomer);
+
+  useEffect(() => {
+    if (error) toast(error);
+    if (customer) toast(customer.firstName);
+  }, [customer, error]);
 
   const methods = useForm<RegisterInputProps>({
     resolver: yupResolver(schema),
@@ -60,11 +70,13 @@ export const Register = () => {
   };
 
   const formSubmitHandler: SubmitHandler<RegisterInputProps> = async data => {
+    console.log(data);
     await dispatch(registerUser(data));
   };
 
   return (
     <Container>
+      {isLoading ? <Loading /> : null}
       <Box
         sx={{
           display: 'grid',

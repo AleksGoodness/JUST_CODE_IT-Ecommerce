@@ -18,7 +18,7 @@ export interface ICustomer {
   stores: string[];
 }
 
-const registerUser = createAsyncThunk(
+const registerCustomer = createAsyncThunk(
   'users/register',
   async (data: RegisterInputProps) => {
     const testData = {
@@ -32,4 +32,4 @@ const registerUser = createAsyncThunk(
   },
 );
 
-export default registerUser;
+export default registerCustomer;
