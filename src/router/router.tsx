@@ -10,6 +10,7 @@ const Login = lazy(() => import('../pages/login/Login.tsx'));
 const NotFound = lazy(() => import('../pages/notFound/NotFound.tsx'));
 const Preview = lazy(() => import('../pages/preview/Preview.tsx'));
 const Register = lazy(() => import('../pages/register/Register.tsx'));
+const Shop = lazy(() => import('../pages/shop/Shop.tsx'));
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -18,6 +19,7 @@ const AppRoutes = () => {
     CONSTANTS.preview,
     CONSTANTS.login,
     CONSTANTS.register,
+    CONSTANTS.shop,
   ].includes(location.pathname);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -52,7 +54,7 @@ const AppRoutes = () => {
               <Home />
             </PageTransition>
           }
-          path="/"
+          path={CONSTANTS.home}
         />
         <Route
           element={
@@ -60,7 +62,7 @@ const AppRoutes = () => {
               <Preview />
             </PageTransition>
           }
-          path="/preview"
+          path={CONSTANTS.preview}
         />
         <Route
           element={
@@ -68,7 +70,7 @@ const AppRoutes = () => {
               <Login />
             </PageTransition>
           }
-          path="/login"
+          path={CONSTANTS.login}
         />
         <Route
           element={
@@ -76,7 +78,15 @@ const AppRoutes = () => {
               <Register />
             </PageTransition>
           }
-          path="/register"
+          path={CONSTANTS.register}
+        />
+        <Route
+          element={
+            <PageTransition isLoading={isLoading}>
+              <Shop />
+            </PageTransition>
+          }
+          path={CONSTANTS.shop}
         />
         <Route
           element={
