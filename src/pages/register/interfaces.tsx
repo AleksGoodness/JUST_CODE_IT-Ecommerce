@@ -10,7 +10,7 @@ export interface RegisterInputProps {
   lastName: string;
   email: string;
   password: string;
-  password_confirm: string;
+  password_confirm?: string;
   dateOfBirth: string;
   addresses: [
     {

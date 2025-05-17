@@ -21,13 +21,7 @@ export interface ICustomer {
 const registerCustomer = createAsyncThunk(
   'users/register',
   async (data: RegisterInputProps) => {
-    const testData = {
-      email: data.email,
-      password: data.password,
-      firstName: data.firstName,
-      lastName: data.lastName,
-    };
-    const response: ICustomer = await signUpCustomer(testData);
+    const response: ICustomer = await signUpCustomer(data);
     return response;
   },
 );

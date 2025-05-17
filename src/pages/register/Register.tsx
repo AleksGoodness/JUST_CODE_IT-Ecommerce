@@ -105,7 +105,7 @@ export const Register = () => {
       addresses: ISOAddresses,
     };
     console.log(properObject);
-    await dispatch(registerUser(data));
+    await dispatch(registerUser(properObject));
   };
 
   return (
