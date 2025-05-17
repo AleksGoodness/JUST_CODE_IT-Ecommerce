@@ -5,6 +5,7 @@ import {
   createHttpMiddleware,
 } from '@commercetools/ts-client';
 import { RegisterInputProps } from '../pages/register/interfaces';
+import { customerScopes } from './scopes';
 
 const projectKey = import.meta.env.VITE_CTP_PROJECT_KEY;
 const clientId = import.meta.env.VITE_CTP_CLIENT_ID;
@@ -14,7 +15,7 @@ const hostAuth = import.meta.env.VITE_CTP_AUTH_URL;
 const hostApi = import.meta.env.VITE_CTP_API_URL;
 
 // 🔹 1. AdminClient
-export const client = createClient({
+export const obtainAccessTokenThroughCredentialsFlow = createClient({
   middlewares: [
     createAuthMiddlewareForClientCredentialsFlow({
       host: hostAuth,
@@ -34,7 +35,10 @@ export const client = createClient({
 });
 
 // 🔹 2. client for login user
-export const loginClient = (email: string, password: string) => {
+export const obtainAccessTokenThroughPasswordFlow = (
+  email: string,
+  password: string,
+) => {
   return createClient({
     middlewares: [
       createAuthMiddlewareForPasswordFlow({
@@ -45,7 +49,7 @@ export const loginClient = (email: string, password: string) => {
           clientSecret,
           user: { username: email, password },
         },
-        scopes: [], //todo user scopes
+        //todo proper scopes for customer flow
         httpClient: fetch,
       }),
       createHttpMiddleware({
@@ -58,7 +62,7 @@ export const loginClient = (email: string, password: string) => {
 
 // 🔹 3. register new user
 export const signUpCustomer = async (data: RegisterInputProps) => {
-  const response = await client.execute({
+  const response = await obtainAccessTokenThroughCredentialsFlow.execute({
     uri: `/${projectKey}/customers`,
     method: 'POST',
     body: data,
@@ -74,7 +78,7 @@ export const signUpCustomer = async (data: RegisterInputProps) => {
 
 // 🔹 4. auto login
 export const loginUser = async (email: string, password: string) => {
-  const userClient = loginClient(email, password);
+  const userClient = obtainAccessTokenThroughPasswordFlow(email, password);
 
   const profile = await userClient.execute({
     uri: `/${projectKey}/me`,

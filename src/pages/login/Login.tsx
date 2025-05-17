@@ -4,6 +4,8 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { NavLink } from 'react-router';
 
 import { AuthInput } from '../../components';
+import { useAppDispatch } from '../../redux/hooks';
+import loginCustomer from '../../redux/slices/asyncThunks/loginCustomer';
 import schema from './login_schema';
 
 interface IFormInputs {
@@ -12,13 +14,14 @@ interface IFormInputs {
 }
 
 const Login = () => {
+  const dispatch = useAppDispatch();
   const methods = useForm<IFormInputs>({
     resolver: yupResolver(schema),
     defaultValues: { email: '', password: '' },
   });
 
-  const formSubmitHandler: SubmitHandler<IFormInputs> = data => {
-    console.log('Form data:', data);
+  const formSubmitHandler: SubmitHandler<IFormInputs> = async data => {
+    await dispatch(loginCustomer(data));
   };
 
   return (
