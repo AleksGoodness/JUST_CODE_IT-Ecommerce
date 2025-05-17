@@ -38,7 +38,7 @@ export const Register = () => {
           postalCode: '',
         },
       ],
-      dateOfBirth: new Date().toString(),
+      dateOfBirth: new Date().toISOString(),
       defaultBillingAddress: 0,
       defaultShippingAddress: 0,
       billingAddresses: [1],
@@ -82,9 +82,19 @@ export const Register = () => {
   //console.log('Validation errors:', methods.formState.errors);
   const formSubmitHandler: SubmitHandler<RegisterInputProps> = data => {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    const { password_confirm, ...newData } = data;
-    console.log('Final Data:', newData);
-    console.log(password_confirm);
+    const { password_confirm, dateOfBirth, addresses, ...newData } = data;
+    const ISOAddresses = addresses.map(address => {
+      return {
+        ...address,
+        country: countries[address.country],
+      };
+    });
+    const properObject = {
+      ...newData,
+      dateOfBirth: new Date(dateOfBirth).toISOString().split('T')[0],
+      addresses: ISOAddresses,
+    };
+    console.log(properObject);
   };
 
   return (
@@ -167,7 +177,7 @@ export const Register = () => {
             <FormInput
               label="Country"
               name="addresses.0.country"
-              options={countries}
+              options={Object.keys(countries)}
             />
 
             <FormInput label="Street" name="addresses.0.streetName" />
@@ -215,7 +225,7 @@ export const Register = () => {
             <FormInput
               label="Country"
               name="addresses.1.country"
-              options={countries}
+              options={Object.keys(countries)}
             />
             <FormInput label="Street" name="addresses.1.streetName" />
 
