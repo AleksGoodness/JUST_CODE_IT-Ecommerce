@@ -38,7 +38,7 @@ export const Register = () => {
           postalCode: '',
         },
       ],
-      dateOfBirth: new Date().toISOString(),
+      dateOfBirth: new Date(),
       defaultBillingAddress: 0,
       defaultShippingAddress: 0,
       billingAddresses: [1],
@@ -51,19 +51,31 @@ export const Register = () => {
     name: 'addresses',
   })[0];
 
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCheckboxChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     if (event.target.checked) {
       methods.setValue('addresses.1.country', shippingAddress.country);
       methods.setValue('addresses.1.streetName', shippingAddress.streetName);
       methods.setValue('addresses.1.city', shippingAddress.city);
       methods.setValue('addresses.1.postalCode', shippingAddress.postalCode);
       methods.setValue('billingAddresses', [0]);
+
+      await methods.trigger('addresses.1.country');
+      await methods.trigger('addresses.1.streetName');
+      await methods.trigger('addresses.1.city');
+      await methods.trigger('addresses.1.postalCode');
     } else {
       methods.setValue('addresses.1.country', '');
       methods.setValue('addresses.1.streetName', '');
       methods.setValue('addresses.1.city', '');
       methods.setValue('addresses.1.postalCode', '');
       methods.setValue('billingAddresses', [1]);
+
+      await methods.trigger('addresses.1.country');
+      await methods.trigger('addresses.1.streetName');
+      await methods.trigger('addresses.1.city');
+      await methods.trigger('addresses.1.postalCode');
     }
   };
 
@@ -174,18 +186,34 @@ export const Register = () => {
             >
               Shipping address
             </Typography>
-
-            <FormInput
-              label="Country"
-              name="addresses.0.country"
-              options={Object.keys(countries)}
-            />
-
-            <FormInput label="Street" name="addresses.0.streetName" />
-
-            <FormInput label="City" name="addresses.0.city" />
-            <FormInput label="Postcode" name="addresses.0.postalCode" />
-
+            <Box>
+              <FormInput
+                label="Country"
+                name="addresses.0.country"
+                options={Object.keys(countries)}
+              />
+              <Typography variant="body2" color="error">
+                {methods.formState.errors.addresses?.[0]?.country?.message}
+              </Typography>
+            </Box>
+            <Box>
+              <FormInput label="Street" name="addresses.0.streetName" />
+              <Typography variant="body2" color="error">
+                {methods.formState.errors.addresses?.[0]?.streetName?.message}
+              </Typography>
+            </Box>
+            <Box>
+              <FormInput label="City" name="addresses.0.city" />
+              <Typography variant="body2" color="error">
+                {methods.formState.errors.addresses?.[0]?.city?.message}
+              </Typography>
+            </Box>
+            <Box>
+              <FormInput label="Postcode" name="addresses.0.postalCode" />
+              <Typography variant="body2" color="error">
+                {methods.formState.errors.addresses?.[0]?.postalCode?.message}
+              </Typography>
+            </Box>
             <Box
               sx={{
                 gridColumn: 'span 2',
@@ -222,17 +250,34 @@ export const Register = () => {
             >
               Billing address
             </Typography>
-
-            <FormInput
-              label="Country"
-              name="addresses.1.country"
-              options={Object.keys(countries)}
-            />
-            <FormInput label="Street" name="addresses.1.streetName" />
-
-            <FormInput label="City" name="addresses.1.city" />
-            <FormInput label="Postcode" name="addresses.1.postalCode" />
-
+            <Box>
+              <FormInput
+                label="Country"
+                name="addresses.1.country"
+                options={Object.keys(countries)}
+              />
+              <Typography variant="body2" color="error">
+                {methods.formState.errors.addresses?.[1]?.country?.message}
+              </Typography>
+            </Box>
+            <Box>
+              <FormInput label="Street" name="addresses.1.streetName" />
+              <Typography variant="body2" color="error">
+                {methods.formState.errors.addresses?.[1]?.streetName?.message}
+              </Typography>
+            </Box>
+            <Box>
+              <FormInput label="City" name="addresses.1.city" />
+              <Typography variant="body2" color="error">
+                {methods.formState.errors.addresses?.[1]?.city?.message}
+              </Typography>
+            </Box>
+            <Box>
+              <FormInput label="Postcode" name="addresses.1.postalCode" />
+              <Typography variant="body2" color="error">
+                {methods.formState.errors.addresses?.[1]?.postalCode?.message}
+              </Typography>
+            </Box>
             <Box
               sx={{
                 gridColumn: 'span 2',

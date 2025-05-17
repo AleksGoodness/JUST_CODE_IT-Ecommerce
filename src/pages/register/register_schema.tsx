@@ -19,7 +19,10 @@ export const schema = yup.object().shape({
     .string()
     .email('Invalid email format')
     .required('Email is required'),
-  dateOfBirth: yup.string().required('Date of Birth is required'),
+  dateOfBirth: yup
+    .date()
+    .required('Date of Birth is required')
+    .typeError('Invalid date format'),
   addresses: yup
     .tuple([
       yup.object().shape({

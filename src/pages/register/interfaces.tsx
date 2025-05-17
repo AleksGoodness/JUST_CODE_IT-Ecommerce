@@ -11,7 +11,7 @@ export interface RegisterInputProps {
   email: string;
   password: string;
   password_confirm: string;
-  dateOfBirth: string;
+  dateOfBirth: Date;
   addresses: [
     {
       country: string;

@@ -43,7 +43,6 @@ const FormInput = ({ name, label, options, ...props }: FormInputProps) => {
 
   const [isShowPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(false);
-
   const handleTogglePassword = () => {
     setShowPassword(prev => !prev);
   };
@@ -109,8 +108,8 @@ const FormInput = ({ name, label, options, ...props }: FormInputProps) => {
                     variant: 'outlined',
                     size: 'small',
                     fullWidth: true,
-                    error: !!errors[name],
-                    helperText: errors[name]?.message?.toString(),
+                    error: !!errors.dateOfBirth,
+                    helperText: errors.dateOfBirth?.message?.toString(),
                   },
                 }}
                 value={field.value instanceof Date ? dayjs(field.value) : null}
