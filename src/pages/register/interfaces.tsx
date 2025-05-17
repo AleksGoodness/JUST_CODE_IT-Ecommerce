@@ -11,19 +11,25 @@ export interface RegisterInputProps {
   email: string;
   password: string;
   password_confirm: string;
-  dateOfBirth: Date;
-  shipping_address: {
-    country: string;
-    city: string;
-    address: string;
-    postcode: string;
-  };
-  billing_address: {
-    country: string;
-    city: string;
-    address: string;
-    postcode: string;
-  };
+  dateOfBirth: string;
+  addresses: [
+    {
+      country: string;
+      streetName: string;
+      city: string;
+      postalCode: string;
+    },
+    {
+      country: string;
+      streetName: string;
+      city: string;
+      postalCode: string;
+    },
+  ];
+  defaultBillingAddress: number;
+  defaultShippingAddress: number;
+  billingAddresses: number[];
+  shippingAddresses: number[];
 }
 
 export const countries: string[] = [
@@ -81,7 +87,7 @@ export const countries: string[] = [
 
 export const isValidShippingAddress = (
   value: unknown,
-): value is RegisterInputProps['shipping_address'] => {
+): value is RegisterInputProps['addresses'] => {
   return (
     typeof value === 'object' &&
     value !== null &&
