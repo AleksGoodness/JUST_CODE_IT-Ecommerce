@@ -9,10 +9,14 @@ import {
 import { NavLink } from 'react-router';
 
 import { FormInput } from '../../components';
+//import { useAppDispatch } from '../../redux/hooks';
+//import registerUser from '../../redux/slices/asyncThunks/asyncThunks';
 import { countries, RegisterInputProps } from './interfaces';
 import schema from './register_schema';
 
 export const Register = () => {
+  // const dispatch = useAppDispatch();
+
   const methods = useForm<RegisterInputProps>({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -53,12 +57,26 @@ export const Register = () => {
       methods.setValue('addresses.1.streetName', shippingAddress.streetName);
       methods.setValue('addresses.1.city', shippingAddress.city);
       methods.setValue('addresses.1.postalCode', shippingAddress.postalCode);
+      methods.setValue('billingAddresses', [0]);
     } else {
       methods.setValue('addresses.1.country', '');
       methods.setValue('addresses.1.streetName', '');
       methods.setValue('addresses.1.city', '');
       methods.setValue('addresses.1.postalCode', '');
+      methods.setValue('billingAddresses', [1]);
     }
+  };
+
+  const handleBillingCheckboxChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    methods.setValue('defaultBillingAddress', event.target.checked ? 1 : 0);
+  };
+
+  const handleShippingCheckboxChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    methods.setValue('defaultShippingAddress', event.target.checked ? 1 : 0);
   };
 
   //console.log('Validation errors:', methods.formState.errors);
@@ -77,7 +95,7 @@ export const Register = () => {
           maxWidth: '500px',
           width: '100%',
           margin: '0 auto',
-          paddingTop: '5%',
+          paddingTop: '2%',
         }}
       >
         <FormProvider {...methods}>
@@ -141,7 +159,7 @@ export const Register = () => {
             <Typography
               component="h4"
               sx={{ gridColumn: 'span 2', textAlign: 'center' }}
-              variant="cardTitle"
+              variant="listTitle"
             >
               Shipping address
             </Typography>
@@ -165,6 +183,22 @@ export const Register = () => {
               }}
             >
               <Typography component="h4" variant="body2">
+                Choose shipping address as default
+              </Typography>
+              <Checkbox
+                checked={methods.watch('defaultShippingAddress') === 1}
+                onChange={handleShippingCheckboxChange}
+              />
+            </Box>
+
+            <Box
+              sx={{
+                gridColumn: 'span 2',
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <Typography component="h4" variant="body2">
                 Choose shipping address for billing address as well
               </Typography>
               <Checkbox onChange={handleCheckboxChange} />
@@ -173,7 +207,7 @@ export const Register = () => {
             <Typography
               component="h4"
               sx={{ gridColumn: 'span 2', textAlign: 'center' }}
-              variant="cardTitle"
+              variant="listTitle"
             >
               Billing address
             </Typography>
@@ -187,6 +221,22 @@ export const Register = () => {
 
             <FormInput label="City" name="addresses.1.city" />
             <FormInput label="Postcode" name="addresses.1.postalCode" />
+
+            <Box
+              sx={{
+                gridColumn: 'span 2',
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <Typography component="h4" variant="body2">
+                Choose billing address as default
+              </Typography>
+              <Checkbox
+                checked={methods.watch('defaultBillingAddress') === 1}
+                onChange={handleBillingCheckboxChange}
+              />
+            </Box>
 
             <Typography
               component="h4"

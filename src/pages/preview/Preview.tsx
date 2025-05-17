@@ -8,7 +8,6 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 import { ButtonLink, Saver } from '../../components/index.ts';
-import { getProjectDetails } from '../../ecommerce/CtpClient.ts';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks.ts';
 import { getThemeName } from '../../redux/selectors.ts';
 import { setTheme } from '../../redux/slices/themeSlice.ts';
@@ -66,11 +65,7 @@ const Preview = () => {
           Buttons
         </Typography>
         <Button variant="pagination">pagination</Button>
-        <Button
-          onClick={getProjectDetails}
-          sx={{ bgcolor: 'red' }}
-          variant="contained"
-        >
+        <Button sx={{ bgcolor: 'red' }} variant="contained">
           getProjectDetails
         </Button>
         <ButtonLink

@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router';
 
-import { Saver } from '../../components';
+import Saver from '../../components/saver/saver';
 
 const NotFound = () => {
   return (
@@ -14,7 +14,12 @@ const NotFound = () => {
       sx={{
         color: '#2F1829',
         borderRadius: '10px',
-        maxWidth: '40vw',
+        maxWidth: {
+          xs: '70vw',
+          sm: '60vw',
+          md: '50vw',
+          lg: '40vw',
+        },
         aspectRatio: '1/1',
         display: 'grid',
         placeItems: 'center',
@@ -25,7 +30,7 @@ const NotFound = () => {
       <>
         <Typography
           sx={theme => ({
-            fontSize: 'clamp(0.5rem, 2.5vw, 2.5rem)',
+            fontSize: 'clamp(1rem, 2.5vw, 2.5rem)',
             textAlign: 'center',
             color: theme.palette.action.active,
           })}
@@ -35,7 +40,12 @@ const NotFound = () => {
         </Typography>
         <Saver />
         <Link to="/">
-          <Button variant="contained">
+          <Button
+            sx={{
+              fontSize: 'clamp(0.9rem, 1.6vw, 1.3rem)',
+            }}
+            variant="contained"
+          >
             <Home />
             home
           </Button>
@@ -44,5 +54,4 @@ const NotFound = () => {
     </Container>
   );
 };
-
 export default NotFound;
