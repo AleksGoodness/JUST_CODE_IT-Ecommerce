@@ -161,7 +161,7 @@ export const Register = () => {
             sx={{ textAlign: 'center', paddingBlock: 3 }}
             variant="cardTitle"
           >
-            Enter information to register
+            Fill in your details to create an account
           </Typography>
           <form
             onSubmit={methods.handleSubmit(formSubmitHandler)}
@@ -222,7 +222,7 @@ export const Register = () => {
               }}
             >
               <Typography component="h4" variant="body2">
-                Choose shipping address as default
+                Set shipping address as default
               </Typography>
               <Checkbox
                 checked={methods.watch('defaultShippingAddress') === 1}
@@ -238,7 +238,7 @@ export const Register = () => {
               }}
             >
               <Typography component="h4" variant="body2">
-                Choose shipping address for billing address as well
+                Use the same address for shipping and billing
               </Typography>
               <Checkbox onChange={handleCheckboxChange} />
             </Box>
@@ -286,7 +286,7 @@ export const Register = () => {
               }}
             >
               <Typography component="h4" variant="body2">
-                Choose billing address as default
+                Set billing address as default
               </Typography>
               <Checkbox
                 checked={methods.watch('defaultBillingAddress') === 1}
