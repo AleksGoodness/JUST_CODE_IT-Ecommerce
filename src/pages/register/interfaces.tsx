@@ -10,78 +10,55 @@ export interface RegisterInputProps {
   lastName: string;
   email: string;
   password: string;
-  password_confirm?: string;
-  dateOfBirth?: Date;
-  shipping_address?: {
-    country: string;
-    city: string;
-    address: string;
-    postcode: string;
-  };
-  billing_address?: {
-    country: string;
-    city: string;
-    address: string;
-    postcode: string;
-  };
+  password_confirm: string;
+  dateOfBirth: string;
+  addresses: [
+    {
+      country: string;
+      streetName: string;
+      city: string;
+      postalCode: string;
+    },
+    {
+      country: string;
+      streetName: string;
+      city: string;
+      postalCode: string;
+    },
+  ];
+  defaultBillingAddress: number;
+  defaultShippingAddress: number;
+  billingAddresses: number[];
+  shippingAddresses: number[];
 }
 
-export const countries: string[] = [
-  'Argentina',
-  'Armenia',
-  'Australia',
-  'Azerbaijan',
-  'Belarus',
-  'Brazil',
-  'Canada',
-  'Chile',
-  'China',
-  'Colombia',
-  'Cuba',
-  'Egypt',
-  'France',
-  'Germany',
-  'Greece',
-  'India',
-  'Indonesia',
-  'Israel',
-  'Italy',
-  'Japan',
-  'Kazakhstan',
-  'Kenya',
-  'Kyrgyzstan',
-  'Malaysia',
-  'Mexico',
-  'Moldova',
-  'Morocco',
-  'Netherlands',
-  'New Zealand',
-  'Peru',
-  'Philippines',
-  'Portugal',
-  'Russia',
-  'Saudi Arabia',
-  'Singapore',
-  'South Africa',
-  'South Korea',
-  'Spain',
-  'Switzerland',
-  'Tajikistan',
-  'Tanzania',
-  'Thailand',
-  'Turkey',
-  'Turkmenistan',
-  'Ukraine',
-  'United Arab Emirates',
-  'United Kingdom',
-  'United States',
-  'Uzbekistan',
-  'Vietnam',
-];
+export const countries: Record<string, string> = {
+  Armenia: 'AM',
+  Azerbaijan: 'AZ',
+  Belarus: 'BY',
+  Kazakhstan: 'KZ',
+  Kyrgyzstan: 'KG',
+  Moldova: 'MD',
+  Russia: 'RU',
+  Tajikistan: 'TJ',
+  Turkmenistan: 'TM',
+  Ukraine: 'UA',
+  Uzbekistan: 'UZ',
+  France: 'FR',
+  Germany: 'DE',
+  Italy: 'IT',
+  Spain: 'ES',
+  Netherlands: 'NL',
+  Switzerland: 'CH',
+  'United Kingdom': 'GB',
+  Portugal: 'PT',
+  Greece: 'GR',
+  Poland: 'PL',
+};
 
 export const isValidShippingAddress = (
   value: unknown,
-): value is RegisterInputProps['shipping_address'] => {
+): value is RegisterInputProps['addresses'] => {
   return (
     typeof value === 'object' &&
     value !== null &&
