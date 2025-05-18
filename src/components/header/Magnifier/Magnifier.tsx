@@ -7,7 +7,7 @@ const Magnifier = () => {
     <SvgIcon
       component={MagnifierSvg}
       sx={{
-        fontSize: { xs: 20, sm: 26, md: 32 },
+        fontSize: 'clamp(1.05rem, 3.3vw, 2.1rem)',
         color: lightTheme.palette.primary.main,
         transition: 'color 0.3s',
         cursor: 'pointer',

@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import { NavLink } from 'react-router';
 
@@ -12,19 +11,23 @@ import Magnifier from './Magnifier/Magnifier.tsx';
 
 const Header = () => {
   return (
-    <Container
+    <Box
       component="header"
       sx={{
+        maxWidth: '1200px',
+        m: '0 auto',
         display: 'grid',
         gridTemplateColumns: 'auto 1fr auto',
         alignItems: 'center',
-        padding: '20px 0',
+        padding: '1vw',
       }}
     >
       <Box
         component={NavLink}
         sx={{
-          width: { xs: '100px', sm: '130px', md: '150px', lg: '160px' },
+          display: 'flex',
+          alignItems: 'center',
+          width: 'clamp(100px, 20vw, 160px)',
           height: '35px',
           aspectRatio: '150/35',
         }}
@@ -33,7 +36,12 @@ const Header = () => {
         <LogoMain />
       </Box>
       <Navigation />
-      <Stack alignItems="center" direction="row" display="flex" spacing={4}>
+      <Stack
+        alignItems="center"
+        direction="row"
+        display="flex"
+        gap="clamp(0.5rem, 2.2vw, 2rem)"
+      >
         <Box>
           <Magnifier />
         </Box>
@@ -58,7 +66,7 @@ const Header = () => {
           Login
         </Button>
       </Stack>
-    </Container>
+    </Box>
   );
 };
 export default Header;

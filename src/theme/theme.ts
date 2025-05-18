@@ -90,7 +90,7 @@ const commonComponents: Components<Theme> = {
           textDecoration: 'none',
           padding: '0 0.7em',
           position: 'relative',
-          fontSize: 'clamp(0.9rem, 1.6vw, 1.3rem)',
+          fontSize: 'clamp(0.6rem, 1.9vw, 1.3rem)',
 
           '&::after': {
             content: '""',
