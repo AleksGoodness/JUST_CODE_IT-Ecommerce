@@ -9,55 +9,105 @@ import {
 import { NavLink } from 'react-router';
 
 import { FormInput } from '../../components';
+//import { useAppDispatch } from '../../redux/hooks';
+//import registerUser from '../../redux/slices/asyncThunks/asyncThunks';
 import { countries, RegisterInputProps } from './interfaces';
 import schema from './register_schema';
 
 export const Register = () => {
+  // const dispatch = useAppDispatch();
+
   const methods = useForm<RegisterInputProps>({
     resolver: yupResolver(schema),
     defaultValues: {
+      email: '',
       firstName: '',
       lastName: '',
       password: '',
-      password_confirm: '',
-      email: '',
+      addresses: [
+        {
+          country: '',
+          streetName: '',
+          city: '',
+          postalCode: '',
+        },
+        {
+          country: '',
+          streetName: '',
+          city: '',
+          postalCode: '',
+        },
+      ],
       dateOfBirth: new Date(),
-      shipping_address: {
-        country: '',
-        city: '',
-        address: '',
-        postcode: '',
-      },
-      billing_address: {
-        country: '',
-        city: '',
-        address: '',
-        postcode: '',
-      },
+      defaultBillingAddress: 0,
+      defaultShippingAddress: 0,
+      billingAddresses: [1],
+      shippingAddresses: [1],
     },
   });
 
   const shippingAddress = useWatch({
     control: methods.control,
-    name: 'shipping_address',
-  });
+    name: 'addresses',
+  })[0];
 
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCheckboxChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     if (event.target.checked) {
-      methods.setValue('billing_address', shippingAddress);
+      methods.setValue('addresses.1.country', shippingAddress.country);
+      methods.setValue('addresses.1.streetName', shippingAddress.streetName);
+      methods.setValue('addresses.1.city', shippingAddress.city);
+      methods.setValue('addresses.1.postalCode', shippingAddress.postalCode);
+      methods.setValue('billingAddresses', [0]);
+
+      await methods.trigger('addresses.1.country');
+      await methods.trigger('addresses.1.streetName');
+      await methods.trigger('addresses.1.city');
+      await methods.trigger('addresses.1.postalCode');
     } else {
-      methods.setValue('billing_address', {
-        country: '',
-        city: '',
-        address: '',
-        postcode: '',
-      });
+      methods.setValue('addresses.1.country', '');
+      methods.setValue('addresses.1.streetName', '');
+      methods.setValue('addresses.1.city', '');
+      methods.setValue('addresses.1.postalCode', '');
+      methods.setValue('billingAddresses', [1]);
+
+      await methods.trigger('addresses.1.country');
+      await methods.trigger('addresses.1.streetName');
+      await methods.trigger('addresses.1.city');
+      await methods.trigger('addresses.1.postalCode');
     }
   };
 
-  console.log('Validation errors:', methods.formState.errors);
+  const handleBillingCheckboxChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    methods.setValue('defaultBillingAddress', event.target.checked ? 1 : 0);
+  };
+
+  const handleShippingCheckboxChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    methods.setValue('defaultShippingAddress', event.target.checked ? 1 : 0);
+  };
+
+  //console.log('Validation errors:', methods.formState.errors);
   const formSubmitHandler: SubmitHandler<RegisterInputProps> = data => {
-    console.log('form send', data);
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const { password_confirm, dateOfBirth, addresses, ...newData } = data;
+    const ISOAddresses = addresses.map(address => {
+      return {
+        ...address,
+        country: countries[address.country],
+      };
+    });
+    const properObject = {
+      ...newData,
+      dateOfBirth: new Date(dateOfBirth).toISOString().split('T')[0],
+      addresses: ISOAddresses,
+    };
+    console.log(password_confirm);
+    console.log(properObject);
   };
 
   return (
@@ -68,7 +118,7 @@ export const Register = () => {
           maxWidth: '500px',
           width: '100%',
           margin: '0 auto',
-          paddingTop: '10%',
+          paddingTop: '2%',
         }}
       >
         <FormProvider {...methods}>
@@ -111,7 +161,7 @@ export const Register = () => {
             sx={{ textAlign: 'center', paddingBlock: 3 }}
             variant="cardTitle"
           >
-            Enter information to register
+            Fill in your details to create an account
           </Typography>
           <form
             onSubmit={methods.handleSubmit(formSubmitHandler)}
@@ -132,21 +182,53 @@ export const Register = () => {
             <Typography
               component="h4"
               sx={{ gridColumn: 'span 2', textAlign: 'center' }}
-              variant="cardTitle"
+              variant="listTitle"
             >
               Shipping address
             </Typography>
-
-            <FormInput
-              label="Country"
-              name="shipping_address.country"
-              options={countries}
-            />
-
-            <FormInput label="Address" name="shipping_address.address" />
-
-            <FormInput label="City" name="shipping_address.city" />
-            <FormInput label="Postcode" name="shipping_address.postcode" />
+            <Box>
+              <FormInput
+                label="Country"
+                name="addresses.0.country"
+                options={Object.keys(countries)}
+              />
+              <Typography variant="body2" color="error">
+                {methods.formState.errors.addresses?.[0]?.country?.message}
+              </Typography>
+            </Box>
+            <Box>
+              <FormInput label="Street" name="addresses.0.streetName" />
+              <Typography variant="body2" color="error">
+                {methods.formState.errors.addresses?.[0]?.streetName?.message}
+              </Typography>
+            </Box>
+            <Box>
+              <FormInput label="City" name="addresses.0.city" />
+              <Typography variant="body2" color="error">
+                {methods.formState.errors.addresses?.[0]?.city?.message}
+              </Typography>
+            </Box>
+            <Box>
+              <FormInput label="Postcode" name="addresses.0.postalCode" />
+              <Typography variant="body2" color="error">
+                {methods.formState.errors.addresses?.[0]?.postalCode?.message}
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                gridColumn: 'span 2',
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <Typography component="h4" variant="body2">
+                Set shipping address as default
+              </Typography>
+              <Checkbox
+                checked={methods.watch('defaultShippingAddress') === 1}
+                onChange={handleShippingCheckboxChange}
+              />
+            </Box>
 
             <Box
               sx={{
@@ -156,7 +238,7 @@ export const Register = () => {
               }}
             >
               <Typography component="h4" variant="body2">
-                Choose shipping address for billing address as well
+                Use the same address for shipping and billing
               </Typography>
               <Checkbox onChange={handleCheckboxChange} />
             </Box>
@@ -164,31 +246,77 @@ export const Register = () => {
             <Typography
               component="h4"
               sx={{ gridColumn: 'span 2', textAlign: 'center' }}
-              variant="cardTitle"
+              variant="listTitle"
             >
               Billing address
             </Typography>
+            <Box>
+              <FormInput
+                label="Country"
+                name="addresses.1.country"
+                options={Object.keys(countries)}
+              />
+              <Typography variant="body2" color="error">
+                {methods.formState.errors.addresses?.[1]?.country?.message}
+              </Typography>
+            </Box>
+            <Box>
+              <FormInput label="Street" name="addresses.1.streetName" />
+              <Typography variant="body2" color="error">
+                {methods.formState.errors.addresses?.[1]?.streetName?.message}
+              </Typography>
+            </Box>
+            <Box>
+              <FormInput label="City" name="addresses.1.city" />
+              <Typography variant="body2" color="error">
+                {methods.formState.errors.addresses?.[1]?.city?.message}
+              </Typography>
+            </Box>
+            <Box>
+              <FormInput label="Postcode" name="addresses.1.postalCode" />
+              <Typography variant="body2" color="error">
+                {methods.formState.errors.addresses?.[1]?.postalCode?.message}
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                gridColumn: 'span 2',
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <Typography component="h4" variant="body2">
+                Set billing address as default
+              </Typography>
+              <Checkbox
+                checked={methods.watch('defaultBillingAddress') === 1}
+                onChange={handleBillingCheckboxChange}
+              />
+            </Box>
 
-            <FormInput
-              label="Country"
-              name="billing_address.country"
-              options={countries}
-            />
-            <FormInput label="Address" name="billing_address.address" />
-
-            <FormInput label="City" name="billing_address.city" />
-            <FormInput label="Postcode" name="billing_address.postcode" />
+            <Typography
+              component="h4"
+              sx={{
+                gridColumn: 'span 2',
+                textAlign: 'center',
+                fontWeight: 'bold',
+              }}
+              variant="listTitle"
+            >
+              Enter your email and DOB
+            </Typography>
 
             <FormInput label="Email" name="email" type="email" />
             <FormInput label="Date of Birth" name="dateOfBirth" />
-
             <Button
               fullWidth
               sx={{
                 gridColumn: 'span 2',
-                maxWidth: 'fit-content',
+                width: '100%',
                 margin: '0 auto',
                 marginBlock: '2rem',
+                height: '45px',
+                fontSize: '1.2rem',
               }}
               type="submit"
               variant="contained"

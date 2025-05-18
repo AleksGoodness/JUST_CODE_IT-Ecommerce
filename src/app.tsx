@@ -1,15 +1,21 @@
 import './index.css';
 
-import { CssBaseline } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 
+import { useAppSelector } from './redux/hooks.ts';
+import { getThemeName } from './redux/selectors.ts';
 import { Router } from './router/router.tsx';
-import { AppThemeProvider } from './theme/AppThemeProvider.tsx';
+import { darkTheme, lightTheme } from './theme/theme.ts';
 
 export const App = () => {
+  const theme = useAppSelector(getThemeName);
+
+  const currentTheme = theme === 'light' ? lightTheme : darkTheme;
+
   return (
-    <AppThemeProvider>
+    <ThemeProvider theme={currentTheme}>
       <CssBaseline />
       <Router />
-    </AppThemeProvider>
+    </ThemeProvider>
   );
 };

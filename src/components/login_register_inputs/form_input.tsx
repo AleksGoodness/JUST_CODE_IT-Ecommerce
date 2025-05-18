@@ -18,6 +18,7 @@ import { Controller, useFormContext, useWatch } from 'react-hook-form';
 
 import {
   isValidShippingAddress,
+  passwordErrors,
   RegisterInputProps,
 } from '../../pages/register/interfaces';
 
@@ -42,7 +43,6 @@ const FormInput = ({ name, label, options, ...props }: FormInputProps) => {
 
   const [isShowPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(false);
-
   const handleTogglePassword = () => {
     setShowPassword(prev => !prev);
   };
@@ -62,6 +62,20 @@ const FormInput = ({ name, label, options, ...props }: FormInputProps) => {
       }
     }
   };
+
+  const password: string = useWatch({ control, name: 'password' });
+  const remainingErrors = passwordErrors.filter(
+    (error: { test: RegExp }) => !error.test.test(password),
+  );
+
+  const [showHints, setShowHints] = useState(false);
+  const handleFocus = () => {
+    setShowHints(true);
+  };
+  const handleBlur = () => {
+    setShowHints(false);
+  };
+
   return (
     <Box {...props}>
       {name === 'billing_address' ? (
@@ -76,6 +90,7 @@ const FormInput = ({ name, label, options, ...props }: FormInputProps) => {
           </Typography>
         </Box>
       ) : null}
+
       <Controller
         control={control}
         defaultValue={name === 'dateOfBirth' ? null : ''}
@@ -93,8 +108,8 @@ const FormInput = ({ name, label, options, ...props }: FormInputProps) => {
                     variant: 'outlined',
                     size: 'small',
                     fullWidth: true,
-                    error: !!errors[name],
-                    helperText: errors[name]?.message?.toString(),
+                    error: !!errors.dateOfBirth,
+                    helperText: errors.dateOfBirth?.message?.toString(),
                   },
                 }}
                 value={field.value instanceof Date ? dayjs(field.value) : null}
@@ -126,6 +141,8 @@ const FormInput = ({ name, label, options, ...props }: FormInputProps) => {
               fullWidth
               helperText={errors[name]?.message?.toString()}
               label={label}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
               size="small"
               slotProps={
                 name === 'password' || name === 'password_confirm'
@@ -161,6 +178,16 @@ const FormInput = ({ name, label, options, ...props }: FormInputProps) => {
           )
         }
       />
+
+      {name === 'password' && showHints && remainingErrors.length > 0 ? (
+        <Box sx={{ fontSize: '0.9rem', marginTop: '4px' }}>
+          {remainingErrors.map((error, index) => (
+            <Typography color="error" key={index}>
+              {error.message}
+            </Typography>
+          ))}
+        </Box>
+      ) : null}
     </Box>
   );
 };
