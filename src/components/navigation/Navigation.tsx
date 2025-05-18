@@ -8,7 +8,6 @@ const links = [
   { name: 'home', path: CONSTANTS.home },
   { name: 'shop', path: CONSTANTS.shop },
   { name: 'preview', path: CONSTANTS.preview },
-  { name: 'login/register', path: CONSTANTS.register },
 ];
 
 const Navigation = () => {

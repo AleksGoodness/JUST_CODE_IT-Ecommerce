@@ -7,7 +7,7 @@ const Cart = () => {
     <SvgIcon
       component={CartSvg}
       sx={{
-        fontSize: { xs: 20, sm: 26, md: 32 },
+        fontSize: 'clamp(1rem, 3.2vw, 2.1rem)',
         color: lightTheme.palette.primary.main,
         transition: 'color 0.3s',
         cursor: 'pointer',
