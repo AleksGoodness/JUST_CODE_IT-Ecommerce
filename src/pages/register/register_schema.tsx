@@ -19,22 +19,18 @@ export const schema = yup.object().shape({
     .email('Invalid email format')
     .required('Email is required'),
   dateOfBirth: yup.string().required('Date of Birth is required'),
-  addresses: yup
-    .tuple([
-      yup.object().shape({
-        country: yup.string().required('Country is required'),
-        streetName: yup.string().required('Street is required'),
-        city: yup.string().required('City is required'),
-        postalCode: yup.string().required('Postcode is required'),
-      }),
-      yup.object().shape({
-        country: yup.string().required('Country is required'),
-        streetName: yup.string().required('Street is required'),
-        city: yup.string().required('City is required'),
-        postalCode: yup.string().required('Postcode is required'),
-      }),
-    ])
-    .required('Addresses array must contain exactly two addresses'),
+  billingAddress: yup.object().shape({
+    country: yup.string().required('Country is required'),
+    streetName: yup.string().required('Street is required'),
+    city: yup.string().required('City is required'),
+    postalCode: yup.string().required('Postcode is required'),
+  }),
+  shippingAddress: yup.object().shape({
+    country: yup.string().required('Country is required'),
+    streetName: yup.string().required('Street is required'),
+    city: yup.string().required('City is required'),
+    postalCode: yup.string().required('Postcode is required'),
+  }),
   defaultBillingAddress: yup.number().required(),
   defaultShippingAddress: yup.number().required(),
   billingAddresses: yup.array().of(yup.number().required()).required(),

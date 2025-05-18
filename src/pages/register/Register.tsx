@@ -1,31 +1,34 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Checkbox, Container, Typography } from '@mui/material';
-import { useEffect } from 'react';
-import {
-  FormProvider,
-  SubmitHandler,
-  useForm,
-  useWatch,
-} from 'react-hook-form';
-import { NavLink } from 'react-router';
-import { toast } from 'react-toastify';
+import { ChangeEvent, useEffect } from 'react';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { NavLink, useNavigate } from 'react-router';
 
 import { FormInput, Loading } from '../../components';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { IRegisterData } from '../../redux/interfaces';
 import { getCustomer } from '../../redux/selectors';
 import registerUser from '../../redux/slices/asyncThunks/registerCustomer';
+import CONSTANTS from '../../utils/CONSTANTS';
 import { countries, RegisterInputProps } from './interfaces';
 import schema from './register_schema';
 
+const initialAddress = {
+  country: '',
+  streetName: '',
+  city: '',
+  postalCode: '',
+};
+
 export const Register = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const { isLoading, customer, error } = useAppSelector(getCustomer);
+  const { isLoading, customer } = useAppSelector(getCustomer);
 
   useEffect(() => {
-    if (error) toast(error);
-    if (customer) toast(customer.firstName);
-  }, [customer, error]);
+    if (customer) navigate(CONSTANTS.home);
+  }, [customer, navigate]);
 
   const methods = useForm<RegisterInputProps>({
     resolver: yupResolver(schema),
@@ -34,20 +37,8 @@ export const Register = () => {
       firstName: '',
       lastName: '',
       password: '',
-      addresses: [
-        {
-          country: '',
-          streetName: '',
-          city: '',
-          postalCode: '',
-        },
-        {
-          country: '',
-          streetName: '',
-          city: '',
-          postalCode: '',
-        },
-      ],
+      billingAddress: initialAddress,
+      shippingAddress: initialAddress,
       dateOfBirth: new Date().toISOString(),
       defaultBillingAddress: 0,
       defaultShippingAddress: 0,
@@ -56,23 +47,19 @@ export const Register = () => {
     },
   });
 
-  const shippingAddress = useWatch({
-    control: methods.control,
-    name: 'addresses',
-  })[0];
-
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const shippingAddress = methods.getValues('shippingAddress');
     if (event.target.checked) {
-      methods.setValue('addresses.1.country', shippingAddress.country);
-      methods.setValue('addresses.1.streetName', shippingAddress.streetName);
-      methods.setValue('addresses.1.city', shippingAddress.city);
-      methods.setValue('addresses.1.postalCode', shippingAddress.postalCode);
+      methods.setValue('billingAddress.country', shippingAddress.country);
+      methods.setValue('billingAddress.streetName', shippingAddress.streetName);
+      methods.setValue('billingAddress.city', shippingAddress.city);
+      methods.setValue('billingAddress.postalCode', shippingAddress.postalCode);
       methods.setValue('billingAddresses', [0]);
     } else {
-      methods.setValue('addresses.1.country', '');
-      methods.setValue('addresses.1.streetName', '');
-      methods.setValue('addresses.1.city', '');
-      methods.setValue('addresses.1.postalCode', '');
+      methods.setValue('billingAddress.country', '');
+      methods.setValue('billingAddress.streetName', '');
+      methods.setValue('billingAddress.city', '');
+      methods.setValue('billingAddress.postalCode', '');
       methods.setValue('billingAddresses', [1]);
     }
   };
@@ -91,20 +78,37 @@ export const Register = () => {
 
   //console.log('Validation errors:', methods.formState.errors);
   const formSubmitHandler: SubmitHandler<RegisterInputProps> = async data => {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    const { password_confirm, dateOfBirth, addresses, ...newData } = data;
-    const ISOAddresses = addresses.map(address => {
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      dateOfBirth,
+      billingAddress,
+      shippingAddress,
+      defaultBillingAddress,
+      defaultShippingAddress,
+      billingAddresses,
+      shippingAddresses,
+    } = data;
+    const ISOAddresses = [shippingAddress, billingAddress].map(address => {
       return {
         ...address,
         country: countries[address.country],
       };
     });
-    const properObject = {
-      ...newData,
+    const properObject: IRegisterData = {
+      firstName,
+      lastName,
+      email,
+      password,
       dateOfBirth: new Date(dateOfBirth).toISOString().split('T')[0],
       addresses: ISOAddresses,
+      defaultBillingAddress,
+      defaultShippingAddress,
+      billingAddresses,
+      shippingAddresses,
     };
-    console.log(properObject);
     await dispatch(registerUser(properObject));
   };
 
@@ -188,14 +192,14 @@ export const Register = () => {
 
             <FormInput
               label="Country"
-              name="addresses.0.country"
+              name="shippingAddress.country"
               options={Object.keys(countries)}
             />
 
-            <FormInput label="Street" name="addresses.0.streetName" />
+            <FormInput label="Street" name="shippingAddress.streetName" />
 
-            <FormInput label="City" name="addresses.0.city" />
-            <FormInput label="Postcode" name="addresses.0.postalCode" />
+            <FormInput label="City" name="shippingAddress.city" />
+            <FormInput label="Postcode" name="shippingAddress.postalCode" />
 
             <Box
               sx={{
@@ -236,13 +240,13 @@ export const Register = () => {
 
             <FormInput
               label="Country"
-              name="addresses.1.country"
+              name="billingAddress.country"
               options={Object.keys(countries)}
             />
-            <FormInput label="Street" name="addresses.1.streetName" />
+            <FormInput label="Street" name="billingAddress.streetName" />
 
-            <FormInput label="City" name="addresses.1.city" />
-            <FormInput label="Postcode" name="addresses.1.postalCode" />
+            <FormInput label="City" name="billingAddress.city" />
+            <FormInput label="Postcode" name="billingAddress.postalCode" />
 
             <Box
               sx={{

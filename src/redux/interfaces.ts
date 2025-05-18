@@ -6,20 +6,39 @@ export interface Customer {
 }
 
 export interface AuthState {
-  customer: Customer | null;
+  customer: ICustomer | null;
   isLoading: boolean;
   error: string | null;
 }
 
-export interface IUser {
+export interface ICustomer {
+  addresses: string[];
+  email: string;
+  firstName: string;
   id: string;
-  name: string;
-  scope: string;
+  isEmailVerified: boolean;
+  lastName: string;
+  password: string;
+  version: number;
   createdAt: string;
-  accessTokenValiditySeconds: number;
-  refreshTokenValiditySeconds: number;
+  lastModifiedAt: string;
+  authenticationMode: string;
+  stores: string[];
 }
-
-export interface IUserReducer {
-  user: IUser | null;
+export interface IRegisterData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  dateOfBirth: string;
+  addresses: {
+    country: string;
+    streetName: string;
+    city: string;
+    postalCode: string;
+  }[];
+  defaultBillingAddress: number;
+  defaultShippingAddress: number;
+  billingAddresses: number[];
+  shippingAddresses: number[];
 }

@@ -1,6 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
-import { AuthState, Customer } from '../interfaces';
+import { AuthState } from '../interfaces';
+import loginCustomer from './asyncThunks/loginCustomer';
 import registerUser from './asyncThunks/registerCustomer';
 
 const initialState: AuthState = {
@@ -13,39 +15,42 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
 
-  reducers: {
-    loginStart(state) {
-      state.isLoading = true;
-      state.error = null;
-    },
-    loginSuccess(state, action: PayloadAction<Customer>) {
-      state.customer = action.payload;
-      state.isLoading = false;
-    },
-    loginFailure(state, action: PayloadAction<string>) {
-      state.error = action.payload;
-      state.isLoading = false;
-    },
-    logout(state) {
-      state.customer = null;
-    },
-  },
+  reducers: {},
   extraReducers: builder => {
-    // Add reducers for additional action types here, and handle loading state as needed
+    //* register customer
     builder.addCase(registerUser.fulfilled, (state, action) => {
       state.isLoading = false;
       state.customer = action.payload;
+      toast.success(`Welcome back, ${action.payload.firstName}!`);
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message ?? 'something go wrong';
+      toast.error(`Login failed! ${action.error.message ?? ''}`);
     });
     builder.addCase(registerUser.pending, state => {
       state.isLoading = true;
+      state.error = null;
+      state.customer = null;
+    });
+    //* login customer
+    builder.addCase(loginCustomer.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.customer = action.payload;
+      toast.success(`Welcome back, ${action.payload.firstName}!`);
+    });
+    builder.addCase(loginCustomer.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message ?? 'something go wrong';
+      toast.error(`Login failed! ${action.error.message ?? ''}`);
+    });
+    builder.addCase(loginCustomer.pending, state => {
+      state.isLoading = true;
+      state.error = null;
+      state.customer = null;
     });
   },
 });
 
-export const { loginStart, loginSuccess, loginFailure, logout } =
-  authSlice.actions;
+//!
 export default authSlice.reducer;

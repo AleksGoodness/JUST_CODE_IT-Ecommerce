@@ -16,10 +16,7 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
 
-import {
-  isValidShippingAddress,
-  RegisterInputProps,
-} from '../../pages/register/interfaces';
+import { RegisterInputProps } from '../../pages/register/interfaces';
 
 interface FormInputProps extends Partial<RegisterInputProps> {
   name: string;
@@ -49,18 +46,8 @@ const FormInput = ({ name, label, options, ...props }: FormInputProps) => {
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
-    if (isValidShippingAddress(shippingAddress)) {
-      if (event.target.checked) {
-        setValue('billing_address', shippingAddress);
-      } else {
-        setValue('billing_address', {
-          country: '',
-          city: '',
-          address: '',
-          postcode: '',
-        });
-      }
-    }
+
+    setValue('billing_address', shippingAddress);
   };
   return (
     <Box {...props}>

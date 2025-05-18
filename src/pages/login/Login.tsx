@@ -1,11 +1,14 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Container, Typography } from '@mui/material';
+import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 
-import { AuthInput } from '../../components';
-import { useAppDispatch } from '../../redux/hooks';
+import { AuthInput, Loading } from '../../components';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { getCustomer } from '../../redux/selectors';
 import loginCustomer from '../../redux/slices/asyncThunks/loginCustomer';
+import CONSTANTS from '../../utils/CONSTANTS';
 import schema from './login_schema';
 
 interface IFormInputs {
@@ -15,17 +18,29 @@ interface IFormInputs {
 
 const Login = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { isLoading, customer } = useAppSelector(getCustomer);
   const methods = useForm<IFormInputs>({
     resolver: yupResolver(schema),
     defaultValues: { email: '', password: '' },
   });
 
+  useEffect(() => {
+    if (customer) {
+      navigate(CONSTANTS.home);
+    }
+  }, [customer, navigate]);
+
   const formSubmitHandler: SubmitHandler<IFormInputs> = async data => {
-    await dispatch(loginCustomer(data));
+    if (!isLoading) {
+      await dispatch(loginCustomer(data));
+    }
   };
 
   return (
     <Container>
+      {isLoading ? <Loading /> : null}
       <Box
         sx={{
           maxWidth: '500px',

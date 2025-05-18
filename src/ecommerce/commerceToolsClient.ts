@@ -4,17 +4,22 @@ import {
   createClient,
   createHttpMiddleware,
 } from '@commercetools/ts-client';
-import { RegisterInputProps } from '../pages/register/interfaces';
 import { customerScopes } from './scopes';
+import { RegisterData } from '../redux/interfaces';
 
-const projectKey = import.meta.env.VITE_CTP_PROJECT_KEY;
 const clientId = import.meta.env.VITE_CTP_CLIENT_ID;
 const clientSecret = import.meta.env.VITE_CTP_CLIENT_SECRET;
-const scopes = import.meta.env.VITE_CTP_SCOPES?.split(' ') || [];
+
+const projectKey = import.meta.env.VITE_CTP_PROJECT_KEY;
+const adminScope = import.meta.env.VITE_CTP_SCOPES;
+
 const hostAuth = import.meta.env.VITE_CTP_AUTH_URL;
 const hostApi = import.meta.env.VITE_CTP_API_URL;
 
-// 🔹 1. AdminClient
+const customerClientId = import.meta.env.VITE_CTP_CUSTOMER_CLIENT_ID;
+const customerClientSecret = import.meta.env.VITE_CTP_CUSTOMER_CLIENT_SECRET;
+
+// 🔹 1. AdminClient / flow for creation new customer
 export const obtainAccessTokenThroughCredentialsFlow = createClient({
   middlewares: [
     createAuthMiddlewareForClientCredentialsFlow({
@@ -24,7 +29,7 @@ export const obtainAccessTokenThroughCredentialsFlow = createClient({
         clientId,
         clientSecret,
       },
-      scopes,
+      scopes: [adminScope],
       httpClient: fetch,
     }),
     createHttpMiddleware({
@@ -45,11 +50,11 @@ export const obtainAccessTokenThroughPasswordFlow = (
         host: hostAuth,
         projectKey,
         credentials: {
-          clientId,
-          clientSecret,
+          clientId: customerClientId,
+          clientSecret: customerClientSecret,
           user: { username: email, password },
         },
-        //todo proper scopes for customer flow
+        scopes: customerScopes,
         httpClient: fetch,
       }),
       createHttpMiddleware({
@@ -60,8 +65,8 @@ export const obtainAccessTokenThroughPasswordFlow = (
   });
 };
 
-// 🔹 3. register new user
-export const signUpCustomer = async (data: RegisterInputProps) => {
+// 🔹 3. register new customer
+export const signUpCustomer = async (data: RegisterData) => {
   const response = await obtainAccessTokenThroughCredentialsFlow.execute({
     uri: `/${projectKey}/customers`,
     method: 'POST',
@@ -71,12 +76,11 @@ export const signUpCustomer = async (data: RegisterInputProps) => {
   if (response.statusCode === 201) {
     return response.body;
   } else {
-    console.log(response);
     throw new Error(response.body?.message || 'Failed to register');
   }
 };
 
-// 🔹 4. auto login
+// 🔹 4. login customer
 export const loginUser = async (email: string, password: string) => {
   const userClient = obtainAccessTokenThroughPasswordFlow(email, password);
 
@@ -85,13 +89,16 @@ export const loginUser = async (email: string, password: string) => {
     method: 'GET',
   });
 
-  return {
-    client: userClient,
-    profile: profile.body,
-  };
+  console.log(profile);
+
+  if (profile.statusCode === 200) {
+    return profile.body;
+  } else {
+    throw new Error(profile.body?.message || 'Failed to register');
+  }
 };
 
-// 🔹 5. User logout
+// 🔹 5. customer logout
 export const logoutUser = () => {
   localStorage.removeItem('ct_user_token');
 };
@@ -107,7 +114,12 @@ export const checkAuth = async () => {
       uri: `/${projectKey}/me`,
       method: 'GET',
     });
-    return response.body;
+
+    if (response.statusCode === 200) {
+      return response.body;
+    } else {
+      throw new Error(response.body?.message || 'Failed to register');
+    }
   } catch (err) {
     return false;
   }
