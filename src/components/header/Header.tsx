@@ -51,7 +51,7 @@ const Header = () => {
         <Button
           component={NavLink}
           sx={{
-            maxWidth: '100px',
+            maxWidth: 'fit-content',
             width: '100%',
             display: 'flex',
             alignItems: 'center',
@@ -63,7 +63,7 @@ const Header = () => {
           variant="contained"
         >
           <LogoLogin />
-          Login
+          Login/Register
         </Button>
       </Stack>
     </Box>
