@@ -1,5 +1,6 @@
 import {
   ClientBuilder,
+  createHttpMiddleware,
   TokenCache,
   TokenStore,
   type AuthMiddlewareOptions,
@@ -18,7 +19,7 @@ const hostApi: string = import.meta.env.VITE_CTP_API_URL;
 
 const customerClientId = import.meta.env.VITE_CTP_CUSTOMER_CLIENT_ID;
 const customerClientSecret = import.meta.env.VITE_CTP_CUSTOMER_CLIENT_SECRET;
-console.log(customerScopes);
+
 const tokenCache: TokenCache = {
   get: (): TokenStore => {
     const cachedData = localStorage.getItem('ctpTokenCache');
@@ -47,10 +48,25 @@ export const createRegistrationClient = () => {
       },
       scopes: [adminScope],
       httpClient: fetch,
-      tokenCache,
     })
     .withHttpMiddleware(httpMiddlewareOptions)
     .build();
 };
 
-export const loginCustomerClient = () => {};
+export const loginCustomerClient = (email: string, password: string) => {
+  return new ClientBuilder()
+    .withPasswordFlow({
+      host: hostAuth,
+      projectKey,
+      credentials: {
+        clientId: customerClientId,
+        clientSecret: customerClientSecret,
+        user: { username: email, password },
+      },
+      scopes: customerScopes,
+      httpClient: fetch,
+      tokenCache: tokenCache,
+    })
+    .withHttpMiddleware(httpMiddlewareOptions)
+    .build();
+};
