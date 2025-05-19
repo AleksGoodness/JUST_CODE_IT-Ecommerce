@@ -192,25 +192,25 @@ export const Register = () => {
                 name="addresses.0.country"
                 options={Object.keys(countries)}
               />
-              <Typography variant="body2" color="error">
+              <Typography color="error" variant="body2">
                 {methods.formState.errors.addresses?.[0]?.country?.message}
               </Typography>
             </Box>
             <Box>
               <FormInput label="Street" name="addresses.0.streetName" />
-              <Typography variant="body2" color="error">
+              <Typography color="error" variant="body2">
                 {methods.formState.errors.addresses?.[0]?.streetName?.message}
               </Typography>
             </Box>
             <Box>
               <FormInput label="City" name="addresses.0.city" />
-              <Typography variant="body2" color="error">
+              <Typography color="error" variant="body2">
                 {methods.formState.errors.addresses?.[0]?.city?.message}
               </Typography>
             </Box>
             <Box>
               <FormInput label="Postcode" name="addresses.0.postalCode" />
-              <Typography variant="body2" color="error">
+              <Typography color="error" variant="body2">
                 {methods.formState.errors.addresses?.[0]?.postalCode?.message}
               </Typography>
             </Box>
@@ -256,25 +256,25 @@ export const Register = () => {
                 name="addresses.1.country"
                 options={Object.keys(countries)}
               />
-              <Typography variant="body2" color="error">
+              <Typography color="error" variant="body2">
                 {methods.formState.errors.addresses?.[1]?.country?.message}
               </Typography>
             </Box>
             <Box>
               <FormInput label="Street" name="addresses.1.streetName" />
-              <Typography variant="body2" color="error">
+              <Typography color="error" variant="body2">
                 {methods.formState.errors.addresses?.[1]?.streetName?.message}
               </Typography>
             </Box>
             <Box>
               <FormInput label="City" name="addresses.1.city" />
-              <Typography variant="body2" color="error">
+              <Typography color="error" variant="body2">
                 {methods.formState.errors.addresses?.[1]?.city?.message}
               </Typography>
             </Box>
             <Box>
               <FormInput label="Postcode" name="addresses.1.postalCode" />
-              <Typography variant="body2" color="error">
+              <Typography color="error" variant="body2">
                 {methods.formState.errors.addresses?.[1]?.postalCode?.message}
               </Typography>
             </Box>

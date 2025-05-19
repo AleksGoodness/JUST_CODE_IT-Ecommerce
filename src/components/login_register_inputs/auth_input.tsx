@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
+
 import { passwordErrors } from '../../pages/register/interfaces';
 
 interface AuthInputProps {
@@ -51,9 +52,9 @@ const AuthInput = ({ name, label }: AuthInputProps) => {
             error={!!errors[name]}
             helperText={errors[name]?.message?.toString()}
             label={label}
-            size="small"
-            onFocus={handleFocus}
             onBlur={handleBlur}
+            onFocus={handleFocus}
+            size="small"
             slotProps={
               name === 'password'
                 ? {
@@ -72,15 +73,15 @@ const AuthInput = ({ name, label }: AuthInputProps) => {
             type={name === 'password' && !showPassword ? 'password' : 'text'}
             variant="outlined"
           />
-          {name === 'password' && showHints && remainingErrors.length > 0 && (
+          {name === 'password' && showHints && remainingErrors.length > 0 ? (
             <Box sx={{ fontSize: '0.9rem', marginTop: '4px' }}>
               {remainingErrors.map((error, index) => (
-                <Typography key={index} color="error">
+                <Typography color="error" key={index}>
                   {error.message}
                 </Typography>
               ))}
             </Box>
-          )}
+          ) : null}
         </>
       )}
     />

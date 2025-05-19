@@ -85,9 +85,6 @@ const FormInput = ({ name, label, options, ...props }: FormInputProps) => {
             onChange={handleCheckboxChange}
             slotProps={{ input: { 'aria-label': 'controlled' } }}
           />
-          <Typography>
-            Choose shipping address for billing address as well
-          </Typography>
         </Box>
       ) : null}
 
