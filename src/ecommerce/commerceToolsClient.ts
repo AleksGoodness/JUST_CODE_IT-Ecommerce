@@ -12,11 +12,11 @@ import { IRegisterData } from '../redux/interfaces';
 const clientId = import.meta.env.VITE_CTP_CLIENT_ID;
 const clientSecret = import.meta.env.VITE_CTP_CLIENT_SECRET;
 
-const projectKey = import.meta.env.VITE_CTP_PROJECT_KEY;
-const adminScope = import.meta.env.VITE_CTP_SCOPES;
+const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY;
+const adminScope: string = import.meta.env.VITE_CTP_SCOPES;
 
-const hostAuth = import.meta.env.VITE_CTP_AUTH_URL;
-const hostApi = import.meta.env.VITE_CTP_API_URL;
+const hostAuth: string = import.meta.env.VITE_CTP_AUTH_URL;
+const hostApi: string = import.meta.env.VITE_CTP_API_URL;
 
 const customerClientId = import.meta.env.VITE_CTP_CUSTOMER_CLIENT_ID;
 const customerClientSecret = import.meta.env.VITE_CTP_CUSTOMER_CLIENT_SECRET;
@@ -80,19 +80,19 @@ export const obtainAccessTokenThroughPasswordFlow = (
 };
 
 // 🔹 3. register new customer
-export const signUpCustomer = async (data: IRegisterData) => {
-  const response = await obtainAccessTokenThroughCredentialsFlow.execute({
-    uri: `/${projectKey}/customers`,
-    method: 'POST',
-    body: data,
-  });
+// export const signUpCustomer = async (data: IRegisterData) => {
+//   const response = await obtainAccessTokenThroughCredentialsFlow.execute({
+//     uri: `/${projectKey}/customers`,
+//     method: 'POST',
+//     body: data,
+//   });
 
-  if (response.statusCode === 201) {
-    return response.body;
-  } else {
-    throw new Error(response.body?.message || 'Failed to register');
-  }
-};
+//   if (response.statusCode === 201) {
+//     return response.body;
+//   } else {
+//     throw new Error(response.body?.message || 'Failed to register');
+//   }
+// };
 
 // 🔹 4. login customer
 export const loginUser = async (email: string, password: string) => {
@@ -113,12 +113,12 @@ export const loginUser = async (email: string, password: string) => {
 
 // 🔹 5. customer logout
 export const logoutUser = () => {
-  localStorage.removeItem('ct_user_token');
+  localStorage.removeItem('ctpTokenCache');
 };
 
 // 🔹 6. Auth check
 export const checkAuth = async () => {
-  const token = localStorage.getItem('ct_user_token');
+  const token = localStorage.getItem('ctpTokenCache');
   if (!token) return false;
 
   try {
