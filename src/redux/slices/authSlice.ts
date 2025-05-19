@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
 import { AuthState } from '../interfaces';
-import { checkAuth } from './asyncThunks/checkAuth';
 import loginCustomer from './asyncThunks/loginCustomer';
+import loginSilent from './asyncThunks/loginSilent';
 import registerUser from './asyncThunks/registerCustomer';
 
 const initialState: AuthState = {
@@ -57,18 +57,18 @@ const authSlice = createSlice({
       state.customer = null;
     });
     //* checkAuth
-    builder.addCase(checkAuth.fulfilled, (state, action) => {
+    builder.addCase(loginSilent.fulfilled, (state, action) => {
       state.isLoading = false;
       // state.customer = action.payload;
       console.log(action.payload);
       // toast.success(`Welcome back, ${action.payload.firstName}!`);
     });
-    builder.addCase(checkAuth.rejected, (state, action) => {
+    builder.addCase(loginSilent.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message ?? 'something go wrong';
       toast.error(`Login failed! ${action.error.message ?? ''}`);
     });
-    builder.addCase(checkAuth.pending, state => {
+    builder.addCase(loginSilent.pending, state => {
       state.isLoading = true;
       state.error = null;
       state.customer = null;

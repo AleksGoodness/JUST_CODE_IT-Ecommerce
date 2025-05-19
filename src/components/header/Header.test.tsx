@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router';
 
 import Header from './Header';
 
-test('Header рендерится корректно', () => {
+test('Header to be in the document', () => {
   render(
     <MemoryRouter>
       <Header />

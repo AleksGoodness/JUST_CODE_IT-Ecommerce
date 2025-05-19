@@ -33,7 +33,7 @@ const AppRoutes = () => {
           setTimeout(() => {
             console.log('done');
             resolve('done');
-          }, 1000);
+          }, 20);
         });
       } catch {
         localStorage.removeItem('token');
