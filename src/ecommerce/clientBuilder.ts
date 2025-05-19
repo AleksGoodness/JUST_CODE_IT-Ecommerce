@@ -20,7 +20,7 @@ const hostApi: string = import.meta.env.VITE_CTP_API_URL;
 const customerClientId = import.meta.env.VITE_CTP_CUSTOMER_CLIENT_ID;
 const customerClientSecret = import.meta.env.VITE_CTP_CUSTOMER_CLIENT_SECRET;
 
-const tokenCache: TokenCache = {
+export const tokenCache: TokenCache = {
   get: (): TokenStore => {
     const cachedData = localStorage.getItem('ctpTokenCache');
     return cachedData
@@ -68,5 +68,16 @@ export const loginCustomerClient = (email: string, password: string) => {
       tokenCache: tokenCache,
     })
     .withHttpMiddleware(httpMiddlewareOptions)
+    .build();
+};
+
+export const checkAuthClient = () => {
+  const tokenStore = tokenCache.get();
+  console.log(tokenStore);
+  return new ClientBuilder()
+    .withExistingTokenFlow(tokenStore.token, {
+      force: true,
+    })
+    .withHttpMiddleware({ host: hostAuth, httpClient: fetch })
     .build();
 };

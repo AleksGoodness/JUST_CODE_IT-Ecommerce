@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
 import { AuthState } from '../interfaces';
+import { checkAuth } from './asyncThunks/checkAuth';
 import loginCustomer from './asyncThunks/loginCustomer';
 import registerUser from './asyncThunks/registerCustomer';
 
@@ -15,7 +16,12 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
 
-  reducers: {},
+  reducers: {
+    logOut: state => {
+      localStorage.removeItem('ctpTokenCache');
+      state.customer = null;
+    },
+  },
   extraReducers: builder => {
     //* register customer
     builder.addCase(registerUser.fulfilled, (state, action) => {
@@ -49,8 +55,26 @@ const authSlice = createSlice({
       state.error = null;
       state.customer = null;
     });
+    //* checkAuth
+    builder.addCase(checkAuth.fulfilled, (state, action) => {
+      state.isLoading = false;
+      // state.customer = action.payload;
+      console.log(action.payload);
+      // toast.success(`Welcome back, ${action.payload.firstName}!`);
+    });
+    builder.addCase(checkAuth.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message ?? 'something go wrong';
+      toast.error(`Login failed! ${action.error.message ?? ''}`);
+    });
+    builder.addCase(checkAuth.pending, state => {
+      state.isLoading = true;
+      state.error = null;
+      state.customer = null;
+    });
   },
 });
 
-//!
+export const { logOut } = authSlice.actions;
+
 export default authSlice.reducer;
