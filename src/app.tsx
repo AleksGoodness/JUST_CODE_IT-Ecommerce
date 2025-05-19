@@ -11,11 +11,11 @@ import { darkTheme, lightTheme } from './theme/theme.ts';
 
 export const App = () => {
   const theme = useAppSelector(getThemeName);
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(checkAuth());
-  });
+  // useEffect(() => {
+  //   dispatch(checkAuth());
+  // }, [dispatch]);
 
   const currentTheme = theme === 'light' ? lightTheme : darkTheme;
 

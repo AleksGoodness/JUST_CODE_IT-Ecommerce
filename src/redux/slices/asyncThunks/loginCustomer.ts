@@ -9,7 +9,7 @@ export interface ILoginCredentials {
   password: string;
 }
 
-interface ILoginResponse {
+export interface ILoginResponse {
   body?: ICustomer;
 }
 

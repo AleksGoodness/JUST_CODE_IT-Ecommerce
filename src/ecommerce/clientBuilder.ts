@@ -1,9 +1,7 @@
 import {
   ClientBuilder,
-  createHttpMiddleware,
   TokenCache,
   TokenStore,
-  type AuthMiddlewareOptions,
   type HttpMiddlewareOptions,
 } from '@commercetools/ts-client';
 import { customerScopes } from './scopes';

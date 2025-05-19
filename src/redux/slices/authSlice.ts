@@ -25,9 +25,10 @@ const authSlice = createSlice({
   extraReducers: builder => {
     //* register customer
     builder.addCase(registerUser.fulfilled, (state, action) => {
+      console.log(action.payload);
       state.isLoading = false;
       state.customer = action.payload;
-      toast.success(`Welcome back, ${action.payload.firstName}!`);
+      toast.success(`Welcome! ${action.payload.firstName}!`);
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       state.isLoading = false;

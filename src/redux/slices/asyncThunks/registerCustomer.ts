@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY;
 
-import { createRegistrationClient } from '../../../ecommerce/clientBuilder';
-import { ICustomer, IRegisterData } from '../../interfaces';
-
-interface RegistrationResponse {
-  body?: { customer: ICustomer };
-}
+import {
+  createRegistrationClient,
+  loginCustomerClient,
+} from '../../../ecommerce/clientBuilder';
+import { IRegisterData } from '../../interfaces';
+import { ILoginResponse } from './loginCustomer';
 
 const registerCustomer = createAsyncThunk(
   'auth/register',
@@ -14,15 +14,38 @@ const registerCustomer = createAsyncThunk(
     try {
       const client = createRegistrationClient();
 
-      const response: RegistrationResponse = await client.execute({
+      const response = await client.execute({
         method: 'POST',
         uri: `/${projectKey}/customers`,
         body: customer,
       });
+      if (response.statusCode === 201) {
+        const autoLogin = async () => {
+          try {
+            const client = loginCustomerClient(
+              customer.email,
+              customer.password,
+            );
 
-      if (response.body) {
-        return response.body.customer;
+            const response: ILoginResponse = await client.execute({
+              uri: `/${projectKey}/me`,
+              method: 'GET',
+            });
+            if (response.body) {
+              return response.body;
+            }
+            throw new Error('login failed:');
+          } catch (error) {
+            console.error('login failed:', error);
+            throw error;
+          }
+        };
+
+        const autoLoginResponse = await autoLogin();
+
+        return autoLoginResponse;
       }
+
       throw new Error('Registration failed:');
     } catch (error) {
       console.error('Registration failed:', error);
