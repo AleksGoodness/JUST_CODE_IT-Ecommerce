@@ -56,7 +56,7 @@ const authSlice = createSlice({
       state.error = null;
       state.customer = null;
     });
-    //* checkAuth
+    //* silent login
     builder.addCase(checkAuth.fulfilled, (state, action) => {
       state.isLoading = false;
       // state.customer = action.payload;
@@ -66,7 +66,6 @@ const authSlice = createSlice({
     builder.addCase(checkAuth.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message ?? 'something go wrong';
-      toast.error(`Login failed! ${action.error.message ?? ''}`);
     });
     builder.addCase(checkAuth.pending, state => {
       state.isLoading = true;

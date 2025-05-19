@@ -7,7 +7,7 @@ import CONSTANTS from '../../utils/CONSTANTS';
 const links = [
   { name: 'home', path: CONSTANTS.home },
   { name: 'shop', path: CONSTANTS.shop },
-  { name: 'preview', path: CONSTANTS.preview },
+  // { name: 'preview', path: CONSTANTS.preview },
 ];
 
 const Navigation = () => {

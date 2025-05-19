@@ -6,12 +6,15 @@ const commonComponents: Components<Theme> = {
     variants: [
       {
         props: { variant: 'mainTitle' },
-        style: {
+        style: ({ theme }) => ({
           lineHeight: 1,
           fontWeight: 900,
-          fontSize: '4.375rem',
           textTransform: 'uppercase',
-        },
+          fontSize: '2rem',
+          [theme.breakpoints.up('md')]: {
+            fontSize: '4.75rem',
+          },
+        }),
       },
       {
         props: { variant: 'secondTitle' },
@@ -90,7 +93,7 @@ const commonComponents: Components<Theme> = {
           textDecoration: 'none',
           padding: '0 0.7em',
           position: 'relative',
-          fontSize: 'clamp(0.6rem, 1.9vw, 1.3rem)',
+          fontSize: 'clamp(1rem, 1.9vw, 1.3rem)',
 
           '&::after': {
             content: '""',
