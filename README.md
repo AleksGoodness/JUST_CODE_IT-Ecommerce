@@ -50,14 +50,14 @@ to run the project locally, you can follow the following steps:
 
 you can run the following scripts in the project directory:
 
- - `npm run dev`: Starts the development server using Vite.
- - `npm run build`: Builds the TypeScript project and bundles the app with Vite.
- - `npm run preview`: Previews the production build locally.
- - `npm run lint`: Lints the entire codebase using ESLint.
- - `npm run lintfix`: Automatically fixes linting issues using ESLint.
- - `npm run format`: Formats code files using Prettier.
- - `npm run prepare`: Sets up Husky for managing Git hooks.
- - `npm run test`: Runs unit tests using Jest.
+- `npm run dev`: Starts the development server using Vite.
+- `npm run build`: Builds the TypeScript project and bundles the app with Vite.
+- `npm run preview`: Previews the production build locally.
+- `npm run lint`: Lints the entire codebase using ESLint.
+- `npm run lintfix`: Automatically fixes linting issues using ESLint.
+- `npm run format`: Formats code files using Prettier.
+- `npm run prepare`: Sets up Husky for managing Git hooks.
+- `npm run test`: Runs unit tests using Jest.
 
 ---
 
