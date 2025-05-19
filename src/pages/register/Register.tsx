@@ -37,9 +37,10 @@ export const Register = () => {
       firstName: '',
       lastName: '',
       password: '',
+      password_confirm: '',
       billingAddress: initialAddress,
       shippingAddress: initialAddress,
-      dateOfBirth: new Date().toISOString(),
+      dateOfBirth: new Date(),
       defaultBillingAddress: 0,
       defaultShippingAddress: 0,
       billingAddresses: [1],
@@ -63,7 +64,6 @@ export const Register = () => {
       methods.setValue('billingAddresses', [1]);
     }
   };
-
   const handleBillingCheckboxChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -164,7 +164,7 @@ export const Register = () => {
             sx={{ textAlign: 'center', paddingBlock: 3 }}
             variant="cardTitle"
           >
-            Enter information to register
+            Fill in your details to create an account
           </Typography>
           <form
             onSubmit={methods.handleSubmit(formSubmitHandler)}
@@ -189,18 +189,34 @@ export const Register = () => {
             >
               Shipping address
             </Typography>
-
-            <FormInput
-              label="Country"
-              name="shippingAddress.country"
-              options={Object.keys(countries)}
-            />
-
-            <FormInput label="Street" name="shippingAddress.streetName" />
-
-            <FormInput label="City" name="shippingAddress.city" />
-            <FormInput label="Postcode" name="shippingAddress.postalCode" />
-
+            <Box>
+              <FormInput
+                label="Country"
+                name="shippingAddress.country"
+                options={Object.keys(countries)}
+              />
+              <Typography color="error" variant="body2">
+                {methods.formState.errors.shippingAddress?.country?.message}
+              </Typography>
+            </Box>
+            <Box>
+              <FormInput label="Street" name="shippingAddress.streetName" />
+              <Typography color="error" variant="body2">
+                {methods.formState.errors.shippingAddress?.streetName?.message}
+              </Typography>
+            </Box>
+            <Box>
+              <FormInput label="City" name="shippingAddress.city" />
+              <Typography color="error" variant="body2">
+                {methods.formState.errors.shippingAddress?.city?.message}
+              </Typography>
+            </Box>
+            <Box>
+              <FormInput label="Postcode" name="shippingAddress.postalCode" />
+              <Typography color="error" variant="body2">
+                {methods.formState.errors.shippingAddress?.postalCode?.message}
+              </Typography>
+            </Box>
             <Box
               sx={{
                 gridColumn: 'span 2',
@@ -209,7 +225,7 @@ export const Register = () => {
               }}
             >
               <Typography component="h4" variant="body2">
-                Choose shipping address as default
+                Set shipping address as default
               </Typography>
               <Checkbox
                 checked={methods.watch('defaultShippingAddress') === 1}
@@ -225,7 +241,7 @@ export const Register = () => {
               }}
             >
               <Typography component="h4" variant="body2">
-                Choose shipping address for billing address as well
+                Use the same address for shipping and billing
               </Typography>
               <Checkbox onChange={handleCheckboxChange} />
             </Box>
@@ -237,17 +253,34 @@ export const Register = () => {
             >
               Billing address
             </Typography>
-
-            <FormInput
-              label="Country"
-              name="billingAddress.country"
-              options={Object.keys(countries)}
-            />
-            <FormInput label="Street" name="billingAddress.streetName" />
-
-            <FormInput label="City" name="billingAddress.city" />
-            <FormInput label="Postcode" name="billingAddress.postalCode" />
-
+            <Box>
+              <FormInput
+                label="Country"
+                name="billingAddress.country"
+                options={Object.keys(countries)}
+              />
+              <Typography color="error" variant="body2">
+                {methods.formState.errors.billingAddress?.country?.message}
+              </Typography>
+            </Box>
+            <Box>
+              <FormInput label="Street" name="billingAddress.streetName" />
+              <Typography color="error" variant="body2">
+                {methods.formState.errors.billingAddress?.streetName?.message}
+              </Typography>
+            </Box>
+            <Box>
+              <FormInput label="City" name="billingAddress.city" />
+              <Typography color="error" variant="body2">
+                {methods.formState.errors.billingAddress?.city?.message}
+              </Typography>
+            </Box>
+            <Box>
+              <FormInput label="Postcode" name="billingAddress.postalCode" />
+              <Typography color="error" variant="body2">
+                {methods.formState.errors.billingAddress?.postalCode?.message}
+              </Typography>
+            </Box>
             <Box
               sx={{
                 gridColumn: 'span 2',
@@ -256,7 +289,7 @@ export const Register = () => {
               }}
             >
               <Typography component="h4" variant="body2">
-                Choose billing address as default
+                Set billing address as default
               </Typography>
               <Checkbox
                 checked={methods.watch('defaultBillingAddress') === 1}

@@ -11,7 +11,7 @@ export interface RegisterInputProps {
   email: string;
   password: string;
   password_confirm: string;
-  dateOfBirth: string;
+  dateOfBirth: Date;
   billingAddress: {
     country: string;
     streetName: string;
@@ -60,3 +60,11 @@ export interface FormInputProps extends Partial<RegisterInputProps> {
   options?: string[];
   type?: string;
 }
+
+export const passwordErrors = [
+  { test: /[a-z]/, message: 'at least one lowercase' },
+  { test: /[A-Z]/, message: 'at least one uppercase' },
+  { test: /[0-9]/, message: 'at least one number' },
+  { test: /[!@#$%^&*]/, message: 'at least one symbol' },
+  { test: /.{8,}/, message: 'min length - 8' },
+];

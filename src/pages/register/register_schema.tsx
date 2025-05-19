@@ -5,10 +5,11 @@ export const schema = yup.object().shape({
   lastName: yup.string().required('Last name is required'),
   password: yup
     .string()
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/,
-      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Character',
-    )
+    .matches(/^(?=.*[a-z])/, 'at least one lowercase')
+    .matches(/^(?=.*[A-Z])/, 'at least one uppercase')
+    .matches(/^(?=.*[0-9])/, 'at least one number')
+    .matches(/^(?=.*[!@#$%^&*])/, 'at least one symbol')
+    .min(8, 'min length - 8')
     .required('Password is required'),
   password_confirm: yup
     .string()
@@ -18,7 +19,10 @@ export const schema = yup.object().shape({
     .string()
     .email('Invalid email format')
     .required('Email is required'),
-  dateOfBirth: yup.string().required('Date of Birth is required'),
+  dateOfBirth: yup
+    .date()
+    .required('Date of Birth is required')
+    .typeError('Invalid date format'),
   billingAddress: yup.object().shape({
     country: yup.string().required('Country is required'),
     streetName: yup.string().required('Street is required'),

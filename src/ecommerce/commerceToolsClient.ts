@@ -3,9 +3,11 @@ import {
   createAuthMiddlewareForPasswordFlow,
   createClient,
   createHttpMiddleware,
+  TokenCache,
+  TokenStore,
 } from '@commercetools/ts-client';
 import { customerScopes } from './scopes';
-import { RegisterData } from '../redux/interfaces';
+import { IRegisterData } from '../redux/interfaces';
 
 const clientId = import.meta.env.VITE_CTP_CLIENT_ID;
 const clientSecret = import.meta.env.VITE_CTP_CLIENT_SECRET;
@@ -19,6 +21,17 @@ const hostApi = import.meta.env.VITE_CTP_API_URL;
 const customerClientId = import.meta.env.VITE_CTP_CUSTOMER_CLIENT_ID;
 const customerClientSecret = import.meta.env.VITE_CTP_CUSTOMER_CLIENT_SECRET;
 
+const tokenCache: TokenCache = {
+  get: (): TokenStore => {
+    const cachedData = localStorage.getItem('ctpTokenCache');
+    return cachedData
+      ? JSON.parse(cachedData)
+      : { token: '', expirationTime: 0 };
+  },
+  set: (cache: TokenStore): void => {
+    localStorage.setItem('ctpTokenCache', JSON.stringify(cache));
+  },
+};
 // 🔹 1. AdminClient / flow for creation new customer
 export const obtainAccessTokenThroughCredentialsFlow = createClient({
   middlewares: [
@@ -56,6 +69,7 @@ export const obtainAccessTokenThroughPasswordFlow = (
         },
         scopes: customerScopes,
         httpClient: fetch,
+        tokenCache: tokenCache,
       }),
       createHttpMiddleware({
         host: hostApi,
@@ -66,7 +80,7 @@ export const obtainAccessTokenThroughPasswordFlow = (
 };
 
 // 🔹 3. register new customer
-export const signUpCustomer = async (data: RegisterData) => {
+export const signUpCustomer = async (data: IRegisterData) => {
   const response = await obtainAccessTokenThroughCredentialsFlow.execute({
     uri: `/${projectKey}/customers`,
     method: 'POST',
@@ -83,7 +97,6 @@ export const signUpCustomer = async (data: RegisterData) => {
 // 🔹 4. login customer
 export const loginUser = async (email: string, password: string) => {
   const userClient = obtainAccessTokenThroughPasswordFlow(email, password);
-
   const profile = await userClient.execute({
     uri: `/${projectKey}/me`,
     method: 'GET',
