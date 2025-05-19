@@ -20,6 +20,7 @@ export default tseslint.config(
       '**/*.js',
       'node_modules',
       'src/ecommerce',
+      'jest.setup.ts',
     ],
   },
 
