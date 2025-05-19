@@ -1,21 +1,34 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Checkbox, Container, Typography } from '@mui/material';
-import {
-  FormProvider,
-  SubmitHandler,
-  useForm,
-  useWatch,
-} from 'react-hook-form';
-import { NavLink } from 'react-router';
+import { ChangeEvent, useEffect } from 'react';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { NavLink, useNavigate } from 'react-router';
 
-import { FormInput } from '../../components';
-//import { useAppDispatch } from '../../redux/hooks';
-//import registerUser from '../../redux/slices/asyncThunks/asyncThunks';
+import { FormInput, Loading } from '../../components';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { IRegisterData } from '../../redux/interfaces';
+import { getCustomer } from '../../redux/selectors';
+import registerUser from '../../redux/slices/asyncThunks/registerCustomer';
+import CONSTANTS from '../../utils/CONSTANTS';
 import { countries, RegisterInputProps } from './interfaces';
 import schema from './register_schema';
 
+const initialAddress = {
+  country: '',
+  streetName: '',
+  city: '',
+  postalCode: '',
+};
+
 export const Register = () => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { isLoading, customer } = useAppSelector(getCustomer);
+
+  useEffect(() => {
+    if (customer) navigate(CONSTANTS.home);
+  }, [customer, navigate]);
 
   const methods = useForm<RegisterInputProps>({
     resolver: yupResolver(schema),
@@ -24,20 +37,9 @@ export const Register = () => {
       firstName: '',
       lastName: '',
       password: '',
-      addresses: [
-        {
-          country: '',
-          streetName: '',
-          city: '',
-          postalCode: '',
-        },
-        {
-          country: '',
-          streetName: '',
-          city: '',
-          postalCode: '',
-        },
-      ],
+      password_confirm: '',
+      billingAddress: initialAddress,
+      shippingAddress: initialAddress,
       dateOfBirth: new Date(),
       defaultBillingAddress: 0,
       defaultShippingAddress: 0,
@@ -46,39 +48,22 @@ export const Register = () => {
     },
   });
 
-  const shippingAddress = useWatch({
-    control: methods.control,
-    name: 'addresses',
-  })[0];
-
-  const handleCheckboxChange = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const shippingAddress = methods.getValues('shippingAddress');
     if (event.target.checked) {
-      methods.setValue('addresses.1.country', shippingAddress.country);
-      methods.setValue('addresses.1.streetName', shippingAddress.streetName);
-      methods.setValue('addresses.1.city', shippingAddress.city);
-      methods.setValue('addresses.1.postalCode', shippingAddress.postalCode);
+      methods.setValue('billingAddress.country', shippingAddress.country);
+      methods.setValue('billingAddress.streetName', shippingAddress.streetName);
+      methods.setValue('billingAddress.city', shippingAddress.city);
+      methods.setValue('billingAddress.postalCode', shippingAddress.postalCode);
       methods.setValue('billingAddresses', [0]);
-
-      await methods.trigger('addresses.1.country');
-      await methods.trigger('addresses.1.streetName');
-      await methods.trigger('addresses.1.city');
-      await methods.trigger('addresses.1.postalCode');
     } else {
-      methods.setValue('addresses.1.country', '');
-      methods.setValue('addresses.1.streetName', '');
-      methods.setValue('addresses.1.city', '');
-      methods.setValue('addresses.1.postalCode', '');
+      methods.setValue('billingAddress.country', '');
+      methods.setValue('billingAddress.streetName', '');
+      methods.setValue('billingAddress.city', '');
+      methods.setValue('billingAddress.postalCode', '');
       methods.setValue('billingAddresses', [1]);
-
-      await methods.trigger('addresses.1.country');
-      await methods.trigger('addresses.1.streetName');
-      await methods.trigger('addresses.1.city');
-      await methods.trigger('addresses.1.postalCode');
     }
   };
-
   const handleBillingCheckboxChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -92,26 +77,44 @@ export const Register = () => {
   };
 
   //console.log('Validation errors:', methods.formState.errors);
-  const formSubmitHandler: SubmitHandler<RegisterInputProps> = data => {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    const { password_confirm, dateOfBirth, addresses, ...newData } = data;
-    const ISOAddresses = addresses.map(address => {
+  const formSubmitHandler: SubmitHandler<RegisterInputProps> = async data => {
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      dateOfBirth,
+      billingAddress,
+      shippingAddress,
+      defaultBillingAddress,
+      defaultShippingAddress,
+      billingAddresses,
+      shippingAddresses,
+    } = data;
+    const ISOAddresses = [shippingAddress, billingAddress].map(address => {
       return {
         ...address,
         country: countries[address.country],
       };
     });
-    const properObject = {
-      ...newData,
+    const properObject: IRegisterData = {
+      firstName,
+      lastName,
+      email,
+      password,
       dateOfBirth: new Date(dateOfBirth).toISOString().split('T')[0],
       addresses: ISOAddresses,
+      defaultBillingAddress,
+      defaultShippingAddress,
+      billingAddresses,
+      shippingAddresses,
     };
-    console.log(password_confirm);
-    console.log(properObject);
+    await dispatch(registerUser(properObject));
   };
 
   return (
     <Container>
+      {isLoading ? <Loading /> : null}
       <Box
         sx={{
           display: 'grid',
@@ -189,29 +192,29 @@ export const Register = () => {
             <Box>
               <FormInput
                 label="Country"
-                name="addresses.0.country"
+                name="shippingAddress.country"
                 options={Object.keys(countries)}
               />
-              <Typography variant="body2" color="error">
-                {methods.formState.errors.addresses?.[0]?.country?.message}
+              <Typography color="error" variant="body2">
+                {methods.formState.errors.shippingAddress?.country?.message}
               </Typography>
             </Box>
             <Box>
-              <FormInput label="Street" name="addresses.0.streetName" />
-              <Typography variant="body2" color="error">
-                {methods.formState.errors.addresses?.[0]?.streetName?.message}
+              <FormInput label="Street" name="shippingAddress.streetName" />
+              <Typography color="error" variant="body2">
+                {methods.formState.errors.shippingAddress?.streetName?.message}
               </Typography>
             </Box>
             <Box>
-              <FormInput label="City" name="addresses.0.city" />
-              <Typography variant="body2" color="error">
-                {methods.formState.errors.addresses?.[0]?.city?.message}
+              <FormInput label="City" name="shippingAddress.city" />
+              <Typography color="error" variant="body2">
+                {methods.formState.errors.shippingAddress?.city?.message}
               </Typography>
             </Box>
             <Box>
-              <FormInput label="Postcode" name="addresses.0.postalCode" />
-              <Typography variant="body2" color="error">
-                {methods.formState.errors.addresses?.[0]?.postalCode?.message}
+              <FormInput label="Postcode" name="shippingAddress.postalCode" />
+              <Typography color="error" variant="body2">
+                {methods.formState.errors.shippingAddress?.postalCode?.message}
               </Typography>
             </Box>
             <Box
@@ -253,29 +256,29 @@ export const Register = () => {
             <Box>
               <FormInput
                 label="Country"
-                name="addresses.1.country"
+                name="billingAddress.country"
                 options={Object.keys(countries)}
               />
-              <Typography variant="body2" color="error">
-                {methods.formState.errors.addresses?.[1]?.country?.message}
+              <Typography color="error" variant="body2">
+                {methods.formState.errors.billingAddress?.country?.message}
               </Typography>
             </Box>
             <Box>
-              <FormInput label="Street" name="addresses.1.streetName" />
-              <Typography variant="body2" color="error">
-                {methods.formState.errors.addresses?.[1]?.streetName?.message}
+              <FormInput label="Street" name="billingAddress.streetName" />
+              <Typography color="error" variant="body2">
+                {methods.formState.errors.billingAddress?.streetName?.message}
               </Typography>
             </Box>
             <Box>
-              <FormInput label="City" name="addresses.1.city" />
-              <Typography variant="body2" color="error">
-                {methods.formState.errors.addresses?.[1]?.city?.message}
+              <FormInput label="City" name="billingAddress.city" />
+              <Typography color="error" variant="body2">
+                {methods.formState.errors.billingAddress?.city?.message}
               </Typography>
             </Box>
             <Box>
-              <FormInput label="Postcode" name="addresses.1.postalCode" />
-              <Typography variant="body2" color="error">
-                {methods.formState.errors.addresses?.[1]?.postalCode?.message}
+              <FormInput label="Postcode" name="billingAddress.postalCode" />
+              <Typography color="error" variant="body2">
+                {methods.formState.errors.billingAddress?.postalCode?.message}
               </Typography>
             </Box>
             <Box

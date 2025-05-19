@@ -12,20 +12,18 @@ export interface RegisterInputProps {
   password: string;
   password_confirm: string;
   dateOfBirth: Date;
-  addresses: [
-    {
-      country: string;
-      streetName: string;
-      city: string;
-      postalCode: string;
-    },
-    {
-      country: string;
-      streetName: string;
-      city: string;
-      postalCode: string;
-    },
-  ];
+  billingAddress: {
+    country: string;
+    streetName: string;
+    city: string;
+    postalCode: string;
+  };
+  shippingAddress: {
+    country: string;
+    streetName: string;
+    city: string;
+    postalCode: string;
+  };
   defaultBillingAddress: number;
   defaultShippingAddress: number;
   billingAddresses: number[];
@@ -54,19 +52,6 @@ export const countries: Record<string, string> = {
   Portugal: 'PT',
   Greece: 'GR',
   Poland: 'PL',
-};
-
-export const isValidShippingAddress = (
-  value: unknown,
-): value is RegisterInputProps['addresses'] => {
-  return (
-    typeof value === 'object' &&
-    value !== null &&
-    'country' in value &&
-    'city' in value &&
-    'address' in value &&
-    'postcode' in value
-  );
 };
 
 export interface FormInputProps extends Partial<RegisterInputProps> {

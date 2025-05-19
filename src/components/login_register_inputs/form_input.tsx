@@ -17,7 +17,6 @@ import { useState } from 'react';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
 
 import {
-  isValidShippingAddress,
   passwordErrors,
   RegisterInputProps,
 } from '../../pages/register/interfaces';
@@ -49,17 +48,16 @@ const FormInput = ({ name, label, options, ...props }: FormInputProps) => {
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
-    if (isValidShippingAddress(shippingAddress)) {
-      if (event.target.checked) {
-        setValue('billing_address', shippingAddress);
-      } else {
-        setValue('billing_address', {
-          country: '',
-          city: '',
-          address: '',
-          postcode: '',
-        });
-      }
+
+    if (event.target.checked) {
+      setValue('billing_address', shippingAddress);
+    } else {
+      setValue('billing_address', {
+        country: '',
+        city: '',
+        address: '',
+        postcode: '',
+      });
     }
   };
 

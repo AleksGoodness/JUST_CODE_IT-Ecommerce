@@ -3,18 +3,37 @@ import {
   createAuthMiddlewareForPasswordFlow,
   createClient,
   createHttpMiddleware,
+  TokenCache,
+  TokenStore,
 } from '@commercetools/ts-client';
-import { RegisterInputProps } from '../pages/register/interfaces';
+import { customerScopes } from './scopes';
+import { IRegisterData } from '../redux/interfaces';
 
-const projectKey = import.meta.env.VITE_CTP_PROJECT_KEY;
 const clientId = import.meta.env.VITE_CTP_CLIENT_ID;
 const clientSecret = import.meta.env.VITE_CTP_CLIENT_SECRET;
-const scopes = import.meta.env.VITE_CTP_SCOPES?.split(' ') || [];
+
+const projectKey = import.meta.env.VITE_CTP_PROJECT_KEY;
+const adminScope = import.meta.env.VITE_CTP_SCOPES;
+
 const hostAuth = import.meta.env.VITE_CTP_AUTH_URL;
 const hostApi = import.meta.env.VITE_CTP_API_URL;
 
-// 🔹 1. AdminClient
-export const client = createClient({
+const customerClientId = import.meta.env.VITE_CTP_CUSTOMER_CLIENT_ID;
+const customerClientSecret = import.meta.env.VITE_CTP_CUSTOMER_CLIENT_SECRET;
+
+const tokenCache: TokenCache = {
+  get: (): TokenStore => {
+    const cachedData = localStorage.getItem('ctpTokenCache');
+    return cachedData
+      ? JSON.parse(cachedData)
+      : { token: '', expirationTime: 0 };
+  },
+  set: (cache: TokenStore): void => {
+    localStorage.setItem('ctpTokenCache', JSON.stringify(cache));
+  },
+};
+// 🔹 1. AdminClient / flow for creation new customer
+export const obtainAccessTokenThroughCredentialsFlow = createClient({
   middlewares: [
     createAuthMiddlewareForClientCredentialsFlow({
       host: hostAuth,
@@ -23,7 +42,7 @@ export const client = createClient({
         clientId,
         clientSecret,
       },
-      scopes,
+      scopes: [adminScope],
       httpClient: fetch,
     }),
     createHttpMiddleware({
@@ -34,19 +53,23 @@ export const client = createClient({
 });
 
 // 🔹 2. client for login user
-export const loginClient = (email: string, password: string) => {
+export const obtainAccessTokenThroughPasswordFlow = (
+  email: string,
+  password: string,
+) => {
   return createClient({
     middlewares: [
       createAuthMiddlewareForPasswordFlow({
         host: hostAuth,
         projectKey,
         credentials: {
-          clientId,
-          clientSecret,
+          clientId: customerClientId,
+          clientSecret: customerClientSecret,
           user: { username: email, password },
         },
-        scopes: [], //todo user scopes
+        scopes: customerScopes,
         httpClient: fetch,
+        tokenCache: tokenCache,
       }),
       createHttpMiddleware({
         host: hostApi,
@@ -56,9 +79,9 @@ export const loginClient = (email: string, password: string) => {
   });
 };
 
-// 🔹 3. register new user
-export const signUpCustomer = async (data: RegisterInputProps) => {
-  const response = await client.execute({
+// 🔹 3. register new customer
+export const signUpCustomer = async (data: IRegisterData) => {
+  const response = await obtainAccessTokenThroughCredentialsFlow.execute({
     uri: `/${projectKey}/customers`,
     method: 'POST',
     body: data,
@@ -67,27 +90,28 @@ export const signUpCustomer = async (data: RegisterInputProps) => {
   if (response.statusCode === 201) {
     return response.body;
   } else {
-    console.log(response);
     throw new Error(response.body?.message || 'Failed to register');
   }
 };
 
-// 🔹 4. auto login
+// 🔹 4. login customer
 export const loginUser = async (email: string, password: string) => {
-  const userClient = loginClient(email, password);
-
+  const userClient = obtainAccessTokenThroughPasswordFlow(email, password);
   const profile = await userClient.execute({
     uri: `/${projectKey}/me`,
     method: 'GET',
   });
 
-  return {
-    client: userClient,
-    profile: profile.body,
-  };
+  console.log(profile);
+
+  if (profile.statusCode === 200) {
+    return profile.body;
+  } else {
+    throw new Error(profile.body?.message || 'Failed to register');
+  }
 };
 
-// 🔹 5. User logout
+// 🔹 5. customer logout
 export const logoutUser = () => {
   localStorage.removeItem('ct_user_token');
 };
@@ -103,7 +127,12 @@ export const checkAuth = async () => {
       uri: `/${projectKey}/me`,
       method: 'GET',
     });
-    return response.body;
+
+    if (response.statusCode === 200) {
+      return response.body;
+    } else {
+      throw new Error(response.body?.message || 'Failed to register');
+    }
   } catch (err) {
     return false;
   }
