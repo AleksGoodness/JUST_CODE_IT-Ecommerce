@@ -166,11 +166,12 @@ export const Register = () => {
           >
             Fill in your details to create an account
           </Typography>
-          <form
+          <Box
+            component={'form'}
             onSubmit={methods.handleSubmit(formSubmitHandler)}
-            style={{
+            sx={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
+              gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)' },
               gap: '0.5rem',
             }}
           >
@@ -184,7 +185,7 @@ export const Register = () => {
             />
             <Typography
               component="h4"
-              sx={{ gridColumn: 'span 2', textAlign: 'center' }}
+              sx={{ gridColumn: { sm: 'span 2' }, textAlign: 'center' }}
               variant="listTitle"
             >
               Shipping address
@@ -219,7 +220,6 @@ export const Register = () => {
             </Box>
             <Box
               sx={{
-                gridColumn: 'span 2',
                 display: 'flex',
                 alignItems: 'center',
               }}
@@ -235,7 +235,6 @@ export const Register = () => {
 
             <Box
               sx={{
-                gridColumn: 'span 2',
                 display: 'flex',
                 alignItems: 'center',
               }}
@@ -248,7 +247,7 @@ export const Register = () => {
 
             <Typography
               component="h4"
-              sx={{ gridColumn: 'span 2', textAlign: 'center' }}
+              sx={{ gridColumn: { sm: 'span 2' }, textAlign: 'center' }}
               variant="listTitle"
             >
               Billing address
@@ -283,7 +282,6 @@ export const Register = () => {
             </Box>
             <Box
               sx={{
-                gridColumn: 'span 2',
                 display: 'flex',
                 alignItems: 'center',
               }}
@@ -300,7 +298,7 @@ export const Register = () => {
             <Typography
               component="h4"
               sx={{
-                gridColumn: 'span 2',
+                gridColumn: { sm: 'span 2' },
                 textAlign: 'center',
                 fontWeight: 'bold',
               }}
@@ -314,7 +312,6 @@ export const Register = () => {
             <Button
               fullWidth
               sx={{
-                gridColumn: 'span 2',
                 width: '100%',
                 margin: '0 auto',
                 marginBlock: '2rem',
@@ -326,7 +323,7 @@ export const Register = () => {
             >
               Register
             </Button>
-          </form>
+          </Box>
         </FormProvider>
       </Box>
     </Container>

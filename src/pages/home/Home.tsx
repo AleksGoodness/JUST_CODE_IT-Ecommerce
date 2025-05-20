@@ -4,7 +4,11 @@ import Typography from '@mui/material/Typography';
 const Home = () => {
   return (
     <Container disableGutters sx={{ padding: '26px 0' }}>
-      <Typography align="center" variant="h2">
+      <Typography
+        component="h1"
+        sx={{ textAlign: 'center' }}
+        variant="mainTitle"
+      >
         Hello JustCodeIt team
       </Typography>
       <Typography sx={{ color: 'green', textAlign: 'center' }}>

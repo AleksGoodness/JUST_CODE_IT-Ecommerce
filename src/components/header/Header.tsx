@@ -1,3 +1,4 @@
+import { Container } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
@@ -17,13 +18,14 @@ const Header = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <Box
+    <Container
       component="header"
       sx={{
         maxWidth: '1200px',
-        m: '0 auto',
+        // m: '0 auto',
         display: 'grid',
-        gridTemplateColumns: 'auto 1fr auto',
+        gridTemplateColumns: { xs: '1fr', sm: '1fr auto 1fr' },
+        gap: '1rem',
         alignItems: 'center',
         padding: '1vw',
       }}
@@ -43,10 +45,12 @@ const Header = () => {
       </Box>
       <Navigation />
       <Stack
-        alignItems="center"
         direction="row"
-        display="flex"
-        gap="clamp(0.5rem, 2.2vw, 2rem)"
+        sx={{
+          alignItems: 'center',
+          justifyContent: { xs: 'center', sm: 'flex-end' },
+          gap: 'clamp(0.5rem, 2.2vw, 2rem)',
+        }}
       >
         <Box>
           <Magnifier />
@@ -64,8 +68,8 @@ const Header = () => {
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
-              padding: { xs: '2px 4px', sm: '3px 6px', md: '4px 8px' },
-              fontSize: 'clamp(0.5rem, 1.6vw, 0.9rem)',
+              fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
+              color: 'text.primary',
             }}
             to="/login"
             variant="contained"
@@ -82,8 +86,8 @@ const Header = () => {
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
-              padding: { xs: '2px 4px', sm: '3px 6px', md: '4px 8px' },
-              fontSize: 'clamp(0.5rem, 1.6vw, 0.9rem)',
+              fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
+              color: 'text.primary',
             }}
             to="/register"
             variant="contained"
@@ -93,7 +97,7 @@ const Header = () => {
           </Button>
         )}
       </Stack>
-    </Box>
+    </Container>
   );
 };
 export default Header;
