@@ -28,10 +28,8 @@ const AppRoutes = () => {
     const checkAuth = async () => {
       setIsLoading(true);
       try {
-        //todo check auth function
         await new Promise(resolve => {
           setTimeout(() => {
-            console.log('done');
             resolve('done');
           }, 20);
         });
@@ -97,7 +95,7 @@ const AppRoutes = () => {
           path="*"
         />
       </Routes>
-      <ToastContainer />
+      <ToastContainer position="bottom-right" />
     </>
   );
 };

@@ -64,7 +64,6 @@ const authSlice = createSlice({
     builder.addCase(loginSilent.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message ?? 'something go wrong';
-      toast.error(`Login failed! ${action.error.message ?? ''}`);
     });
     builder.addCase(loginSilent.pending, state => {
       state.isLoading = true;
