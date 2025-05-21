@@ -1,14 +1,16 @@
 import { render, screen } from '@testing-library/react';
+import { expect, it } from 'vitest';
+
 import { Wrapper } from '../../__test__/test_utils';
 import FormInput from './form_input';
 
-test('FormInput renders correctly', () => {
+it('FormInput renders correctly', () => {
   render(
     <Wrapper>
-      <FormInput name="firstName" label="First Name" />
-      <FormInput name="lastName" label="Second Name" />
-      <FormInput name="password" label="Password" />
-      <FormInput name="password_confirm" label="Confirm password" />
+      <FormInput label="First Name" name="firstName" />
+      <FormInput label="Second Name" name="lastName" />
+      <FormInput label="Password" name="password" />
+      <FormInput label="Confirm password" name="password_confirm" />
       <FormInput label="Country" name="shippingAddress.country" />
       <FormInput label="Street" name="shippingAddress.streetName" />
       <FormInput label="City" name="shippingAddress.city" />

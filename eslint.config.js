@@ -7,7 +7,6 @@ import tsParser from '@typescript-eslint/parser';
 import jsxAlly from 'eslint-plugin-jsx-a11y';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
-import jestPlugin from 'eslint-plugin-jest';
 import testingLibrary from 'eslint-plugin-testing-library';
 import vitest from 'eslint-plugin-vitest';
 
@@ -20,7 +19,8 @@ export default tseslint.config(
       '**/*.js',
       'node_modules',
       'src/ecommerce',
-      'jest.setup.ts',
+      'vitest.setup.ts',
+      'vitest.config.ts',
     ],
   },
 
@@ -38,7 +38,6 @@ export default tseslint.config(
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       'simple-import-sort': simpleImportSort,
-      jest: jestPlugin,
       vitest,
       'testing-library': testingLibrary,
     },
@@ -46,7 +45,6 @@ export default tseslint.config(
   {
     files: ['**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}'],
     languageOptions: {
-      globals: jestPlugin.environments.globals.globals,
       parser: tsParser,
       parserOptions: {
         project: ['./tsconfig.node.json', './tsconfig.app.json'],
@@ -56,11 +54,6 @@ export default tseslint.config(
       sourceType: 'module',
     },
     rules: {
-      'jest/no-disabled-tests': 'warn',
-      'jest/no-focused-tests': 'warn',
-      'jest/no-identical-title': 'warn',
-      'jest/prefer-to-have-length': 'warn',
-      'jest/valid-expect': 'warn',
       'testing-library/await-async-queries': 'warn',
       'testing-library/no-await-sync-queries': 'warn',
       'testing-library/no-debugging-utils': 'warn',

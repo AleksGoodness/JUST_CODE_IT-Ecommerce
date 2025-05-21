@@ -1,14 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router';
+import { expect, test } from 'vitest';
 
-import Header from './Header';
+import LogoMain from './LogoMain';
 
 test('Header to be in the document', () => {
-  render(
-    <MemoryRouter>
-      <Header />
-    </MemoryRouter>,
-  );
+  render(<LogoMain />);
 
-  expect(screen.getByRole('banner')).toBeInTheDocument();
+  expect(screen.getByRole('link', { hidden: true })).toBeInTheDocument();
 });

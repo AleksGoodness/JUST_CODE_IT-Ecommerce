@@ -56,12 +56,10 @@ const authSlice = createSlice({
       state.error = null;
       state.customer = null;
     });
-    //* checkAuth
+    //* loginSilent
     builder.addCase(loginSilent.fulfilled, (state, action) => {
       state.isLoading = false;
-      // state.customer = action.payload;
-      console.log(action.payload);
-      // toast.success(`Welcome back, ${action.payload.firstName}!`);
+      state.customer = action.payload;
     });
     builder.addCase(loginSilent.rejected, (state, action) => {
       state.isLoading = false;

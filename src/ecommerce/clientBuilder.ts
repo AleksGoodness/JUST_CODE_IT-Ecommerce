@@ -34,7 +34,6 @@ const httpMiddlewareOptions: HttpMiddlewareOptions = {
   host: hostApi,
   httpClient: fetch,
 };
-// Configure authMiddlewareOptions
 export const createRegistrationClient = () => {
   return new ClientBuilder()
     .withClientCredentialsFlow({
@@ -69,56 +68,18 @@ export const loginCustomerClient = (email: string, password: string) => {
     .build();
 };
 
-export const silentLogin = async () => {
-  const tokenStore = tokenCache.get();
-
-  if (!tokenStore || !tokenStore.token) {
-    throw new Error('Token does not exist');
-  }
-
-  const isTokenExpired = tokenStore.expirationTime
-    ? tokenStore.expirationTime < Date.now()
-    : true;
-
-  if (!isTokenExpired) {
-    return new ClientBuilder()
-      .withExistingTokenFlow(tokenStore.token, { force: true })
-      .withHttpMiddleware({ host: hostAuth, httpClient: fetch })
-      .build();
-  }
-
-  if (tokenStore.refreshToken) {
-    try {
-      const newToken = await refreshToken(tokenStore.refreshToken);
-      tokenCache.set(newToken);
-
-      return new ClientBuilder()
-        .withExistingTokenFlow(newToken.access_token, { force: true })
-        .withHttpMiddleware({ host: hostAuth, httpClient: fetch })
-        .build();
-    } catch (error) {
-      // tokenCache.clear(); // Важно очистить кэш при ошибке
-      throw new Error('Session expired. Need to login.');
-    }
-  }
-
-  // tokenCache.clear(); // Очищаем кэш если refreshToken отсутствует
-  throw new Error("Token expired, refreshToken doesn't exist");
-};
-
-const refreshToken = async (refreshToken: string) => {
-  const response = await fetch(`${hostAuth}/oauth/token`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: `Basic ${btoa(`${customerClientId}:${customerClientSecret}`)}`,
-    },
-    body: new URLSearchParams({
-      grant_type: 'refresh_token',
-      refresh_token: refreshToken,
-    }),
-  });
-
-  if (!response.ok) throw new Error('Error with update token');
-  return response.json();
+export const createClientWithToken = () => {
+  return new ClientBuilder()
+    .withRefreshTokenFlow({
+      host: hostAuth,
+      projectKey,
+      credentials: {
+        clientId: customerClientId,
+        clientSecret: customerClientSecret,
+      },
+      refreshToken: tokenCache.get().refreshToken || '',
+      tokenCache: tokenCache,
+    })
+    .withHttpMiddleware(httpMiddlewareOptions)
+    .build();
 };

@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "target": "ES2020",
+    "target": "ES2022",
     "useDefineForClassFields": true,
-    "lib": ["es6", "ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["es6", "ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
-
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -25,8 +24,7 @@
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
-    "typeRoots": ["./node_modules/@types", "./node_modules/@testing-library"],
-    "types": ["jest", "jest-dom"]
+    "typeRoots": ["./node_modules/@types", "./node_modules/@testing-library"]
   },
   "include": ["src"]
 }
