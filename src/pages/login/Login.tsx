@@ -22,6 +22,7 @@ const Login = () => {
 
   const { isLoading, customer } = useAppSelector(getCustomer);
   const methods = useForm<IFormInputs>({
+    mode: 'all',
     resolver: yupResolver(schema),
     defaultValues: { email: '', password: '' },
   });

@@ -31,6 +31,7 @@ export const Register = () => {
   }, [customer, navigate]);
 
   const methods = useForm<RegisterInputProps>({
+    mode: 'all',
     resolver: yupResolver(schema),
     defaultValues: {
       email: '',
@@ -196,25 +197,25 @@ export const Register = () => {
                 name="shippingAddress.country"
                 options={Object.keys(countries)}
               />
-              <Typography color="error" variant="body2">
+              <Typography color="error" sx={{ fontSize: '0.8rem' }}>
                 {methods.formState.errors.shippingAddress?.country?.message}
               </Typography>
             </Box>
             <Box>
               <FormInput label="Street" name="shippingAddress.streetName" />
-              <Typography color="error" variant="body2">
+              <Typography color="error" sx={{ fontSize: '0.8rem' }}>
                 {methods.formState.errors.shippingAddress?.streetName?.message}
               </Typography>
             </Box>
             <Box>
               <FormInput label="City" name="shippingAddress.city" />
-              <Typography color="error" variant="body2">
+              <Typography color="error" sx={{ fontSize: '0.8rem' }}>
                 {methods.formState.errors.shippingAddress?.city?.message}
               </Typography>
             </Box>
             <Box>
               <FormInput label="Postcode" name="shippingAddress.postalCode" />
-              <Typography color="error" variant="body2">
+              <Typography color="error" sx={{ fontSize: '0.8rem' }}>
                 {methods.formState.errors.shippingAddress?.postalCode?.message}
               </Typography>
             </Box>
@@ -258,25 +259,25 @@ export const Register = () => {
                 name="billingAddress.country"
                 options={Object.keys(countries)}
               />
-              <Typography color="error" variant="body2">
+              <Typography color="error" sx={{ fontSize: '0.8rem' }}>
                 {methods.formState.errors.billingAddress?.country?.message}
               </Typography>
             </Box>
             <Box>
               <FormInput label="Street" name="billingAddress.streetName" />
-              <Typography color="error" variant="body2">
+              <Typography color="error" sx={{ fontSize: '0.8rem' }}>
                 {methods.formState.errors.billingAddress?.streetName?.message}
               </Typography>
             </Box>
             <Box>
               <FormInput label="City" name="billingAddress.city" />
-              <Typography color="error" variant="body2">
+              <Typography color="error" sx={{ fontSize: '0.8rem' }}>
                 {methods.formState.errors.billingAddress?.city?.message}
               </Typography>
             </Box>
             <Box>
               <FormInput label="Postcode" name="billingAddress.postalCode" />
-              <Typography color="error" variant="body2">
+              <Typography color="error" sx={{ fontSize: '0.8rem' }}>
                 {methods.formState.errors.billingAddress?.postalCode?.message}
               </Typography>
             </Box>

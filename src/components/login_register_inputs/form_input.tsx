@@ -16,10 +16,7 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
 
-import {
-  passwordErrors,
-  RegisterInputProps,
-} from '../../pages/register/interfaces';
+import { RegisterInputProps } from '../../pages/register/interfaces';
 
 interface FormInputProps extends Partial<RegisterInputProps> {
   name: string;
@@ -59,19 +56,6 @@ const FormInput = ({ name, label, options, ...props }: FormInputProps) => {
         postcode: '',
       });
     }
-  };
-
-  const password: string = useWatch({ control, name: 'password' });
-  const remainingErrors = passwordErrors.filter(
-    (error: { test: RegExp }) => !error.test.test(password),
-  );
-
-  const [showHints, setShowHints] = useState(false);
-  const handleFocus = () => {
-    setShowHints(true);
-  };
-  const handleBlur = () => {
-    setShowHints(false);
   };
 
   return (
@@ -139,8 +123,6 @@ const FormInput = ({ name, label, options, ...props }: FormInputProps) => {
               fullWidth
               helperText={errors[name]?.message?.toString()}
               label={label}
-              onBlur={handleBlur}
-              onFocus={handleFocus}
               size="small"
               slotProps={
                 name === 'password' || name === 'password_confirm'
@@ -176,16 +158,6 @@ const FormInput = ({ name, label, options, ...props }: FormInputProps) => {
           )
         }
       />
-
-      {name === 'password' && showHints && remainingErrors.length > 0 ? (
-        <Box sx={{ fontSize: '0.9rem', marginTop: '4px' }}>
-          {remainingErrors.map((error, index) => (
-            <Typography color="error" key={index}>
-              {error.message}
-            </Typography>
-          ))}
-        </Box>
-      ) : null}
     </Box>
   );
 };
