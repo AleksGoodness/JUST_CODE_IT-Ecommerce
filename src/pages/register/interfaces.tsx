@@ -31,27 +31,8 @@ export interface RegisterInputProps {
 }
 
 export const countries: Record<string, string> = {
-  Armenia: 'AM',
-  Azerbaijan: 'AZ',
   Belarus: 'BY',
-  Kazakhstan: 'KZ',
-  Kyrgyzstan: 'KG',
-  Moldova: 'MD',
   Russia: 'RU',
-  Tajikistan: 'TJ',
-  Turkmenistan: 'TM',
-  Ukraine: 'UA',
-  Uzbekistan: 'UZ',
-  France: 'FR',
-  Germany: 'DE',
-  Italy: 'IT',
-  Spain: 'ES',
-  Netherlands: 'NL',
-  Switzerland: 'CH',
-  'United Kingdom': 'GB',
-  Portugal: 'PT',
-  Greece: 'GR',
-  Poland: 'PL',
 };
 
 export interface FormInputProps extends Partial<RegisterInputProps> {
@@ -61,10 +42,7 @@ export interface FormInputProps extends Partial<RegisterInputProps> {
   type?: string;
 }
 
-export const passwordErrors = [
-  { test: /[a-z]/, message: 'at least one lowercase' },
-  { test: /[A-Z]/, message: 'at least one uppercase' },
-  { test: /[0-9]/, message: 'at least one number' },
-  { test: /[!@#$%^&*]/, message: 'at least one symbol' },
-  { test: /.{8,}/, message: 'min length - 8' },
-];
+export const postalCodeRegex = /^\d{6}$/;
+export const domainRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+export const noSpacesRegex = /^\S*$/;
+export const onlyLettersRegex = /^[A-Za-zА-Яа-яЁё]+$/;
