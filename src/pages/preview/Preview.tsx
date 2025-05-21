@@ -10,7 +10,6 @@ import Typography from '@mui/material/Typography';
 import { ButtonLink, Saver } from '../../components/index.ts';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks.ts';
 import { getThemeName } from '../../redux/selectors.ts';
-import { checkAuth } from '../../redux/slices/asyncThunks/checkAuth.ts';
 import { setTheme } from '../../redux/slices/themeSlice.ts';
 
 const Preview = () => {
@@ -98,7 +97,6 @@ const Preview = () => {
         <ButtonLink endIcon={<East />} to="/" variant="contained">
           Find more
         </ButtonLink>
-        <Button onClick={() => dispatch(checkAuth())}>check auth</Button>
       </Box>
 
       <Box sx={{ p: 1, m: 1, border: '1px solid black' }}>

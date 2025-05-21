@@ -1,12 +1,14 @@
 import { render, screen } from '@testing-library/react';
-import AuthInput from './auth_input';
+import { expect, test } from 'vitest';
+
 import { Wrapper } from '../../__test__/test_utils';
+import AuthInput from './auth_input';
 
 test('AuthInput renders correctly', () => {
   render(
     <Wrapper>
-      <AuthInput name="email" label="Email" />
-      <AuthInput name="password" label="Password" />
+      <AuthInput label="Email" name="email" />
+      <AuthInput label="Password" name="password" />
     </Wrapper>,
   );
 

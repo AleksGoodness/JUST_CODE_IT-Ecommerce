@@ -34,7 +34,6 @@ const httpMiddlewareOptions: HttpMiddlewareOptions = {
   host: hostApi,
   httpClient: fetch,
 };
-// Configure authMiddlewareOptions
 export const createRegistrationClient = () => {
   return new ClientBuilder()
     .withClientCredentialsFlow({
@@ -69,13 +68,18 @@ export const loginCustomerClient = (email: string, password: string) => {
     .build();
 };
 
-export const checkAuthClient = () => {
-  const tokenStore = tokenCache.get();
-  console.log(tokenStore);
+export const createClientWithToken = () => {
   return new ClientBuilder()
-    .withExistingTokenFlow(tokenStore.token, {
-      force: true,
+    .withRefreshTokenFlow({
+      host: hostAuth,
+      projectKey,
+      credentials: {
+        clientId: customerClientId,
+        clientSecret: customerClientSecret,
+      },
+      refreshToken: tokenCache.get().refreshToken || '',
+      tokenCache: tokenCache,
     })
-    .withHttpMiddleware({ host: hostAuth, httpClient: fetch })
+    .withHttpMiddleware(httpMiddlewareOptions)
     .build();
 };
