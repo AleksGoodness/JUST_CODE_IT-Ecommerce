@@ -1,5 +1,5 @@
 import ProfileIcon from '@mui/icons-material/ManageAccountsSharp';
-import { Container } from '@mui/material';
+import { Container, IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
@@ -52,11 +52,15 @@ const Header = () => {
           gap: 'clamp(0.5rem, 2.2vw, 2rem)',
         }}
       >
-        <Magnifier color="primary" fontSize="medium" />
-        <Cart />
-        <NavLink to={CONSTANTS.profile}>
-          <ProfileIcon color="primary" fontSize="medium" />
-        </NavLink>
+        <IconButton>
+          <Magnifier color="disabled" />
+        </IconButton>
+        <IconButton>
+          <Cart color="disabled" />
+        </IconButton>
+        <IconButton component={NavLink} to={CONSTANTS.profile}>
+          <ProfileIcon color="disabled" />
+        </IconButton>
 
         {customer ? (
           <Button
