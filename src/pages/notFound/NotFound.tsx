@@ -2,7 +2,7 @@ import Home from '@mui/icons-material/Home';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import Saver from '../../components/saver/saver';
 

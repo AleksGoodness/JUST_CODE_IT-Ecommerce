@@ -2,6 +2,7 @@ import './index.css';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
 
 import { tokenCache } from './ecommerce/clientBuilder.ts';
 import { useAppDispatch, useAppSelector } from './redux/hooks.ts';
@@ -27,6 +28,7 @@ export const App = () => {
     <ThemeProvider theme={currentTheme}>
       <CssBaseline />
       <Router />
+      <ToastContainer position="bottom-right" />
     </ThemeProvider>
   );
 };

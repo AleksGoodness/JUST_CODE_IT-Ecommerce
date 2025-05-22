@@ -1,21 +1,24 @@
-import { Container, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
+import { NavLink, Outlet } from 'react-router-dom';
 
 const Shop = () => {
   return (
     <Container>
-      <Typography
-        component="h1"
-        sx={{ textAlign: 'center' }}
-        variant="mainTitle"
-      >
-        {<br />}
-        {<br />}
-        {<br />}
-        {<br />}
-        Under Maintenance
-        {<br />}
-        &quot; shop page &quot;
-      </Typography>
+      <Box sx={{ display: 'flex' }}>
+        <Typography component={'h2'} variant="sectionTitle">
+          shop
+        </Typography>
+        <Box>
+          categories
+          <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
+            <NavLink to={`ficus`}>ficus</NavLink>
+            <NavLink to={`kaktus`}>kaktus</NavLink>
+            <NavLink to={`rose`}>rose</NavLink>
+            <NavLink to={`camomile`}>ромашка</NavLink>
+          </Box>
+        </Box>
+        <Outlet />
+      </Box>
     </Container>
   );
 };

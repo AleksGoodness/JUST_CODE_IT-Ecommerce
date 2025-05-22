@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Checkbox, Container, Typography } from '@mui/material';
 import { ChangeEvent, useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { NavLink, useNavigate } from 'react-router';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import { FormInput, Loading } from '../../components';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';

@@ -20,6 +20,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
+    "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true

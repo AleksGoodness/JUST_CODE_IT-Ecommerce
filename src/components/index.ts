@@ -5,7 +5,6 @@ import Loading from './loading/Loading.tsx';
 import AuthInput from './login_register_inputs/auth_input.tsx';
 import FormInput from './login_register_inputs/form_input.tsx';
 import Navigation from './navigation/Navigation.tsx';
-import PageTransition from './pageTransition/PageTransition.tsx';
 import Saver from './saver/saver.tsx';
 
 export {
@@ -16,6 +15,5 @@ export {
   Loading,
   Navigation,
   NotFound,
-  PageTransition,
   Saver,
 };
