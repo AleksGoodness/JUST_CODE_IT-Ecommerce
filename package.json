@@ -84,6 +84,7 @@
     "eslint-plugin-vitest": "^0.5.4",
     "husky": "^9.1.7",
     "identity-obj-proxy": "^3.0.0",
+    "jsdom": "^26.1.0",
     "lint-staged": "^15.5.1",
     "prettier": "3.5.3",
     "prettier-plugin-css-order": "^2.1.2",
