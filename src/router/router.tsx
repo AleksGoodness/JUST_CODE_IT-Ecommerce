@@ -3,8 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router';
 
 import Cards from '../components/cards/Cards.tsx';
 import ErrorBoundaryFallback from '../components/errorBoundaryFallback/ErrorBoundaryFallback.tsx';
-import { Loading } from '../components/index.ts';
-import Layout from '../components/layout/Layout.tsx';
+import { Layout, Loading, LoginRegisterLayout } from '../components/index.ts';
 
 const Home = lazy(() => import('../pages/home/Home.tsx'));
 const Details = lazy(() => import('../pages/details/Details.tsx'));
@@ -23,8 +22,13 @@ const AppRouter = createBrowserRouter([
     children: [
       { index: true, Component: Home },
       { path: 'preview', Component: Preview },
-      { path: 'login', Component: Login },
-      { path: 'register', Component: Register },
+      {
+        Component: LoginRegisterLayout,
+        children: [
+          { path: 'login', Component: Login },
+          { path: 'register', Component: Register },
+        ],
+      },
       { path: 'profile', Component: Profile },
       {
         path: 'shop',

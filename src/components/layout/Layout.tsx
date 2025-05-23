@@ -21,6 +21,7 @@ const Layout = () => {
           component={'main'}
           sx={{
             flexGrow: 1,
+            paddingTop: '5rem',
           }}
         >
           <Outlet />

@@ -3,7 +3,7 @@ import { Box, Button, Container, Typography } from '@mui/material';
 import { motion } from 'motion/react';
 import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { NavLink, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { AuthInput, Loading } from '../../components';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -56,38 +56,6 @@ const Login = () => {
         }}
       >
         <FormProvider {...methods}>
-          <Box
-            sx={{
-              display: 'grid',
-              placeContent: 'center',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(auto, 150px))',
-              gap: 5,
-              paddingBottom: 2,
-            }}
-          >
-            <Button
-              component={NavLink}
-              sx={theme => ({
-                fontSize: '1.2rem',
-                '&.active': {
-                  bgcolor: theme.palette.action.active,
-                  color: theme.palette.primary.contrastText,
-                },
-              })}
-              to="/login"
-              variant="outlined"
-            >
-              Login
-            </Button>
-            <Button
-              component={NavLink}
-              sx={{ fontSize: '1.2rem' }}
-              to="/register"
-              variant="outlined"
-            >
-              Register
-            </Button>
-          </Box>
           <Typography
             component="h3"
             sx={{ textAlign: 'center', paddingBlock: 3 }}
