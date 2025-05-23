@@ -1,8 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Container, Typography } from '@mui/material';
+import { motion } from 'motion/react';
 import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router';
 
 import { AuthInput, Loading } from '../../components';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -40,7 +41,11 @@ const Login = () => {
   };
 
   return (
-    <Container>
+    <Container
+      animate={{ scale: 1 }}
+      component={motion.div}
+      initial={{ scale: 0 }}
+    >
       {isLoading ? <Loading /> : null}
       <Box
         sx={{

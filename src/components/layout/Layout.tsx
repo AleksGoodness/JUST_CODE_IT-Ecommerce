@@ -1,31 +1,36 @@
 import { Box, Container, Typography } from '@mui/material';
-import { Outlet } from 'react-router';
+import { Outlet, useNavigation } from 'react-router';
 
 import Header from '../header/Header';
+import Loading from '../loading/Loading';
 
 const Layout = () => {
+  const navigation = useNavigation();
   return (
-    <Container
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100svh',
-      }}
-    >
-      <Header />
-      <Box
-        component={'main'}
+    <>
+      {navigation.state === 'loading' ? <Loading /> : null}
+      <Container
         sx={{
-          flexGrow: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100svh',
         }}
       >
-        <Outlet />
-      </Box>
-      <Box component={'footer'} sx={{ p: 2, textAlign: 'center' }}>
-        <Typography>Under maintenance</Typography>
-        <Typography color="primary">{new Date().getFullYear()}</Typography>
-      </Box>
-    </Container>
+        <Header />
+        <Box
+          component={'main'}
+          sx={{
+            flexGrow: 1,
+          }}
+        >
+          <Outlet />
+        </Box>
+        <Box component={'footer'} sx={{ p: 2, textAlign: 'center' }}>
+          <Typography>Under maintenance</Typography>
+          <Typography color="primary">{new Date().getFullYear()}</Typography>
+        </Box>
+      </Container>
+    </>
   );
 };
 

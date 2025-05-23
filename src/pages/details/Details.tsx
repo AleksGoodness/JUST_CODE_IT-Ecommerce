@@ -1,6 +1,7 @@
 import { Container, Typography } from '@mui/material';
+import { motion } from 'motion/react';
 import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 
 import { createClientWithToken } from '../../ecommerce/clientBuilder';
 import CONSTANTS from '../../utils/CONSTANTS';
@@ -37,7 +38,11 @@ const Details = () => {
   }, [plantId, navigate, plantName, category]);
 
   return (
-    <Container>
+    <Container
+      animate={{ scale: 1 }}
+      component={motion.div}
+      initial={{ scale: 0 }}
+    >
       <Typography component={'h1'} variant="mainTitle">
         {plantName}
       </Typography>

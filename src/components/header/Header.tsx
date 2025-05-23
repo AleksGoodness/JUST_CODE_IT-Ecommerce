@@ -1,9 +1,9 @@
 import ProfileIcon from '@mui/icons-material/ManageAccountsSharp';
-import { Container, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks.ts';
 import { getCustomer } from '../../redux/selectors.ts';
@@ -20,7 +20,7 @@ const Header = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <Container
+    <Box
       component="header"
       sx={{
         display: 'grid',
@@ -59,7 +59,7 @@ const Header = () => {
           <Cart color="disabled" />
         </IconButton>
         <IconButton component={NavLink} to={CONSTANTS.profile}>
-          <ProfileIcon color="disabled" />
+          <ProfileIcon color={customer ? 'primary' : 'disabled'} />
         </IconButton>
 
         {customer ? (
@@ -101,7 +101,7 @@ const Header = () => {
           </Button>
         )}
       </Stack>
-    </Container>
+    </Box>
   );
 };
 export default Header;

@@ -1,9 +1,15 @@
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-
+import { motion } from 'motion/react';
 const Home = () => {
   return (
-    <Container disableGutters sx={{ padding: '26px 0' }}>
+    <Container
+      animate={{ scale: 1 }}
+      component={motion.div}
+      disableGutters
+      initial={{ scale: 0 }}
+      sx={{ padding: '26px 0' }}
+    >
       <Typography
         component="h1"
         sx={{ textAlign: 'center' }}
