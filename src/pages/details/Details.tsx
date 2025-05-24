@@ -6,15 +6,16 @@ import { useNavigate, useParams } from 'react-router';
 import { Slider } from '../../components/slider/slider';
 import { createClientWithToken } from '../../ecommerce/clientBuilder';
 import CONSTANTS from '../../utils/CONSTANTS';
+import clearObject from './clearObject';
 import { tempObject } from './tempObjext';
 const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY;
 
-export const Details = () => {
+const Details = () => {
   const { category, plantName, plantId } = useParams();
   const navigate = useNavigate();
-  const slides = tempObject.masterData.staged.masterVariant.images;
+  const myProduct = clearObject(tempObject);
+  const slides = myProduct.images;
   const imagesUrl = slides.map(slide => slide.url);
-  console.log(imagesUrl);
 
   useEffect(() => {
     if (!category && !plantId && !plantName) {
