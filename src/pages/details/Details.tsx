@@ -1,6 +1,7 @@
 import { Container, Typography } from '@mui/material';
+import { motion } from 'motion/react';
 import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 
 import { Slider } from '../../components/slider/slider';
 import { createClientWithToken } from '../../ecommerce/clientBuilder';
@@ -40,7 +41,11 @@ export const Details = () => {
   }, [plantId, navigate, plantName, category]);
 
   return (
-    <Container>
+    <Container
+      animate={{ scale: 1 }}
+      component={motion.div}
+      initial={{ scale: 0 }}
+    >
       <Typography component={'h1'} variant="mainTitle">
         {tempObject.masterData.current.name['en-US']}
       </Typography>
