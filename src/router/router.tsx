@@ -41,7 +41,7 @@ const AppRouter = createBrowserRouter([
         ],
       },
       {
-        path: 'shop:category:plantName',
+        path: 'shop/:category/:plantName',
         Component: Details,
         children: [
           {
