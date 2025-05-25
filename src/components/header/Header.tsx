@@ -24,7 +24,7 @@ const Header = () => {
       component="header"
       sx={{
         display: 'grid',
-        gridTemplateColumns: { xs: '1fr', sm: '1fr auto 1fr' },
+        gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr 1fr' },
         gap: '1rem',
         alignItems: 'center',
         padding: '1vw',
