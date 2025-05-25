@@ -1,29 +1,28 @@
 import { Box, Container, Typography } from '@mui/material';
 import { motion } from 'motion/react';
-import { NavLink, Outlet } from 'react-router';
+import { useEffect } from 'react';
+import { NavLink, Outlet, useNavigate } from 'react-router';
+import { useParams } from 'react-router';
 
-import CategoryList from '../../components/categoryList/CategoryList';
+import CONSTANTS from '../../utils/CONSTANTS';
+import CategoryList from './components/CategoryList';
 
 const Shop = () => {
+  const navigate = useNavigate();
+  const { category } = useParams();
+  useEffect(() => {
+    if (!category) navigate(`${CONSTANTS.shop}/all`);
+  }, [category, navigate]);
+  console.log(category);
+
   return (
     <Container
       animate={{ scale: 1 }}
       component={motion.div}
       initial={{ scale: 0 }}
     >
-      <Box sx={{ display: 'flex' }}>
-        <Typography component={'h2'} variant="sectionTitle">
-          shop
-        </Typography>
-        <Box>
-          categories
-          <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
-            <NavLink to={`ficus`}>ficus</NavLink>
-            <NavLink to={`kaktus`}>kaktus</NavLink>
-            <NavLink to={`rose`}>rose</NavLink>
-            <NavLink to={`camomile`}>ромашка</NavLink>
-          </Box>
-        </Box>
+      <Box border={'4px solid orange'}>
+        <CategoryList />
         <Outlet />
       </Box>
     </Container>
