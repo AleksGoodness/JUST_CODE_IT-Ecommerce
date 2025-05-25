@@ -17,13 +17,6 @@ const commonComponents: Components<Theme> = {
         }),
       },
       {
-        props: { variant: 'secondTitle' },
-        style: ({ theme }) => ({
-          color: theme.palette.action.active,
-          background: theme.palette.action.active,
-        }),
-      },
-      {
         props: { variant: 'sectionTitle' },
         style: {
           lineHeight: 1,
@@ -142,18 +135,17 @@ export const lightTheme = createTheme({
       main: '#46A358',
       contrastText: '#FFFFFF',
     },
+    secondary: {
+      main: '#ffffff',
+      contrastText: '#46A358',
+    },
     text: {
       primary: '#3D3D3D',
       secondary: '#727272',
-      disabled: '#B3B3B3',
     },
     background: {
       default: '#FFFFFF',
       paper: '#FBFBFB',
-    },
-    action: {
-      active: '#46A358',
-      hover: 'rgba(70, 163, 88, 0.04)',
     },
   },
 });
@@ -167,6 +159,9 @@ export const darkTheme = createTheme({
     primary: {
       main: '#6AC178',
       contrastText: '#121212',
+    },
+    secondary: {
+      main: '#1E1E1E',
     },
     text: {
       primary: '#E0E0E0',
