@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { NavLink, Outlet } from 'react-router';
 
 const LoginRegisterLayout = () => {
@@ -7,44 +7,42 @@ const LoginRegisterLayout = () => {
       <Typography component={'h2'} variant="sectionTitle">
         Authentication
       </Typography>
-      <Box
-        sx={{
-          display: 'grid',
-          placeContent: 'center',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(auto, 150px))',
-          gap: 5,
-          paddingBottom: 2,
-        }}
-      >
+      <Grid container spacing={2} sx={{ maxWidth: 400, mx: 'auto' }}>
         <Button
           component={NavLink}
-          sx={theme => ({
-            fontSize: '1.2rem',
+          sx={{
+            flex: 1,
+
             '&.active': {
-              bgcolor: theme.palette.action.active,
-              color: theme.palette.primary.contrastText,
+              bgcolor: 'primary.main',
+              color: 'primary.contrastText',
+              boxShadow: 2,
+              border: 'none',
             },
-          })}
+          }}
           to="/login"
           variant="outlined"
         >
           Login
         </Button>
+
         <Button
           component={NavLink}
-          sx={theme => ({
-            fontSize: '1.2rem',
+          sx={{
+            flex: 1,
             '&.active': {
-              bgcolor: theme.palette.action.active,
-              color: theme.palette.primary.contrastText,
+              bgcolor: 'primary.main',
+              color: 'primary.contrastText',
+              boxShadow: 2,
+              border: 'none',
             },
-          })}
+          }}
           to="/register"
           variant="outlined"
         >
           Register
         </Button>
-      </Box>
+      </Grid>
       <Outlet />
     </>
   );

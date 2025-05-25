@@ -11,18 +11,20 @@ export interface AuthState {
   error: string | null;
 }
 
+export interface IAddress {
+  country: string;
+  streetName: string;
+  city: string;
+  postalCode: string;
+}
+
 export interface IRegisterData {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
   dateOfBirth: string;
-  addresses: {
-    country: string;
-    streetName: string;
-    city: string;
-    postalCode: string;
-  }[];
+  addresses: IAddress[];
   defaultBillingAddress: number;
   defaultShippingAddress: number;
   billingAddresses: number[];

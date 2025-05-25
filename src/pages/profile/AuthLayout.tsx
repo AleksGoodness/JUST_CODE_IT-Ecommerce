@@ -5,10 +5,12 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 import { Controller, useForm } from 'react-hook-form';
 
+import { ICustomerDetails } from '../../interfaces';
 import { IRegisterData } from '../../redux/interfaces';
+import Addresses from './Addresses';
 
 interface IProps {
-  customer: IRegisterData;
+  customer: ICustomerDetails;
 }
 
 const AuthLayout = ({ customer }: IProps) => {
@@ -64,6 +66,8 @@ const AuthLayout = ({ customer }: IProps) => {
             />
           )}
         />
+
+        <Addresses addresses={customer.addresses} />
 
         <Button type="submit" variant="outlined">
           Save
