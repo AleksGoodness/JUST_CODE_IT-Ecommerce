@@ -3,7 +3,8 @@ import { Container, IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { NavLink } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
+import { NavLink } from 'react-router';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks.ts';
 import { getCustomer } from '../../redux/selectors.ts';
@@ -15,93 +16,105 @@ import LogoLogin from './LogoLogin/LogoLogin.tsx';
 import LogoMain from './LogoMain';
 import Magnifier from './Magnifier/Magnifier.tsx';
 
+const StyledHeader = styled('header')(({ theme }) => ({
+  backgroundColor: theme.palette.background.default,
+  color: theme.palette.text.primary,
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  zIndex: 100,
+}));
+
 const Header = () => {
   const { isLoading, customer } = useAppSelector(getCustomer);
   const dispatch = useAppDispatch();
 
   return (
-    <Container
-      component="header"
-      sx={{
-        display: 'grid',
-        gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr 1fr' },
-        gap: '1rem',
-        alignItems: 'center',
-        padding: '1vw',
-      }}
-    >
-      <Box
-        component={NavLink}
+    <StyledHeader>
+      <Container
         sx={{
-          display: 'flex',
+          margin: '0 auto',
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', sm: '1fr auto 1fr' },
+          gap: '1rem',
           alignItems: 'center',
-          width: 'clamp(100px, 20vw, 160px)',
-          height: '35px',
-          aspectRatio: '150/35',
-        }}
-        to="/"
-      >
-        <LogoMain />
-      </Box>
-      <Navigation />
-      <Stack
-        direction="row"
-        sx={{
-          alignItems: 'baseline',
-          justifyContent: { xs: 'center', sm: 'flex-end' },
-          gap: 'clamp(0.5rem, 2.2vw, 2rem)',
+          padding: '1vw 0',
         }}
       >
-        <IconButton>
-          <Magnifier color="disabled" />
-        </IconButton>
-        <IconButton>
-          <Cart color="disabled" />
-        </IconButton>
-        <IconButton component={NavLink} to={CONSTANTS.profile}>
-          <ProfileIcon color="disabled" />
-        </IconButton>
+        <Box
+          component={NavLink}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            width: 'clamp(100px, 20vw, 160px)',
+            height: '35px',
+            aspectRatio: '150/35',
+          }}
+          to="/"
+        >
+          <LogoMain />
+        </Box>
+        <Navigation />
+        <Stack
+          direction="row"
+          sx={{
+            alignItems: 'baseline',
+            justifyContent: { xs: 'center', sm: 'flex-end' },
+            gap: 'clamp(0.5rem, 2.2vw, 2rem)',
+          }}
+        >
+          <IconButton>
+            <Magnifier color="disabled" />
+          </IconButton>
+          <IconButton>
+            <Cart color="disabled" />
+          </IconButton>
+          <IconButton component={NavLink} to={CONSTANTS.profile}>
+            <ProfileIcon color={customer ? 'primary' : 'disabled'} />
+          </IconButton>
 
-        {customer ? (
-          <Button
-            component={NavLink}
-            onClick={() => dispatch(logOut())}
-            sx={{
-              maxWidth: 'fit-content',
-              width: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
-              color: 'text.primary',
-            }}
-            to="/login"
-            variant="contained"
-          >
-            <LogoLogin />
-            Logout
-          </Button>
-        ) : (
-          <Button
-            component={NavLink}
-            sx={{
-              maxWidth: 'fit-content',
-              width: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
-              color: 'text.primary',
-            }}
-            to="/register"
-            variant="contained"
-          >
-            <LogoLogin />
-            {isLoading ? 'loading' : 'Login/Register'}
-          </Button>
-        )}
-      </Stack>
-    </Container>
+          {customer ? (
+            <Button
+              component={NavLink}
+              onClick={() => dispatch(logOut())}
+              sx={{
+                maxWidth: 'fit-content',
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
+                color: 'text.primary',
+              }}
+              to="/login"
+              variant="contained"
+            >
+              <LogoLogin />
+              Logout
+            </Button>
+          ) : (
+            <Button
+              component={NavLink}
+              sx={{
+                maxWidth: 'fit-content',
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
+                color: 'text.primary',
+              }}
+              to="/register"
+              variant="contained"
+            >
+              <LogoLogin />
+              {isLoading ? 'loading' : 'Login/Register'}
+            </Button>
+          )}
+        </Stack>
+      </Container>
+    </StyledHeader>
   );
 };
 export default Header;

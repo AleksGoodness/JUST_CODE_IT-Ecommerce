@@ -1,0 +1,13 @@
+.swiper-pagination {
+  position: relative;
+  margin-top: 15px;
+}
+
+.swiper-pagination-bullet {
+  background-color: darkgreen;
+}
+
+.swiper-wrapper{
+  max-width: 600px;
+  width: 100%;
+}

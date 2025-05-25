@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 
 import CONSTANTS from '../../utils/CONSTANTS';
 

@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Typography } from '@mui/material';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router';
 
 const Cards = () => {
   const { category } = useParams();
@@ -14,12 +14,12 @@ const Cards = () => {
       display="grid"
       sx={{
         border: '3px solid red',
-        p: 16,
+        p: 4,
         gridTemplateColumns: 'repeat(3, 1fr)',
       }}
     >
       <Typography variant="sectionTitle">{category}</Typography>
-      <Box component={NavLink} to={'big/14cc22b8-9585-480e-ae2e-2a982f90272b'}>
+      <Box component={NavLink} to={'big/d6c49fd9-1058-4e50-9040-7cfa9bac5635'}>
         <CircularProgress />
         <Typography>name: Big</Typography>
         <Typography>price: 100</Typography>
@@ -36,7 +36,7 @@ const Cards = () => {
       </Box>
       <Box
         component={NavLink}
-        to={'medium/14cc22b8-9585-480e-ae2e-2a982f90272b'}
+        to={'medium/d6c49fd9-1058-4e50-9040-7cfa9bac5635'}
       >
         <CircularProgress />
         <Typography>name: medium</Typography>

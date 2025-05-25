@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import { motion } from 'motion/react';
 
 import { ButtonLink, Saver } from '../../components/index.ts';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks.ts';
@@ -18,7 +19,11 @@ const Preview = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <Container>
+    <Container
+      animate={{ scale: 1 }}
+      component={motion.div}
+      initial={{ scale: 0 }}
+    >
       <Box sx={{ p: 1, m: 1, border: '1px solid black' }}>
         <Typography align="center" variant="h3">
           Titles
