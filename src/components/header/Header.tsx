@@ -59,56 +59,38 @@ const Header = () => {
         <Stack
           direction="row"
           sx={{
-            alignItems: 'baseline',
+            alignItems: 'center',
             justifyContent: { xs: 'center', sm: 'flex-end' },
             gap: 'clamp(0.5rem, 2.2vw, 2rem)',
           }}
         >
           <IconButton>
-            <Magnifier color="disabled" />
+            <Magnifier />
           </IconButton>
           <IconButton>
-            <Cart color="disabled" />
+            <Cart />
           </IconButton>
           <IconButton component={NavLink} to={CONSTANTS.profile}>
-            <ProfileIcon color={customer ? 'primary' : 'disabled'} />
+            <ProfileIcon color={customer ? 'primary' : 'action'} />
           </IconButton>
 
           {customer ? (
             <Button
               component={NavLink}
+              endIcon={<LogoLogin />}
               onClick={() => dispatch(logOut())}
-              sx={{
-                maxWidth: 'fit-content',
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
-                color: 'text.primary',
-              }}
               to="/login"
               variant="contained"
             >
-              <LogoLogin />
               Logout
             </Button>
           ) : (
             <Button
               component={NavLink}
-              sx={{
-                maxWidth: 'fit-content',
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
-                color: 'text.primary',
-              }}
+              startIcon={<LogoLogin />}
               to="/register"
               variant="contained"
             >
-              <LogoLogin />
               {isLoading ? 'loading' : 'Login/Register'}
             </Button>
           )}
