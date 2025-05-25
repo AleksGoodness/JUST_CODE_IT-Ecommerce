@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY;
 
 import { loginCustomerClient } from '../../../ecommerce/clientBuilder';
-import { ICustomer } from '../../interfaces';
+import { IRegisterData } from '../../interfaces';
 
 export interface ILoginCredentials {
   email: string;
@@ -10,7 +10,7 @@ export interface ILoginCredentials {
 }
 
 export interface ILoginResponse {
-  body?: ICustomer;
+  body?: IRegisterData;
 }
 
 const loginCustomer = createAsyncThunk(
