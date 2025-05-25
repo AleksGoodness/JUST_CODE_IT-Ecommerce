@@ -1,7 +1,17 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Container, Grid, TextField, Typography } from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import {
+  Button,
+  Container,
+  Grid,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { motion } from 'motion/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
@@ -22,6 +32,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const { isLoading, customer } = useAppSelector(getCustomer);
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -84,6 +95,23 @@ const Login = () => {
           label="Password"
           name="password"
           size={12}
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    edge="end"
+                    onClick={() => {
+                      setShowPassword(!showPassword);
+                    }}
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
+          }}
+          type={!showPassword ? 'password' : 'text'}
         />
 
         <Grid
