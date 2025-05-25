@@ -1,11 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Button, Container, Grid, TextField, Typography } from '@mui/material';
 import { motion } from 'motion/react';
 import { useEffect } from 'react';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
-import { AuthInput, Loading } from '../../components';
+import { Loading } from '../../components';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getCustomer } from '../../redux/selectors';
 import loginCustomer from '../../redux/slices/asyncThunks/loginCustomer';
@@ -22,8 +22,12 @@ const Login = () => {
   const navigate = useNavigate();
 
   const { isLoading, customer } = useAppSelector(getCustomer);
-  const methods = useForm<IFormInputs>({
-    mode: 'all',
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInputs>({
+    mode: 'onChange',
     resolver: yupResolver(schema),
     defaultValues: { email: '', password: '' },
   });
@@ -47,44 +51,51 @@ const Login = () => {
       initial={{ scale: 0 }}
     >
       {isLoading ? <Loading /> : null}
-      <Box
-        sx={{
-          maxWidth: '500px',
-          width: '100%',
-          transform: 'translateY(50%)',
-          margin: '0 auto',
-        }}
+
+      <Typography
+        component="h3"
+        sx={{ textAlign: 'center', paddingBlock: 3 }}
+        variant="cardTitle"
       >
-        <FormProvider {...methods}>
-          <Typography
-            component="h3"
-            sx={{ textAlign: 'center', paddingBlock: 3 }}
-            variant="cardTitle"
-          >
-            Enter your username and password to log in.
-          </Typography>
-          <form onSubmit={methods.handleSubmit(formSubmitHandler)}>
-            <Box
-              sx={{
-                display: 'grid',
-                alignItems: 'center',
-                gap: '10px',
-              }}
-            >
-              <AuthInput label="Email" name="email" />
-              <AuthInput label="Password" name="password" />
-            </Box>
-            <Button
-              fullWidth
-              sx={{ marginTop: '20px', height: '45px', fontSize: '1.2rem' }}
-              type="submit"
-              variant="contained"
-            >
-              Login
-            </Button>
-          </form>
-        </FormProvider>
-      </Box>
+        Enter your username and password to log in.
+      </Typography>
+      <Grid
+        component={'form'}
+        container
+        direction={'column'}
+        onSubmit={handleSubmit(formSubmitHandler)}
+        spacing={2}
+        sx={{ maxWidth: 500, mx: 'auto' }}
+      >
+        <Grid
+          {...register('email')}
+          component={TextField}
+          error={!!errors.email}
+          helperText={errors.email?.message}
+          label="Email"
+          name="email"
+          size={12}
+        />
+        <Grid
+          {...register('password')}
+          component={TextField}
+          error={!!errors.password}
+          helperText={errors.password?.message}
+          label="Password"
+          name="password"
+          size={12}
+        />
+
+        <Grid
+          alignSelf={'center'}
+          component={Button}
+          size={4}
+          type="submit"
+          variant="contained"
+        >
+          Login
+        </Grid>
+      </Grid>
     </Container>
   );
 };
