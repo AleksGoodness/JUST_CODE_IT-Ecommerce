@@ -1,3 +1,5 @@
+import { ICustomerDetails } from '../interfaces';
+
 export interface Customer {
   id: string;
   email: string;
@@ -6,7 +8,7 @@ export interface Customer {
 }
 
 export interface AuthState {
-  customer: IRegisterData | null;
+  customer: ICustomerDetails | null;
   isLoading: boolean;
   error: string | null;
 }

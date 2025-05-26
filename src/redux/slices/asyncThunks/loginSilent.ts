@@ -1,14 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { createClientWithToken } from '../../../ecommerce/clientBuilder';
-import { IRegisterData } from '../../interfaces';
+import { ICustomerDetails } from '../../../interfaces';
 import { ILoginResponse } from './loginCustomer';
 
-const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY;
+const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY as string;
 
 const loginSilent = createAsyncThunk(
   'auth/silentLogin',
-  async (): Promise<IRegisterData> => {
+  async (): Promise<ICustomerDetails> => {
     const client = createClientWithToken();
 
     try {
