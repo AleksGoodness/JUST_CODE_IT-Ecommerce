@@ -84,17 +84,44 @@ interface Price {
 
 interface ProductDetails {
   id: string;
+  name: string;
   description: Record<string, string>;
   attributes: Attribute[];
   images: Image[];
+  price: string;
+  currency: string;
 }
 
 const clearObject = (tempObject: TempObject): ProductDetails => {
+  const priceAttribute =
+    tempObject.masterData.staged.masterVariant.attributes.find(
+      attr => attr.name === 'price_type',
+    );
+
+  const price =
+    priceAttribute && Array.isArray(priceAttribute.value)
+      ? (priceAttribute.value[0]?.centAmount ?? 0)
+      : 0;
+
+  const currency =
+    priceAttribute && Array.isArray(priceAttribute.value)
+      ? (priceAttribute.value[0]?.currencyCode ?? 'N/A')
+      : 'N/A';
+  let formatedPrice = '';
+  if (currency === 'BYN') {
+    formatedPrice = (price / 100).toFixed(2) + ' Br';
+  }
+  if (currency === 'RUB') {
+    formatedPrice = ((price / 100) * 80).toFixed(2) + ' ₽';
+  }
   return {
     id: tempObject.id,
+    name: tempObject.masterData.current.name['en-US'],
     description: tempObject.masterData.staged.description,
     attributes: tempObject.masterData.staged.masterVariant.attributes,
     images: tempObject.masterData.staged.masterVariant.images,
+    price: formatedPrice,
+    currency: currency,
   };
 };
 

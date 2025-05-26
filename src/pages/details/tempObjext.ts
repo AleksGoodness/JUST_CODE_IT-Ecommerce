@@ -1,10 +1,10 @@
-export const tempObject = {
-  id: 'd6c49fd9-1058-4e50-9040-7cfa9bac5635',
-  version: 17,
-  versionModifiedAt: '2025-05-23T10:26:47.792Z',
-  lastMessageSequenceNumber: 11,
-  createdAt: '2025-05-22T22:56:07.597Z',
-  lastModifiedAt: '2025-05-23T10:26:47.792Z',
+const tempObject = {
+  id: 'e34544cc-ac9f-452c-92ff-3d7fe9a83c2e',
+  version: 18,
+  versionModifiedAt: '2025-05-25T20:16:19.122Z',
+  lastMessageSequenceNumber: 8,
+  createdAt: '2025-05-23T00:51:35.536Z',
+  lastModifiedAt: '2025-05-25T20:16:19.122Z',
   lastModifiedBy: {
     isPlatformClient: true,
     user: {
@@ -26,28 +26,33 @@ export const tempObject = {
   masterData: {
     current: {
       name: {
-        'en-US': 'Fiddle Leaf Fig',
+        'en-US': 'Haworthia',
       },
       description: {
         'en-US':
-          'Known for its large, dramatic leaves, the Fiddle Leaf Fig is a favorite in modern interior design. It requires bright, indirect light and moderate watering. This plant is sensitive to environmental changes, so stable humidity and temperature help it thrive. It grows vertically, making it great for filling empty corners. Proper care results in a stunning statement plant that enhances any room.',
+          'A small, striking succulent with thick, spiky leaves arranged in a rosette shape. Haworthia thrives in bright, indirect light and requires infrequent watering. It is an excellent choice for desks or small shelves due to its compact size. The plant stores water efficiently, making it drought-resistant and easy to care for.',
       },
-      categories: [],
+      categories: [
+        {
+          typeId: 'category',
+          id: 'fef70e14-0c1f-4a51-8f6b-c61b10eca4b3',
+        },
+      ],
       categoryOrderHints: {},
       slug: {
-        'en-US': 'fiddle-leaf-fig',
+        'en-US': 'haworthia',
       },
       metaTitle: {
-        'en-US': 'Fiddle Leaf Fig',
+        'en-US': 'Haworthia',
       },
       metaDescription: {
         'en-US':
-          'Known for its large, dramatic leaves, the Fiddle Leaf Fig is a favorite in modern interior design. It requires bright, indirect light and moderate watering. This plant is sensitive to environmental changes, so stable humidity and temperature help it thrive. It grows vertically, making it great for filling empty corners. Proper care results in a stunning statement plant that enhances any room.',
+          'A small, striking succulent with thick, spiky leaves arranged in a rosette shape. Haworthia thrives in bright, indirect light and requires infrequent watering. It is an excellent choice for desks or small shelves due to its compact size. The plant stores water efficiently, making it drought-resistant and easy to care for.',
       },
       masterVariant: {
         id: 1,
-        sku: 'fiddle_leaf_fig001',
-        key: 'fiddle_leaf_fig_variant001',
+        sku: 'haworthia001',
+        key: 'haworthia_variant001',
         prices: [],
         images: [],
         attributes: [
@@ -57,26 +62,26 @@ export const tempObject = {
               {
                 type: 'centPrecision',
                 currencyCode: 'BYN',
-                centAmount: 15000,
+                centAmount: 5000,
                 fractionDigits: 2,
               },
             ],
           },
           {
             name: 'availability_type',
-            value: true,
+            value: false,
           },
           {
             name: 'soil_type_required_type',
-            value: 'loamy',
+            value: 'sandy',
           },
           {
             name: 'temperature_preference_type',
-            value: 24,
+            value: 20,
           },
           {
             name: 'climate_zone_type',
-            value: 'tropical',
+            value: 'arid',
           },
           {
             name: 'light_requirements_type',
@@ -84,11 +89,11 @@ export const tempObject = {
           },
           {
             name: 'height_type',
-            value: 100,
+            value: 15,
           },
           {
             name: 'watering',
-            value: 'medium',
+            value: 'low',
           },
         ],
         assets: [],
@@ -99,69 +104,68 @@ export const tempObject = {
     },
     staged: {
       name: {
-        'en-US': 'Fiddle Leaf Fig',
+        'en-US': 'Haworthia',
       },
       description: {
         'en-US':
-          'Known for its large, dramatic leaves, the Fiddle Leaf Fig is a favorite in modern interior design. It requires bright, indirect light and moderate watering. This plant is sensitive to environmental changes, so stable humidity and temperature help it thrive. It grows vertically, making it great for filling empty corners. Proper care results in a stunning statement plant that enhances any room.',
+          'A small, striking succulent with thick, spiky leaves arranged in a rosette shape. Haworthia thrives in bright, indirect light and requires infrequent watering. It is an excellent choice for desks or small shelves due to its compact size. The plant stores water efficiently, making it drought-resistant and easy to care for.',
       },
       categories: [
         {
           typeId: 'category',
-          id: '2ea99341-59ef-48d9-a5a0-0ee903bb118f',
+          id: 'fef70e14-0c1f-4a51-8f6b-c61b10eca4b3',
         },
       ],
       categoryOrderHints: {},
       slug: {
-        'en-US': 'fiddle-leaf-fig',
+        'en-US': 'haworthia',
       },
       metaTitle: {
-        'en-US': 'Fiddle Leaf Fig',
+        'en-US': 'Haworthia',
       },
       metaDescription: {
         'en-US':
-          'Known for its large, dramatic leaves, the Fiddle Leaf Fig is a favorite in modern interior design. It requires bright, indirect light and moderate watering. This plant is sensitive to environmental changes, so stable humidity and temperature help it thrive. It grows vertically, making it great for filling empty corners. Proper care results in a stunning statement plant that enhances any room.',
+          'A small, striking succulent with thick, spiky leaves arranged in a rosette shape. Haworthia thrives in bright, indirect light and requires infrequent watering. It is an excellent choice for desks or small shelves due to its compact size. The plant stores water efficiently, making it drought-resistant and easy to care for.',
       },
       masterVariant: {
         id: 1,
-        sku: 'fiddle_leaf_fig001',
-        key: 'fiddle_leaf_fig_variant001',
+        sku: 'haworthia001',
+        key: 'haworthia_variant001',
         prices: [],
         images: [
           {
-            url: 'https://cdn.shopify.com/s/files/1/0013/3529/6118/products/Kent-48-3265.048-WH_Fiddle-Leaf-Fig-Tree-14.jpg',
-            label: 'fiddle leaf fig',
+            url: 'https://images.cdn.europe-west1.gcp.commercetools.com/0c297542-800b-4d9c-9ed2-ceca44c49af4/pngtree-fasciated-ha-kFVNjWxH.png',
             dimensions: {
-              w: 1000,
-              h: 1000,
+              w: 360,
+              h: 360,
             },
           },
           {
-            url: 'https://www.shelmerdine.com/wp-content/uploads/2018/08/Fiddle-Leaf-Fig-Tree.jpg',
+            url: 'https://images.cdn.europe-west1.gcp.commercetools.com/0c297542-800b-4d9c-9ed2-ceca44c49af4/png-clipart-succulen-nWDtqd0R.png',
             dimensions: {
-              w: 1000,
-              h: 1000,
+              w: 500,
+              h: 500,
             },
           },
           {
-            url: 'https://thegoodplantco.com.au/cdn/shop/products/fiddle-leaf-fig-513284_e997352c-52ce-4c64-bd25-12c5becd5ed2.jpg?v=1714956456',
+            url: 'https://images.cdn.europe-west1.gcp.commercetools.com/0c297542-800b-4d9c-9ed2-ceca44c49af4/pngtree-small-potted-qb-j88IX.png',
             dimensions: {
-              w: 2048,
-              h: 2048,
+              w: 360,
+              h: 360,
             },
           },
           {
-            url: 'https://wildroots.in/wp-content/uploads/2020/09/Untitled-design-27.jpg',
+            url: 'https://images.cdn.europe-west1.gcp.commercetools.com/0c297542-800b-4d9c-9ed2-ceca44c49af4/pngtree-succulent-pl-UgPQwvqK.png',
             dimensions: {
-              w: 600,
-              h: 600,
+              w: 360,
+              h: 360,
             },
           },
           {
-            url: 'https://image.floranext.com/instances/flourishfoliageco_com/catalog/product/f/i/fiddle_leaf_fig_657f843cd8d77.jpg.webp?h=700&w=700&r=255&g=255&b=255',
+            url: 'https://images.cdn.europe-west1.gcp.commercetools.com/0c297542-800b-4d9c-9ed2-ceca44c49af4/png-clipart-teal-and-II3qclAj.png',
             dimensions: {
-              w: 700,
-              h: 700,
+              w: 558,
+              h: 447,
             },
           },
         ],
@@ -172,26 +176,26 @@ export const tempObject = {
               {
                 type: 'centPrecision',
                 currencyCode: 'BYN',
-                centAmount: 15000,
+                centAmount: 5000,
                 fractionDigits: 2,
               },
             ],
           },
           {
             name: 'availability_type',
-            value: true,
+            value: false,
           },
           {
             name: 'soil_type_required_type',
-            value: 'loamy',
+            value: 'sandy',
           },
           {
             name: 'temperature_preference_type',
-            value: 24,
+            value: 20,
           },
           {
             name: 'climate_zone_type',
-            value: 'tropical',
+            value: 'arid',
           },
           {
             name: 'light_requirements_type',
@@ -199,11 +203,11 @@ export const tempObject = {
           },
           {
             name: 'height_type',
-            value: 100,
+            value: 15,
           },
           {
             name: 'watering',
-            value: 'medium',
+            value: 'low',
           },
         ],
         assets: [],
@@ -215,7 +219,7 @@ export const tempObject = {
     published: true,
     hasStagedChanges: true,
   },
-  key: 'fiddle_leaf_fig',
+  key: 'haworthia',
   taxCategory: {
     typeId: 'tax-category',
     id: 'ab69ff73-937b-4b98-ab32-f231a922cdea',
@@ -223,3 +227,5 @@ export const tempObject = {
   priceMode: 'Embedded',
   lastVariantId: 1,
 };
+
+export default tempObject;

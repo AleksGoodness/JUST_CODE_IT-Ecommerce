@@ -2,7 +2,8 @@ import 'swiper/swiper-bundle.css';
 import './slider.css';
 
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Modal } from '@mui/material';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
 import { useState } from 'react';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -11,18 +12,17 @@ interface SliderProps {
   images: string[];
 }
 
-export const Slider = ({ images }: SliderProps) => {
+const Slider = ({ images }: SliderProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState('');
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const handleOpenModal = (image: string) => {
-    setSelectedImage(image);
+  const handleOpenModal = (index: number) => {
+    setActiveIndex(index);
     setIsOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsOpen(false);
-    setSelectedImage('');
   };
 
   return (
@@ -39,24 +39,27 @@ export const Slider = ({ images }: SliderProps) => {
             <img
               alt={`Slide ${(index + 1).toString()}`}
               onClick={() => {
-                handleOpenModal(image);
+                handleOpenModal(index);
               }}
               onKeyDown={e => {
-                if (e.key === 'Enter') handleOpenModal(image);
+                if (e.key === 'Enter') handleOpenModal(index);
               }}
               role="presentation"
               src={image}
               style={{
                 width: '100%',
                 maxWidth: '250px',
-                height: 'auto',
+                height: '250px',
                 borderRadius: '15px',
                 cursor: 'pointer',
+                objectFit: 'contain',
+                backgroundColor: 'transparent',
               }}
             />
           </SwiperSlide>
         ))}
       </Swiper>
+
       <Modal
         aria-describedby="parent-modal-description"
         aria-labelledby="parent-modal-title"
@@ -76,11 +79,7 @@ export const Slider = ({ images }: SliderProps) => {
             justifyContent: 'center',
           }}
         >
-          <img
-            alt="Modal"
-            src={selectedImage}
-            style={{ maxWidth: '60%', maxHeight: '60vh', borderRadius: '10px' }}
-          />
+          {/* Кнопка закрытия */}
           <CloseIcon
             onClick={handleCloseModal}
             sx={{
@@ -92,8 +91,31 @@ export const Slider = ({ images }: SliderProps) => {
               fontSize: 30,
             }}
           />
+          <Swiper
+            className="modal-swiper"
+            initialSlide={activeIndex}
+            modules={[Pagination]}
+            pagination={{ clickable: true }}
+            slidesPerView={1}
+          >
+            {images.map((image, index) => (
+              <SwiperSlide key={index}>
+                <img
+                  alt={`Slide ${(index + 1).toString()}`}
+                  src={image}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                  }}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </Box>
       </Modal>
     </>
   );
 };
+
+export default Slider;

@@ -1,13 +1,27 @@
-.swiper-pagination {
-  position: relative;
-  margin-top: 15px;
+
+:root {
+  --swiper-pagination-bullet-width: 12px;
+  --swiper-pagination-bullet-height: 12px;
+  --swiper-pagination-bullet-inactive-opacity: 0.3;
+  --swiper-pagination-bullet-opacity: 1;
+  --swiper-pagination-bullet-horizontal-gap: 8px;
 }
 
 .swiper-pagination-bullet {
   background-color: darkgreen;
+  margin: 0 10px;
+}
+
+.modal-swiper .swiper-pagination-bullet {
+  background-color: white;
 }
 
 .swiper-wrapper{
   max-width: 600px;
   width: 100%;
+  margin-bottom: 25px;
+}
+
+.swiper{
+  margin: 0;
 }
