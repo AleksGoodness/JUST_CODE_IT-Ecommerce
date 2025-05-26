@@ -153,7 +153,7 @@ export default tseslint.config(
         'off',
         { assertionStyle: 'never' },
       ],
-      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/array-type': 'warn',
       '@typescript-eslint/member-ordering': 'warn',
       '@typescript-eslint/no-non-null-assertion': 'off',
