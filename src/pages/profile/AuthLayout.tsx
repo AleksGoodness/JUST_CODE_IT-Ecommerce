@@ -1,18 +1,25 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Chip, Grid, TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 import Title from '../../components/title/Title';
 import { ICustomerDetails } from '../../interfaces';
-import { IRegisterData } from '../../redux/interfaces';
 import Addresses from './Addresses';
+import validatingSchema from './validating_schema';
 
 interface IProps {
   customer: ICustomerDetails;
+}
+
+interface IInputProps {
+  firstName: string;
+  lastName: string;
+  dateOfBirth: Date;
 }
 
 const AuthLayout = ({ customer }: IProps) => {
@@ -20,20 +27,23 @@ const AuthLayout = ({ customer }: IProps) => {
     register,
     control,
     handleSubmit,
+    reset,
+
     formState: { errors },
-  } = useForm<IRegisterData>({
+  } = useForm<IInputProps>({
     mode: 'onChange',
+    resolver: yupResolver(validatingSchema),
     defaultValues: {
       firstName: customer.firstName,
       lastName: customer.lastName,
-      dateOfBirth: customer.dateOfBirth,
+      dateOfBirth: dayjs(customer.dateOfBirth).toDate(),
     },
   });
 
   const [isEditMode, setIsEditMode] = useState(false);
 
-  const onSubmit = () => {
-    console.log('hi');
+  const formSubmitHandler: SubmitHandler<IInputProps> = (data: IInputProps) => {
+    console.log(data);
   };
 
   return (
@@ -45,12 +55,14 @@ const AuthLayout = ({ customer }: IProps) => {
       <Grid
         component={'form'}
         container
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(formSubmitHandler)}
         spacing={2}
       >
         <Grid
           component={TextField}
           disabled={!isEditMode}
+          error={!!errors.firstName}
+          helperText={errors.firstName?.message}
           label="First name"
           size={{ xs: 12, sm: 6, lg: 4 }}
           variant="outlined"
@@ -59,6 +71,8 @@ const AuthLayout = ({ customer }: IProps) => {
         <Grid
           component={TextField}
           disabled={!isEditMode}
+          error={!!errors.lastName}
+          helperText={errors.lastName?.message}
           label="Last name"
           size={{ xs: 12, sm: 6, lg: 4 }}
           variant="outlined"
@@ -108,6 +122,14 @@ const AuthLayout = ({ customer }: IProps) => {
             variant={isEditMode ? 'contained' : 'outlined'}
           >
             Edit
+          </Button>
+          <Button
+            onClick={() => {
+              reset();
+            }}
+            variant="outlined"
+          >
+            reset
           </Button>
         </Grid>
       </Grid>
