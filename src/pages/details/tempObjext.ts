@@ -1,10 +1,10 @@
 const tempObject = {
-  id: 'e34544cc-ac9f-452c-92ff-3d7fe9a83c2e',
-  version: 18,
-  versionModifiedAt: '2025-05-25T20:16:19.122Z',
-  lastMessageSequenceNumber: 8,
-  createdAt: '2025-05-23T00:51:35.536Z',
-  lastModifiedAt: '2025-05-25T20:16:19.122Z',
+  id: 'ce711797-0bb1-4603-901b-5673a48dc97b',
+  version: 12,
+  versionModifiedAt: '2025-05-26T15:44:24.459Z',
+  lastMessageSequenceNumber: 7,
+  createdAt: '2025-05-22T23:37:21.803Z',
+  lastModifiedAt: '2025-05-26T15:44:24.459Z',
   lastModifiedBy: {
     isPlatformClient: true,
     user: {
@@ -26,11 +26,11 @@ const tempObject = {
   masterData: {
     current: {
       name: {
-        'en-US': 'Haworthia',
+        'en-US': 'Aloe Vera',
       },
       description: {
         'en-US':
-          'A small, striking succulent with thick, spiky leaves arranged in a rosette shape. Haworthia thrives in bright, indirect light and requires infrequent watering. It is an excellent choice for desks or small shelves due to its compact size. The plant stores water efficiently, making it drought-resistant and easy to care for.',
+          "An easy-care succulent with thick, fleshy leaves containing a soothing gel. Aloe prefers bright, direct sunlight and needs minimal watering. The plant stores moisture in its leaves, making it highly drought-resistant. It's ideal for desks, windowsills, and plant arrangements. Known for its medicinal properties, Aloe is a must-have for skincare enthusiasts.",
       },
       categories: [
         {
@@ -40,19 +40,19 @@ const tempObject = {
       ],
       categoryOrderHints: {},
       slug: {
-        'en-US': 'haworthia',
+        'en-US': 'aloe-vera',
       },
       metaTitle: {
-        'en-US': 'Haworthia',
+        'en-US': 'Aloe Vera',
       },
       metaDescription: {
         'en-US':
-          'A small, striking succulent with thick, spiky leaves arranged in a rosette shape. Haworthia thrives in bright, indirect light and requires infrequent watering. It is an excellent choice for desks or small shelves due to its compact size. The plant stores water efficiently, making it drought-resistant and easy to care for.',
+          "An easy-care succulent with thick, fleshy leaves containing a soothing gel. Aloe prefers bright, direct sunlight and needs minimal watering. The plant stores moisture in its leaves, making it highly drought-resistant. It's ideal for desks, windowsills, and plant arrangements. Known for its medicinal properties, Aloe is a must-have for skincare enthusiasts.",
       },
       masterVariant: {
         id: 1,
-        sku: 'haworthia001',
-        key: 'haworthia_variant001',
+        sku: 'aloe_vera001',
+        key: 'aloe_vera_variant001',
         prices: [],
         images: [],
         attributes: [
@@ -62,14 +62,14 @@ const tempObject = {
               {
                 type: 'centPrecision',
                 currencyCode: 'BYN',
-                centAmount: 5000,
+                centAmount: 4500,
                 fractionDigits: 2,
               },
             ],
           },
           {
             name: 'availability_type',
-            value: false,
+            value: true,
           },
           {
             name: 'soil_type_required_type',
@@ -77,7 +77,7 @@ const tempObject = {
           },
           {
             name: 'temperature_preference_type',
-            value: 20,
+            value: 22,
           },
           {
             name: 'climate_zone_type',
@@ -85,11 +85,11 @@ const tempObject = {
           },
           {
             name: 'light_requirements_type',
-            value: 'bright indirect light',
+            value: 'bright direct light',
           },
           {
             name: 'height_type',
-            value: 15,
+            value: 50,
           },
           {
             name: 'watering',
@@ -104,11 +104,11 @@ const tempObject = {
     },
     staged: {
       name: {
-        'en-US': 'Haworthia',
+        'en-US': 'Aloe Vera',
       },
       description: {
         'en-US':
-          'A small, striking succulent with thick, spiky leaves arranged in a rosette shape. Haworthia thrives in bright, indirect light and requires infrequent watering. It is an excellent choice for desks or small shelves due to its compact size. The plant stores water efficiently, making it drought-resistant and easy to care for.',
+          "An easy-care succulent with thick, fleshy leaves containing a soothing gel. Aloe prefers bright, direct sunlight and needs minimal watering. The plant stores moisture in its leaves, making it highly drought-resistant. It's ideal for desks, windowsills, and plant arrangements. Known for its medicinal properties, Aloe is a must-have for skincare enthusiasts.",
       },
       categories: [
         {
@@ -118,54 +118,47 @@ const tempObject = {
       ],
       categoryOrderHints: {},
       slug: {
-        'en-US': 'haworthia',
+        'en-US': 'aloe-vera',
       },
       metaTitle: {
-        'en-US': 'Haworthia',
+        'en-US': 'Aloe Vera',
       },
       metaDescription: {
         'en-US':
-          'A small, striking succulent with thick, spiky leaves arranged in a rosette shape. Haworthia thrives in bright, indirect light and requires infrequent watering. It is an excellent choice for desks or small shelves due to its compact size. The plant stores water efficiently, making it drought-resistant and easy to care for.',
+          "An easy-care succulent with thick, fleshy leaves containing a soothing gel. Aloe prefers bright, direct sunlight and needs minimal watering. The plant stores moisture in its leaves, making it highly drought-resistant. It's ideal for desks, windowsills, and plant arrangements. Known for its medicinal properties, Aloe is a must-have for skincare enthusiasts.",
       },
       masterVariant: {
         id: 1,
-        sku: 'haworthia001',
-        key: 'haworthia_variant001',
+        sku: 'aloe_vera001',
+        key: 'aloe_vera_variant001',
         prices: [],
         images: [
           {
-            url: 'https://images.cdn.europe-west1.gcp.commercetools.com/0c297542-800b-4d9c-9ed2-ceca44c49af4/pngtree-fasciated-ha-kFVNjWxH.png',
+            url: 'https://www.livelyroot.com/cdn/shop/products/Aloe_Grower_4.jpg?v=1662480617&width=730',
             dimensions: {
-              w: 360,
-              h: 360,
+              w: 730,
+              h: 913,
             },
           },
           {
-            url: 'https://images.cdn.europe-west1.gcp.commercetools.com/0c297542-800b-4d9c-9ed2-ceca44c49af4/png-clipart-succulen-nWDtqd0R.png',
+            url: 'https://www.livelyroot.com/cdn/shop/products/pl_Aloevera_6IN_po_grower-detail-2.jpg?v=1634493936&width=730',
             dimensions: {
-              w: 500,
-              h: 500,
+              w: 730,
+              h: 913,
             },
           },
           {
-            url: 'https://images.cdn.europe-west1.gcp.commercetools.com/0c297542-800b-4d9c-9ed2-ceca44c49af4/pngtree-small-potted-qb-j88IX.png',
+            url: 'https://www.livelyroot.com/cdn/shop/products/pl_Aloevera_6IN_po_grower-detail-1.jpg?v=1634493936&width=730',
             dimensions: {
-              w: 360,
-              h: 360,
+              w: 730,
+              h: 913,
             },
           },
           {
-            url: 'https://images.cdn.europe-west1.gcp.commercetools.com/0c297542-800b-4d9c-9ed2-ceca44c49af4/pngtree-succulent-pl-UgPQwvqK.png',
+            url: 'https://www.livelyroot.com/cdn/shop/products/pl_aloevera_2IN_po_grower_detail-2.jpg?v=1662480617&width=730',
             dimensions: {
-              w: 360,
-              h: 360,
-            },
-          },
-          {
-            url: 'https://images.cdn.europe-west1.gcp.commercetools.com/0c297542-800b-4d9c-9ed2-ceca44c49af4/png-clipart-teal-and-II3qclAj.png',
-            dimensions: {
-              w: 558,
-              h: 447,
+              w: 730,
+              h: 913,
             },
           },
         ],
@@ -176,14 +169,14 @@ const tempObject = {
               {
                 type: 'centPrecision',
                 currencyCode: 'BYN',
-                centAmount: 5000,
+                centAmount: 4500,
                 fractionDigits: 2,
               },
             ],
           },
           {
             name: 'availability_type',
-            value: false,
+            value: true,
           },
           {
             name: 'soil_type_required_type',
@@ -191,7 +184,7 @@ const tempObject = {
           },
           {
             name: 'temperature_preference_type',
-            value: 20,
+            value: 22,
           },
           {
             name: 'climate_zone_type',
@@ -199,11 +192,11 @@ const tempObject = {
           },
           {
             name: 'light_requirements_type',
-            value: 'bright indirect light',
+            value: 'bright direct light',
           },
           {
             name: 'height_type',
-            value: 15,
+            value: 50,
           },
           {
             name: 'watering',
@@ -219,7 +212,7 @@ const tempObject = {
     published: true,
     hasStagedChanges: true,
   },
-  key: 'haworthia',
+  key: 'aloe_vera',
   taxCategory: {
     typeId: 'tax-category',
     id: 'ab69ff73-937b-4b98-ab32-f231a922cdea',

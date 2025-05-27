@@ -104,9 +104,13 @@ const Slider = ({ images }: SliderProps) => {
                   alt={`Slide ${(index + 1).toString()}`}
                   src={image}
                   style={{
-                    width: '100%',
-                    height: '100%',
+                    width: '80%',
+                    height: '80%',
                     objectFit: 'contain',
+                    borderRadius: '10px',
+                    marginBottom: '30px',
+                    display: 'block',
+                    margin: '30px auto',
                   }}
                 />
               </SwiperSlide>

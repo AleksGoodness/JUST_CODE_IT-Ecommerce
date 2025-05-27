@@ -10,19 +10,27 @@ import Purchase from '../../components/purchase/Purchase';
 import Slider from '../../components/slider/slider';
 import { createClientWithToken } from '../../ecommerce/clientBuilder';
 import CONSTANTS from '../../utils/CONSTANTS';
+import clearDiscountObject from './clearDiscountObject';
 import clearObject from './clearObject';
+import discountObject from './dicountObject';
 import tempObject from './tempObjext';
+import { findDiscount, formatPrice } from './utilsDetails';
 const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY;
 
 const Details = () => {
   const { category, plantName, plantId } = useParams();
   const navigate = useNavigate();
   const myProduct = clearObject(tempObject);
-  console.log(myProduct);
+  const myDiscount = clearDiscountObject(discountObject);
+  const discountPrice = findDiscount(myProduct.cost, myDiscount.value);
+  const currency = myProduct.currency;
+  const formattedDiscountPrice = formatPrice(currency, discountPrice);
+  const discount = myDiscount.names?.includes(myProduct.sku)
+    ? formattedDiscountPrice + '  Special Offer'
+    : '';
   const slides = myProduct.images;
   const imagesUrl = slides.map(slide => slide.url);
   const mainImage = imagesUrl[0];
-  const sliderImages = imagesUrl.filter(image => image !== mainImage);
   useEffect(() => {
     if (!category && !plantId && !plantName) {
       navigate(CONSTANTS.shop);
@@ -56,19 +64,12 @@ const Details = () => {
       <Grid
         container
         direction="row"
-        spacing={6}
+        spacing={4}
         sx={{
           marginTop: '30px',
-          maxWidth: '1200px',
-          width: '100%',
         }}
       >
-        <Grid
-          container
-          direction="column"
-          spacing={2}
-          sx={{ maxWidth: '500px', width: '100%' }}
-        >
+        <Grid sx={{ maxWidth: '520px', width: '100%' }}>
           <Box
             sx={{
               backgroundImage: `url(${mainImage})`,
@@ -81,27 +82,47 @@ const Details = () => {
               backgroundColor: '#f0f0f0',
             }}
           />
-          <Slider images={sliderImages} />
         </Grid>
-        <Grid sx={{ maxWidth: '500px', width: '100%' }}>
+        <Grid sx={{ maxWidth: '520px', width: '100%' }}>
           <Typography
             component={'h1'}
-            sx={{ lineHeight: '1' }}
+            sx={{
+              lineHeight: '1',
+              marginBottom: '10px',
+            }}
             variant="sectionTitle"
           >
             {myProduct.name}
           </Typography>
-          <Typography
-            sx={{
-              marginTop: '5px',
-              fontSize: '1.2rem',
-              fontWeight: '700',
-              lineHeight: '1',
-              color: '#46A358',
-            }}
-          >
-            {myProduct.price}
-          </Typography>
+          <Box sx={{ display: 'flex', gap: '20px' }}>
+            <Typography
+              sx={{
+                marginTop: '5px',
+                fontSize: '1.2rem',
+                fontWeight: '700',
+                lineHeight: '1',
+                textDecoration: myDiscount.names?.includes(myProduct.sku)
+                  ? 'line-through'
+                  : 'none',
+                textDecorationColor: 'black',
+                textDecorationThickness: '2px',
+                color: '#46A358',
+              }}
+            >
+              {myProduct.price}
+            </Typography>
+            <Typography
+              sx={{
+                marginTop: '5px',
+                fontSize: '1.2rem',
+                fontWeight: '700',
+                lineHeight: '1',
+                color: 'red',
+              }}
+            >
+              {discount}
+            </Typography>
+          </Box>
           <Typography
             sx={{
               marginTop: '10px',
@@ -114,7 +135,7 @@ const Details = () => {
           </Typography>
           <Typography
             sx={{
-              fontSize: '1.1rem',
+              fontSize: '1rem',
               fontWeight: '400',
               marginBottom: '30px',
               textWrap: 'wrap',
@@ -125,6 +146,10 @@ const Details = () => {
           </Typography>
           <Purchase purchases={0} />
         </Grid>
+        <Grid sx={{ maxWidth: '520px', width: '100%' }}>
+          <Slider images={imagesUrl} />
+        </Grid>
+        <Grid sx={{ maxWidth: '520px', width: '100%' }} />
       </Grid>
     </Container>
   );
