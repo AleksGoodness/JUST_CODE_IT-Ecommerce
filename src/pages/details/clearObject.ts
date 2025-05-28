@@ -19,12 +19,6 @@ export interface TempObject {
 
 interface UserAction {
   isPlatformClient: boolean;
-  user: UserReference;
-}
-
-interface UserReference {
-  typeId: string;
-  id: string;
 }
 
 interface Reference {
@@ -75,9 +69,9 @@ interface MoneyValue {
   fractionDigits: number;
 }
 
-interface Attribute {
+export interface Attribute {
   name: string;
-  value: string | number | boolean | MoneyValue | MoneyValue[];
+  value: string | number | MoneyValue | MoneyValue[];
 }
 
 interface Price {

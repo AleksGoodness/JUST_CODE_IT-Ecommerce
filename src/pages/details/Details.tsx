@@ -6,6 +6,7 @@ import { motion } from 'motion/react';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
+import AttributeBox from '../../components/attributeBox/AttributeBox';
 import Purchase from '../../components/purchase/Purchase';
 import Slider from '../../components/slider/slider';
 import { createClientWithToken } from '../../ecommerce/clientBuilder';
@@ -31,6 +32,7 @@ const Details = () => {
   const slides = myProduct.images;
   const imagesUrl = slides.map(slide => slide.url);
   const mainImage = imagesUrl[0];
+  const attributes = myProduct.attributes;
   useEffect(() => {
     if (!category && !plantId && !plantName) {
       navigate(CONSTANTS.shop);
@@ -149,7 +151,9 @@ const Details = () => {
         <Grid sx={{ maxWidth: '520px', width: '100%' }}>
           <Slider images={imagesUrl} />
         </Grid>
-        <Grid sx={{ maxWidth: '520px', width: '100%' }} />
+        <Grid sx={{ maxWidth: '520px', width: '100%' }}>
+          <AttributeBox attributes={attributes} />
+        </Grid>
       </Grid>
     </Container>
   );

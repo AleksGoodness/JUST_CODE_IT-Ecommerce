@@ -1,16 +1,12 @@
 const tempObject = {
   id: 'ce711797-0bb1-4603-901b-5673a48dc97b',
-  version: 12,
-  versionModifiedAt: '2025-05-26T15:44:24.459Z',
+  version: 14,
+  versionModifiedAt: '2025-05-27T20:50:26.570Z',
   lastMessageSequenceNumber: 7,
   createdAt: '2025-05-22T23:37:21.803Z',
-  lastModifiedAt: '2025-05-26T15:44:24.459Z',
+  lastModifiedAt: '2025-05-27T20:50:26.570Z',
   lastModifiedBy: {
     isPlatformClient: true,
-    user: {
-      typeId: 'user',
-      id: '5fe6cb71-7d99-468c-8711-194d73a39857',
-    },
   },
   createdBy: {
     isPlatformClient: true,
@@ -66,10 +62,6 @@ const tempObject = {
                 fractionDigits: 2,
               },
             ],
-          },
-          {
-            name: 'availability_type',
-            value: true,
           },
           {
             name: 'soil_type_required_type',
@@ -173,10 +165,6 @@ const tempObject = {
                 fractionDigits: 2,
               },
             ],
-          },
-          {
-            name: 'availability_type',
-            value: true,
           },
           {
             name: 'soil_type_required_type',

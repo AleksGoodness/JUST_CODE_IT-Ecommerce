@@ -32,7 +32,7 @@ const Slider = ({ images }: SliderProps) => {
         pagination={{ clickable: true }}
         slidesPerView={3}
         spaceBetween={10}
-        style={{ maxWidth: '700px', width: '100%' }}
+        style={{ maxWidth: '700px', width: '100%', marginTop: '-20px' }}
       >
         {images.map((image, index) => (
           <SwiperSlide key={index}>
