@@ -3,13 +3,13 @@ import { motion } from 'motion/react';
 
 import { Loading } from '../../components';
 import Title from '../../components/title/Title';
-import { useAppSelector } from '../../redux/hooks';
-import { getCustomer } from '../../redux/selectors';
+import { useGetProfileWithTokenQuery } from '../../services/api';
 import AuthLayout from './AuthLayout';
 import GuestLayout from './GuestLayout';
 
 const Profile = () => {
-  const { customer, isLoading } = useAppSelector(getCustomer);
+  // const { customer } = useAppSelector(getCustomer);
+  const { isLoading, data } = useGetProfileWithTokenQuery({});
 
   return (
     <Box
@@ -21,7 +21,7 @@ const Profile = () => {
       <Title variant="main">Profile</Title>
       <>
         {isLoading ? <Loading /> : null}
-        {!customer ? <GuestLayout /> : <AuthLayout customer={customer} />}
+        {!data ? <GuestLayout /> : <AuthLayout customer={data} />}
       </>
     </Box>
   );

@@ -1,9 +1,10 @@
 import {
   ClientBuilder,
+  type HttpMiddlewareOptions,
   TokenCache,
   TokenStore,
-  type HttpMiddlewareOptions,
 } from '@commercetools/ts-client';
+
 import { customerScopes } from './scopes';
 
 const clientId = import.meta.env.VITE_CTP_CLIENT_ID;

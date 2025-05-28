@@ -23,6 +23,17 @@ export interface ICustomerDetails {
   authenticationMode: string;
 }
 
+export interface CustomerUpdateData {
+  version: number;
+  actions: {
+    action: string;
+    address?: Address;
+    firstName?: string;
+    lastName?: string;
+    dateOfBirth?: string;
+  }[];
+}
+
 export interface LastModifiedBy {
   clientId: string;
   isPlatformClient: boolean;
@@ -34,7 +45,7 @@ export interface CreatedBy {
 }
 
 export interface Address {
-  id: string;
+  id?: string;
   streetName: string;
   postalCode: string;
   city: string;

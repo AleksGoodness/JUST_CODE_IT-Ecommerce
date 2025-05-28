@@ -9,6 +9,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 import Title from '../../components/title/Title';
 import { ICustomerDetails } from '../../interfaces';
+import { useUpdateProfileMutation } from '../../services/api';
 import Addresses from './Addresses';
 import validatingSchema from './validating_schema';
 
@@ -23,6 +24,8 @@ interface IInputProps {
 }
 
 const AuthLayout = ({ customer }: IProps) => {
+  const [updateProfile, { isLoading }] = useUpdateProfileMutation({});
+
   const {
     register,
     control,
@@ -43,9 +46,25 @@ const AuthLayout = ({ customer }: IProps) => {
   const [isEditMode, setIsEditMode] = useState(false);
 
   const formSubmitHandler: SubmitHandler<IInputProps> = (data: IInputProps) => {
-    console.log(data);
+    updateProfile({
+      version: customer.version,
+      actions: [
+        {
+          action: 'setFirstName',
+          firstName: data.firstName,
+        },
+        {
+          action: 'setLastName',
+          lastName: data.lastName,
+        },
+        {
+          action: 'setDateOfBirth',
+          dateOfBirth: data.dateOfBirth.toISOString().split('T')[0],
+        },
+      ],
+    });
   };
-
+  console.log(isLoading);
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Chip
