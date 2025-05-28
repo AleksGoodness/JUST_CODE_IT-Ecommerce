@@ -36,7 +36,7 @@ const AttributeBox = ({ attributes }: { attributes: Attribute[] }) => {
     'soil type',
     'optimal temperature °C',
     ' native climate',
-    'lighting needs',
+    'light',
     'average height (cm)',
     'watering frequency',
   ];
@@ -63,6 +63,13 @@ const AttributeBox = ({ attributes }: { attributes: Attribute[] }) => {
         padding: '10px 15px',
         border: '4px solid #46A358',
         borderRadius: '8px',
+        '@media (max-width: 900px)': {
+          justifyContent: 'center',
+          maxWidth: '500px',
+          widtn: '100%',
+          margin: '0 auto',
+          marginBottom: '15px',
+        },
       }}
     >
       {updatedAttributes.map(item => (
@@ -76,10 +83,20 @@ const AttributeBox = ({ attributes }: { attributes: Attribute[] }) => {
             alignItems: 'center',
           }}
         >
-          <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              gap: '8px',
+              alignItems: 'center',
+            }}
+          >
             <span>
               <item.icon
-                sx={{ fontSize: '1.4rem', marginTop: '5px', color: '#46A358' }}
+                sx={{
+                  fontSize: '1.4rem',
+                  marginTop: '5px',
+                  color: '#46A358',
+                }}
               />
             </span>
             <Typography

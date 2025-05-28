@@ -71,7 +71,7 @@ const Details = () => {
           marginTop: '30px',
         }}
       >
-        <Grid sx={{ maxWidth: '520px', width: '100%' }}>
+        <Grid size={{ md: 6, sm: 12, xs: 12 }}>
           <Box
             sx={{
               backgroundImage: `url(${mainImage})`,
@@ -85,7 +85,7 @@ const Details = () => {
             }}
           />
         </Grid>
-        <Grid sx={{ maxWidth: '520px', width: '100%' }}>
+        <Grid size={{ md: 6, sm: 12, xs: 12 }}>
           <Typography
             component={'h1'}
             sx={{
@@ -148,10 +148,18 @@ const Details = () => {
           </Typography>
           <Purchase purchases={0} />
         </Grid>
-        <Grid sx={{ maxWidth: '520px', width: '100%' }}>
+        <Grid
+          size={{ md: 6, sm: 12, xs: 12 }}
+          sx={{
+            '@media (max-width: 900px)': {
+              display: 'flex',
+              justifyContent: 'center',
+            },
+          }}
+        >
           <Slider images={imagesUrl} />
         </Grid>
-        <Grid sx={{ maxWidth: '520px', width: '100%' }}>
+        <Grid size={{ md: 6, sm: 12, xs: 12 }}>
           <AttributeBox attributes={attributes} />
         </Grid>
       </Grid>

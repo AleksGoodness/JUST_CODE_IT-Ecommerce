@@ -32,7 +32,7 @@ const Slider = ({ images }: SliderProps) => {
         pagination={{ clickable: true }}
         slidesPerView={3}
         spaceBetween={10}
-        style={{ maxWidth: '700px', width: '100%', marginTop: '-20px' }}
+        style={{ maxWidth: '700px', width: '100%' }}
       >
         {images.map((image, index) => (
           <SwiperSlide key={index}>
@@ -49,11 +49,10 @@ const Slider = ({ images }: SliderProps) => {
               style={{
                 width: '100%',
                 maxWidth: '250px',
-                height: '250px',
+                height: '100%',
                 borderRadius: '15px',
                 cursor: 'pointer',
                 objectFit: 'contain',
-                backgroundColor: 'transparent',
               }}
             />
           </SwiperSlide>
@@ -79,7 +78,6 @@ const Slider = ({ images }: SliderProps) => {
             justifyContent: 'center',
           }}
         >
-          {/* Кнопка закрытия */}
           <CloseIcon
             onClick={handleCloseModal}
             sx={{

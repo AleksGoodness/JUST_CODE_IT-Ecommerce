@@ -1,10 +1,10 @@
 const tempObject = {
-  id: 'ce711797-0bb1-4603-901b-5673a48dc97b',
-  version: 14,
-  versionModifiedAt: '2025-05-27T20:50:26.570Z',
-  lastMessageSequenceNumber: 7,
-  createdAt: '2025-05-22T23:37:21.803Z',
-  lastModifiedAt: '2025-05-27T20:50:26.570Z',
+  id: '8f888246-f188-4572-b7a5-748dc9f04ba2',
+  version: 15,
+  versionModifiedAt: '2025-05-27T20:50:26.597Z',
+  lastMessageSequenceNumber: 8,
+  createdAt: '2025-05-23T00:39:13.813Z',
+  lastModifiedAt: '2025-05-27T20:50:26.597Z',
   lastModifiedBy: {
     isPlatformClient: true,
   },
@@ -22,33 +22,33 @@ const tempObject = {
   masterData: {
     current: {
       name: {
-        'en-US': 'Aloe Vera',
+        'en-US': 'Japanese Maple',
       },
       description: {
         'en-US':
-          "An easy-care succulent with thick, fleshy leaves containing a soothing gel. Aloe prefers bright, direct sunlight and needs minimal watering. The plant stores moisture in its leaves, making it highly drought-resistant. It's ideal for desks, windowsills, and plant arrangements. Known for its medicinal properties, Aloe is a must-have for skincare enthusiasts.",
+          'A stunning bonsai with colorful leaves that change throughout the seasons. These trees prefer medium indirect light and require high humidity. They need consistent moisture to thrive. Their vibrant foliage creates a striking visual display. Japanese Maples are sought after for their ornamental beauty.',
       },
       categories: [
         {
           typeId: 'category',
-          id: 'fef70e14-0c1f-4a51-8f6b-c61b10eca4b3',
+          id: '885e8c9e-cb08-4a4e-bfe3-90dfd512d851',
         },
       ],
       categoryOrderHints: {},
       slug: {
-        'en-US': 'aloe-vera',
+        'en-US': 'japanese-maple',
       },
       metaTitle: {
-        'en-US': 'Aloe Vera',
+        'en-US': 'Japanese Maple',
       },
       metaDescription: {
         'en-US':
-          "An easy-care succulent with thick, fleshy leaves containing a soothing gel. Aloe prefers bright, direct sunlight and needs minimal watering. The plant stores moisture in its leaves, making it highly drought-resistant. It's ideal for desks, windowsills, and plant arrangements. Known for its medicinal properties, Aloe is a must-have for skincare enthusiasts.",
+          'A stunning bonsai with colorful leaves that change throughout the seasons. These trees prefer medium indirect light and require high humidity. They need consistent moisture to thrive. Their vibrant foliage creates a striking visual display. Japanese Maples are sought after for their ornamental beauty.',
       },
       masterVariant: {
         id: 1,
-        sku: 'aloe_vera001',
-        key: 'aloe_vera_variant001',
+        sku: 'japanese_maple001',
+        key: 'japanese_maple_variant001',
         prices: [],
         images: [],
         attributes: [
@@ -58,34 +58,34 @@ const tempObject = {
               {
                 type: 'centPrecision',
                 currencyCode: 'BYN',
-                centAmount: 4500,
+                centAmount: 17500,
                 fractionDigits: 2,
               },
             ],
           },
           {
             name: 'soil_type_required_type',
-            value: 'sandy',
+            value: 'moist',
           },
           {
             name: 'temperature_preference_type',
-            value: 22,
+            value: 20,
           },
           {
             name: 'climate_zone_type',
-            value: 'arid',
+            value: 'temperate',
           },
           {
             name: 'light_requirements_type',
-            value: 'bright direct light',
+            value: 'medium indirect light',
           },
           {
             name: 'height_type',
-            value: 50,
+            value: 60,
           },
           {
             name: 'watering',
-            value: 'low',
+            value: 'high',
           },
         ],
         assets: [],
@@ -96,61 +96,68 @@ const tempObject = {
     },
     staged: {
       name: {
-        'en-US': 'Aloe Vera',
+        'en-US': 'Japanese Maple',
       },
       description: {
         'en-US':
-          "An easy-care succulent with thick, fleshy leaves containing a soothing gel. Aloe prefers bright, direct sunlight and needs minimal watering. The plant stores moisture in its leaves, making it highly drought-resistant. It's ideal for desks, windowsills, and plant arrangements. Known for its medicinal properties, Aloe is a must-have for skincare enthusiasts.",
+          'A stunning bonsai with colorful leaves that change throughout the seasons. These trees prefer medium indirect light and require high humidity. They need consistent moisture to thrive. Their vibrant foliage creates a striking visual display. Japanese Maples are sought after for their ornamental beauty.',
       },
       categories: [
         {
           typeId: 'category',
-          id: 'fef70e14-0c1f-4a51-8f6b-c61b10eca4b3',
+          id: '885e8c9e-cb08-4a4e-bfe3-90dfd512d851',
         },
       ],
       categoryOrderHints: {},
       slug: {
-        'en-US': 'aloe-vera',
+        'en-US': 'japanese-maple',
       },
       metaTitle: {
-        'en-US': 'Aloe Vera',
+        'en-US': 'Japanese Maple',
       },
       metaDescription: {
         'en-US':
-          "An easy-care succulent with thick, fleshy leaves containing a soothing gel. Aloe prefers bright, direct sunlight and needs minimal watering. The plant stores moisture in its leaves, making it highly drought-resistant. It's ideal for desks, windowsills, and plant arrangements. Known for its medicinal properties, Aloe is a must-have for skincare enthusiasts.",
+          'A stunning bonsai with colorful leaves that change throughout the seasons. These trees prefer medium indirect light and require high humidity. They need consistent moisture to thrive. Their vibrant foliage creates a striking visual display. Japanese Maples are sought after for their ornamental beauty.',
       },
       masterVariant: {
         id: 1,
-        sku: 'aloe_vera001',
-        key: 'aloe_vera_variant001',
+        sku: 'japanese_maple001',
+        key: 'japanese_maple_variant001',
         prices: [],
         images: [
           {
-            url: 'https://www.livelyroot.com/cdn/shop/products/Aloe_Grower_4.jpg?v=1662480617&width=730',
+            url: 'https://www.livelyroot.com/cdn/shop/products/pl_AraliaSieboldiiFatsiaJaponica_6IN_po_grower.jpg?v=1672166963&width=730',
+            dimensions: {
+              w: 730,
+              h: 912,
+            },
+          },
+          {
+            url: 'https://www.livelyroot.com/cdn/shop/products/pl_JapaneseAralia_10IN_po_grower_detail-3.jpg?v=1637022130&width=730',
             dimensions: {
               w: 730,
               h: 913,
             },
           },
           {
-            url: 'https://www.livelyroot.com/cdn/shop/products/pl_Aloevera_6IN_po_grower-detail-2.jpg?v=1634493936&width=730',
+            url: 'https://www.livelyroot.com/cdn/shop/products/pl_JapaneseAralia_10IN_po_grower_detail-2.jpg?v=1672166963&width=730',
             dimensions: {
               w: 730,
               h: 913,
             },
           },
           {
-            url: 'https://www.livelyroot.com/cdn/shop/products/pl_Aloevera_6IN_po_grower-detail-1.jpg?v=1634493936&width=730',
+            url: 'https://www.livelyroot.com/cdn/shop/products/pl_AraliaSieboldiiFatsiaJaponica_6IN_po_grower_detail-1.jpg?v=1672166963&width=730',
             dimensions: {
               w: 730,
               h: 913,
             },
           },
           {
-            url: 'https://www.livelyroot.com/cdn/shop/products/pl_aloevera_2IN_po_grower_detail-2.jpg?v=1662480617&width=730',
+            url: 'https://www.livelyroot.com/cdn/shop/products/pl_AraliaSieboldiiFatsiaJaponica_6IN_po_grower_detail-2.jpg?v=1672166963&width=730',
             dimensions: {
               w: 730,
-              h: 913,
+              h: 912,
             },
           },
         ],
@@ -161,34 +168,34 @@ const tempObject = {
               {
                 type: 'centPrecision',
                 currencyCode: 'BYN',
-                centAmount: 4500,
+                centAmount: 17500,
                 fractionDigits: 2,
               },
             ],
           },
           {
             name: 'soil_type_required_type',
-            value: 'sandy',
+            value: 'moist',
           },
           {
             name: 'temperature_preference_type',
-            value: 22,
+            value: 20,
           },
           {
             name: 'climate_zone_type',
-            value: 'arid',
+            value: 'temperate',
           },
           {
             name: 'light_requirements_type',
-            value: 'bright direct light',
+            value: 'medium indirect light',
           },
           {
             name: 'height_type',
-            value: 50,
+            value: 60,
           },
           {
             name: 'watering',
-            value: 'low',
+            value: 'high',
           },
         ],
         assets: [],
@@ -200,7 +207,7 @@ const tempObject = {
     published: true,
     hasStagedChanges: true,
   },
-  key: 'aloe_vera',
+  key: 'japanese_maple',
   taxCategory: {
     typeId: 'tax-category',
     id: 'ab69ff73-937b-4b98-ab32-f231a922cdea',

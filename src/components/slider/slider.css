@@ -19,10 +19,28 @@
 .swiper-wrapper{
   max-width: 600px;
   width: 100%;
-  margin-bottom: 25px;
+  margin-bottom: 45px;
 }
 
-.swiper{
-  margin: 0;
+
+@media (max-width: 900px) {
+  .swiper-pagination-bullet {
+    transform: scale(0.8);
+  }
+  .swiper-wrapper{
+    margin-bottom: 70px;
+  }
+}
+
+@media (max-width: 600px) {
+  .swiper-wrapper {
+    margin-bottom: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-swiper .swiper-wrapper{
+    margin-bottom: 15px;
+  }
 }
 

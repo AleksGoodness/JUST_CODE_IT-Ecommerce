@@ -24,7 +24,15 @@ const Purchase = ({ purchases }: ListShop) => {
   const [activeButton, setActiveButton] = useState<'first' | 'second'>('first');
 
   return (
-    <>
+    <Box
+      sx={{
+        '@media (max-width: 900px)': {
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        },
+      }}
+    >
       <Box
         sx={{
           display: 'flex',
@@ -67,6 +75,14 @@ const Purchase = ({ purchases }: ListShop) => {
           maxWidth: '350px',
           width: '100%',
           gap: '20px',
+          '@media (max-width: 900px)': {
+            justifyContent: 'center',
+            marginBottom: '15px',
+          },
+          '@media (max-width: 480px)': {
+            justifyContent: 'center',
+            marginBottom: '0',
+          },
         }}
       >
         <Button
@@ -86,7 +102,7 @@ const Purchase = ({ purchases }: ListShop) => {
           ADD TO CART
         </Button>
       </Box>
-    </>
+    </Box>
   );
 };
 
