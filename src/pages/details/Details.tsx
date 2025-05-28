@@ -17,6 +17,9 @@ import discountObject from './dicountObject';
 import tempObject from './tempObjext';
 import { findDiscount, formatPrice } from './utilsDetails';
 const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY;
+import { tempObject } from './tempObjext';
+
+const projectKey = import.meta.env.VITE_CTP_PROJECT_KEY as string;
 
 const Details = () => {
   const { category, plantName, plantId } = useParams();

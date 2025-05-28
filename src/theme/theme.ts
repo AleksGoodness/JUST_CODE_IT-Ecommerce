@@ -17,13 +17,6 @@ const commonComponents: Components<Theme> = {
         }),
       },
       {
-        props: { variant: 'secondTitle' },
-        style: ({ theme }) => ({
-          color: theme.palette.action.active,
-          background: theme.palette.action.active,
-        }),
-      },
-      {
         props: { variant: 'sectionTitle' },
         style: {
           lineHeight: 1,
@@ -63,7 +56,7 @@ const commonComponents: Components<Theme> = {
     variants: [
       {
         props: { variant: 'pagination' },
-        style: ({ theme }) => ({
+        style: () => ({
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -74,11 +67,7 @@ const commonComponents: Components<Theme> = {
           color: '#3d3d3d',
           padding: 0,
           minWidth: 0,
-          '&:hover': {
-            backgroundColor: theme.palette.action.active,
-            color: theme.palette.common.white,
-            borderColor: theme.palette.action.active,
-          },
+          '&:hover': {},
         }),
       },
     ],
@@ -142,18 +131,17 @@ export const lightTheme = createTheme({
       main: '#46A358',
       contrastText: '#FFFFFF',
     },
+    secondary: {
+      main: '#ffffff',
+      contrastText: '#46A358',
+    },
     text: {
       primary: '#3D3D3D',
       secondary: '#727272',
-      disabled: '#B3B3B3',
     },
     background: {
       default: '#FFFFFF',
       paper: '#FBFBFB',
-    },
-    action: {
-      active: '#46A358',
-      hover: 'rgba(70, 163, 88, 0.04)',
     },
   },
 });
@@ -165,21 +153,20 @@ export const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#6AC178',
-      contrastText: '#121212',
+      main: '#46A358',
+      contrastText: '#FFFFFF',
+    },
+    secondary: {
+      main: '#ffffff',
+      contrastText: '#727272',
     },
     text: {
-      primary: '#E0E0E0',
-      secondary: '#A0A0A0',
-      disabled: '#6D6D6D',
+      primary: '#ffffff',
+      secondary: '#D1D5DE',
     },
     background: {
-      default: '#121212',
+      default: '#1E1E1E',
       paper: '#1E1E1E',
-    },
-    action: {
-      active: '#6AC178',
-      hover: 'rgba(106, 193, 120, 0.08)',
     },
   },
 });

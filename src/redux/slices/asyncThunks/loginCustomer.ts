@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY;
+const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY as string;
 
 import { loginCustomerClient } from '../../../ecommerce/clientBuilder';
-import { ICustomer } from '../../interfaces';
+import { ICustomerDetails } from '../../../interfaces';
 
 export interface ILoginCredentials {
   email: string;
@@ -10,7 +10,7 @@ export interface ILoginCredentials {
 }
 
 export interface ILoginResponse {
-  body?: ICustomer;
+  body?: ICustomerDetails;
 }
 
 const loginCustomer = createAsyncThunk(

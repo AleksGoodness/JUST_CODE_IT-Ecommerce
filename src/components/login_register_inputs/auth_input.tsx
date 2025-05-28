@@ -46,6 +46,7 @@ const AuthInput = ({ name, label }: AuthInputProps) => {
                 }
               : undefined
           }
+          // sx={{ width: '100%' }}
           type={name === 'password' && !showPassword ? 'password' : 'text'}
           variant="outlined"
         />
