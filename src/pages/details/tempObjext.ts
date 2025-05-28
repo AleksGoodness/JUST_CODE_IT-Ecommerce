@@ -1,16 +1,12 @@
-export const tempObject = {
-  id: 'd6c49fd9-1058-4e50-9040-7cfa9bac5635',
-  version: 17,
-  versionModifiedAt: '2025-05-23T10:26:47.792Z',
-  lastMessageSequenceNumber: 11,
-  createdAt: '2025-05-22T22:56:07.597Z',
-  lastModifiedAt: '2025-05-23T10:26:47.792Z',
+const tempObject = {
+  id: '8f888246-f188-4572-b7a5-748dc9f04ba2',
+  version: 15,
+  versionModifiedAt: '2025-05-27T20:50:26.597Z',
+  lastMessageSequenceNumber: 8,
+  createdAt: '2025-05-23T00:39:13.813Z',
+  lastModifiedAt: '2025-05-27T20:50:26.597Z',
   lastModifiedBy: {
     isPlatformClient: true,
-    user: {
-      typeId: 'user',
-      id: '5fe6cb71-7d99-468c-8711-194d73a39857',
-    },
   },
   createdBy: {
     isPlatformClient: true,
@@ -26,28 +22,33 @@ export const tempObject = {
   masterData: {
     current: {
       name: {
-        'en-US': 'Fiddle Leaf Fig',
+        'en-US': 'Japanese Maple',
       },
       description: {
         'en-US':
-          'Known for its large, dramatic leaves, the Fiddle Leaf Fig is a favorite in modern interior design. It requires bright, indirect light and moderate watering. This plant is sensitive to environmental changes, so stable humidity and temperature help it thrive. It grows vertically, making it great for filling empty corners. Proper care results in a stunning statement plant that enhances any room.',
+          'A stunning bonsai with colorful leaves that change throughout the seasons. These trees prefer medium indirect light and require high humidity. They need consistent moisture to thrive. Their vibrant foliage creates a striking visual display. Japanese Maples are sought after for their ornamental beauty.',
       },
-      categories: [],
+      categories: [
+        {
+          typeId: 'category',
+          id: '885e8c9e-cb08-4a4e-bfe3-90dfd512d851',
+        },
+      ],
       categoryOrderHints: {},
       slug: {
-        'en-US': 'fiddle-leaf-fig',
+        'en-US': 'japanese-maple',
       },
       metaTitle: {
-        'en-US': 'Fiddle Leaf Fig',
+        'en-US': 'Japanese Maple',
       },
       metaDescription: {
         'en-US':
-          'Known for its large, dramatic leaves, the Fiddle Leaf Fig is a favorite in modern interior design. It requires bright, indirect light and moderate watering. This plant is sensitive to environmental changes, so stable humidity and temperature help it thrive. It grows vertically, making it great for filling empty corners. Proper care results in a stunning statement plant that enhances any room.',
+          'A stunning bonsai with colorful leaves that change throughout the seasons. These trees prefer medium indirect light and require high humidity. They need consistent moisture to thrive. Their vibrant foliage creates a striking visual display. Japanese Maples are sought after for their ornamental beauty.',
       },
       masterVariant: {
         id: 1,
-        sku: 'fiddle_leaf_fig001',
-        key: 'fiddle_leaf_fig_variant001',
+        sku: 'japanese_maple001',
+        key: 'japanese_maple_variant001',
         prices: [],
         images: [],
         attributes: [
@@ -57,38 +58,34 @@ export const tempObject = {
               {
                 type: 'centPrecision',
                 currencyCode: 'BYN',
-                centAmount: 15000,
+                centAmount: 17500,
                 fractionDigits: 2,
               },
             ],
           },
           {
-            name: 'availability_type',
-            value: true,
-          },
-          {
             name: 'soil_type_required_type',
-            value: 'loamy',
+            value: 'moist',
           },
           {
             name: 'temperature_preference_type',
-            value: 24,
+            value: 20,
           },
           {
             name: 'climate_zone_type',
-            value: 'tropical',
+            value: 'temperate',
           },
           {
             name: 'light_requirements_type',
-            value: 'bright indirect light',
+            value: 'medium indirect light',
           },
           {
             name: 'height_type',
-            value: 100,
+            value: 60,
           },
           {
             name: 'watering',
-            value: 'medium',
+            value: 'high',
           },
         ],
         assets: [],
@@ -99,69 +96,68 @@ export const tempObject = {
     },
     staged: {
       name: {
-        'en-US': 'Fiddle Leaf Fig',
+        'en-US': 'Japanese Maple',
       },
       description: {
         'en-US':
-          'Known for its large, dramatic leaves, the Fiddle Leaf Fig is a favorite in modern interior design. It requires bright, indirect light and moderate watering. This plant is sensitive to environmental changes, so stable humidity and temperature help it thrive. It grows vertically, making it great for filling empty corners. Proper care results in a stunning statement plant that enhances any room.',
+          'A stunning bonsai with colorful leaves that change throughout the seasons. These trees prefer medium indirect light and require high humidity. They need consistent moisture to thrive. Their vibrant foliage creates a striking visual display. Japanese Maples are sought after for their ornamental beauty.',
       },
       categories: [
         {
           typeId: 'category',
-          id: '2ea99341-59ef-48d9-a5a0-0ee903bb118f',
+          id: '885e8c9e-cb08-4a4e-bfe3-90dfd512d851',
         },
       ],
       categoryOrderHints: {},
       slug: {
-        'en-US': 'fiddle-leaf-fig',
+        'en-US': 'japanese-maple',
       },
       metaTitle: {
-        'en-US': 'Fiddle Leaf Fig',
+        'en-US': 'Japanese Maple',
       },
       metaDescription: {
         'en-US':
-          'Known for its large, dramatic leaves, the Fiddle Leaf Fig is a favorite in modern interior design. It requires bright, indirect light and moderate watering. This plant is sensitive to environmental changes, so stable humidity and temperature help it thrive. It grows vertically, making it great for filling empty corners. Proper care results in a stunning statement plant that enhances any room.',
+          'A stunning bonsai with colorful leaves that change throughout the seasons. These trees prefer medium indirect light and require high humidity. They need consistent moisture to thrive. Their vibrant foliage creates a striking visual display. Japanese Maples are sought after for their ornamental beauty.',
       },
       masterVariant: {
         id: 1,
-        sku: 'fiddle_leaf_fig001',
-        key: 'fiddle_leaf_fig_variant001',
+        sku: 'japanese_maple001',
+        key: 'japanese_maple_variant001',
         prices: [],
         images: [
           {
-            url: 'https://cdn.shopify.com/s/files/1/0013/3529/6118/products/Kent-48-3265.048-WH_Fiddle-Leaf-Fig-Tree-14.jpg',
-            label: 'fiddle leaf fig',
+            url: 'https://www.livelyroot.com/cdn/shop/products/pl_AraliaSieboldiiFatsiaJaponica_6IN_po_grower.jpg?v=1672166963&width=730',
             dimensions: {
-              w: 1000,
-              h: 1000,
+              w: 730,
+              h: 912,
             },
           },
           {
-            url: 'https://www.shelmerdine.com/wp-content/uploads/2018/08/Fiddle-Leaf-Fig-Tree.jpg',
+            url: 'https://www.livelyroot.com/cdn/shop/products/pl_JapaneseAralia_10IN_po_grower_detail-3.jpg?v=1637022130&width=730',
             dimensions: {
-              w: 1000,
-              h: 1000,
+              w: 730,
+              h: 913,
             },
           },
           {
-            url: 'https://thegoodplantco.com.au/cdn/shop/products/fiddle-leaf-fig-513284_e997352c-52ce-4c64-bd25-12c5becd5ed2.jpg?v=1714956456',
+            url: 'https://www.livelyroot.com/cdn/shop/products/pl_JapaneseAralia_10IN_po_grower_detail-2.jpg?v=1672166963&width=730',
             dimensions: {
-              w: 2048,
-              h: 2048,
+              w: 730,
+              h: 913,
             },
           },
           {
-            url: 'https://wildroots.in/wp-content/uploads/2020/09/Untitled-design-27.jpg',
+            url: 'https://www.livelyroot.com/cdn/shop/products/pl_AraliaSieboldiiFatsiaJaponica_6IN_po_grower_detail-1.jpg?v=1672166963&width=730',
             dimensions: {
-              w: 600,
-              h: 600,
+              w: 730,
+              h: 913,
             },
           },
           {
-            url: 'https://image.floranext.com/instances/flourishfoliageco_com/catalog/product/f/i/fiddle_leaf_fig_657f843cd8d77.jpg.webp?h=700&w=700&r=255&g=255&b=255',
+            url: 'https://www.livelyroot.com/cdn/shop/products/pl_AraliaSieboldiiFatsiaJaponica_6IN_po_grower_detail-2.jpg?v=1672166963&width=730',
             dimensions: {
-              w: 700,
-              h: 700,
+              w: 730,
+              h: 912,
             },
           },
         ],
@@ -172,38 +168,34 @@ export const tempObject = {
               {
                 type: 'centPrecision',
                 currencyCode: 'BYN',
-                centAmount: 15000,
+                centAmount: 17500,
                 fractionDigits: 2,
               },
             ],
           },
           {
-            name: 'availability_type',
-            value: true,
-          },
-          {
             name: 'soil_type_required_type',
-            value: 'loamy',
+            value: 'moist',
           },
           {
             name: 'temperature_preference_type',
-            value: 24,
+            value: 20,
           },
           {
             name: 'climate_zone_type',
-            value: 'tropical',
+            value: 'temperate',
           },
           {
             name: 'light_requirements_type',
-            value: 'bright indirect light',
+            value: 'medium indirect light',
           },
           {
             name: 'height_type',
-            value: 100,
+            value: 60,
           },
           {
             name: 'watering',
-            value: 'medium',
+            value: 'high',
           },
         ],
         assets: [],
@@ -215,7 +207,7 @@ export const tempObject = {
     published: true,
     hasStagedChanges: true,
   },
-  key: 'fiddle_leaf_fig',
+  key: 'japanese_maple',
   taxCategory: {
     typeId: 'tax-category',
     id: 'ab69ff73-937b-4b98-ab32-f231a922cdea',
@@ -223,3 +215,5 @@ export const tempObject = {
   priceMode: 'Embedded',
   lastVariantId: 1,
 };
+
+export default tempObject;
