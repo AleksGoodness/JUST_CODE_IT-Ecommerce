@@ -27,6 +27,7 @@ interface TitleProps extends Omit<TypographyProps, 'variant'> {
   variant?: CustomVariant;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Title = styled(({ variant, ...props }: TitleProps) => (
   <Typography {...props} />
 ))(({ theme, variant }) => ({

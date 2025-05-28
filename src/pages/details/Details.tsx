@@ -7,7 +7,8 @@ import { Slider } from '../../components/slider/slider';
 import { createClientWithToken } from '../../ecommerce/clientBuilder';
 import CONSTANTS from '../../utils/CONSTANTS';
 import { tempObject } from './tempObjext';
-const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY;
+
+const projectKey = import.meta.env.VITE_CTP_PROJECT_KEY as string;
 
 export const Details = () => {
   const { category, plantName, plantId } = useParams();

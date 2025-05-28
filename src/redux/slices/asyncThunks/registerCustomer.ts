@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY;
+const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY as string;
 
 import {
   createRegistrationClient,

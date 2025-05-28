@@ -1,10 +1,12 @@
-import { Box, Button, TextField } from '@mui/material';
+import { Button, Chip, Grid, TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
+import Title from '../../components/title/Title';
 import { ICustomerDetails } from '../../interfaces';
 import { IRegisterData } from '../../redux/interfaces';
 import Addresses from './Addresses';
@@ -14,7 +16,6 @@ interface IProps {
 }
 
 const AuthLayout = ({ customer }: IProps) => {
-  console.log(customer);
   const {
     register,
     control,
@@ -29,50 +30,87 @@ const AuthLayout = ({ customer }: IProps) => {
     },
   });
 
+  const [isEditMode, setIsEditMode] = useState(false);
+
   const onSubmit = () => {
     console.log('hi');
   };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Box component={'form'} onSubmit={handleSubmit(onSubmit)}>
-        <TextField
+      <Chip
+        label={isEditMode ? 'Edit mode' : 'View mode'}
+        sx={{ bgcolor: isEditMode ? 'primary.main' : 'disabled', m: 4 }}
+      />
+      <Grid
+        component={'form'}
+        container
+        onSubmit={handleSubmit(onSubmit)}
+        spacing={2}
+      >
+        <Grid
+          component={TextField}
+          disabled={!isEditMode}
           label="First name"
-          size="small"
+          size={{ xs: 12, sm: 6, lg: 4 }}
           variant="outlined"
           {...register('firstName')}
         />
-        <TextField
+        <Grid
+          component={TextField}
+          disabled={!isEditMode}
           label="Last name"
-          size="small"
+          size={{ xs: 12, sm: 6, lg: 4 }}
           variant="outlined"
           {...register('lastName')}
         />
-        <Controller
-          control={control}
-          name="dateOfBirth"
-          render={({ field }) => (
-            <DatePicker
-              label="Date of Birth"
-              onChange={field.onChange}
-              slotProps={{
-                textField: {
-                  size: 'small',
-                  error: !!errors.dateOfBirth,
-                  helperText: errors.dateOfBirth?.message,
-                },
-              }}
-              value={dayjs(field.value)}
-            />
-          )}
+        <Grid size={{ xs: 12, lg: 4 }}>
+          <Controller
+            control={control}
+            name="dateOfBirth"
+            render={({ field }) => (
+              <DatePicker
+                disabled={!isEditMode}
+                label="Date of Birth"
+                onChange={field.onChange}
+                slotProps={{
+                  textField: {
+                    fullWidth: true,
+                    error: !!errors.dateOfBirth,
+                    helperText: errors.dateOfBirth?.message,
+                  },
+                }}
+                value={dayjs(field.value)}
+              />
+            )}
+          />
+        </Grid>
+        <Grid component={Title} size={12} variant="section">
+          Addresses
+        </Grid>
+        <Grid
+          addresses={customer.addresses}
+          component={Addresses}
+          defaultBillingAddressId={customer.defaultBillingAddressId}
+          defaultShippingAddressId={customer.defaultShippingAddressId}
+          isEditMode={isEditMode}
+          size={12}
         />
 
-        <Addresses addresses={customer.addresses} />
-
-        <Button type="submit" variant="outlined">
-          Save
-        </Button>
-      </Box>
+        <Grid size={12}>
+          <Button disabled={!isEditMode} type="submit" variant="outlined">
+            Save
+          </Button>
+          <Button
+            onClick={() => {
+              setIsEditMode(!isEditMode);
+            }}
+            variant={isEditMode ? 'contained' : 'outlined'}
+          >
+            Edit
+          </Button>
+        </Grid>
+      </Grid>
     </LocalizationProvider>
   );
 };
