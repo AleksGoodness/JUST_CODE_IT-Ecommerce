@@ -12,7 +12,6 @@ interface NavigationProps {
 const links = [
   { name: 'home', path: CONSTANTS.home },
   { name: 'shop', path: CONSTANTS.shop },
-  // { name: 'preview', path: CONSTANTS.preview },
 ];
 
 const Navigation = ({ sx, ...rest }: NavigationProps) => {
@@ -23,17 +22,7 @@ const Navigation = ({ sx, ...rest }: NavigationProps) => {
   ));
 
   return (
-    <Box
-      sx={{ ...sx }}
-      {...rest}
-      component="nav"
-      // sx={{
-      //   display: { xs: 'none', sm: 'flex' },
-      //   justifyContent: 'center',
-      //   gap: '0.6vw',
-      //   flexShrink: '1',
-      // }}
-    >
+    <Box sx={{ ...sx }} {...rest} component="nav">
       {...linksElements}
     </Box>
   );

@@ -1,13 +1,14 @@
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
-import { Container, IconButton } from '@mui/material';
-import Box from '@mui/material/Box';
+import { Container, IconButton, Stack } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { useState } from 'react';
-import { NavLink } from 'react-router';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
 
 import { Navigation } from '../index.ts';
-import AsidePanel from './DropDownPanel.tsx';
-import LogoMain from './LogoMain';
+import Logo from '../logo/Logo.tsx';
+import DropDownPanel from './DropDownPanel.tsx';
+import IconsStack from './Icons-stack.tsx';
+import LoginRegisterButton from './Login-register-button.tsx';
 
 const StyledHeader = styled('header')(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
@@ -21,42 +22,52 @@ const StyledHeader = styled('header')(({ theme }) => ({
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setIsOpen(prev => (prev ? false : prev));
+  }, [location]);
 
   return (
     <StyledHeader>
       <Container
         sx={{
-          gridTemplateColumns: { xs: '1fr', sm: '1fr auto 1fr' },
+          gridTemplateColumns: {
+            xs: '1fr',
+            sm: '1fr auto',
+            md: '1fr auto 1fr',
+          },
           padding: '1vw',
           display: { xs: 'flex', sm: 'grid' },
           justifyContent: 'space-between',
         }}
       >
-        <Box
-          component={NavLink}
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            width: '180px',
-          }}
-          to="/"
-        >
-          <LogoMain />
-        </Box>
+        <Logo sx={{ opacity: isOpen ? { xs: 0, sm: 1 } : 1 }} />
         <IconButton
           onClick={() => {
             setIsOpen(!isOpen);
           }}
-          sx={{ display: { md: 'none' } }}
+          sx={{ display: { md: 'none' }, opacity: isOpen ? 0 : 1 }}
         >
-          <MenuRoundedIcon />
+          <MenuRoundedIcon color={'primary'} />
         </IconButton>
         <Navigation
           sx={{
             display: { xs: 'none', md: 'flex' },
           }}
         />
-        {isOpen ? <AsidePanel isOpen={isOpen} setIsOpen={setIsOpen} /> : null}
+        <Stack
+          direction={'row'}
+          justifyContent={'end'}
+          spacing={1}
+          sx={{ display: { xs: 'none', md: 'flex' } }}
+        >
+          <IconsStack />
+          <LoginRegisterButton />
+        </Stack>
+        {isOpen ? (
+          <DropDownPanel isOpen={isOpen} setIsOpen={setIsOpen} />
+        ) : null}
       </Container>
     </StyledHeader>
   );
