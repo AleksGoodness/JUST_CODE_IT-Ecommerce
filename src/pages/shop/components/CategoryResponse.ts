@@ -171,7 +171,7 @@ const CategoryResponse = {
   ],
 };
 
-const ResponseFormatter = () => {
+const CategoryResponseFormatter = () => {
   const data = CategoryResponse.results.map(element => {
     return {
       id: element.id,
@@ -183,4 +183,4 @@ const ResponseFormatter = () => {
   return data;
 };
 
-export default ResponseFormatter;
+export default CategoryResponseFormatter;

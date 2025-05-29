@@ -1,28 +1,19 @@
-import Box from '@mui/material/Box';
+import { ListItem } from '@mui/material';
 import Link from '@mui/material/Link';
 import { NavLink } from 'react-router';
 
 interface Props {
   slug: string;
   name: string;
-  // description?: string;
+  toggleDrawer: (value: boolean) => void;
 }
 
-const CategoryItem = ({ slug, name }: Props) => {
+const CategoryItem = ({ slug, name, toggleDrawer }: Props) => {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'end',
-        justifyContent: 'space-between',
-        // boxShadow: '1',
-        p: '0 0.2rem',
-        gap: '0.2rem',
-      }}
-    >
+    <ListItem sx={{ cursor: 'pointer' }}>
       <Link
         component={NavLink}
-        // key={category.id}
+        onClick={() => toggleDrawer(false)}
         sx={{
           maxWidth: '100%',
           width: '100%',
@@ -32,7 +23,7 @@ const CategoryItem = ({ slug, name }: Props) => {
       >
         {name}
       </Link>
-    </Box>
+    </ListItem>
   );
 };
 export default CategoryItem;
