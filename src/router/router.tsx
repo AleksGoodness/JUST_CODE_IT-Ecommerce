@@ -1,9 +1,9 @@
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 
-import Cards from '../components/cards/Cards.tsx';
 import ErrorBoundaryFallback from '../components/errorBoundaryFallback/ErrorBoundaryFallback.tsx';
 import { Layout, Loading, LoginRegisterLayout } from '../components/index.ts';
+import Cards from '../pages/shop/cards/Cards.tsx';
 
 const Home = lazy(() => import('../pages/home/Home.tsx'));
 const Details = lazy(() => import('../pages/details/Details.tsx'));

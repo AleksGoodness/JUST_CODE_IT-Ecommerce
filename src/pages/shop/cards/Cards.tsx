@@ -13,9 +13,13 @@ const Cards = () => {
       columnGap="1rem"
       display="grid"
       sx={{
-        border: '3px solid red',
+        // border: '3px solid red',
         p: 4,
-        gridTemplateColumns: 'repeat(3, 1fr)',
+        gridTemplateColumns: {
+          xs: '1fr',
+          sm: 'repeat(2, 1fr)',
+          md: 'repeat(3, 1fr)',
+        },
       }}
     >
       <Typography variant="sectionTitle">{category}</Typography>
