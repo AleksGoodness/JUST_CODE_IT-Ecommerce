@@ -5,7 +5,7 @@ import {
   TokenStore,
 } from '@commercetools/ts-client';
 
-import { customerScopes } from './scopes';
+import { anonymousScopes, customerScopes } from './scopes';
 
 const clientId = import.meta.env.VITE_CTP_CLIENT_ID;
 const clientSecret = import.meta.env.VITE_CTP_CLIENT_SECRET;
@@ -18,6 +18,9 @@ const hostApi: string = import.meta.env.VITE_CTP_API_URL;
 
 const customerClientId = import.meta.env.VITE_CTP_CUSTOMER_CLIENT_ID;
 const customerClientSecret = import.meta.env.VITE_CTP_CUSTOMER_CLIENT_SECRET;
+
+const anonymousClientId = import.meta.env.VITE_CTP_ANONYMOUS_CLIENT_ID;
+const anonymousClientSecret = import.meta.env.VITE_CTP_ANONYMOUS_CLIENT_SECRET;
 
 export const tokenCache: TokenCache = {
   get: (): TokenStore => {
@@ -82,5 +85,23 @@ export const createClientWithToken = () => {
       tokenCache: tokenCache,
     })
     .withHttpMiddleware(httpMiddlewareOptions)
+    .build();
+};
+
+export const createAnonymousClient = () => {
+  return new ClientBuilder()
+    .withAnonymousSessionFlow({
+      host: hostAuth,
+      projectKey,
+      credentials: {
+        clientId: anonymousClientId,
+        clientSecret: anonymousClientSecret,
+      },
+      scopes: anonymousScopes,
+    })
+    .withHttpMiddleware({
+      host: hostApi,
+      httpClient: fetch,
+    })
     .build();
 };

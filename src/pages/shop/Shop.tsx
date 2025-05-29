@@ -2,11 +2,9 @@ import BeeIcon from '@mui/icons-material/EmojiNature';
 import { Box, Breadcrumbs, Button, Container, Link } from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import { motion } from 'motion/react';
-import { useEffect, useState } from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router';
-import { useParams } from 'react-router';
+import { useState } from 'react';
+import { NavLink, Outlet } from 'react-router';
 
-import CONSTANTS from '../../utils/CONSTANTS';
 import CategoryList from './components/CategoryList';
 
 const Shop = () => {
@@ -14,12 +12,6 @@ const Shop = () => {
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
-
-  const navigate = useNavigate();
-  const { category } = useParams();
-  useEffect(() => {
-    if (!category) navigate(`${CONSTANTS.shop}/all`);
-  }, [category, navigate]);
 
   return (
     <Container
@@ -46,15 +38,6 @@ const Shop = () => {
             variant="subtitle2"
           >
             Shop
-          </Link>
-          <Link
-            color="inherit"
-            component={NavLink}
-            to={`/shop/${category}`}
-            underline="hover"
-            variant="subtitle2"
-          >
-            {category}
           </Link>
         </Breadcrumbs>
         <Button

@@ -22,10 +22,10 @@ export interface ApiResponse<T> {
   data?: T;
   error?: ApiError;
 }
-export interface IApiArgs<T = unknown> {
+export interface IApiArgs {
   uri: string;
   method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-  body?: T;
+  body?: unknown;
   headers?: Record<string, string>;
   queryParams?: Record<string, string | number | boolean>;
 }

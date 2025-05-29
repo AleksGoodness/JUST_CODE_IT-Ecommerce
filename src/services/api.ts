@@ -1,48 +1,59 @@
 // api/ecommerceApi.ts
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import { CustomerUpdateData, ICustomerDetails } from '../interfaces';
-import { ecommerceBaseQuery } from './profile';
+import { dynamicBaseQuery } from './profile';
 const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY as string;
 
 export const ecommerceApi = createApi({
   reducerPath: 'ecommerceApi',
-  baseQuery: ecommerceBaseQuery,
-  tagTypes: ['Customer'],
+  baseQuery: dynamicBaseQuery,
+  tagTypes: ['Customer', 'Products', 'Categories'],
   endpoints: builder => ({
-    getProfileWithToken: builder.query({
+    getProfile: builder.query({
       query: () => ({
         uri: `/${projectKey}/me`,
         method: 'GET',
+        useAuthClient: true,
       }),
-      providesTags: result => [{ type: 'Customer', id: result?.id }],
+      providesTags: ['Customer'],
     }),
 
-    updateProfile: builder.mutation<ICustomerDetails, CustomerUpdateData>({
+    updateProfile: builder.mutation({
       query: updateData => ({
         uri: `/${projectKey}/me`,
         method: 'POST',
         body: updateData,
+        useAuthClient: true,
         headers: {
           'Content-Type': 'application/json',
         },
       }),
-      invalidatesTags: result => [{ type: 'Customer', id: result?.id }],
+      invalidatesTags: ['Customer'],
     }),
 
-    // Пример эндпоинта для получения продукта
-    getProduct: builder.query({
-      query: (productId: string) => ({
-        uri: `/products/${productId}`,
+    getCategories: builder.query({
+      query: () => ({
+        uri: `/${projectKey}/categories`,
         method: 'GET',
+        useAuthClient: false,
       }),
+      providesTags: ['Categories'],
+    }),
+
+    getProducts: builder.query({
+      query: productId => ({
+        uri: `/${projectKey}/product-projections/${productId}`,
+        method: 'GET',
+        useAuthClient: false,
+      }),
+      providesTags: ['Products'],
     }),
   }),
 });
 
-// Экспортируем автоматически генерируемые хуки
 export const {
-  useGetProductQuery,
-  useGetProfileWithTokenQuery,
+  useGetProfileQuery,
+  useGetProductsQuery,
+  useGetCategoriesQuery,
   useUpdateProfileMutation,
 } = ecommerceApi;

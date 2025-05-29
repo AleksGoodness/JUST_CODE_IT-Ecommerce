@@ -1,19 +1,30 @@
 import { BaseQueryFn } from '@reduxjs/toolkit/query';
 
-import { createClientWithToken } from '../ecommerce/clientBuilder';
-import { ApiError, IApiArgs } from './interfaces';
+import {
+  createAnonymousClient,
+  createClientWithToken,
+} from '../ecommerce/clientBuilder';
+import { ApiError } from './interfaces';
 import isCommerceToolsError from './isCommerceToolsError';
 const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY as string;
 
-export const ecommerceBaseQuery: BaseQueryFn<
-  IApiArgs,
+export const dynamicBaseQuery: BaseQueryFn<
+  {
+    uri: string;
+    method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+    body?: unknown;
+    headers?: Record<string, string>;
+    useAuthClient?: boolean; // Флаг для выбора клиента
+  },
   unknown,
   ApiError
 > = async args => {
   try {
-    const client = createClientWithToken();
+    // Выбираем клиент в зависимости от флага
+    const client = args.useAuthClient
+      ? createClientWithToken()
+      : createAnonymousClient();
 
-    // Добавляем базовый URL, если нужно
     const fullUri = args.uri.startsWith('/')
       ? args.uri
       : `/${projectKey}${args.uri}`;
@@ -21,7 +32,7 @@ export const ecommerceBaseQuery: BaseQueryFn<
     const response = await client.execute({
       uri: fullUri,
       method: args.method,
-      body: args.body,
+      body: args.body as string,
       headers: args.headers,
     });
 

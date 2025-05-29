@@ -2,14 +2,14 @@ import { Box } from '@mui/material';
 import { motion } from 'motion/react';
 
 import { Loading, Title } from '../../components';
-import { useGetProfileWithTokenQuery } from '../../services/api';
-// import { useGetProfileWithTokenQuery } from '../../services/api';
+import { useGetProfileQuery } from '../../services/api';
 import AuthLayout from './AuthLayout';
 import GuestLayout from './GuestLayout';
 
 const Profile = () => {
-  const { data, isLoading } = useGetProfileWithTokenQuery({});
+  const { data, isLoading } = useGetProfileQuery({});
 
+  console.log(data);
   return (
     <Box
       animate={{ scale: 1 }}
