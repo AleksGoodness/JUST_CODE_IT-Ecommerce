@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
-import Title from '../../components/title/Title';
+import { Title } from '../../components';
 import { ICustomerDetails } from '../../interfaces';
 import { useUpdateProfileMutation } from '../../services/api';
 import Addresses from './Addresses';

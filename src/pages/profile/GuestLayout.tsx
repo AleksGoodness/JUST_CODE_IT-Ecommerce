@@ -2,7 +2,7 @@ import { Button, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 
-import Title from '../../components/title/Title';
+import { Title } from '../../components';
 import CONSTANTS from '../../utils/CONSTANTS';
 
 const GuestLayout = () => {

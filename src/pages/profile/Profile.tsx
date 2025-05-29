@@ -1,8 +1,7 @@
 import { Box } from '@mui/material';
 import { motion } from 'motion/react';
 
-import { Loading } from '../../components';
-import Title from '../../components/title/Title';
+import { Loading, Title } from '../../components';
 import { useGetProfileWithTokenQuery } from '../../services/api';
 // import { useGetProfileWithTokenQuery } from '../../services/api';
 import AuthLayout from './AuthLayout';
