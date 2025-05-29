@@ -110,6 +110,19 @@ const commonComponents: Components<Theme> = {
           },
         }),
       },
+      {
+        props: { variant: 'categoryLink' },
+        style: ({ theme }) => ({
+          textTransform: 'capitalize',
+          textDecoration: 'none',
+          position: 'relative',
+          fontSize: '13px',
+          '&.active': {
+            fontWeight: 'bold',
+            color: theme.palette.primary.main,
+          },
+        }),
+      },
     ],
   },
 };

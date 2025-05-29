@@ -156,6 +156,7 @@ export default tseslint.config(
       // '@typescript-eslint/no-unsafe-call': 'off',
       // '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-floating-promises': 'off',
+      '@typescript-eslint/no-misused-spread': 'off',
       '@typescript-eslint/no-misused-promises': [
         'error',
         {
