@@ -1,7 +1,7 @@
 import { Box, Container, Typography } from '@mui/material';
 import { motion } from 'motion/react';
 import { useEffect } from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router';
+import { Outlet, useNavigate } from 'react-router';
 import { useParams } from 'react-router';
 
 import CONSTANTS from '../../utils/CONSTANTS';
@@ -21,7 +21,13 @@ const Shop = () => {
       component={motion.div}
       initial={{ scale: 0 }}
     >
-      <Box border={'4px solid orange'}>
+      <Box
+        // border={'4px solid orange'}
+        sx={{
+          display: { xs: 'block', sm: 'grid' },
+          gridTemplateColumns: '1fr 2.7fr',
+        }}
+      >
         <CategoryList />
         <Outlet />
       </Box>

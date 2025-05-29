@@ -5,6 +5,7 @@ declare module '@mui/material/typography' {
     cardTitle: true;
     listTitle: true;
     navLink: true;
+    categoryLink: true;
   }
 }
 declare module '@mui/material/button' {

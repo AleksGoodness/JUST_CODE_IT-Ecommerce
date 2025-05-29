@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 
-import Cards from '../components/cards/Cards.tsx';
+import Cards from '../pages/shop/cards/Cards.tsx';
 import ErrorBoundaryFallback from '../components/errorBoundaryFallback/ErrorBoundaryFallback.tsx';
 import { Layout, Loading, LoginRegisterLayout } from '../components/index.ts';
 
