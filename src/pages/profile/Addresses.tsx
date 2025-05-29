@@ -1,56 +1,129 @@
-import HomeIcon from '@mui/icons-material/Home';
-import PostCodeIcon from '@mui/icons-material/LocalPostOffice';
-import CityIcon from '@mui/icons-material/LocationCity';
-import PublicIcon from '@mui/icons-material/Public';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Box,
+  Button,
   Divider,
   List,
   ListItem,
-  ListItemIcon,
   ListItemText,
+  Typography,
 } from '@mui/material';
-import { isPrimaryPointer } from 'motion/react';
 
-import Title from '../../components/title/Title';
 import { Address } from '../../interfaces';
+import { getCountryNameByCode } from '../../utils/getCountryNameByCode';
 
 interface IProps {
   addresses: Address[];
+  defaultBillingAddressId?: string;
+  defaultShippingAddressId?: string;
+  isEditMode: boolean;
 }
 
-const Addresses = ({ addresses }: IProps) => {
+const Addresses = ({
+  addresses,
+  defaultBillingAddressId,
+  defaultShippingAddressId,
+  isEditMode,
+}: IProps) => {
   return (
-    <>
-      <Title variant="section">Addresses</Title>
-      <List>
-        <ListItem sx={{ fontWeight: 'bold', color: 'text.' }}>
-          <ListItemText primary="Street" sx={{ flex: 1 }} />
-          <ListItemText primary="City" sx={{ flex: 1 }} />
-          <ListItemText primary="Country" sx={{ flex: 1 }} />
-          <ListItemText primary="Postcode" sx={{ flex: 1 }} />
-        </ListItem>
+    <List>
+      <ListItem sx={{ fontWeight: 'bold', color: 'text.primary' }}>
+        <ListItemText primary="Street" sx={{ flex: 1 }} />
+        <ListItemText primary="City" sx={{ flex: 1 }} />
+        <ListItemText primary="Country" sx={{ flex: 1 }} />
+        <ListItemText primary="details" sx={{ flex: 1 }} />
+      </ListItem>
 
-        <Divider />
+      <Divider />
 
-        {/* Данные */}
-        {addresses.map(address => (
-          <ListItem key={address.id}>
-            <ListItemText primary={address.streetName} sx={{ flex: 1 }} />
-            <ListItemText primary={address.city} sx={{ flex: 1 }} />
-            <ListItemText primary={address.country} sx={{ flex: 1 }} />
-            <ListItemText primary={address.postalCode} sx={{ flex: 1 }} />
-          </ListItem>
-        ))}
-      </List>
+      {addresses.map(({ id, streetName, city, country, postalCode }) => {
+        const isDefaultShippingAddress = defaultShippingAddressId == id;
+        const isDefaultBillingAddress = defaultBillingAddressId === id;
 
-      <Box sx={{ color: 'secondary.main' }}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
-        pariatur, necessitatibus, eos officiis facilis blanditiis, corporis
-        atque dignissimos exercitationem ipsum eligendi. Animi eos expedita
-        quam. Culpa dolore nesciunt quisquam provident.
-      </Box>
-    </>
+        return (
+          <Accordion
+            key={id}
+            sx={{
+              boxShadow: 'none',
+              '&:before': { display: 'none' },
+            }}
+          >
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Box sx={{ width: '100%', display: 'flex' }}>
+                <Typography sx={{ flex: 1 }}>{streetName}</Typography>
+                <Typography sx={{ flex: 1 }}>
+                  {getCountryNameByCode(city)}
+                </Typography>
+                <Box sx={{ flex: 1, display: { xs: 'none', sm: 'block' } }}>
+                  {country}
+                </Box>
+              </Box>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <Box>
+                  <Typography color="text.secondary" variant="body2">
+                    Country:
+                  </Typography>
+                  <Typography>{country}</Typography>
+                </Box>
+                <Box>
+                  <Typography color="text.secondary" variant="body2">
+                    Postcode:
+                  </Typography>
+                  <Typography>{postalCode}</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', gap: 2 }}>
+                  <Button
+                    disabled={!isEditMode}
+                    sx={{
+                      bgcolor: isDefaultShippingAddress
+                        ? 'primary.main'
+                        : 'disabled',
+                    }}
+                    variant={
+                      isEditMode
+                        ? isDefaultShippingAddress
+                          ? 'contained'
+                          : 'outlined'
+                        : 'outlined'
+                    }
+                  >
+                    {isDefaultShippingAddress
+                      ? 'default shipping address'
+                      : 'make it as default shipping address'}
+                  </Button>
+                  <Button
+                    disabled={!isEditMode}
+                    sx={{
+                      bgcolor: isDefaultBillingAddress
+                        ? 'warning.main'
+                        : 'disabled',
+                    }}
+                    variant={
+                      isEditMode
+                        ? isDefaultBillingAddress
+                          ? 'contained'
+                          : 'outlined'
+                        : 'outlined'
+                    }
+                  >
+                    {isDefaultBillingAddress
+                      ? 'default billing address'
+                      : 'make it as default billing address'}
+                  </Button>
+                </Box>
+              </Box>
+            </AccordionDetails>
+          </Accordion>
+        );
+      })}
+
+      <Divider />
+    </List>
   );
 };
 

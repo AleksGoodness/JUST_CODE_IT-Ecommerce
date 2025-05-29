@@ -1,4 +1,4 @@
-import js from '@eslint/js';
+import eslint from '@eslint/js';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import eslintReact from 'eslint-plugin-react';
@@ -18,20 +18,16 @@ export default tseslint.config(
       'dist/**',
       '**/*.js',
       'node_modules',
-      'src/ecommerce',
       'vitest.setup.ts',
       'vitest.config.ts',
     ],
   },
 
-  js.configs.recommended,
-  ...tseslint.configs.recommended,
-  ...tseslint.configs.strictTypeChecked,
-  ...tseslint.configs.stylisticTypeChecked,
+  eslint.configs.recommended,
+  tseslint.configs.strict,
+  tseslint.configs.stylistic,
   eslintReact.configs.flat.recommended,
-
   jsxAlly.flatConfigs.recommended,
-  eslintConfigPrettier,
 
   {
     plugins: {
@@ -153,14 +149,12 @@ export default tseslint.config(
         'off',
         { assertionStyle: 'never' },
       ],
-      '@typescript-eslint/no-unused-vars': 'off',
-      '@typescript-eslint/array-type': 'warn',
-      '@typescript-eslint/member-ordering': 'warn',
-      '@typescript-eslint/no-non-null-assertion': 'off',
-      '@typescript-eslint/no-unsafe-return': 'off',
-      '@typescript-eslint/no-unsafe-assignment': 'off',
-      '@typescript-eslint/no-unsafe-call': 'off',
-      '@typescript-eslint/no-unsafe-member-access': 'off',
+      // '@typescript-eslint/array-type': 'warn',
+      // '@typescript-eslint/member-ordering': 'warn',
+      // '@typescript-eslint/no-unsafe-return': 'off',
+      // '@typescript-eslint/no-unsafe-assignment': 'off',
+      // '@typescript-eslint/no-unsafe-call': 'off',
+      // '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-floating-promises': 'off',
       '@typescript-eslint/no-misused-spread': 'off',
       '@typescript-eslint/no-misused-promises': [
@@ -172,4 +166,5 @@ export default tseslint.config(
       '@typescript-eslint/no-base-to-string': 'off',
     },
   },
+  eslintConfigPrettier,
 );
