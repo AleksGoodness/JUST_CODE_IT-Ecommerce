@@ -1,6 +1,5 @@
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
 
 import Navigation from '../navigation/Navigation';
 

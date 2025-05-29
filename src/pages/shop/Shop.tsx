@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { motion } from 'motion/react';
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router';
