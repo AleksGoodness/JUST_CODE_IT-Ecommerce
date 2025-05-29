@@ -4,12 +4,12 @@ import { motion } from 'motion/react';
 import { Loading } from '../../components';
 import Title from '../../components/title/Title';
 import { useGetProfileWithTokenQuery } from '../../services/api';
+// import { useGetProfileWithTokenQuery } from '../../services/api';
 import AuthLayout from './AuthLayout';
 import GuestLayout from './GuestLayout';
 
 const Profile = () => {
-  // const { customer } = useAppSelector(getCustomer);
-  const { isLoading, data } = useGetProfileWithTokenQuery({});
+  const { data, isLoading } = useGetProfileWithTokenQuery({});
 
   return (
     <Box

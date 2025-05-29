@@ -24,7 +24,7 @@ interface IInputProps {
 }
 
 const AuthLayout = ({ customer }: IProps) => {
-  const [updateProfile, { isLoading }] = useUpdateProfileMutation({});
+  const [updateProfile] = useUpdateProfileMutation({});
 
   const {
     register,
@@ -62,9 +62,8 @@ const AuthLayout = ({ customer }: IProps) => {
           dateOfBirth: data.dateOfBirth.toISOString().split('T')[0],
         },
       ],
-    });
+    }).unwrap();
   };
-  console.log(isLoading);
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Chip

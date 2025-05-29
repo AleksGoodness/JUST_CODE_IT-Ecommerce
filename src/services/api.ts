@@ -15,7 +15,7 @@ export const ecommerceApi = createApi({
         uri: `/${projectKey}/me`,
         method: 'GET',
       }),
-      providesTags: ['Customer'],
+      providesTags: result => [{ type: 'Customer', id: result?.id }],
     }),
 
     updateProfile: builder.mutation<ICustomerDetails, CustomerUpdateData>({
@@ -27,7 +27,7 @@ export const ecommerceApi = createApi({
           'Content-Type': 'application/json',
         },
       }),
-      invalidatesTags: ['Customer'],
+      invalidatesTags: result => [{ type: 'Customer', id: result?.id }],
     }),
 
     // Пример эндпоинта для получения продукта
