@@ -9,7 +9,6 @@ const Home = lazy(() => import('../pages/home/Home.tsx'));
 const Details = lazy(() => import('../pages/details/Details.tsx'));
 const Login = lazy(() => import('../pages/login/Login.tsx'));
 const NotFound = lazy(() => import('../pages/notFound/NotFound.tsx'));
-const Preview = lazy(() => import('../pages/preview/Preview.tsx'));
 const Register = lazy(() => import('../pages/register/Register.tsx'));
 const Shop = lazy(() => import('../pages/shop/Shop.tsx'));
 const Profile = lazy(() => import('../pages/profile/Profile.tsx'));
@@ -21,7 +20,6 @@ const AppRouter = createBrowserRouter([
     errorElement: <ErrorBoundaryFallback />,
     children: [
       { index: true, Component: Home },
-      { path: 'preview', Component: Preview },
       {
         Component: LoginRegisterLayout,
         children: [
