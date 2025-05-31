@@ -23,6 +23,7 @@ interface IProps {
   defaultBillingAddressId?: string;
   defaultShippingAddressId?: string;
   isEditMode: boolean;
+  handleDeleteAddress: (id: string) => void;
 }
 
 const Addresses = ({
@@ -30,6 +31,7 @@ const Addresses = ({
   defaultBillingAddressId,
   defaultShippingAddressId,
   isEditMode,
+  handleDeleteAddress,
 }: IProps) => {
   return (
     <List sx={{ width: '100%' }}>
@@ -113,7 +115,10 @@ const Addresses = ({
                   >
                     <CabinIcon />
                   </IconButton>
-                  <IconButton disabled={!isEditMode}>
+                  <IconButton
+                    disabled={!isEditMode}
+                    onClick={() => handleDeleteAddress(id)}
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </Box>

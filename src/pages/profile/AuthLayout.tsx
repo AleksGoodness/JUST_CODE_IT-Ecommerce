@@ -91,6 +91,22 @@ const AuthLayout = ({ customer }: Props) => {
     }
   };
 
+  const handleDeleteAddress = (id: string) => {
+    updateProfile({
+      version: customer.version,
+
+      actions: [
+        {
+          action: 'removeAddress',
+          addressId: `${id}`,
+        },
+      ],
+    })
+      .unwrap()
+      .then(response => dispatch(setCustomer(response)));
+    toast.success('address deleted');
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Chip
@@ -153,6 +169,7 @@ const AuthLayout = ({ customer }: Props) => {
           component={Addresses}
           defaultBillingAddressId={customer.defaultBillingAddressId}
           defaultShippingAddressId={customer.defaultShippingAddressId}
+          handleDeleteAddress={handleDeleteAddress}
           isEditMode={isEditMode}
           size={12}
         />
