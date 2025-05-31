@@ -2,14 +2,14 @@ import { Box } from '@mui/material';
 import { motion } from 'motion/react';
 
 import { Loading, Title } from '../../components';
-import { useGetProfileQuery } from '../../services/api';
+import { useAppSelector } from '../../redux/hooks';
+import { getCustomer } from '../../redux/selectors';
 import AuthLayout from './AuthLayout';
 import GuestLayout from './GuestLayout';
 
 const Profile = () => {
-  const { data, isLoading } = useGetProfileQuery({});
+  const { customer, isLoading } = useAppSelector(getCustomer);
 
-  console.log(data);
   return (
     <Box
       animate={{ scale: 1 }}
@@ -20,7 +20,7 @@ const Profile = () => {
       <Title variant="main">Profile</Title>
       <>
         {isLoading ? <Loading /> : null}
-        {!data ? <GuestLayout /> : <AuthLayout customer={data} />}
+        {customer ? <AuthLayout customer={customer} /> : <GuestLayout />}
       </>
     </Box>
   );

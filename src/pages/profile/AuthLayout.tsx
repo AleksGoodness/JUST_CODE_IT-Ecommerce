@@ -6,14 +6,16 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import { Title } from '../../components';
 import { ICustomerDetails } from '../../interfaces';
+import { useAppDispatch } from '../../redux/hooks';
+import { setCustomer } from '../../redux/slices/authSlice';
 import { useUpdateProfileMutation } from '../../services/api';
-import Addresses from './Addresses';
 import validatingSchema from './validating_schema';
 
-interface IProps {
+interface Props {
   customer: ICustomerDetails;
 }
 
@@ -23,8 +25,9 @@ interface IInputProps {
   dateOfBirth: Date;
 }
 
-const AuthLayout = ({ customer }: IProps) => {
-  const [updateProfile] = useUpdateProfileMutation({});
+const AuthLayout = ({ customer }: Props) => {
+  const [updateProfile] = useUpdateProfileMutation();
+  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -45,25 +48,48 @@ const AuthLayout = ({ customer }: IProps) => {
 
   const [isEditMode, setIsEditMode] = useState(false);
 
-  const formSubmitHandler: SubmitHandler<IInputProps> = (data: IInputProps) => {
-    updateProfile({
-      version: customer.version,
-      actions: [
-        {
+  const formSubmitHandler: SubmitHandler<IInputProps> = async (
+    data: IInputProps,
+  ) => {
+    const actions = [];
+
+    try {
+      if (data.firstName !== customer.firstName) {
+        actions.push({
           action: 'setFirstName',
           firstName: data.firstName,
-        },
-        {
+        });
+      }
+      if (data.lastName !== customer.lastName) {
+        actions.push({
           action: 'setLastName',
           lastName: data.lastName,
-        },
-        {
+        });
+      }
+
+      if (data.dateOfBirth !== dayjs(customer.dateOfBirth).toDate()) {
+        actions.push({
           action: 'setDateOfBirth',
           dateOfBirth: data.dateOfBirth.toISOString().split('T')[0],
-        },
-      ],
-    }).unwrap();
+        });
+      }
+
+      await updateProfile({
+        version: customer.version,
+        actions,
+      })
+        .unwrap()
+        .then(response => dispatch(setCustomer(response)));
+      toast.success('profile updated');
+      setIsEditMode(false);
+    } catch (error) {
+      console.log(error);
+      toast.error('some error');
+
+      reset();
+    }
   };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Chip
@@ -117,17 +143,18 @@ const AuthLayout = ({ customer }: IProps) => {
             )}
           />
         </Grid>
+
         <Grid component={Title} size={12} variant="section">
           Addresses
         </Grid>
-        <Grid
+        {/* <Grid
           addresses={customer.addresses}
           component={Addresses}
           defaultBillingAddressId={customer.defaultBillingAddressId}
           defaultShippingAddressId={customer.defaultShippingAddressId}
           isEditMode={isEditMode}
           size={12}
-        />
+        /> */}
 
         <Grid size={12}>
           <Button disabled={!isEditMode} type="submit" variant="outlined">
@@ -142,6 +169,7 @@ const AuthLayout = ({ customer }: IProps) => {
             Edit
           </Button>
           <Button
+            disabled={!isEditMode}
             onClick={() => {
               reset();
             }}

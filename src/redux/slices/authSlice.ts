@@ -21,6 +21,9 @@ const authSlice = createSlice({
       localStorage.removeItem('ctpTokenCache');
       state.customer = null;
     },
+    setCustomer: (state, { payload }) => {
+      state.customer = payload;
+    },
   },
   extraReducers: builder => {
     //* register customer
@@ -43,8 +46,9 @@ const authSlice = createSlice({
     //* login customer
     builder.addCase(loginCustomer.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.customer = action.payload;
-      toast.success(`Welcome back, ${action.payload.firstName}!`);
+      state.customer = action.payload ?? null;
+      if (action.payload)
+        toast.success(`Welcome back, ${action.payload.firstName}!`);
     });
     builder.addCase(loginCustomer.rejected, (state, action) => {
       state.isLoading = false;
@@ -73,6 +77,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { logOut } = authSlice.actions;
+export const { logOut, setCustomer } = authSlice.actions;
 
 export default authSlice.reducer;

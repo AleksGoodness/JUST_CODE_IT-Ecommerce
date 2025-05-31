@@ -7,6 +7,7 @@ import { useAppDispatch } from '../../redux/hooks.ts';
 import { useAppSelector } from '../../redux/hooks.ts';
 import { getCustomer } from '../../redux/selectors.ts';
 import { logOut } from '../../redux/slices/authSlice.ts';
+import { ecommerceApi } from '../../services/api.ts';
 
 interface Props {
   setIsOpen?: (value: boolean) => void;
@@ -20,6 +21,7 @@ const LoginRegisterButton = ({ setIsOpen, sx, ...rest }: Props) => {
   const handleRedirect = () => {
     if (setIsOpen) setIsOpen(false);
     dispatch(logOut());
+    dispatch(ecommerceApi.util.invalidateTags(['Customer']));
   };
   return (
     <Button

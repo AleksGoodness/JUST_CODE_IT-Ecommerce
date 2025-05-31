@@ -28,11 +28,11 @@ const loginCustomer = createAsyncThunk(
       });
       if (response.body) {
         return response.body;
+      } else throw new Error('login failed:');
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
       }
-      throw new Error('login failed:');
-    } catch (error) {
-      console.error('login failed:', error);
-      throw error;
     }
   },
 );
