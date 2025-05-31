@@ -1,11 +1,14 @@
+import CabinIcon from '@mui/icons-material/Cabin';
+import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Box,
-  Button,
   Divider,
+  IconButton,
   List,
   ListItem,
   ListItemText,
@@ -29,12 +32,14 @@ const Addresses = ({
   isEditMode,
 }: IProps) => {
   return (
-    <List>
-      <ListItem sx={{ fontWeight: 'bold', color: 'text.primary' }}>
+    <List sx={{ width: '100%' }}>
+      <ListItem
+        sx={{ fontWeight: 'bold', color: 'text.primary', textAlign: 'center' }}
+      >
         <ListItemText primary="Street" sx={{ flex: 1 }} />
         <ListItemText primary="City" sx={{ flex: 1 }} />
         <ListItemText primary="Country" sx={{ flex: 1 }} />
-        <ListItemText primary="details" sx={{ flex: 1 }} />
+        <ListItemText primary="Details" sx={{ flex: 1 }} />
       </ListItem>
 
       <Divider />
@@ -77,44 +82,40 @@ const Addresses = ({
                   <Typography>{postalCode}</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', gap: 2 }}>
-                  <Button
+                  <IconButton
                     disabled={!isEditMode}
                     sx={{
                       bgcolor: isDefaultShippingAddress
                         ? 'primary.main'
                         : 'disabled',
+
+                      ':disabled': {
+                        bgcolor: isDefaultShippingAddress
+                          ? 'primary.main'
+                          : 'disabled',
+                      },
                     }}
-                    variant={
-                      isEditMode
-                        ? isDefaultShippingAddress
-                          ? 'contained'
-                          : 'outlined'
-                        : 'outlined'
-                    }
                   >
-                    {isDefaultShippingAddress
-                      ? 'default shipping address'
-                      : 'make it as default shipping address'}
-                  </Button>
-                  <Button
+                    <LocalShippingIcon />
+                  </IconButton>
+                  <IconButton
                     disabled={!isEditMode}
                     sx={{
                       bgcolor: isDefaultBillingAddress
                         ? 'warning.main'
                         : 'disabled',
+                      ':disabled': {
+                        bgcolor: isDefaultBillingAddress
+                          ? 'warning.main'
+                          : 'disabled',
+                      },
                     }}
-                    variant={
-                      isEditMode
-                        ? isDefaultBillingAddress
-                          ? 'contained'
-                          : 'outlined'
-                        : 'outlined'
-                    }
                   >
-                    {isDefaultBillingAddress
-                      ? 'default billing address'
-                      : 'make it as default billing address'}
-                  </Button>
+                    <CabinIcon />
+                  </IconButton>
+                  <IconButton disabled={!isEditMode}>
+                    <DeleteIcon />
+                  </IconButton>
                 </Box>
               </Box>
             </AccordionDetails>

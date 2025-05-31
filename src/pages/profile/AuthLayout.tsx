@@ -13,6 +13,7 @@ import { ICustomerDetails } from '../../interfaces';
 import { useAppDispatch } from '../../redux/hooks';
 import { setCustomer } from '../../redux/slices/authSlice';
 import { useUpdateProfileMutation } from '../../services/api';
+import Addresses from './Addresses';
 import validatingSchema from './validating_schema';
 
 interface Props {
@@ -147,14 +148,14 @@ const AuthLayout = ({ customer }: Props) => {
         <Grid component={Title} size={12} variant="section">
           Addresses
         </Grid>
-        {/* <Grid
+        <Grid
           addresses={customer.addresses}
           component={Addresses}
           defaultBillingAddressId={customer.defaultBillingAddressId}
           defaultShippingAddressId={customer.defaultShippingAddressId}
           isEditMode={isEditMode}
           size={12}
-        /> */}
+        />
 
         <Grid size={12}>
           <Button disabled={!isEditMode} type="submit" variant="outlined">
