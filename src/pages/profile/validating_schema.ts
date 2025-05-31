@@ -16,6 +16,11 @@ export const validatingSchema = yup.object().shape({
     .matches(onlyLettersRegex, 'Last name must contain only letters')
     .min(3, 'Last name cant be less than 3 characters')
     .required('Last name is required'),
+  email: yup
+    .string()
+    .matches(domainRegex, 'Invalid email format or missing domain name')
+    .email('Invalid email format')
+    .required('Email is required'),
   dateOfBirth: yup
     .date()
     .required('Date of Birth is required')

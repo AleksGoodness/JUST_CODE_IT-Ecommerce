@@ -12,10 +12,13 @@ export interface CommerceToolsError extends Error {
 export interface ApiError {
   status: number;
   data: string;
-  errors?: {
-    code: string;
-    message: string;
-  }[];
+  originalError: {
+    errors?: {
+      code: string;
+      message: string;
+      field: string;
+    }[];
+  };
 }
 
 export interface ApiResponse<T> {

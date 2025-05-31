@@ -4,27 +4,27 @@ import {
   createAnonymousClient,
   createClientWithToken,
 } from '../ecommerce/clientBuilder';
-import { ApiError } from './interfaces';
-import isCommerceToolsError from './isCommerceToolsError';
+import {
+  CustomApiError,
+  getCommerceToolsError,
+  isCommerceToolsError,
+} from './isCommerceToolsError';
 const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY as string;
 
-export const dynamicBaseQuery: BaseQueryFn<
-  {
-    uri: string;
-    method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-    body?: unknown;
-    headers?: Record<string, string>;
-    useAuthClient?: boolean;
-  },
-  unknown,
-  ApiError
-> = async <T, R>(args: {
+interface ISettings {
   uri: string;
   method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-  body?: T;
+  body?: unknown;
   headers?: Record<string, string>;
   useAuthClient?: boolean;
-}) => {
+}
+
+export const dynamicBaseQuery: BaseQueryFn<
+  ISettings,
+  unknown,
+  CustomApiError,
+  object
+> = async args => {
   try {
     const client = args.useAuthClient
       ? createClientWithToken()
@@ -41,21 +41,30 @@ export const dynamicBaseQuery: BaseQueryFn<
       headers: args.headers,
     });
 
-    return { data: response.body as R };
+    return { data: response.body };
   } catch (error: unknown) {
     if (isCommerceToolsError(error)) {
+      const ctError = getCommerceToolsError(error);
       return {
         error: {
-          status: error.statusCode || 500,
-          data: error.body?.message || error.message || 'API Error',
+          status: ctError.statusCode,
+          data: {
+            message: ctError.message,
+            errors: ctError.errors?.map(err => ({
+              code: err.code,
+              message: err.message,
+              field: err.field,
+            })),
+          },
         },
       };
     }
-
     return {
       error: {
         status: 500,
-        data: (error as Error)?.message || 'Unknown error',
+        data: {
+          message: 'Unknown error',
+        },
       },
     };
   }

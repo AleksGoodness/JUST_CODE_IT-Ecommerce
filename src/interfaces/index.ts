@@ -100,8 +100,8 @@ interface CategoryContent {
 }
 
 interface Category extends SystemInfo, CategoryContent {
-  ancestors: unknown[]; // Уточнить тип при необходимости
-  assets: unknown[]; // Уточнить тип при необходимости
+  ancestors: unknown[];
+  assets: unknown[];
 }
 
 interface PagedResponse<T> {

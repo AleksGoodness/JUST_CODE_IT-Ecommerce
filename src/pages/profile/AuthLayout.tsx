@@ -24,6 +24,7 @@ interface IInputProps {
   firstName: string;
   lastName: string;
   dateOfBirth: Date;
+  email: string;
 }
 
 const AuthLayout = ({ customer }: Props) => {
@@ -35,6 +36,7 @@ const AuthLayout = ({ customer }: Props) => {
     control,
     handleSubmit,
     reset,
+    setError,
 
     formState: { errors },
   } = useForm<IInputProps>({
@@ -43,6 +45,7 @@ const AuthLayout = ({ customer }: Props) => {
     defaultValues: {
       firstName: customer.firstName,
       lastName: customer.lastName,
+      email: customer.email,
       dateOfBirth: dayjs(customer.dateOfBirth).toDate(),
     },
   });
@@ -52,42 +55,70 @@ const AuthLayout = ({ customer }: Props) => {
   const formSubmitHandler: SubmitHandler<IInputProps> = async (
     data: IInputProps,
   ) => {
-    const actions = [];
+    const actions = [
+      data.firstName !== customer.firstName && {
+        action: 'setFirstName',
+        firstName: data.firstName,
+      },
+      data.lastName !== customer.lastName && {
+        action: 'setLastName',
+        lastName: data.lastName,
+      },
+      dayjs(data.dateOfBirth).format('YYYY-MM-DD') !==
+        dayjs(customer.dateOfBirth).format('YYYY-MM-DD') && {
+        action: 'setDateOfBirth',
+        dateOfBirth: dayjs(data.dateOfBirth).format('YYYY-MM-DD'),
+      },
+      data.email !== customer.email && {
+        action: 'changeEmail',
+        email: data.email,
+      },
+    ].filter(Boolean);
+
+    if (!actions.length) {
+      toast.info('nothing changed');
+      setIsEditMode(false);
+      return;
+    }
 
     try {
-      if (data.firstName !== customer.firstName) {
-        actions.push({
-          action: 'setFirstName',
-          firstName: data.firstName,
-        });
-      }
-      if (data.lastName !== customer.lastName) {
-        actions.push({
-          action: 'setLastName',
-          lastName: data.lastName,
-        });
-      }
-
-      if (data.dateOfBirth !== dayjs(customer.dateOfBirth).toDate()) {
-        actions.push({
-          action: 'setDateOfBirth',
-          dateOfBirth: data.dateOfBirth.toISOString().split('T')[0],
-        });
-      }
-
-      await updateProfile({
+      const response = await updateProfile({
         version: customer.version,
         actions,
-      })
-        .unwrap()
-        .then(response => dispatch(setCustomer(response)));
-      toast.success('profile updated');
+      }).unwrap();
+
+      dispatch(setCustomer(response));
+      toast.success('Profile updated');
       setIsEditMode(false);
     } catch (error) {
-      console.log(error);
-      toast.error('some error');
+      if (error && typeof error === 'object' && 'data' in error) {
+        const apiError = error as {
+          status: number;
+          data: {
+            message: string;
+            errors?: {
+              code: string;
+              message: string;
+              field?: string;
+            }[];
+          };
+        };
 
-      reset();
+        if (apiError.data.errors) {
+          apiError.data.errors.forEach(err => {
+            if (err.field) {
+              setError(err.field as keyof IInputProps, {
+                type: 'manual',
+                message: err.message,
+              });
+            }
+          });
+        } else {
+          toast.error(apiError.data.message || 'An error occurred');
+        }
+      } else {
+        toast.error('An unexpected error occurred');
+      }
     }
   };
 
@@ -138,6 +169,16 @@ const AuthLayout = ({ customer }: Props) => {
           size={{ xs: 12, sm: 6, lg: 4 }}
           variant="outlined"
           {...register('lastName')}
+        />
+        <Grid
+          component={TextField}
+          disabled={!isEditMode}
+          error={!!errors.email}
+          helperText={errors.email?.message}
+          label="Email"
+          size={{ xs: 12, sm: 6, lg: 4 }}
+          variant="outlined"
+          {...register('email')}
         />
         <Grid size={{ xs: 12, lg: 4 }}>
           <Controller
