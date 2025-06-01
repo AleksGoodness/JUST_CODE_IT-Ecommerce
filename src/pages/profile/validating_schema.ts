@@ -1,9 +1,6 @@
 import * as yup from 'yup';
 
-export const postalCodeRegex = /^\d{6}$/;
-export const domainRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-export const noSpacesRegex = /^\S*$/;
-export const onlyLettersRegex = /^[A-Za-zА-Яа-яЁё]+$/;
+import { domainRegex, onlyLettersRegex } from '../register/interfaces';
 
 export const validatingSchema = yup.object().shape({
   firstName: yup
