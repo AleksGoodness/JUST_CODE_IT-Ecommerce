@@ -9,6 +9,7 @@ import {
   AccordionSummary,
   Box,
   Divider,
+  Grid,
   IconButton,
   List,
   ListItem,
@@ -16,10 +17,10 @@ import {
   Typography,
 } from '@mui/material';
 
-import { Title } from '../../components';
-import { Address } from '../../interfaces';
-import { getCountryNameByCode } from '../../utils/getCountryNameByCode';
-import { InputProps } from './address-form/AddressForm';
+import { Title } from '../../../../components';
+import { Address } from '../../../../interfaces';
+import { getCountryNameByCode } from '../../../../utils/getCountryNameByCode';
+import { InputProps } from '../address-form/AddressForm';
 
 interface IProps {
   addresses: Address[];
@@ -56,7 +57,6 @@ const Addresses = ({
         >
           <ListItemText primary="Street" sx={{ flex: 1 }} />
           <ListItemText primary="City" sx={{ flex: 1 }} />
-          <ListItemText primary="Country" sx={{ flex: 1 }} />
           <ListItemText primary="Details" sx={{ flex: 1 }} />
         </ListItem>
 
@@ -73,23 +73,31 @@ const Addresses = ({
               }}
             >
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Box sx={{ width: '100%', display: 'flex' }}>
+                <Box sx={{ display: 'flex', gap: 2 }}>
                   <Typography sx={{ flex: 1 }}>{streetName}</Typography>
-                  <Typography sx={{ flex: 1 }}>
-                    {getCountryNameByCode(city)}
-                  </Typography>
-                  <Box sx={{ flex: 1, display: { xs: 'none', sm: 'block' } }}>
-                    {country}
-                  </Box>
+                  <Typography sx={{ flex: 1 }}>{city}</Typography>
+                  <Typography sx={{ flex: 1 }}>{country}</Typography>
                 </Box>
               </AccordionSummary>
               <AccordionDetails>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <Grid container gap={2} gridAutoColumns={4}>
+                  <Box>
+                    <Typography color="text.secondary" variant="body2">
+                      Street:
+                    </Typography>
+                    <Typography>{streetName}</Typography>
+                  </Box>
+                  <Box>
+                    <Typography color="text.secondary" variant="body2">
+                      City:
+                    </Typography>
+                    <Typography>{city}</Typography>
+                  </Box>
                   <Box>
                     <Typography color="text.secondary" variant="body2">
                       Country:
                     </Typography>
-                    <Typography>{country}</Typography>
+                    <Typography>{getCountryNameByCode(country)}</Typography>
                   </Box>
                   <Box>
                     <Typography color="text.secondary" variant="body2">
@@ -136,6 +144,7 @@ const Addresses = ({
                       <DeleteIcon />
                     </IconButton>
                     <IconButton
+                      disabled={!isEditMode}
                       onClick={() => {
                         setEditAddress({
                           id,
@@ -149,7 +158,7 @@ const Addresses = ({
                       <EditIcon />
                     </IconButton>
                   </Box>
-                </Box>
+                </Grid>
               </AccordionDetails>
             </Accordion>
           );

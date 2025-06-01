@@ -10,6 +10,7 @@ const initialState: AuthState = {
   customer: null,
   isLoading: false,
   error: null,
+  isEditProfile: false,
 };
 
 const authSlice = createSlice({
@@ -23,6 +24,9 @@ const authSlice = createSlice({
     },
     setCustomer: (state, { payload }) => {
       state.customer = payload;
+    },
+    setIsEditProfile: (state, { payload }) => {
+      state.isEditProfile = payload;
     },
   },
   extraReducers: builder => {
@@ -77,6 +81,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { logOut, setCustomer } = authSlice.actions;
+export const { logOut, setCustomer, setIsEditProfile } = authSlice.actions;
 
 export default authSlice.reducer;

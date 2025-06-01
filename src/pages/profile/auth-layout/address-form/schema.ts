@@ -1,6 +1,9 @@
 import * as yup from 'yup';
 
-import { onlyLettersRegex, postalCodeRegex } from '../../register/interfaces';
+import {
+  onlyLettersRegex,
+  postalCodeRegex,
+} from '../../../register/interfaces';
 
 const schema = yup.object().shape({
   country: yup.string().required('Country is required'),

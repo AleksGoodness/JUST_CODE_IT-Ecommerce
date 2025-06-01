@@ -1,8 +1,8 @@
 import * as yup from 'yup';
 
-import { domainRegex, onlyLettersRegex } from '../register/interfaces';
+import { domainRegex, onlyLettersRegex } from '../../../register/interfaces';
 
-export const validatingSchema = yup.object().shape({
+export const profileFormSchema = yup.object().shape({
   firstName: yup
     .string()
     .matches(onlyLettersRegex, 'First name must contain only letters')
@@ -33,4 +33,4 @@ export const validatingSchema = yup.object().shape({
     }),
 });
 
-export default validatingSchema;
+export default profileFormSchema;

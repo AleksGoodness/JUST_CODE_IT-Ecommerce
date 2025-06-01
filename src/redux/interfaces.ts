@@ -11,6 +11,7 @@ export interface AuthState {
   customer: ICustomerDetails | null;
   isLoading: boolean;
   error: string | null;
+  isEditProfile: boolean;
 }
 
 export interface IAddress {

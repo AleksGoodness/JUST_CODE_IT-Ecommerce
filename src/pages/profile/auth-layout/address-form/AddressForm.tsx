@@ -1,4 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import CabinIcon from '@mui/icons-material/Cabin';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import SendIcon from '@mui/icons-material/Send';
 import {
   Autocomplete,
@@ -11,10 +13,10 @@ import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { Title } from '../../../components';
-import { useAppDispatch } from '../../../redux/hooks';
-import { setCustomer } from '../../../redux/slices/authSlice';
-import { useUpdateProfileMutation } from '../../../services/api';
+import { Title } from '../../../../components';
+import { useAppDispatch } from '../../../../redux/hooks';
+import { setCustomer } from '../../../../redux/slices/authSlice';
+import { useUpdateProfileMutation } from '../../../../services/api';
 import schema from './schema';
 
 const countries = ['Russia', 'Belarus'];
@@ -179,8 +181,12 @@ const AddressForm = ({ addressToEdit, version, setEditAddress }: Props) => {
           <IconButton type="submit">
             <SendIcon />
           </IconButton>
-          <IconButton />
-          <IconButton />
+          <IconButton>
+            <CabinIcon />
+          </IconButton>
+          <IconButton>
+            <LocalShippingIcon />
+          </IconButton>
         </Grid>
       </Grid>
     </>
