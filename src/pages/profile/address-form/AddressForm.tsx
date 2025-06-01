@@ -8,7 +8,7 @@ import {
   TextField,
 } from '@mui/material';
 import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import { Title } from '../../../components';
@@ -16,6 +16,8 @@ import { useAppDispatch } from '../../../redux/hooks';
 import { setCustomer } from '../../../redux/slices/authSlice';
 import { useUpdateProfileMutation } from '../../../services/api';
 import schema from './schema';
+
+const countries = ['Russia', 'Belarus'];
 
 export interface InputProps {
   id?: string;
@@ -47,6 +49,7 @@ const AddressForm = ({ addressToEdit, version, setEditAddress }: Props) => {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm<InputProps>({
     mode: 'onChange',
@@ -138,21 +141,25 @@ const AddressForm = ({ addressToEdit, version, setEditAddress }: Props) => {
           {...register('city')}
         />
         <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
-          <Autocomplete
-            disablePortal
-            options={[
-              { label: 'Russia', id: 1 },
-              { label: 'Belarus', id: 2 },
-            ]}
-            renderInput={params => (
-              <TextField
-                {...register('country')}
-                {...params}
-                error={!!errors.country}
-                helperText={errors.country?.message}
-                label="country"
+          <Controller
+            control={control}
+            name="country"
+            render={({ field: { onChange, value } }) => (
+              <Autocomplete
+                onChange={(_, newValue) => onChange(newValue)}
+                options={countries}
+                renderInput={params => (
+                  <TextField
+                    {...params}
+                    error={!!errors.country}
+                    helperText={errors.country?.message}
+                    label="Country"
+                  />
+                )}
+                value={value}
               />
             )}
+            rules={{ required: 'Country is required' }}
           />
         </Grid>
         <Grid

@@ -77,7 +77,7 @@ const AuthLayout = ({ customer, isEditMode, setIsEditMode }: Props) => {
     ].filter(Boolean);
 
     if (!actions.length) {
-      toast.info('nothing changed');
+      toast.info('Nothing changed');
       setIsEditMode(false);
       return;
     }

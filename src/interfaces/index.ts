@@ -112,4 +112,11 @@ interface PagedResponse<T> {
   results: T[];
 }
 
+export interface ICategory {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+}
+
 export type CategoryPagedResponse = PagedResponse<Category>;
