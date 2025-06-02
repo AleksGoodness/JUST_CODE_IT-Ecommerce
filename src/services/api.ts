@@ -1,8 +1,7 @@
 // api/ecommerceApi.ts
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import { dynamicBaseQuery } from './profile';
-const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY as string;
+import { dynamicBaseQuery } from './dynamicBaseQuery';
 
 export const ecommerceApi = createApi({
   reducerPath: 'ecommerceApi',
@@ -11,7 +10,7 @@ export const ecommerceApi = createApi({
   endpoints: builder => ({
     getProfile: builder.query({
       query: () => ({
-        uri: `/${projectKey}/me`,
+        uri: `me`,
         method: 'GET',
         useAuthClient: true,
       }),
@@ -20,7 +19,19 @@ export const ecommerceApi = createApi({
 
     updateProfile: builder.mutation({
       query: updateData => ({
-        uri: `/${projectKey}/me`,
+        uri: `me`,
+        method: 'POST',
+        body: updateData,
+        useAuthClient: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+      invalidatesTags: ['Customer'],
+    }),
+    updatePassword: builder.mutation({
+      query: updateData => ({
+        uri: `me/password`,
         method: 'POST',
         body: updateData,
         useAuthClient: true,
@@ -33,7 +44,7 @@ export const ecommerceApi = createApi({
 
     getCategories: builder.query({
       query: () => ({
-        uri: `/${projectKey}/categories`,
+        uri: `categories`,
         method: 'GET',
         useAuthClient: false,
       }),
@@ -42,7 +53,7 @@ export const ecommerceApi = createApi({
 
     getProducts: builder.query({
       query: productId => ({
-        uri: `/${projectKey}/product-projections/${productId}`,
+        uri: `product-projections/${productId}`,
         method: 'GET',
         useAuthClient: false,
       }),
@@ -52,6 +63,7 @@ export const ecommerceApi = createApi({
 });
 
 export const {
+  useUpdatePasswordMutation,
   useGetProfileQuery,
   useGetProductsQuery,
   useGetCategoriesQuery,

@@ -10,6 +10,7 @@ const initialState: AuthState = {
   customer: null,
   isLoading: false,
   error: null,
+  isEditProfile: false,
 };
 
 const authSlice = createSlice({
@@ -20,6 +21,12 @@ const authSlice = createSlice({
     logOut: state => {
       localStorage.removeItem('ctpTokenCache');
       state.customer = null;
+    },
+    setCustomer: (state, { payload }) => {
+      state.customer = payload;
+    },
+    setIsEditProfile: (state, { payload }) => {
+      state.isEditProfile = payload;
     },
   },
   extraReducers: builder => {
@@ -43,8 +50,9 @@ const authSlice = createSlice({
     //* login customer
     builder.addCase(loginCustomer.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.customer = action.payload;
-      toast.success(`Welcome back, ${action.payload.firstName}!`);
+      state.customer = action.payload ?? null;
+      if (action.payload)
+        toast.success(`Welcome back, ${action.payload.firstName}!`);
     });
     builder.addCase(loginCustomer.rejected, (state, action) => {
       state.isLoading = false;
@@ -73,6 +81,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { logOut } = authSlice.actions;
+export const { logOut, setCustomer, setIsEditProfile } = authSlice.actions;
 
 export default authSlice.reducer;

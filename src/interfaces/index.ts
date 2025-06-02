@@ -45,7 +45,7 @@ export interface CreatedBy {
 }
 
 export interface Address {
-  id?: string;
+  id: string;
   streetName: string;
   postalCode: string;
   city: string;
@@ -100,8 +100,8 @@ interface CategoryContent {
 }
 
 interface Category extends SystemInfo, CategoryContent {
-  ancestors: unknown[]; // Уточнить тип при необходимости
-  assets: unknown[]; // Уточнить тип при необходимости
+  ancestors: unknown[];
+  assets: unknown[];
 }
 
 interface PagedResponse<T> {
@@ -110,6 +110,13 @@ interface PagedResponse<T> {
   count: number;
   total: number;
   results: T[];
+}
+
+export interface ICategory {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
 }
 
 export type CategoryPagedResponse = PagedResponse<Category>;
