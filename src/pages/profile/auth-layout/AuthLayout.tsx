@@ -1,4 +1,4 @@
-import { Box, Grid } from '@mui/material';
+import { Box } from '@mui/material';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { getCustomer } from '../../../redux/selectors';
 import { setCustomer } from '../../../redux/slices/authSlice';
 import { useUpdateProfileMutation } from '../../../services/api';
-import AddressForm, { InputProps } from './address-form/AddressForm';
+import { InputProps } from './address-form/AddressForm';
 import Addresses from './address-list/Addresses';
 import ProfileForm from './profile-form/ProfileForm';
 
@@ -15,7 +15,7 @@ const AuthLayout = () => {
   const { customer, isLoading, isEditProfile } = useAppSelector(getCustomer);
   const [updateProfile] = useUpdateProfileMutation();
   const dispatch = useAppDispatch();
-  const [editAddress, setEditAddress] = useState<InputProps>();
+  const [, setEditAddress] = useState<InputProps>();
 
   const handleDeleteAddress = (id: string) => {
     if (!customer) return;
@@ -39,23 +39,15 @@ const AuthLayout = () => {
     return (
       <Box>
         <ProfileForm />
-        <Grid
+        <Addresses
           addresses={customer.addresses}
-          component={Addresses}
           defaultBillingAddressId={customer.defaultBillingAddressId}
           defaultShippingAddressId={customer.defaultShippingAddressId}
           handleDeleteAddress={handleDeleteAddress}
           isEditMode={isEditProfile}
           setEditAddress={setEditAddress}
+          version={customer.version}
         />
-
-        {isEditProfile ? (
-          <AddressForm
-            addressToEdit={editAddress}
-            setEditAddress={setEditAddress}
-            version={customer.version}
-          />
-        ) : null}
       </Box>
     );
 };

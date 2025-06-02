@@ -12,18 +12,17 @@ import {
   Grid,
   IconButton,
   List,
-  ListItem,
-  ListItemText,
   Typography,
 } from '@mui/material';
 
 import { Title } from '../../../../components';
 import { Address } from '../../../../interfaces';
 import { getCountryNameByCode } from '../../../../utils/getCountryNameByCode';
-import { InputProps } from '../address-form/AddressForm';
+import AddressForm, { InputProps } from '../address-form/AddressForm';
 
 interface IProps {
   addresses: Address[];
+  version: number;
   setEditAddress: (addressToEdit: InputProps) => void;
   defaultBillingAddressId?: string;
   defaultShippingAddressId?: string;
@@ -38,28 +37,16 @@ const Addresses = ({
   isEditMode,
   setEditAddress,
   handleDeleteAddress,
+  version,
 }: IProps) => {
   return (
-    <>
-      <Divider />
+    <Grid>
       <Title p={2} textAlign={'center'} variant="section">
         Addresses
       </Title>
       <Divider />
 
-      <List sx={{ width: '100%' }}>
-        <ListItem
-          sx={{
-            fontWeight: 'bold',
-            color: 'text.primary',
-            textAlign: 'center',
-          }}
-        >
-          <ListItemText primary="Street" sx={{ flex: 1 }} />
-          <ListItemText primary="City" sx={{ flex: 1 }} />
-          <ListItemText primary="Details" sx={{ flex: 1 }} />
-        </ListItem>
-
+      <List>
         {addresses.map(({ id, streetName, city, country, postalCode }) => {
           const isDefaultShippingAddress = defaultShippingAddressId == id;
           const isDefaultBillingAddress = defaultBillingAddressId === id;
@@ -159,12 +146,24 @@ const Addresses = ({
                     </IconButton>
                   </Box>
                 </Grid>
+                {isEditMode ? (
+                  <AddressForm
+                    addressToEdit={{
+                      country,
+                      streetName,
+                      city,
+                      postalCode,
+                      id,
+                    }}
+                    version={version}
+                  />
+                ) : null}
               </AccordionDetails>
             </Accordion>
           );
         })}
       </List>
-    </>
+    </Grid>
   );
 };
 

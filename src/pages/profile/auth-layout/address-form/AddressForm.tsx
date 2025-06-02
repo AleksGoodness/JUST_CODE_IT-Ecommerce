@@ -1,19 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import CabinIcon from '@mui/icons-material/Cabin';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import SendIcon from '@mui/icons-material/Send';
-import {
-  Autocomplete,
-  Divider,
-  Grid,
-  IconButton,
-  TextField,
-} from '@mui/material';
+import { Autocomplete, Grid, IconButton, TextField } from '@mui/material';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { Title } from '../../../../components';
 import { useAppDispatch } from '../../../../redux/hooks';
 import { setCustomer } from '../../../../redux/slices/authSlice';
 import { useUpdateProfileMutation } from '../../../../services/api';
@@ -22,7 +13,7 @@ import schema from './schema';
 const countries = ['Russia', 'Belarus'];
 
 export interface InputProps {
-  id?: string;
+  id: string;
   country: string;
   streetName: string;
   city: string;
@@ -31,20 +22,18 @@ export interface InputProps {
 
 interface Props {
   addressToEdit?: InputProps;
-  version?: number;
-  setEditAddress: (value: undefined) => void;
+  version: number;
 }
 
-const defaultValues: InputProps = {
+const defaultValues = {
   country: '',
   streetName: '',
   city: '',
   postalCode: '',
 };
 
-const AddressForm = ({ addressToEdit, version, setEditAddress }: Props) => {
+const AddressForm = ({ addressToEdit, version }: Props) => {
   const [updateProfile] = useUpdateProfileMutation();
-
   const dispatch = useAppDispatch();
 
   const {
@@ -53,7 +42,7 @@ const AddressForm = ({ addressToEdit, version, setEditAddress }: Props) => {
     reset,
     control,
     formState: { errors },
-  } = useForm<InputProps>({
+  } = useForm<typeof defaultValues>({
     mode: 'onChange',
     resolver: yupResolver(schema),
     defaultValues: addressToEdit || defaultValues,
@@ -71,7 +60,7 @@ const AddressForm = ({ addressToEdit, version, setEditAddress }: Props) => {
     return () => clearTimeout(timer);
   }, [addressToEdit, reset]);
 
-  const formSubmitHandler = async (data: InputProps) => {
+  const formSubmitHandler = async (data: typeof defaultValues) => {
     const request = await updateProfile({
       version: version,
       actions: [
@@ -91,7 +80,6 @@ const AddressForm = ({ addressToEdit, version, setEditAddress }: Props) => {
     if (request.data) {
       toast.success('address updated');
       reset(defaultValues);
-      setEditAddress(undefined);
       dispatch(setCustomer(request.data));
     }
     if (request.error) {
@@ -101,95 +89,76 @@ const AddressForm = ({ addressToEdit, version, setEditAddress }: Props) => {
   };
 
   return (
-    <>
-      <Divider />
-      <Title
-        sx={{ p: 2, textAlign: 'end', color: 'primary.main' }}
-        variant="subheader"
-      >
-        Add new address
-      </Title>
-      <Divider />
-
+    <Grid
+      component={'form'}
+      container
+      mt={1}
+      onSubmit={handleSubmit(formSubmitHandler)}
+      spacing={2}
+    >
       <Grid
-        component={'form'}
-        container
-        mt={1}
-        onSubmit={handleSubmit(formSubmitHandler)}
-        spacing={2}
-      >
-        <Grid
-          component={TextField}
-          error={!!errors.streetName}
-          helperText={errors.streetName?.message}
-          label="StreetName"
-          size={{ xs: 12, sm: 6, lg: 3 }}
-          slotProps={{
-            inputLabel: { shrink: true },
-          }}
-          variant="outlined"
-          {...register('streetName')}
+        component={TextField}
+        error={!!errors.streetName}
+        helperText={errors.streetName?.message}
+        label="StreetName"
+        size={{ xs: 12, sm: 6, lg: 3 }}
+        slotProps={{
+          inputLabel: { shrink: true },
+        }}
+        variant="outlined"
+        {...register('streetName')}
+      />
+      <Grid
+        component={TextField}
+        error={!!errors.city}
+        helperText={errors.city?.message}
+        label="City"
+        size={{ xs: 12, sm: 6, lg: 3 }}
+        slotProps={{
+          inputLabel: { shrink: true },
+        }}
+        variant="outlined"
+        {...register('city')}
+      />
+      <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
+        <Controller
+          control={control}
+          name="country"
+          render={({ field: { onChange, value } }) => (
+            <Autocomplete
+              onChange={(_, newValue) => onChange(newValue)}
+              options={countries}
+              renderInput={params => (
+                <TextField
+                  {...params}
+                  error={!!errors.country}
+                  helperText={errors.country?.message}
+                  label="Country"
+                />
+              )}
+              value={value}
+            />
+          )}
+          rules={{ required: 'Country is required' }}
         />
-        <Grid
-          component={TextField}
-          error={!!errors.city}
-          helperText={errors.city?.message}
-          label="City"
-          size={{ xs: 12, sm: 6, lg: 3 }}
-          slotProps={{
-            inputLabel: { shrink: true },
-          }}
-          variant="outlined"
-          {...register('city')}
-        />
-        <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
-          <Controller
-            control={control}
-            name="country"
-            render={({ field: { onChange, value } }) => (
-              <Autocomplete
-                onChange={(_, newValue) => onChange(newValue)}
-                options={countries}
-                renderInput={params => (
-                  <TextField
-                    {...params}
-                    error={!!errors.country}
-                    helperText={errors.country?.message}
-                    label="Country"
-                  />
-                )}
-                value={value}
-              />
-            )}
-            rules={{ required: 'Country is required' }}
-          />
-        </Grid>
-        <Grid
-          component={TextField}
-          error={!!errors.postalCode}
-          helperText={errors.postalCode?.message}
-          label="PostalCode"
-          size={{ xs: 12, sm: 6, lg: 3 }}
-          slotProps={{
-            inputLabel: { shrink: true },
-          }}
-          variant="outlined"
-          {...register('postalCode')}
-        />
-
-        <Grid>
-          <IconButton type="submit">
-            <SendIcon />
-          </IconButton>
-          <IconButton>
-            <CabinIcon />
-          </IconButton>
-          <IconButton>
-            <LocalShippingIcon />
-          </IconButton>
-        </Grid>
       </Grid>
-    </>
+      <Grid
+        component={TextField}
+        error={!!errors.postalCode}
+        helperText={errors.postalCode?.message}
+        label="PostalCode"
+        size={{ xs: 12, sm: 6, lg: 3 }}
+        slotProps={{
+          inputLabel: { shrink: true },
+        }}
+        variant="outlined"
+        {...register('postalCode')}
+      />
+
+      <IconButton type="submit">
+        <SendIcon />
+      </IconButton>
+    </Grid>
   );
 };
 
