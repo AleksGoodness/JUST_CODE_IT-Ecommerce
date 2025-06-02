@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
 
-interface IDefaultValues {
+export interface AddressFormValues {
   id?: string;
   country: string;
   streetName: string;
@@ -23,8 +23,8 @@ interface IDefaultValues {
   isDefaultBilling: boolean;
 }
 interface Props {
-  defaultValue: IDefaultValues;
-  formSubmitHandler: (data: IDefaultValues) => Promise<void>;
+  defaultValue: AddressFormValues;
+  formSubmitHandler: (data: AddressFormValues) => Promise<void>;
   handleDeleteAddress?: (id: string) => void;
 }
 
@@ -40,7 +40,7 @@ const AddressForm = ({
     register,
     formState: { errors, isDirty },
     handleSubmit,
-  } = useFormContext<IDefaultValues>();
+  } = useFormContext<AddressFormValues>();
 
   return (
     <Grid

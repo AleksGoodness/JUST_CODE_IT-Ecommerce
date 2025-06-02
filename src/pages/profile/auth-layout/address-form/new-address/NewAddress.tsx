@@ -3,16 +3,16 @@ import { Grid } from '@mui/material';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { Title } from '../../../../components';
-import { useAppDispatch } from '../../../../redux/hooks';
+import { Title } from '../../../../../components';
+import { useAppDispatch } from '../../../../../redux/hooks';
 import {
   setCustomer,
   setIsEditProfile,
-} from '../../../../redux/slices/authSlice';
-import { useUpdateProfileMutation } from '../../../../services/api';
-import { getCountryCodeByName } from '../../../../utils/getCountryNameByCode';
-import AddressForm from '../address-form/AddressForm';
-import newAddressSchema from './schema';
+} from '../../../../../redux/slices/authSlice';
+import { useUpdateProfileMutation } from '../../../../../services/api';
+import { getCountryCodeByName } from '../../../../../utils/getCountryNameByCode';
+import AddressForm from '../AddressForm';
+import baseSchema from '../baseSchema';
 
 interface UpdateAction {
   action: string;
@@ -49,7 +49,7 @@ const NewAddress = ({ version }: { version: number }) => {
 
   const methods = useForm<IDefaultValues>({
     mode: 'onChange',
-    resolver: yupResolver(newAddressSchema),
+    resolver: yupResolver(baseSchema),
     defaultValues: initialValues,
   });
 

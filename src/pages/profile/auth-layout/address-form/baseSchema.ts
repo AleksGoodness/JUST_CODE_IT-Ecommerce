@@ -5,7 +5,7 @@ import {
   postalCodeRegex,
 } from '../../../register/interfaces';
 
-const schema = yup.object().shape({
+const baseSchema = yup.object().shape({
   country: yup.string().required('Country is required'),
   streetName: yup
     .string()
@@ -21,7 +21,6 @@ const schema = yup.object().shape({
     .required('Postal code is required'),
   isDefaultShipping: yup.boolean().required(),
   isDefaultBilling: yup.boolean().required(),
-  id: yup.string().required(),
 });
 
-export default schema;
+export default baseSchema;

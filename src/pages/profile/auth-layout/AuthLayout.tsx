@@ -4,7 +4,7 @@ import { Loading } from '../../../components';
 import { useAppSelector } from '../../../redux/hooks';
 import { getCustomer } from '../../../redux/selectors';
 import Addresses from './address-list/Addresses';
-import NewAddress from './new-address/NewAddress';
+import NewAddress from './address-form/new-address/NewAddress';
 import ProfileForm from './profile-form/ProfileForm';
 
 const AuthLayout = () => {
