@@ -80,15 +80,15 @@ const commonComponents: Components<Theme> = {
           textTransform: 'capitalize',
           transition: 'border-bottom 0.5s ease-in-out',
           textDecoration: 'none',
-          padding: '0 0.7em',
+          padding: '0 1rem',
           position: 'relative',
-          fontSize: 'clamp(1rem, 1.9vw, 1.3rem)',
+          fontSize: '1.3rem',
 
           '&::after': {
             content: '""',
             display: 'block',
             position: 'absolute',
-            bottom: '-0.8em',
+            bottom: '-0.2rem',
             left: '12.5%',
             height: '3px',
             transition: 'transform 0.3s ease',

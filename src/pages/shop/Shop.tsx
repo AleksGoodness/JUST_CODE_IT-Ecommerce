@@ -1,9 +1,9 @@
 import BeeIcon from '@mui/icons-material/EmojiNature';
-import { Box, Breadcrumbs, Button, Container, Link } from '@mui/material';
+import { Box, Button, Container } from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import { motion } from 'motion/react';
 import { useState } from 'react';
-import { NavLink, Outlet } from 'react-router';
+import { Outlet } from 'react-router';
 
 import CategoryList from './components/CategoryList';
 
@@ -20,26 +20,6 @@ const Shop = () => {
       initial={{ scale: 0 }}
     >
       <Box sx={{ display: 'flex', gap: '1rem', flexDirection: 'column' }}>
-        <Breadcrumbs>
-          <Link
-            color="inherit"
-            component={NavLink}
-            to="/"
-            underline="hover"
-            variant="subtitle2"
-          >
-            Home
-          </Link>
-          <Link
-            color="inherit"
-            component={NavLink}
-            to="/shop"
-            underline="hover"
-            variant="subtitle2"
-          >
-            Shop
-          </Link>
-        </Breadcrumbs>
         <Button
           endIcon={<BeeIcon />}
           onClick={toggleDrawer(true)}
