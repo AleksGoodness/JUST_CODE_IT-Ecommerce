@@ -3,8 +3,9 @@ import { Box } from '@mui/material';
 import { Loading } from '../../../components';
 import { useAppSelector } from '../../../redux/hooks';
 import { getCustomer } from '../../../redux/selectors';
-import Addresses from './address-list/Addresses';
 import NewAddress from './address-form/new-address/NewAddress';
+import Addresses from './address-list/Addresses';
+import PasswordChanger from './password-changer/PasswordChanger';
 import ProfileForm from './profile-form/ProfileForm';
 
 const AuthLayout = () => {
@@ -14,6 +15,7 @@ const AuthLayout = () => {
   if (customer)
     return (
       <Box>
+        <PasswordChanger />
         <ProfileForm />
         <Addresses
           addresses={customer.addresses}

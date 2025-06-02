@@ -109,8 +109,10 @@ const NewAddress = ({ version }: { version: number }) => {
   };
 
   return (
-    <Grid container>
-      <Title>Add new address</Title>
+    <Grid container direction={'column'}>
+      <Title alignSelf={'end'} p={2} textAlign={'end'} variant="section">
+        Add new address
+      </Title>
       <FormProvider {...methods}>
         <AddressForm
           defaultValue={initialValues}

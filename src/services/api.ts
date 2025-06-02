@@ -29,6 +29,18 @@ export const ecommerceApi = createApi({
       }),
       invalidatesTags: ['Customer'],
     }),
+    updatePassword: builder.mutation({
+      query: updateData => ({
+        uri: `me/password`,
+        method: 'POST',
+        body: updateData,
+        useAuthClient: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+      invalidatesTags: ['Customer'],
+    }),
 
     getCategories: builder.query({
       query: () => ({
@@ -51,6 +63,7 @@ export const ecommerceApi = createApi({
 });
 
 export const {
+  useUpdatePasswordMutation,
   useGetProfileQuery,
   useGetProductsQuery,
   useGetCategoriesQuery,
