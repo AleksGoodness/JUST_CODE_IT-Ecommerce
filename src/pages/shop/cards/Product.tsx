@@ -1,8 +1,8 @@
+import { Box } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router';
 
@@ -12,10 +12,9 @@ import PlaceHolderImage from './CardPlaceHolder.png';
 export interface Props {
   id: string;
   name: string;
-  slug: string;
   description: string;
   price: string;
-  currencyCode: string;
+  currencyCode?: string;
   images: Image[];
 }
 
@@ -33,7 +32,6 @@ export interface Dimensions {
 const Product = ({
   id,
   name,
-  slug,
   description,
   price,
   currencyCode,
@@ -42,61 +40,83 @@ const Product = ({
   return (
     <Card
       sx={{
-        maxHeight: '100%',
         height: '100%',
+        display: 'flex',
+        transition: 'transform 0.2s ease',
+        '&:hover': {
+          transform: 'scale(1.05)',
+          boxShadow: 6,
+        },
       }}
     >
       <CardActionArea
         component={Link}
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
           height: '100%',
-          transition: '0.25s ease',
-          '&:hover': { scale: '1.05', transition: '0.2s ease' },
+          display: 'grid',
+          gridTemplateRows: '2fr 1fr',
+          gridTemplateColumns: '1fr',
+          gap: 0,
         }}
-        to={`${slug}/${id}`}
+        to={`${id}`}
       >
-        {
-          <Grid sx={{ height: '100%' }}>
-            <CardMedia
-              alt={images.length ? images[0].label || name : name}
-              component="img"
-              image={
-                images.length && images[0].url
-                  ? images[0].url
-                  : PlaceHolderImage
-              }
-              sx={{
-                objectFit: 'contain',
-              }}
-            />
-          </Grid>
-        }
-        <CardContent
+        <Box
           sx={{
-            maxWidth: '100%',
             width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'end',
             height: '100%',
+            position: 'relative',
+            overflow: 'hidden',
+            bgcolor: 'paper',
           }}
         >
-          <Title component={'h3'} variant="subheader">
+          <CardMedia
+            alt={images.length ? images[0].label || name : name}
+            component="img"
+            image={
+              images.length && images[0].url ? images[0].url : PlaceHolderImage
+            }
+            sx={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          />
+        </Box>
+
+        <CardContent
+          sx={{
+            display: 'grid',
+            gridTemplateRows: 'auto auto 1fr',
+            gap: 0.5,
+            p: 2,
+            alignContent: 'start',
+          }}
+        >
+          <Title component="h3" sx={{ lineHeight: 1.2 }} variant="subheader">
             {name}
           </Title>
-          <Typography component={'p'} variant="body2">
+
+          <Typography
+            component="p"
+            sx={{
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+            variant="body2"
+          >
             {description}
           </Typography>
-          <Typography component={'p'} sx={{ display: 'flex', gap: '0.2rem' }}>
-            <Typography color="primary" variant="body2">
-              {price}
-            </Typography>
-            <Typography color="primary" variant="body2">
-              {currencyCode}
-            </Typography>
+
+          <Typography
+            color="primary"
+            fontWeight="bold"
+            sx={{ alignSelf: 'end' }}
+            variant="body2"
+          >
+            {price} {currencyCode}
           </Typography>
         </CardContent>
       </CardActionArea>

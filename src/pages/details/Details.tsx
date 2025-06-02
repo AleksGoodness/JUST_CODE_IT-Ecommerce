@@ -3,38 +3,39 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { motion } from 'motion/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
 import AttributeBox from '../../components/attributeBox/AttributeBox';
 import Purchase from '../../components/purchase/Purchase';
 import Slider from '../../components/slider/slider';
-import { createClientWithToken } from '../../ecommerce/clientBuilder';
+import { useGetProductsQuery } from '../../services/api';
 import CONSTANTS from '../../utils/CONSTANTS';
 import clearDiscountObject from './clearDiscountObject';
 import clearObject from './clearObject';
 import discountObject from './dicountObject';
 import tempObject from './tempObjext';
 import { findDiscount, formatPrice } from './utilsDetails';
-const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY;
+const myProduct = clearObject(tempObject);
+const myDiscount = clearDiscountObject(discountObject);
 
 const Details = () => {
-  const { category, plantName, plantId } = useParams();
+  const { category, plantName } = useParams();
+  const { data } = useGetProductsQuery(`/${plantName}`);
+  const [product, setProduct] = useState(myProduct);
   const navigate = useNavigate();
-  const myProduct = clearObject(tempObject);
-  const myDiscount = clearDiscountObject(discountObject);
-  const discountPrice = findDiscount(myProduct.cost, myDiscount.value);
-  const currency = myProduct.currency;
+  const discountPrice = findDiscount(product.cost, myDiscount.value);
+  const currency = product.currency;
   const formattedDiscountPrice = formatPrice(currency, discountPrice);
-  const discount = myDiscount.names?.includes(myProduct.sku)
+  const discount = myDiscount.names?.includes(product.sku)
     ? formattedDiscountPrice + '  Special Offer'
     : '';
-  const slides = myProduct.images;
+  const slides = product.images;
   const imagesUrl = slides.map(slide => slide.url);
   const mainImage = imagesUrl[0];
-  const attributes = myProduct.attributes;
+  const attributes = product.attributes;
   useEffect(() => {
-    if (!category && !plantId && !plantName) {
+    if (!category && !plantName) {
       navigate(CONSTANTS.shop);
       return;
     }
@@ -43,19 +44,16 @@ const Details = () => {
       return;
     }
 
-    if (!plantName || !plantId) {
+    if (!plantName) {
       navigate(`${CONSTANTS.shop}/${category}`);
       return;
     }
-    const client = createClientWithToken();
-    (async () => {
-      const response = await client.execute({
-        uri: `/${projectKey}/products/${plantId}`,
-        method: 'GET',
-      });
-      console.log(response);
-    })();
-  }, [plantId, navigate, plantName, category]);
+
+    if (data) {
+      const cleanObject = clearObject(data);
+      setProduct(cleanObject);
+    }
+  }, [navigate, plantName, category, data]);
 
   return (
     <Container
@@ -94,7 +92,7 @@ const Details = () => {
             }}
             variant="sectionTitle"
           >
-            {myProduct.name}
+            {product.name}
           </Typography>
           <Box sx={{ display: 'flex', gap: '20px' }}>
             <Typography
@@ -103,7 +101,7 @@ const Details = () => {
                 fontSize: '1.2rem',
                 fontWeight: '700',
                 lineHeight: '1',
-                textDecoration: myDiscount.names?.includes(myProduct.sku)
+                textDecoration: myDiscount.names?.includes(product.sku)
                   ? 'line-through'
                   : 'none',
                 textDecorationColor: 'black',
@@ -111,7 +109,7 @@ const Details = () => {
                 color: '#46A358',
               }}
             >
-              {myProduct.price}
+              {product.price}
             </Typography>
             <Typography
               sx={{
@@ -144,7 +142,7 @@ const Details = () => {
               lineHeight: '1.2',
             }}
           >
-            {myProduct.description['en-US']}
+            {product.description['en-US']}
           </Typography>
           <Purchase purchases={0} />
         </Grid>

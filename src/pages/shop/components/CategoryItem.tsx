@@ -6,14 +6,20 @@ interface Props {
   slug: string;
   name: string;
   toggleDrawer: (value: boolean) => void;
+  onClick: () => void;
 }
 
-const CategoryItem = ({ slug, name, toggleDrawer }: Props) => {
+const CategoryItem = ({ slug, name, toggleDrawer, onClick }: Props) => {
+  const handleClick = () => {
+    onClick();
+    toggleDrawer(false);
+  };
+
   return (
     <ListItem sx={{ cursor: 'pointer' }}>
       <Link
         component={NavLink}
-        onClick={() => toggleDrawer(false)}
+        onClick={handleClick}
         sx={{
           maxWidth: '100%',
           width: '100%',

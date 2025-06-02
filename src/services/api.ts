@@ -6,7 +6,7 @@ import { dynamicBaseQuery } from './dynamicBaseQuery';
 export const ecommerceApi = createApi({
   reducerPath: 'ecommerceApi',
   baseQuery: dynamicBaseQuery,
-  tagTypes: ['Customer', 'Products', 'Categories'],
+  tagTypes: ['Customer', 'Products', 'Product', 'Categories'],
   endpoints: builder => ({
     getProfile: builder.query({
       query: () => ({
@@ -52,8 +52,8 @@ export const ecommerceApi = createApi({
     }),
 
     getProducts: builder.query({
-      query: productId => ({
-        uri: `product-projections/${productId}`,
+      query: query => ({
+        uri: `products${query}`,
         method: 'GET',
         useAuthClient: false,
       }),
