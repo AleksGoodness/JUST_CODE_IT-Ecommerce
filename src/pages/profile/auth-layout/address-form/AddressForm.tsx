@@ -12,13 +12,16 @@ import {
   Switch,
   TextField,
 } from '@mui/material';
-import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import { useAppDispatch } from '../../../../redux/hooks';
 import { setCustomer } from '../../../../redux/slices/authSlice';
 import { useUpdateProfileMutation } from '../../../../services/api';
+import {
+  getCountryCodeByName,
+  getCountryNameByCode,
+} from '../../../../utils/getCountryNameByCode';
 import schema from './schema';
 const countries = ['Russia', 'Belarus'];
 
@@ -28,8 +31,8 @@ export interface InputProps {
   streetName: string;
   city: string;
   postalCode: string;
-  isDefaultShippingAddress: boolean;
-  isDefaultBillingAddress: boolean;
+  isDefaultShipping: boolean;
+  isDefaultBilling: boolean;
 }
 
 interface Props {
@@ -37,14 +40,16 @@ interface Props {
   version: number;
 }
 
-const defaultValues = {
-  country: '',
-  streetName: '',
-  city: '',
-  postalCode: '',
-  isDefaultShipping: false,
-  isDefaultBilling: false,
-};
+// interface UpdateAction {
+//   action: string;
+//   addressId?: string;
+//   address?: {
+//     country: string;
+//     streetName: string;
+//     city: string;
+//     postalCode: string;
+//   };
+// }
 
 const AddressForm = ({ addressToEdit, version }: Props) => {
   const [updateProfile] = useUpdateProfileMutation();
@@ -70,47 +75,77 @@ const AddressForm = ({ addressToEdit, version }: Props) => {
   const {
     register,
     handleSubmit,
-    reset,
     control,
     formState: { errors },
-  } = useForm<typeof defaultValues>({
+  } = useForm<InputProps>({
     mode: 'onChange',
     resolver: yupResolver(schema),
-    defaultValues: addressToEdit,
+    defaultValues: {
+      ...addressToEdit,
+      country: getCountryNameByCode(addressToEdit.country),
+    },
   });
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (addressToEdit) {
-        reset({
-          ...addressToEdit,
-          country: addressToEdit.country === 'RU' ? 'Russia' : 'Belarus',
-        });
-      }
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [addressToEdit, reset]);
+  const formSubmitHandler = async (data: InputProps) => {
+    const formattedData: InputProps = {
+      ...data,
+      country: getCountryCodeByName(data.country),
+    };
 
-  const formSubmitHandler = async (data: typeof defaultValues) => {
-    const request = await updateProfile({
-      version: version,
-      actions: [
-        {
-          action: 'changeAddress',
-          addressId: addressToEdit?.id,
-          address: {
-            country: data.country === 'Russia' ? 'RU' : 'BY',
-            streetName: data.streetName,
-            city: data.city,
-            postalCode: data.postalCode,
-          },
-        },
-      ],
+    const isChanged =
+      JSON.stringify(formattedData) !== JSON.stringify(addressToEdit);
+
+    if (!isChanged) {
+      toast.info('Nothing is changed');
+      return;
+    }
+
+    const actions: {
+      action: string;
+      addressId: string;
+      address?: {
+        country: string;
+        streetName: string;
+        city: string;
+        postalCode: string;
+      };
+    }[] = [];
+
+    actions.push({
+      action: 'changeAddress',
+      addressId: addressToEdit.id,
+      address: {
+        country: formattedData.country,
+        streetName: formattedData.streetName,
+        city: formattedData.city,
+        postalCode: formattedData.postalCode,
+      },
     });
 
+    if (formattedData.isDefaultShipping !== addressToEdit.isDefaultShipping) {
+      actions.push({
+        action: formattedData.isDefaultShipping
+          ? 'setDefaultShippingAddress'
+          : 'removeShippingAddressId',
+        addressId: formattedData.id,
+      });
+    }
+
+    if (data.isDefaultBilling !== addressToEdit.isDefaultBilling) {
+      actions.push({
+        action: data.isDefaultBilling
+          ? 'setDefaultBillingAddress'
+          : 'removeBillingAddressId',
+        addressId: formattedData.id,
+      });
+    }
+
+    const request = await updateProfile({
+      version: version,
+      actions: actions,
+    });
     if (request.data) {
       toast.success('address updated');
-      reset(defaultValues);
       dispatch(setCustomer(request.data));
     }
     if (request.error) {
@@ -153,17 +188,21 @@ const AddressForm = ({ addressToEdit, version }: Props) => {
               control={
                 <Switch
                   {...register('isDefaultShipping')}
-                  checkedIcon={<LocalShippingIcon />}
-                  icon={<LocalShippingIcon />}
-                  sx={{
-                    '& .MuiSwitch-switchBase': {
-                      '&.Mui-checked': {
-                        '& .MuiSwitch-thumb': {
-                          color: 'GrayText',
-                        },
-                      },
-                    },
-                  }}
+                  checkedIcon={
+                    <LocalShippingIcon
+                      color="warning"
+                      sx={{
+                        mt: '-5px',
+                      }}
+                    />
+                  }
+                  icon={
+                    <LocalShippingIcon
+                      sx={{
+                        mt: '-5px',
+                      }}
+                    />
+                  }
                 />
               }
               label="Default Shipping Address"
@@ -176,17 +215,21 @@ const AddressForm = ({ addressToEdit, version }: Props) => {
               control={
                 <Switch
                   {...register('isDefaultBilling')}
-                  checkedIcon={<CabinIcon />}
-                  icon={<CabinIcon />}
-                  sx={{
-                    '& .MuiSwitch-switchBase': {
-                      '&.Mui-checked': {
-                        '& .MuiSwitch-thumb': {
-                          color: 'GrayText',
-                        },
-                      },
-                    },
-                  }}
+                  checkedIcon={
+                    <CabinIcon
+                      color="warning"
+                      sx={{
+                        mt: '-5px',
+                      }}
+                    />
+                  }
+                  icon={
+                    <CabinIcon
+                      sx={{
+                        mt: '-5px',
+                      }}
+                    />
+                  }
                 />
               }
               label="Default Billing Address"

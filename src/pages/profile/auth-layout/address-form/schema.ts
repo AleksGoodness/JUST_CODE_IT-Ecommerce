@@ -21,6 +21,7 @@ const schema = yup.object().shape({
     .required('Postal code is required'),
   isDefaultShipping: yup.boolean().required(),
   isDefaultBilling: yup.boolean().required(),
+  id: yup.string().required(),
 });
 
 export default schema;

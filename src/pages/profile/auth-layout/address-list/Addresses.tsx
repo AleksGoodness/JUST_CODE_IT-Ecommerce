@@ -42,8 +42,8 @@ const Addresses = ({
 
       <List>
         {addresses.map(({ id, streetName, city, country, postalCode }) => {
-          const isDefaultShippingAddress = defaultShippingAddressId == id;
-          const isDefaultBillingAddress = defaultBillingAddressId === id;
+          const isDefaultShipping = defaultShippingAddressId == id;
+          const isDefaultBilling = defaultBillingAddressId === id;
 
           return (
             <Accordion
@@ -60,12 +60,8 @@ const Addresses = ({
                   <Typography sx={{ flex: 1 }}>{country}</Typography>
                   <Typography sx={{ flex: 1 }}>{postalCode}</Typography>
                   <Typography sx={{ flex: 1, display: 'flex', gap: 2 }}>
-                    {isDefaultShippingAddress ? (
-                      <LocalShippingIcon color={'primary'} />
-                    ) : null}
-                    {isDefaultBillingAddress ? (
-                      <CabinIcon color={'warning'} />
-                    ) : null}
+                    {isDefaultShipping ? <LocalShippingIcon /> : null}
+                    {isDefaultBilling ? <CabinIcon /> : null}
                   </Typography>
                 </Box>
               </AccordionSummary>
@@ -100,23 +96,22 @@ const Addresses = ({
                       Billing address:
                     </Typography>
                     <Typography sx={{ textAlign: 'center' }}>
-                      {isDefaultBillingAddress ? <CabinIcon /> : 'No'}
+                      {isDefaultBilling ? <CabinIcon color="warning" /> : 'No'}
                     </Typography>
                   </Box>
-                  {
-                    <Box>
-                      <Typography color="text.secondary" variant="body2">
-                        Shipping address:
-                      </Typography>
-                      <Typography sx={{ textAlign: 'center' }}>
-                        {isDefaultShippingAddress ? (
-                          <LocalShippingIcon />
-                        ) : (
-                          'No'
-                        )}
-                      </Typography>
-                    </Box>
-                  }
+
+                  <Box>
+                    <Typography color="text.secondary" variant="body2">
+                      Shipping address:
+                    </Typography>
+                    <Typography sx={{ textAlign: 'center' }}>
+                      {isDefaultShipping ? (
+                        <LocalShippingIcon color="warning" />
+                      ) : (
+                        'No'
+                      )}
+                    </Typography>
+                  </Box>
                 </Grid>
                 {isEditMode ? (
                   <AddressForm
@@ -126,8 +121,8 @@ const Addresses = ({
                       city,
                       postalCode,
                       id,
-                      isDefaultShippingAddress,
-                      isDefaultBillingAddress,
+                      isDefaultShipping,
+                      isDefaultBilling,
                     }}
                     version={version}
                   />
