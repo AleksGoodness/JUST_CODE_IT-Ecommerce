@@ -19,6 +19,8 @@ const schema = yup.object().shape({
     .string()
     .matches(postalCodeRegex, 'Wrong format, required 6 numbers')
     .required('Postal code is required'),
+  isDefaultShipping: yup.boolean().required(),
+  isDefaultBilling: yup.boolean().required(),
 });
 
 export default schema;

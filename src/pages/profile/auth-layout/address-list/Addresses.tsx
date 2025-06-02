@@ -1,6 +1,4 @@
 import CabinIcon from '@mui/icons-material/Cabin';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import {
@@ -10,7 +8,6 @@ import {
   Box,
   Divider,
   Grid,
-  IconButton,
   List,
   Typography,
 } from '@mui/material';
@@ -18,16 +15,14 @@ import {
 import { Title } from '../../../../components';
 import { Address } from '../../../../interfaces';
 import { getCountryNameByCode } from '../../../../utils/getCountryNameByCode';
-import AddressForm, { InputProps } from '../address-form/AddressForm';
+import AddressForm from '../address-form/AddressForm';
 
 interface IProps {
   addresses: Address[];
   version: number;
-  setEditAddress: (addressToEdit: InputProps) => void;
   defaultBillingAddressId?: string;
   defaultShippingAddressId?: string;
   isEditMode: boolean;
-  handleDeleteAddress: (id: string) => void;
 }
 
 const Addresses = ({
@@ -35,8 +30,7 @@ const Addresses = ({
   defaultBillingAddressId,
   defaultShippingAddressId,
   isEditMode,
-  setEditAddress,
-  handleDeleteAddress,
+
   version,
 }: IProps) => {
   return (
@@ -60,10 +54,19 @@ const Addresses = ({
               }}
             >
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Box sx={{ display: 'flex', gap: 2 }}>
+                <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
                   <Typography sx={{ flex: 1 }}>{streetName}</Typography>
                   <Typography sx={{ flex: 1 }}>{city}</Typography>
                   <Typography sx={{ flex: 1 }}>{country}</Typography>
+                  <Typography sx={{ flex: 1 }}>{postalCode}</Typography>
+                  <Typography sx={{ flex: 1, display: 'flex', gap: 2 }}>
+                    {isDefaultShippingAddress ? (
+                      <LocalShippingIcon color={'primary'} />
+                    ) : null}
+                    {isDefaultBillingAddress ? (
+                      <CabinIcon color={'warning'} />
+                    ) : null}
+                  </Typography>
                 </Box>
               </AccordionSummary>
               <AccordionDetails>
@@ -92,59 +95,28 @@ const Addresses = ({
                     </Typography>
                     <Typography>{postalCode}</Typography>
                   </Box>
-                  <Box sx={{ display: 'flex', gap: 2 }}>
-                    <IconButton
-                      disabled={!isEditMode}
-                      sx={{
-                        bgcolor: isDefaultShippingAddress
-                          ? 'primary.main'
-                          : 'disabled',
-
-                        ':disabled': {
-                          bgcolor: isDefaultShippingAddress
-                            ? 'primary.main'
-                            : 'disabled',
-                        },
-                      }}
-                    >
-                      <LocalShippingIcon />
-                    </IconButton>
-                    <IconButton
-                      disabled={!isEditMode}
-                      sx={{
-                        bgcolor: isDefaultBillingAddress
-                          ? 'warning.main'
-                          : 'disabled',
-                        ':disabled': {
-                          bgcolor: isDefaultBillingAddress
-                            ? 'warning.main'
-                            : 'disabled',
-                        },
-                      }}
-                    >
-                      <CabinIcon />
-                    </IconButton>
-                    <IconButton
-                      disabled={!isEditMode}
-                      onClick={() => handleDeleteAddress(id)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                    <IconButton
-                      disabled={!isEditMode}
-                      onClick={() => {
-                        setEditAddress({
-                          id,
-                          streetName,
-                          city,
-                          country,
-                          postalCode,
-                        });
-                      }}
-                    >
-                      <EditIcon />
-                    </IconButton>
+                  <Box>
+                    <Typography color="text.secondary" variant="body2">
+                      Billing address:
+                    </Typography>
+                    <Typography sx={{ textAlign: 'center' }}>
+                      {isDefaultBillingAddress ? <CabinIcon /> : 'No'}
+                    </Typography>
                   </Box>
+                  {
+                    <Box>
+                      <Typography color="text.secondary" variant="body2">
+                        Shipping address:
+                      </Typography>
+                      <Typography sx={{ textAlign: 'center' }}>
+                        {isDefaultShippingAddress ? (
+                          <LocalShippingIcon />
+                        ) : (
+                          'No'
+                        )}
+                      </Typography>
+                    </Box>
+                  }
                 </Grid>
                 {isEditMode ? (
                   <AddressForm
@@ -154,6 +126,8 @@ const Addresses = ({
                       city,
                       postalCode,
                       id,
+                      isDefaultShippingAddress,
+                      isDefaultBillingAddress,
                     }}
                     version={version}
                   />
