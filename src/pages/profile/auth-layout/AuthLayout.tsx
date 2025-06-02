@@ -4,6 +4,7 @@ import { Loading } from '../../../components';
 import { useAppSelector } from '../../../redux/hooks';
 import { getCustomer } from '../../../redux/selectors';
 import Addresses from './address-list/Addresses';
+import NewAddress from './new-address/NewAddress';
 import ProfileForm from './profile-form/ProfileForm';
 
 const AuthLayout = () => {
@@ -21,6 +22,7 @@ const AuthLayout = () => {
           isEditMode={isEditProfile}
           version={customer.version}
         />
+        {isEditProfile ? <NewAddress version={customer.version} /> : null}
       </Box>
     );
 };

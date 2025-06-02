@@ -15,7 +15,7 @@ import {
 import { Title } from '../../../../components';
 import { Address } from '../../../../interfaces';
 import { getCountryNameByCode } from '../../../../utils/getCountryNameByCode';
-import AddressForm from '../address-form/AddressForm';
+import AddressForm from '../existed-address/ExistedAddress';
 
 interface IProps {
   addresses: Address[];

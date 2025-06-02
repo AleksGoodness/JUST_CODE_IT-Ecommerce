@@ -1,3 +1,4 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import CabinIcon from '@mui/icons-material/Cabin';
 import DeleteIcon from '@mui/icons-material/Delete';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
@@ -11,10 +12,21 @@ import {
   Switch,
   TextField,
 } from '@mui/material';
-import { Controller, useFormContext } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
-interface IDefaultValues {
-  id?: string;
+import { useAppDispatch } from '../../../../redux/hooks';
+import { setCustomer } from '../../../../redux/slices/authSlice';
+import { useUpdateProfileMutation } from '../../../../services/api';
+import {
+  getCountryCodeByName,
+  getCountryNameByCode,
+} from '../../../../utils/getCountryNameByCode';
+import schema from './schema';
+const countries = ['Russia', 'Belarus'];
+
+export interface InputProps {
+  id: string;
   country: string;
   streetName: string;
   city: string;
@@ -22,47 +34,134 @@ interface IDefaultValues {
   isDefaultShipping: boolean;
   isDefaultBilling: boolean;
 }
+
 interface Props {
-  defaultValue: IDefaultValues;
-  formSubmitHandler: (data: IDefaultValues) => Promise<void>;
-  handleDeleteAddress?: (id: string) => void;
+  addressToEdit: InputProps;
+  version: number;
 }
 
-const countries = ['Russia', 'Belarus'];
+const ExistedAddress = ({ addressToEdit, version }: Props) => {
+  const [updateProfile] = useUpdateProfileMutation();
+  const dispatch = useAppDispatch();
 
-const AddressForm = ({
-  defaultValue,
-  formSubmitHandler,
-  handleDeleteAddress,
-}: Props) => {
+  const handleDeleteAddress = (id: string) => {
+    if (!version) return;
+    updateProfile({
+      version: version,
+
+      actions: [
+        {
+          action: 'removeAddress',
+          addressId: `${id}`,
+        },
+      ],
+    })
+      .unwrap()
+      .then(response => dispatch(setCustomer(response)));
+    toast.success('address deleted');
+  };
+
   const {
-    control,
     register,
-    formState: { errors, isDirty },
     handleSubmit,
-  } = useFormContext<IDefaultValues>();
+    control,
+    formState: { errors },
+  } = useForm<InputProps>({
+    mode: 'onChange',
+    resolver: yupResolver(schema),
+    defaultValues: {
+      ...addressToEdit,
+      country: getCountryNameByCode(addressToEdit.country),
+    },
+  });
+
+  const formSubmitHandler = async (data: InputProps) => {
+    const formattedData: InputProps = {
+      ...data,
+      country: getCountryCodeByName(data.country),
+    };
+
+    const isChanged =
+      JSON.stringify(formattedData) !== JSON.stringify(addressToEdit);
+
+    if (!isChanged) {
+      toast.info('Nothing is changed');
+      return;
+    }
+
+    const actions: {
+      action: string;
+      addressId: string;
+      address?: {
+        country: string;
+        streetName: string;
+        city: string;
+        postalCode: string;
+      };
+    }[] = [];
+
+    actions.push({
+      action: 'changeAddress',
+      addressId: addressToEdit.id,
+      address: {
+        country: formattedData.country,
+        streetName: formattedData.streetName,
+        city: formattedData.city,
+        postalCode: formattedData.postalCode,
+      },
+    });
+
+    if (formattedData.isDefaultShipping !== addressToEdit.isDefaultShipping) {
+      actions.push({
+        action: formattedData.isDefaultShipping
+          ? 'setDefaultShippingAddress'
+          : 'removeShippingAddressId',
+        addressId: formattedData.id,
+      });
+    }
+
+    if (data.isDefaultBilling !== addressToEdit.isDefaultBilling) {
+      actions.push({
+        action: data.isDefaultBilling
+          ? 'setDefaultBillingAddress'
+          : 'removeBillingAddressId',
+        addressId: formattedData.id,
+      });
+    }
+
+    const request = await updateProfile({
+      version: version,
+      actions: actions,
+    });
+    if (request.data) {
+      toast.success('address updated');
+      dispatch(setCustomer(request.data));
+    }
+    if (request.error) {
+      console.log(request.error);
+      toast.error('something go wrong');
+    }
+  };
 
   return (
     <Grid
-      component="form"
+      component={'form'}
       container
-      direction="column"
+      direction={'column'}
       mt={1}
       onSubmit={handleSubmit(formSubmitHandler)}
       spacing={2}
     >
       <Divider />
-      <Grid container justifyContent="end" spacing={2}>
-        {handleDeleteAddress && defaultValue?.id ? (
+      <Grid container justifyContent={'end'} spacing={2}>
+        {addressToEdit ? (
           <Grid>
-            <IconButton
-              onClick={() => handleDeleteAddress(defaultValue.id || '')}
-            >
+            <IconButton onClick={() => handleDeleteAddress(addressToEdit.id)}>
               <DeleteIcon />
             </IconButton>
           </Grid>
         ) : null}
-        <Button disabled={!isDirty} type="submit" variant="contained">
+        <Button type="submit" variant="contained">
           Save
         </Button>
       </Grid>
@@ -192,4 +291,4 @@ const AddressForm = ({
   );
 };
 
-export default AddressForm;
+export default ExistedAddress;
