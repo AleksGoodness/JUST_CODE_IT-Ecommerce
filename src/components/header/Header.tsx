@@ -37,7 +37,7 @@ const Header = () => {
             sm: '1fr auto',
             md: '1fr auto 1fr',
           },
-          padding: '1vw',
+          padding: '1vh 1vw',
           display: { xs: 'flex', sm: 'grid' },
           justifyContent: 'space-between',
         }}

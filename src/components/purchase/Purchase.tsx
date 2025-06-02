@@ -18,7 +18,7 @@ const Purchase = ({ purchases }: ListShop) => {
     }
   };
   const handleAddPurchase = () => {
-    setQuantity(Number(quantity) + 1);
+    if (quantity < 99) setQuantity(Number(quantity) + 1);
   };
 
   const [activeButton, setActiveButton] = useState<'first' | 'second'>('first');
@@ -36,11 +36,9 @@ const Purchase = ({ purchases }: ListShop) => {
       <Box
         sx={{
           display: 'flex',
-          maxWidth: '150px',
-          width: '100%',
-          justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: '30px',
+          gap: 1,
+          pb: 4,
         }}
       >
         <Fab
@@ -48,6 +46,9 @@ const Purchase = ({ purchases }: ListShop) => {
           color="primary"
           onClick={handleRemovePurchase}
           size="medium"
+          sx={{
+            zIndex: 0,
+          }}
         >
           <RemoveIcon />
         </Fab>
@@ -56,6 +57,8 @@ const Purchase = ({ purchases }: ListShop) => {
             display: 'block',
             fontSize: '1.5rem',
             fontWeight: '400',
+            minWidth: '2rem',
+            textAlign: 'center',
           }}
         >
           {quantity}
@@ -65,6 +68,9 @@ const Purchase = ({ purchases }: ListShop) => {
           color="primary"
           onClick={handleAddPurchase}
           size="medium"
+          sx={{
+            zIndex: 0,
+          }}
         >
           <AddIcon />
         </Fab>
@@ -72,16 +78,9 @@ const Purchase = ({ purchases }: ListShop) => {
       <Box
         sx={{
           display: 'flex',
-          maxWidth: '350px',
-          width: '100%',
-          gap: '20px',
-          '@media (max-width: 900px)': {
-            justifyContent: 'center',
-            marginBottom: '15px',
-          },
+          gap: 2,
           '@media (max-width: 480px)': {
             justifyContent: 'center',
-            marginBottom: '0',
           },
         }}
       >

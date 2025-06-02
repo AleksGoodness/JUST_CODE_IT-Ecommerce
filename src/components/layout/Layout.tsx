@@ -1,7 +1,9 @@
 import { Box, Container, Typography } from '@mui/material';
 import { Outlet, useNavigation } from 'react-router';
 
+import BreadCrumbs from '../breadCrumbs/BreadCrumbs';
 import Header from '../header/Header';
+import Search from '../header/search/Search';
 import Loading from '../loading/Loading';
 
 const Layout = () => {
@@ -14,16 +16,19 @@ const Layout = () => {
           display: 'flex',
           flexDirection: 'column',
           minHeight: '100svh',
+          position: 'relative',
         }}
       >
         <Header />
+        <Search />
         <Box
           component={'main'}
           sx={{
             flexGrow: 1,
-            paddingTop: '6rem',
+            paddingTop: '0.5rem',
           }}
         >
+          <BreadCrumbs />
           <Outlet />
         </Box>
         <Box component={'footer'} sx={{ p: 2, textAlign: 'center' }}>
