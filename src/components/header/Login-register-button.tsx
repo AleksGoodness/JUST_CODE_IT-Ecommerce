@@ -37,7 +37,7 @@ const LoginRegisterButton = ({ setIsOpen, sx, ...rest }: Props) => {
       to={'/login'}
       variant="contained"
     >
-      {customer ? 'Logout' : 'Login/Register'}
+      {customer ? 'Logout' : 'Login'}
     </Button>
   );
 };

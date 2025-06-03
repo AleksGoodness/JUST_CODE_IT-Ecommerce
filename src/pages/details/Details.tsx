@@ -76,7 +76,7 @@ const Details = () => {
               backgroundSize: 'contain',
               backgroundPosition: 'center',
               width: '100%',
-              height: '390px',
+              height: '24.5rem',
               borderRadius: '10px',
               backgroundRepeat: 'no-repeat',
               backgroundColor: '#f0f0f0',

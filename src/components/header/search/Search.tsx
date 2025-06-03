@@ -1,15 +1,16 @@
 import Box from '@mui/material/Box';
-// import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 
 import Magnifier from '../Magnifier/Magnifier';
+import SearchProductsRequest from './searchProductsRequest';
 
 const Search = () => {
   const [query, setQuery] = useState('');
-  const handleSearch = async () => {
+  const handleSearch = async (keyword: string) => {
     console.log('Search for:', query);
+    await SearchProductsRequest(keyword);
   };
   return (
     <Box
@@ -17,7 +18,7 @@ const Search = () => {
         display: 'flex',
         justifyContent: 'end',
         gap: 1,
-        pt: '4rem',
+        pt: '4.5rem',
         alignItems: 'center',
       }}
     >
@@ -29,9 +30,10 @@ const Search = () => {
         }}
         onKeyDown={e => {
           if (e.key === 'Enter') {
-            handleSearch();
+            handleSearch(query);
           }
         }}
+        size="small"
         sx={{
           maxWidth: 'clamp(200px, 60%, 350px)',
         }}
@@ -40,6 +42,7 @@ const Search = () => {
       />
 
       <IconButton
+        onClick={() => handleSearch(query)}
         sx={{
           p: { xs: 0, sm: 1 },
           color: 'primary.main',
