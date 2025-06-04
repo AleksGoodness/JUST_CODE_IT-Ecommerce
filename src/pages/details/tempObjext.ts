@@ -1,12 +1,16 @@
 const tempObject = {
-  id: '8f888246-f188-4572-b7a5-748dc9f04ba2',
-  version: 15,
-  versionModifiedAt: '2025-05-27T20:50:26.597Z',
-  lastMessageSequenceNumber: 8,
-  createdAt: '2025-05-23T00:39:13.813Z',
-  lastModifiedAt: '2025-05-27T20:50:26.597Z',
+  id: '6532dec9-d720-4423-a75a-c3f3bad00fa8',
+  version: 22,
+  versionModifiedAt: '2025-06-03T19:00:12.734Z',
+  lastMessageSequenceNumber: 11,
+  createdAt: '2025-05-23T00:19:26.900Z',
+  lastModifiedAt: '2025-06-03T19:00:12.734Z',
   lastModifiedBy: {
     isPlatformClient: true,
+    user: {
+      typeId: 'user',
+      id: '0b6a56e5-dbf2-4ee9-bb19-908fc307cdc8',
+    },
   },
   createdBy: {
     isPlatformClient: true,
@@ -22,35 +26,75 @@ const tempObject = {
   masterData: {
     current: {
       name: {
-        'en-US': 'Japanese Maple',
+        'en-US': 'African Violet',
       },
       description: {
         'en-US':
-          'A stunning bonsai with colorful leaves that change throughout the seasons. These trees prefer medium indirect light and require high humidity. They need consistent moisture to thrive. Their vibrant foliage creates a striking visual display. Japanese Maples are sought after for their ornamental beauty.',
+          'A beloved plant with velvety leaves and delicate purple flowers. African Violets thrive in medium indirect light and require careful watering to prevent root rot. Their continuous blooming makes them popular among indoor gardeners. They are perfect for tabletops or small decorative arrangements. These plants are charming and rewarding to grow.',
       },
       categories: [
         {
           typeId: 'category',
-          id: '885e8c9e-cb08-4a4e-bfe3-90dfd512d851',
+          id: 'c4107657-c4c7-488f-a191-cb6084810553',
         },
       ],
       categoryOrderHints: {},
       slug: {
-        'en-US': 'japanese-maple',
+        'en-US': 'african-violet',
       },
       metaTitle: {
-        'en-US': 'Japanese Maple',
+        'en-US': 'African Violet',
       },
       metaDescription: {
         'en-US':
-          'A stunning bonsai with colorful leaves that change throughout the seasons. These trees prefer medium indirect light and require high humidity. They need consistent moisture to thrive. Their vibrant foliage creates a striking visual display. Japanese Maples are sought after for their ornamental beauty.',
+          'A beloved plant with velvety leaves and delicate purple flowers. African Violets thrive in medium indirect light and require careful watering to prevent root rot. Their continuous blooming makes them popular among indoor gardeners. They are perfect for tabletops or small decorative arrangements. These plants are charming and rewarding to grow.',
       },
       masterVariant: {
         id: 1,
-        sku: 'japanese_maple001',
-        key: 'japanese_maple_variant001',
-        prices: [],
-        images: [],
+        sku: 'african_violet001',
+        key: 'african_violet_variant001',
+        prices: [
+          {
+            id: 'f5970f85-5049-41fd-b11f-e91b3fb2ff18',
+            value: {
+              type: 'centPrecision',
+              currencyCode: 'BYN',
+              centAmount: 6500,
+              fractionDigits: 2,
+            },
+            key: 'african_violet_price',
+          },
+        ],
+        images: [
+          {
+            url: 'https://www.livelyroot.com/cdn/shop/products/Pl_3.5in_African-Violet_Grower_01.jpg?v=1674679763&width=1024',
+            dimensions: {
+              w: 1024,
+              h: 1280,
+            },
+          },
+          {
+            url: 'https://www.livelyroot.com/cdn/shop/products/pl_AfricanViolet_4IN_po_grower_detail-3_a60507e2-50ab-486b-adf0-d2173a24c5e8.jpg?v=1659114011&width=730',
+            dimensions: {
+              w: 730,
+              h: 913,
+            },
+          },
+          {
+            url: 'https://www.livelyroot.com/cdn/shop/products/pl_AfricanViolet_4IN_po_grower_detail-1_debf86b7-483d-42d9-8736-4786d4365c37.jpg?v=1658163389&width=730',
+            dimensions: {
+              w: 730,
+              h: 913,
+            },
+          },
+          {
+            url: 'https://www.livelyroot.com/cdn/shop/products/pl_AfricanViolet_4IN_po_grower_detail-2_d947f66a-7f11-4108-b144-1e6be4d351a9.jpg?v=1658163389&width=730',
+            dimensions: {
+              w: 730,
+              h: 913,
+            },
+          },
+        ],
         attributes: [
           {
             name: 'price_type',
@@ -58,18 +102,18 @@ const tempObject = {
               {
                 type: 'centPrecision',
                 currencyCode: 'BYN',
-                centAmount: 17500,
+                centAmount: 6500,
                 fractionDigits: 2,
               },
             ],
           },
           {
             name: 'soil_type_required_type',
-            value: 'moist',
+            value: 'rich',
           },
           {
             name: 'temperature_preference_type',
-            value: 20,
+            value: 21,
           },
           {
             name: 'climate_zone_type',
@@ -81,7 +125,7 @@ const tempObject = {
           },
           {
             name: 'height_type',
-            value: 60,
+            value: 30,
           },
           {
             name: 'watering',
@@ -96,68 +140,72 @@ const tempObject = {
     },
     staged: {
       name: {
-        'en-US': 'Japanese Maple',
+        'en-US': 'African Violet',
       },
       description: {
         'en-US':
-          'A stunning bonsai with colorful leaves that change throughout the seasons. These trees prefer medium indirect light and require high humidity. They need consistent moisture to thrive. Their vibrant foliage creates a striking visual display. Japanese Maples are sought after for their ornamental beauty.',
+          'A beloved plant with velvety leaves and delicate purple flowers. African Violets thrive in medium indirect light and require careful watering to prevent root rot. Their continuous blooming makes them popular among indoor gardeners. They are perfect for tabletops or small decorative arrangements. These plants are charming and rewarding to grow.',
       },
       categories: [
         {
           typeId: 'category',
-          id: '885e8c9e-cb08-4a4e-bfe3-90dfd512d851',
+          id: 'c4107657-c4c7-488f-a191-cb6084810553',
         },
       ],
       categoryOrderHints: {},
       slug: {
-        'en-US': 'japanese-maple',
+        'en-US': 'african-violet',
       },
       metaTitle: {
-        'en-US': 'Japanese Maple',
+        'en-US': 'African Violet',
       },
       metaDescription: {
         'en-US':
-          'A stunning bonsai with colorful leaves that change throughout the seasons. These trees prefer medium indirect light and require high humidity. They need consistent moisture to thrive. Their vibrant foliage creates a striking visual display. Japanese Maples are sought after for their ornamental beauty.',
+          'A beloved plant with velvety leaves and delicate purple flowers. African Violets thrive in medium indirect light and require careful watering to prevent root rot. Their continuous blooming makes them popular among indoor gardeners. They are perfect for tabletops or small decorative arrangements. These plants are charming and rewarding to grow.',
       },
       masterVariant: {
         id: 1,
-        sku: 'japanese_maple001',
-        key: 'japanese_maple_variant001',
-        prices: [],
+        sku: 'african_violet001',
+        key: 'african_violet_variant001',
+        prices: [
+          {
+            id: 'f5970f85-5049-41fd-b11f-e91b3fb2ff18',
+            value: {
+              type: 'centPrecision',
+              currencyCode: 'BYN',
+              centAmount: 6500,
+              fractionDigits: 2,
+            },
+            key: 'african_violet_price',
+          },
+        ],
         images: [
           {
-            url: 'https://www.livelyroot.com/cdn/shop/products/pl_AraliaSieboldiiFatsiaJaponica_6IN_po_grower.jpg?v=1672166963&width=730',
+            url: 'https://www.livelyroot.com/cdn/shop/products/Pl_3.5in_African-Violet_Grower_01.jpg?v=1674679763&width=1024',
             dimensions: {
-              w: 730,
-              h: 912,
+              w: 1024,
+              h: 1280,
             },
           },
           {
-            url: 'https://www.livelyroot.com/cdn/shop/products/pl_JapaneseAralia_10IN_po_grower_detail-3.jpg?v=1637022130&width=730',
+            url: 'https://www.livelyroot.com/cdn/shop/products/pl_AfricanViolet_4IN_po_grower_detail-3_a60507e2-50ab-486b-adf0-d2173a24c5e8.jpg?v=1659114011&width=730',
             dimensions: {
               w: 730,
               h: 913,
             },
           },
           {
-            url: 'https://www.livelyroot.com/cdn/shop/products/pl_JapaneseAralia_10IN_po_grower_detail-2.jpg?v=1672166963&width=730',
+            url: 'https://www.livelyroot.com/cdn/shop/products/pl_AfricanViolet_4IN_po_grower_detail-1_debf86b7-483d-42d9-8736-4786d4365c37.jpg?v=1658163389&width=730',
             dimensions: {
               w: 730,
               h: 913,
             },
           },
           {
-            url: 'https://www.livelyroot.com/cdn/shop/products/pl_AraliaSieboldiiFatsiaJaponica_6IN_po_grower_detail-1.jpg?v=1672166963&width=730',
+            url: 'https://www.livelyroot.com/cdn/shop/products/pl_AfricanViolet_4IN_po_grower_detail-2_d947f66a-7f11-4108-b144-1e6be4d351a9.jpg?v=1658163389&width=730',
             dimensions: {
               w: 730,
               h: 913,
-            },
-          },
-          {
-            url: 'https://www.livelyroot.com/cdn/shop/products/pl_AraliaSieboldiiFatsiaJaponica_6IN_po_grower_detail-2.jpg?v=1672166963&width=730',
-            dimensions: {
-              w: 730,
-              h: 912,
             },
           },
         ],
@@ -168,18 +216,18 @@ const tempObject = {
               {
                 type: 'centPrecision',
                 currencyCode: 'BYN',
-                centAmount: 17500,
+                centAmount: 6500,
                 fractionDigits: 2,
               },
             ],
           },
           {
             name: 'soil_type_required_type',
-            value: 'moist',
+            value: 'rich',
           },
           {
             name: 'temperature_preference_type',
-            value: 20,
+            value: 21,
           },
           {
             name: 'climate_zone_type',
@@ -191,7 +239,7 @@ const tempObject = {
           },
           {
             name: 'height_type',
-            value: 60,
+            value: 30,
           },
           {
             name: 'watering',
@@ -205,9 +253,9 @@ const tempObject = {
       attributes: [],
     },
     published: true,
-    hasStagedChanges: true,
+    hasStagedChanges: false,
   },
-  key: 'japanese_maple',
+  key: 'african_violet',
   taxCategory: {
     typeId: 'tax-category',
     id: 'ab69ff73-937b-4b98-ab32-f231a922cdea',

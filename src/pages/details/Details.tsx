@@ -11,9 +11,7 @@ import Purchase from '../../components/purchase/Purchase';
 import Slider from '../../components/slider/slider';
 import { createClientWithToken } from '../../ecommerce/clientBuilder';
 import CONSTANTS from '../../utils/CONSTANTS';
-import clearDiscountObject from './clearDiscountObject';
 import clearObject from './clearObject';
-import discountObject from './dicountObject';
 import tempObject from './tempObjext';
 import { findDiscount, formatPrice } from './utilsDetails';
 const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY;
@@ -22,13 +20,14 @@ const Details = () => {
   const { category, plantName, plantId } = useParams();
   const navigate = useNavigate();
   const myProduct = clearObject(tempObject);
-  const myDiscount = clearDiscountObject(discountObject);
-  const discountPrice = findDiscount(myProduct.cost, myDiscount.value);
+  let discountPrice = 0;
+  if (typeof myProduct.discount === 'number') {
+    discountPrice = findDiscount(myProduct.cost, myProduct.discount);
+  }
   const currency = myProduct.currency;
   const formattedDiscountPrice = formatPrice(currency, discountPrice);
-  const discount = myDiscount.names?.includes(myProduct.sku)
-    ? formattedDiscountPrice + '  Special Offer'
-    : '';
+  const discount =
+    discountPrice !== 0 ? formattedDiscountPrice + '  Special Offer' : '';
   const slides = myProduct.images;
   const imagesUrl = slides.map(slide => slide.url);
   const mainImage = imagesUrl[0];
@@ -103,9 +102,7 @@ const Details = () => {
                 fontSize: '1.2rem',
                 fontWeight: '700',
                 lineHeight: '1',
-                textDecoration: myDiscount.names?.includes(myProduct.sku)
-                  ? 'line-through'
-                  : 'none',
+                textDecoration: discountPrice !== 0 ? 'line-through' : 'none',
                 textDecorationColor: 'black',
                 textDecorationThickness: '2px',
                 color: '#46A358',
