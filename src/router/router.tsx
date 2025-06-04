@@ -16,35 +16,32 @@ const Profile = lazy(() => import('../pages/profile/Profile.tsx'));
 const AppRouter = createBrowserRouter([
   {
     path: '/',
-    Component: Layout,
+    element: <Layout />,
     errorElement: <ErrorBoundaryFallback />,
     children: [
-      { index: true, Component: Home },
+      { index: true, element: <Home /> },
       {
-        Component: LoginRegisterLayout,
+        element: <LoginRegisterLayout />,
         children: [
-          { path: 'login', Component: Login },
-          { path: 'register', Component: Register },
+          { path: 'login', element: <Login /> },
+          { path: 'register', element: <Register /> },
         ],
       },
-      { path: 'profile', Component: Profile },
+      { path: 'profile', element: <Profile /> },
       {
         path: 'shop',
-        Component: Shop,
+        element: <Shop />,
         children: [
+          { index: true, element: <div>Select category</div> },
           {
             path: ':category',
-            Component: Cards,
-          },
-        ],
-      },
-      {
-        path: 'shop/:category/:plantName',
-        Component: Details,
-        children: [
-          {
-            path: ':plantId',
-            Component: Details,
+            children: [
+              { index: true, element: <Cards /> },
+              {
+                path: ':plantName',
+                element: <Details />,
+              },
+            ],
           },
         ],
       },
@@ -52,7 +49,7 @@ const AppRouter = createBrowserRouter([
   },
   {
     path: '*',
-    Component: NotFound,
+    element: <NotFound />,
   },
 ]);
 

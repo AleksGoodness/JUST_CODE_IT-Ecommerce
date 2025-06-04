@@ -1,6 +1,6 @@
 import { formatPrice } from './utilsDetails';
 
-export interface TempObject {
+interface TempObject {
   id: string;
   version: number;
   versionModifiedAt: string;
@@ -75,7 +75,13 @@ export interface Attribute {
 }
 
 interface Price {
+  id: string;
   value: MoneyValue;
+  key: string;
+  discounted?: {
+    value: MoneyValue;
+    discount: Reference;
+  };
 }
 
 export interface ProductDetails {
@@ -85,27 +91,27 @@ export interface ProductDetails {
   attributes: Attribute[];
   images: Image[];
   price: string;
+  discountPrice: string;
   cost: number;
+  discount: number | undefined;
   sku: string;
   currency: string;
 }
 
 const clearObject = (tempObject: TempObject): ProductDetails => {
-  const priceAttribute =
-    tempObject.masterData.staged.masterVariant.attributes.find(
-      attr => attr.name === 'price_type',
-    );
+  const priceProperty =
+    tempObject.masterData.staged.masterVariant.prices[0].value.centAmount;
+  const currencyProperty =
+    tempObject.masterData.staged.masterVariant.prices[0].value.currencyCode;
+  const discountProperty =
+    tempObject.masterData.staged.masterVariant.prices[0].discounted?.value
+      .centAmount;
+  const formatedPrice = formatPrice(currencyProperty, priceProperty);
+  let formatedDiscount = '';
+  if (typeof discountProperty === 'number') {
+    formatedDiscount = formatPrice(currencyProperty, discountProperty);
+  }
 
-  const price =
-    priceAttribute && Array.isArray(priceAttribute.value)
-      ? (priceAttribute.value[0]?.centAmount ?? 0)
-      : 0;
-
-  const currency =
-    priceAttribute && Array.isArray(priceAttribute.value)
-      ? (priceAttribute.value[0]?.currencyCode ?? 'N/A')
-      : 'N/A';
-  const formatedPrice = formatPrice(currency, price);
   return {
     id: tempObject.id,
     name: tempObject.masterData.current.name['en-US'],
@@ -113,9 +119,11 @@ const clearObject = (tempObject: TempObject): ProductDetails => {
     attributes: tempObject.masterData.staged.masterVariant.attributes,
     images: tempObject.masterData.staged.masterVariant.images,
     price: formatedPrice,
-    cost: price,
+    discountPrice: formatedDiscount,
+    cost: priceProperty,
+    discount: discountProperty,
     sku: tempObject.masterData.staged.masterVariant.sku,
-    currency: currency,
+    currency: currencyProperty,
   };
 };
 

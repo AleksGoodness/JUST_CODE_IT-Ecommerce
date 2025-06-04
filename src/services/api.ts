@@ -59,13 +59,22 @@ export const ecommerceApi = createApi({
       }),
       providesTags: ['Products'],
     }),
+    getProduct: builder.query({
+      query: query => ({
+        uri: `products${query}`,
+        method: 'GET',
+        useAuthClient: false,
+      }),
+      providesTags: ['Product'],
+    }),
   }),
 });
 
 export const {
-  useUpdatePasswordMutation,
-  useGetProfileQuery,
+  useGetProductQuery,
   useGetProductsQuery,
   useGetCategoriesQuery,
+  useGetProfileQuery,
   useUpdateProfileMutation,
+  useUpdatePasswordMutation,
 } = ecommerceApi;
