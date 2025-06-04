@@ -2,8 +2,8 @@ import { Box, Container, Typography } from '@mui/material';
 import { Outlet, useNavigation } from 'react-router';
 
 import BreadCrumbs from '../breadCrumbs/BreadCrumbs';
+import FilterSorterSearcher from '../filterSorterSearcher/FilterSorterSearcher';
 import Header from '../header/Header';
-import Search from '../header/search/Search';
 import Loading from '../loading/Loading';
 
 const Layout = () => {
@@ -20,7 +20,7 @@ const Layout = () => {
         }}
       >
         <Header />
-        <Search />
+        <FilterSorterSearcher />
         <Box
           component={'main'}
           sx={{

@@ -3,10 +3,10 @@ import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 
-import Magnifier from '../Magnifier/Magnifier';
-import SearchProductsRequest from './searchProductsRequest';
+import Magnifier from '../../header/Magnifier/Magnifier';
+import SearchProductsRequest from '../searchProductsRequest';
 
-const Search = () => {
+const Searcher = () => {
   const [query, setQuery] = useState('');
   const handleSearch = async (keyword: string) => {
     console.log('Search for:', query);
@@ -18,12 +18,11 @@ const Search = () => {
         display: 'flex',
         justifyContent: 'end',
         gap: 1,
-        pt: '4.5rem',
         alignItems: 'center',
+        flexGrow: '1',
       }}
     >
       <TextField
-        fullWidth
         label="Search"
         onChange={e => {
           setQuery(e.target.value);
@@ -35,7 +34,7 @@ const Search = () => {
         }}
         size="small"
         sx={{
-          maxWidth: 'clamp(200px, 60%, 350px)',
+          maxWidth: 'clamp(150px, 70%, 200px)',
         }}
         value={query}
         variant="outlined"
@@ -53,4 +52,4 @@ const Search = () => {
     </Box>
   );
 };
-export default Search;
+export default Searcher;
