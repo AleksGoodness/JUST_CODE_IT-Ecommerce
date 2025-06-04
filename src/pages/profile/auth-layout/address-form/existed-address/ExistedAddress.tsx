@@ -10,7 +10,7 @@ import {
   getCountryNameByCode,
 } from '../../../../../utils/getCountryNameByCode';
 import AddressForm, { AddressFormValues } from '../AddressForm';
-import existingAddressSchema from './schema';
+import baseSchema from '../baseSchema';
 
 interface Props {
   addressToEdit: AddressFormValues;
@@ -40,7 +40,7 @@ const ExistedAddress = ({ addressToEdit, version }: Props) => {
 
   const methods = useForm<AddressFormValues>({
     mode: 'onChange',
-    resolver: yupResolver(existingAddressSchema),
+    resolver: yupResolver(baseSchema),
     defaultValues: {
       ...addressToEdit,
       country: getCountryNameByCode(addressToEdit.country),

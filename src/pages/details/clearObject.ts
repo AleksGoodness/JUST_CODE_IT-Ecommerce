@@ -84,7 +84,7 @@ interface Price {
   };
 }
 
-interface ProductDetails {
+export interface ProductDetails {
   id: string;
   name: string;
   description: Record<string, string>;

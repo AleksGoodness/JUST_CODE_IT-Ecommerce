@@ -3,37 +3,36 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { motion } from 'motion/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
+
+import Placeholder from './defaultimg/default.jpg';
 
 import AttributeBox from '../../components/attributeBox/AttributeBox';
 import Purchase from '../../components/purchase/Purchase';
 import Slider from '../../components/slider/slider';
-import { createClientWithToken } from '../../ecommerce/clientBuilder';
+import { useGetProductQuery } from '../../services/api';
 import CONSTANTS from '../../utils/CONSTANTS';
-import clearObject from './clearObject';
-import tempObject from './tempObjext';
-import { findDiscount, formatPrice } from './utilsDetails';
-const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY;
+import clearObject, { ProductDetails } from './clearObject';
+
+import Skeleton from '@mui/material/Skeleton';
 
 const Details = () => {
-  const { category, plantName, plantId } = useParams();
+  const { category, plantName } = useParams();
+  const { data } = useGetProductQuery(`/${plantName}`);
   const navigate = useNavigate();
-  const myProduct = clearObject(tempObject);
-  let discountPrice = 0;
-  if (typeof myProduct.discount === 'number') {
-    discountPrice = findDiscount(myProduct.cost, myProduct.discount);
-  }
-  const currency = myProduct.currency;
-  const formattedDiscountPrice = formatPrice(currency, discountPrice);
-  const discount =
-    discountPrice !== 0 ? formattedDiscountPrice + '  Special Offer' : '';
-  const slides = myProduct.images;
-  const imagesUrl = slides.map(slide => slide.url);
-  const mainImage = imagesUrl[0];
-  const attributes = myProduct.attributes;
+
+  const [myProduct, setProduct] = useState<null | ProductDetails>(null);
+
   useEffect(() => {
-    if (!category && !plantId && !plantName) {
+    if (data) {
+      const clearResponse = clearObject(data);
+      setProduct(clearResponse);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (!category && !plantName) {
       navigate(CONSTANTS.shop);
       return;
     }
@@ -42,19 +41,11 @@ const Details = () => {
       return;
     }
 
-    if (!plantName || !plantId) {
+    if (!plantName) {
       navigate(`${CONSTANTS.shop}/${category}`);
       return;
     }
-    const client = createClientWithToken();
-    (async () => {
-      const response = await client.execute({
-        uri: `/${projectKey}/products/${plantId}`,
-        method: 'GET',
-      });
-      console.log(response);
-    })();
-  }, [plantId, navigate, plantName, category]);
+  }, [navigate, plantName, category]);
 
   return (
     <Container
@@ -73,7 +64,7 @@ const Details = () => {
         <Grid size={{ md: 6, sm: 12, xs: 12 }}>
           <Box
             sx={{
-              backgroundImage: `url(${mainImage})`,
+              backgroundImage: `url(${myProduct?.images[0].url || Placeholder})`,
               backgroundSize: 'contain',
               backgroundPosition: 'center',
               width: '100%',
@@ -85,43 +76,54 @@ const Details = () => {
           />
         </Grid>
         <Grid size={{ md: 6, sm: 12, xs: 12 }}>
-          <Typography
-            component={'h1'}
-            sx={{
-              lineHeight: '1',
-              marginBottom: '10px',
-            }}
-            variant="sectionTitle"
-          >
-            {myProduct.name}
-          </Typography>
-          <Box sx={{ display: 'flex', gap: '20px' }}>
+          {myProduct ? (
             <Typography
+              component={'h1'}
               sx={{
-                marginTop: '5px',
-                fontSize: '1.2rem',
-                fontWeight: '700',
                 lineHeight: '1',
-                textDecoration: discountPrice !== 0 ? 'line-through' : 'none',
-                textDecorationColor: 'black',
-                textDecorationThickness: '2px',
-                color: '#46A358',
+                marginBottom: '10px',
               }}
+              variant="sectionTitle"
             >
-              {myProduct.price}
+              {myProduct.name}
             </Typography>
-            <Typography
-              sx={{
-                marginTop: '5px',
-                fontSize: '1.2rem',
-                fontWeight: '700',
-                lineHeight: '1',
-                color: 'red',
-              }}
-            >
-              {discount}
-            </Typography>
-          </Box>
+          ) : (
+            <Skeleton />
+          )}
+          {myProduct ? (
+            <Box sx={{ display: 'flex', gap: '20px' }}>
+              <Typography
+                sx={{
+                  marginTop: '5px',
+                  fontSize: '1.2rem',
+                  fontWeight: '700',
+                  lineHeight: '1',
+                  textDecoration: myProduct.discount ? 'line-through' : 'none',
+                  textDecorationColor: 'red',
+                  textDecorationThickness: '2px',
+                  color: 'primary.main',
+                }}
+              >
+                {myProduct.price}
+              </Typography>
+              {myProduct.discount ? (
+                <Typography
+                  sx={{
+                    marginTop: '5px',
+                    fontSize: '1.2rem',
+                    fontWeight: '700',
+                    lineHeight: '1',
+                    color: 'red',
+                  }}
+                >
+                  {(myProduct.discount / 100).toFixed(2)} Special Offer
+                </Typography>
+              ) : null}
+            </Box>
+          ) : (
+            <Skeleton />
+          )}
+
           <Typography
             sx={{
               marginTop: '10px',
@@ -132,17 +134,20 @@ const Details = () => {
           >
             Description:
           </Typography>
-          <Typography
-            sx={{
-              fontSize: '1rem',
-              fontWeight: '400',
-              marginBottom: '30px',
-              textWrap: 'wrap',
-              lineHeight: '1.2',
-            }}
-          >
-            {myProduct.description['en-US']}
-          </Typography>
+          {myProduct ? (
+            <Typography
+              sx={{
+                fontSize: '1rem',
+                marginBottom: '30px',
+                textWrap: 'wrap',
+                lineHeight: '1.2',
+              }}
+            >
+              {myProduct.description['en-US']}
+            </Typography>
+          ) : (
+            <Skeleton />
+          )}
           <Purchase purchases={0} />
         </Grid>
         <Grid
@@ -154,10 +159,18 @@ const Details = () => {
             },
           }}
         >
-          <Slider images={imagesUrl} />
+          {myProduct ? (
+            <Slider images={myProduct.images.map(pic => pic.url)} />
+          ) : (
+            <Skeleton />
+          )}
         </Grid>
         <Grid size={{ md: 6, sm: 12, xs: 12 }}>
-          <AttributeBox attributes={attributes} />
+          {myProduct ? (
+            <AttributeBox attributes={myProduct.attributes} />
+          ) : (
+            Array.from({ length: 7 }).map((_, i) => <Skeleton key={i} />)
+          )}
         </Grid>
       </Grid>
     </Container>
