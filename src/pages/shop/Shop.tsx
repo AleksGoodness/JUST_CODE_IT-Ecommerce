@@ -2,16 +2,33 @@ import BeeIcon from '@mui/icons-material/EmojiNature';
 import { Box, Button, Container } from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import { motion } from 'motion/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router';
+import { useParams } from 'react-router';
 
+import { useGetCategoriesQuery } from '../../services/api';
 import CategoryList from './components/CategoryList';
+import CategoryResponseFormatter from './components/CategoryResponse';
 
 const Shop = () => {
+  const { data } = useGetCategoriesQuery({});
   const [open, setOpen] = useState(false);
+  const [currentCategoryId, setCurrentCategoryId] = useState<string>();
+  const { category } = useParams();
+
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
+
+  useEffect(() => {
+    if (category) {
+      if (typeof data === 'object' && data !== null && 'results' in data) {
+        const categories = CategoryResponseFormatter(data);
+        const current = categories.find(cat => cat.slug === category);
+        if (current) setCurrentCategoryId(current.id);
+      }
+    }
+  }, [category, data]);
 
   return (
     <Container
@@ -30,9 +47,12 @@ const Shop = () => {
         </Button>
 
         <Drawer onClose={toggleDrawer(false)} open={open}>
-          <CategoryList toggleDrawer={toggleDrawer(false)} />
+          <CategoryList
+            setCurrentCategoryId={setCurrentCategoryId}
+            toggleDrawer={toggleDrawer(false)}
+          />
         </Drawer>
-        <Outlet />
+        <Outlet context={currentCategoryId} />
       </Box>
     </Container>
   );

@@ -8,9 +8,10 @@ import CategoryResponseFormatter from './CategoryResponse';
 
 interface Props {
   toggleDrawer: (value: boolean) => void;
+  setCurrentCategoryId: (categoryID: string) => void;
 }
 
-const CategoryList = ({ toggleDrawer }: Props) => {
+const CategoryList = ({ toggleDrawer, setCurrentCategoryId }: Props) => {
   const { data } = useGetCategoriesQuery({});
 
   return (
@@ -36,6 +37,7 @@ const CategoryList = ({ toggleDrawer }: Props) => {
           <>
             <CategoryItem
               name={'all'}
+              onClick={() => setCurrentCategoryId('all')}
               slug={'all'}
               toggleDrawer={toggleDrawer}
             />
@@ -43,6 +45,7 @@ const CategoryList = ({ toggleDrawer }: Props) => {
               <CategoryItem
                 key={category.id}
                 name={category.name}
+                onClick={() => setCurrentCategoryId(category.id)}
                 slug={category.slug}
                 toggleDrawer={toggleDrawer}
               />
