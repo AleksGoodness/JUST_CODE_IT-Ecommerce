@@ -35,7 +35,7 @@ const Slider = ({ images }: SliderProps) => {
         style={{ maxWidth: '700px', width: '100%' }}
       >
         {images.map((image, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={index} style={{ height: '230px' }}>
             <img
               alt={`Slide ${(index + 1).toString()}`}
               onClick={() => {
@@ -48,11 +48,12 @@ const Slider = ({ images }: SliderProps) => {
               src={image}
               style={{
                 width: '100%',
-                maxWidth: '250px',
-                height: '100%',
+                height: 'auto',
+                objectFit: 'cover',
+                aspectRatio: '3 / 4',
                 borderRadius: '15px',
                 cursor: 'pointer',
-                objectFit: 'contain',
+                display: 'block',
               }}
             />
           </SwiperSlide>
@@ -102,13 +103,15 @@ const Slider = ({ images }: SliderProps) => {
                   alt={`Slide ${(index + 1).toString()}`}
                   src={image}
                   style={{
-                    width: '80%',
-                    height: '80%',
-                    objectFit: 'contain',
+                    width: '90%',
+                    maxWidth: '500px',
+                    height: 'auto',
+                    aspectRatio: '3 / 4',
+                    objectFit: 'cover',
                     borderRadius: '10px',
-                    marginBottom: '30px',
                     display: 'block',
-                    margin: '30px auto',
+                    margin: '0 auto',
+                    marginBottom: '30px',
                   }}
                 />
               </SwiperSlide>
