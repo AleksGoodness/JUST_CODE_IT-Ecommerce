@@ -6,6 +6,9 @@ import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router';
 import { useParams } from 'react-router';
 
+import Filter from '../../components/filterSorterSearcher/filter/Filter';
+import Searcher from '../../components/filterSorterSearcher/searcher/Searcher';
+import Sorter from '../../components/filterSorterSearcher/sorter/Sorter';
 import { useGetCategoriesQuery } from '../../services/api';
 import CategoryList from './components/CategoryList';
 import CategoryResponseFormatter from './components/CategoryResponse';
@@ -31,12 +34,16 @@ const Shop = () => {
   }, [category, data]);
 
   return (
-    <Container
-      animate={{ scale: 1 }}
-      component={motion.div}
-      initial={{ scale: 0 }}
-    >
-      <Box sx={{ display: 'flex', gap: '1rem', flexDirection: 'column' }}>
+    <>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: '1rem',
+          flexWrap: 'wrap',
+          width: '100%',
+          px: 0,
+        }}
+      >
         <Button
           endIcon={<BeeIcon />}
           onClick={toggleDrawer(true)}
@@ -45,16 +52,34 @@ const Shop = () => {
         >
           Categories
         </Button>
-
-        <Drawer onClose={toggleDrawer(false)} open={open}>
-          <CategoryList
-            setCurrentCategoryId={setCurrentCategoryId}
-            toggleDrawer={toggleDrawer(false)}
-          />
-        </Drawer>
-        <Outlet context={currentCategoryId} />
+        <Filter />
+        <Sorter />
+        <Searcher />
       </Box>
-    </Container>
+      <Container
+        animate={{ scale: 1 }}
+        component={motion.div}
+        initial={{ scale: 0 }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '1rem',
+            flexDirection: 'column',
+            pt: '1rem',
+            alignItems: 'center',
+          }}
+        >
+          <Drawer onClose={toggleDrawer(false)} open={open}>
+            <CategoryList
+              setCurrentCategoryId={setCurrentCategoryId}
+              toggleDrawer={toggleDrawer(false)}
+            />
+          </Drawer>
+          <Outlet context={currentCategoryId} />
+        </Box>
+      </Container>
+    </>
   );
 };
 export default Shop;

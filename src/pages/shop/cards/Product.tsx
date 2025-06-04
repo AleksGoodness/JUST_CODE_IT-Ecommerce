@@ -16,7 +16,7 @@ export interface Props {
   price: string;
   currency: string;
   images: Image[];
-  discount: number | null;
+  discount?: number;
 }
 
 export interface Image {

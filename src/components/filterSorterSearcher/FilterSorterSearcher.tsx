@@ -12,8 +12,8 @@ const Filters = () => {
         justifyContent: 'space-between',
         alignItems: 'center',
         flexWrap: 'wrap',
-        mt: '4.5rem',
         gap: '0.5rem',
+        pt: '1rem',
       }}
     >
       <Box sx={{ gap: '1rem', display: 'flex' }}>

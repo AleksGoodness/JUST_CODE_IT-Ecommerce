@@ -20,8 +20,9 @@ const BreadCrumbs = () => {
   return (
     <Breadcrumbs
       sx={{
-        pb: 2,
-        pl: { xs: 0, sm: 2 },
+        pb: 1,
+        mt: '3.2rem',
+        pl: { xs: 0, sm: 1 },
       }}
     >
       <Link
@@ -31,7 +32,11 @@ const BreadCrumbs = () => {
         underline="hover"
         variant="subtitle2"
       >
-        <HomeIcon sx={{ display: 'flex', width: '22px' }} />
+        {paths.length >= 1 ? (
+          <HomeIcon sx={{ display: 'flex', width: '22px' }} />
+        ) : (
+          ''
+        )}
       </Link>
       {paths.map((path, index) => {
         const fullPath = buildPath(index);

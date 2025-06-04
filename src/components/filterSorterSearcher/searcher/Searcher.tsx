@@ -34,7 +34,8 @@ const Searcher = () => {
         }}
         size="small"
         sx={{
-          maxWidth: 'clamp(150px, 70%, 200px)',
+          maxWidth: 'clamp(200px, 40%, 500px)',
+          width: '100%',
         }}
         value={query}
         variant="outlined"
