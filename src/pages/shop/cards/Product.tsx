@@ -22,12 +22,6 @@ export interface Props {
 export interface Image {
   url: string;
   label?: string;
-  dimensions: Dimensions;
-}
-
-export interface Dimensions {
-  w: number;
-  h: number;
 }
 
 const Product = ({

@@ -10,11 +10,16 @@ import {
   Typography,
 } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
-import { useState } from 'react';
+import { lazy, useState } from 'react';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
+
+const DatePicker = lazy(() =>
+  import('@mui/x-date-pickers').then(module => ({
+    default: module.DatePicker,
+  })),
+);
 
 import { RegisterInputProps } from '../../pages/register/interfaces';
 
