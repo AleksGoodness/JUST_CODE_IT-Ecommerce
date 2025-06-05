@@ -3,7 +3,7 @@ import { Box, Button, Container } from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
-import { Outlet, useParams } from 'react-router';
+import { Outlet, useNavigate, useParams } from 'react-router';
 
 import Filter from '../../components/filterSorterSearcher/filter/Filter';
 import Searcher from '../../components/filterSorterSearcher/searcher/Searcher';
@@ -15,6 +15,7 @@ import CategoryResponseFormatter from './components/CategoryResponse';
 const Shop = () => {
   const { data } = useGetCategoriesQuery({});
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const [currentCategoryId, setCurrentCategoryId] = useState<string>();
   const { category } = useParams();
@@ -56,6 +57,13 @@ const Shop = () => {
         <Filter />
         <Sorter />
         <Searcher />
+        <Button
+          onClick={() => {
+            navigate({ search: undefined, pathname: '/shop/all' });
+          }}
+        >
+          resetFilters
+        </Button>
       </Box>
       <Container
         animate={{ scale: 1 }}
