@@ -10,11 +10,14 @@ const Sorter = () => {
   const navigate = useNavigate();
 
   const handleChange = (event: SelectChangeEvent) => {
+    let newValue = event.target.value;
+    if (newValue.startsWith('name')) {
+      newValue = newValue.replace('name', 'name.en-Us');
+    }
     setSortOption(event.target.value);
-    console.log(sortOption);
     navigate({
       search: createSearchParams({
-        sort: sortOption,
+        sort: newValue,
         markMatchingVariants: 'true',
       }).toString(),
     });
@@ -34,10 +37,10 @@ const Sorter = () => {
         onChange={handleChange}
         value={sortOption}
       >
-        <MenuItem value="name+asc">Name: A → z</MenuItem>
-        <MenuItem value="name+desc">Name: Z → a</MenuItem>
-        <MenuItem value="price+asc">Price: Up</MenuItem>
-        <MenuItem value="price+desc">Price: Down</MenuItem>
+        <MenuItem value="name asc">Name: A → z</MenuItem>
+        <MenuItem value="name desc">Name: Z → a</MenuItem>
+        <MenuItem value="price asc">Price: Up</MenuItem>
+        <MenuItem value="price desc">Price: Down</MenuItem>
       </Select>
     </FormControl>
   );
