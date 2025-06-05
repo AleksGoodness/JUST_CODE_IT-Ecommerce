@@ -13,7 +13,7 @@ const Sorter = () => {
     const newValue = event.target.value;
     setSortOption(newValue);
 
-    const searchParams = new URLSearchParams();
+    const searchParams = new URLSearchParams(location.search);
 
     if (newValue === 'price-desc') {
       searchParams.set('sort', 'price desc');
@@ -41,8 +41,6 @@ const Sorter = () => {
         onChange={handleChange}
         value={sortOption}
       >
-        <MenuItem value="name-asc">Name: A → z</MenuItem>
-        <MenuItem value="name-desc">Name: Z → a</MenuItem>
         <MenuItem value="price-asc">Price: Up</MenuItem>
         <MenuItem value="price-desc">Price: Down</MenuItem>
       </Select>
