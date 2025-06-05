@@ -56,7 +56,7 @@ interface MasterVariant {
   id: number;
   sku: string;
   key: string;
-  prices: unknown[];
+  prices: Prices[];
   images: Image[];
   attributes: Attribute[];
   assets: unknown[];
@@ -97,5 +97,27 @@ export interface ICLearProduct {
     url: string;
     label: string;
   }[];
-  discount: number;
+  discount?: number;
+}
+interface Prices {
+  id: string;
+  value: Value;
+  key: string;
+  discounted?: Discounted;
+}
+
+interface Value {
+  type: string;
+  currencyCode: string;
+  centAmount: number;
+  fractionDigits: number;
+}
+
+interface Discounted {
+  value: Value;
+  discount: Discount;
+}
+interface Discount {
+  typeId: string;
+  id: string;
 }

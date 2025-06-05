@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
-import { createSearchParams, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import {} from '../../../services/api';
 import Magnifier from '../../header/Magnifier/Magnifier';
@@ -13,13 +13,17 @@ const Searcher = () => {
   const navigate = useNavigate();
 
   const handleSearch = async (keyword: string) => {
-    navigate({
-      search: createSearchParams({
-        fuzzy: 'true',
-        markMatchingVariants: 'true',
-        ['text.en-US']: keyword,
-      }).toString(),
-    });
+    const currentSearch = new URLSearchParams(location.search);
+
+    if (keyword) {
+      currentSearch.set('text.en-US', keyword);
+      currentSearch.set('fuzzy', 'true');
+      currentSearch.set('markMatchingVariants', 'true');
+    } else {
+      currentSearch.delete('text.en-US');
+      currentSearch.delete('fuzzy');
+    }
+    navigate({ search: currentSearch.toString() });
   };
 
   return (
