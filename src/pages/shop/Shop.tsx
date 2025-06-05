@@ -3,8 +3,7 @@ import { Box, Button, Container } from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router';
-import { useParams } from 'react-router';
+import { Outlet, useParams } from 'react-router';
 
 import Filter from '../../components/filterSorterSearcher/filter/Filter';
 import Searcher from '../../components/filterSorterSearcher/searcher/Searcher';
@@ -52,6 +51,7 @@ const Shop = () => {
         >
           Categories
         </Button>
+
         <Filter />
         <Sorter />
         <Searcher />

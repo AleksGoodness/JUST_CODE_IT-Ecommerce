@@ -1,9 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Grid, TextField } from '@mui/material';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+const DatePicker = lazy(() =>
+  import('@mui/x-date-pickers').then(module => ({
+    default: module.DatePicker,
+  })),
+);
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
+import { lazy } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
