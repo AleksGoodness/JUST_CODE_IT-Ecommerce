@@ -2,16 +2,26 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
+import { createSearchParams, useNavigate } from 'react-router';
 
+import {} from '../../../services/api';
 import Magnifier from '../../header/Magnifier/Magnifier';
-import SearchProductsRequest from '../searchProductsRequest';
 
 const Searcher = () => {
   const [query, setQuery] = useState('');
+
+  const navigate = useNavigate();
+
   const handleSearch = async (keyword: string) => {
-    console.log('Search for:', query);
-    await SearchProductsRequest(keyword);
+    navigate({
+      search: createSearchParams({
+        fuzzy: 'true',
+        markMatchingVariants: 'true',
+        ['text.en-US']: keyword,
+      }).toString(),
+    });
   };
+
   return (
     <Box
       sx={{

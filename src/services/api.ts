@@ -53,7 +53,7 @@ export const ecommerceApi = createApi({
 
     getProducts: builder.query({
       query: query => ({
-        uri: `products${query}`,
+        uri: `product-projections${query}`,
         method: 'GET',
         useAuthClient: false,
       }),

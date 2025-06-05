@@ -1,29 +1,26 @@
 import { Grid, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useOutletContext, useParams } from 'react-router';
+import { useParams } from 'react-router';
+import { useLocation } from 'react-router';
 
 import { useGetProductsQuery } from '../../../services/api';
-import clearObject, { ProductDetails } from '../../details/clearObject';
 import Product from './Product';
+import { ICLearProduct } from './utils/clearProduct.interface';
+import clearProduct from './utils/clearProducts';
 
 const Products = () => {
-  const context = useOutletContext();
   const { category } = useParams();
-  const [goods, setGoods] = useState<ProductDetails[]>([]);
+  const [goods, setGoods] = useState<ICLearProduct[]>([]);
+  const locations = useLocation();
 
-  const { data } = useGetProductsQuery(
-    context !== undefined && context !== 'all'
-      ? `?where=masterData(current(categories(id="${context}")))`
-      : '',
-  );
-
+  const { data } = useGetProductsQuery('/search' + locations.search);
   useEffect(() => {
     const handleCleanResults = (value: []) => {
-      const formattedData = value.map(item => clearObject(item));
+      const formattedData = value.map(item => clearProduct(item));
       setGoods(formattedData);
     };
     if (data) handleCleanResults(data.results);
-  }, [data]);
+  }, [data, locations.search]);
 
   if (!category) {
     return <Typography>Please choose category</Typography>;
@@ -42,8 +39,8 @@ const Products = () => {
       <Grid container>
         {goods.length
           ? goods.map(card => {
-              const shortDescription = card.description['en-US'].slice(0, 80);
-              const formattedPrice = (card.cost / 100).toFixed(2);
+              const shortDescription = card.description.slice(0, 80);
+              const formattedPrice = (card.price / 100).toFixed(2);
               return (
                 <Grid
                   container

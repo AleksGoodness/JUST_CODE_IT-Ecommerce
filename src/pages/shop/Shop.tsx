@@ -15,6 +15,7 @@ import CategoryResponseFormatter from './components/CategoryResponse';
 const Shop = () => {
   const { data } = useGetCategoriesQuery({});
   const [open, setOpen] = useState(false);
+
   const [currentCategoryId, setCurrentCategoryId] = useState<string>();
   const { category } = useParams();
 
