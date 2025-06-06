@@ -5,15 +5,19 @@ import Button from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
+import { useCart } from '../cart_product/cart_context';
+import { ProductDetails } from '../../pages/details/clearObject';
+import { useNavigate } from 'react-router';
 
 interface ListShop {
   purchases: number;
+  product: ProductDetails | null;
 }
 
-const Purchase = ({ purchases }: ListShop) => {
+const Purchase = ({ purchases, product }: ListShop) => {
   const [quantity, setQuantity] = useState(purchases);
   const handleRemovePurchase = () => {
-    if (quantity > 0) {
+    if (quantity > 1) {
       setQuantity(quantity - 1);
     }
   };
@@ -22,6 +26,8 @@ const Purchase = ({ purchases }: ListShop) => {
   };
 
   const [activeButton, setActiveButton] = useState<'first' | 'second'>('first');
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -86,6 +92,12 @@ const Purchase = ({ purchases }: ListShop) => {
       >
         <Button
           onClick={() => {
+            if (product) {
+              addToCart(product);
+              navigate('/cart');
+            } else {
+              console.error("Error: product isn't loaded!");
+            }
             setActiveButton('first');
           }}
           variant={activeButton === 'first' ? 'contained' : 'outlined'}
@@ -94,6 +106,11 @@ const Purchase = ({ purchases }: ListShop) => {
         </Button>
         <Button
           onClick={() => {
+            if (product) {
+              addToCart(product);
+            } else {
+              console.error("Error: product isn't loaded!");
+            }
             setActiveButton('second');
           }}
           variant={activeButton === 'second' ? 'contained' : 'outlined'}

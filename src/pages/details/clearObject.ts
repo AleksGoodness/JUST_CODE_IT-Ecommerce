@@ -99,7 +99,6 @@ export interface ProductDetails {
 }
 
 const clearObject = (tempObject: TempObject): ProductDetails => {
-  console.log(tempObject);
   const priceProperty =
     tempObject.masterData.staged.masterVariant.prices[0].value.centAmount;
   const currencyProperty =

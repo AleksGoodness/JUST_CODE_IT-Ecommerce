@@ -10,6 +10,7 @@ import { getThemeName } from './redux/selectors.ts';
 import loginSilent from './redux/slices/asyncThunks/loginSilent.ts';
 import { Router } from './router/router.tsx';
 import { darkTheme, lightTheme } from './theme/theme.ts';
+import { CartProvider } from './components/cart_product/cart_context.tsx';
 
 export const App = () => {
   const theme = useAppSelector(getThemeName);
@@ -25,10 +26,14 @@ export const App = () => {
   const currentTheme = theme === 'light' ? lightTheme : darkTheme;
 
   return (
-    <ThemeProvider theme={currentTheme}>
-      <CssBaseline />
-      <Router />
-      <ToastContainer position="bottom-right" />
-    </ThemeProvider>
+    <CartProvider>
+      {' '}
+      {/* Теперь корзина доступна во всех компонентах */}
+      <ThemeProvider theme={currentTheme}>
+        <CssBaseline />
+        <Router />
+        <ToastContainer position="bottom-right" />
+      </ThemeProvider>
+    </CartProvider>
   );
 };

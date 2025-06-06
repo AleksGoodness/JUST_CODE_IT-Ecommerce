@@ -147,7 +147,7 @@ const Details = () => {
           ) : (
             <Skeleton />
           )}
-          <Purchase purchases={0} />
+          <Purchase purchases={1} product={myProduct} />
         </Grid>
         <Grid
           size={{ md: 6, sm: 12, xs: 12 }}

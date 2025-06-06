@@ -60,6 +60,7 @@ export const ecommerceApi = createApi({
       }),
       providesTags: ['Products'],
     }),
+
     getProduct: builder.query({
       query: query => ({
         uri: `products${query}`,
