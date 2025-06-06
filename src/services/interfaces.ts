@@ -32,3 +32,31 @@ export interface IApiArgs {
   headers?: Record<string, string>;
   queryParams?: Record<string, string | number | boolean>;
 }
+
+export interface ICategoryResponse {
+  limit: number;
+  offset: number;
+  count: number;
+  total: number;
+  results: ICategoryResponseResult[];
+}
+
+export interface ICategoryResponseResult {
+  id: string;
+  version: number;
+  key: string;
+  name: Name;
+  slug: Slug;
+  description: Description;
+}
+interface Name {
+  'en-US': string;
+}
+
+interface Slug {
+  'en-US': string;
+}
+
+interface Description {
+  'en-US': string;
+}

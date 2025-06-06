@@ -1,6 +1,6 @@
-import { CategoryPagedResponse } from '../../../interfaces';
+import { ICategoryResponse } from '../../../services/interfaces';
 
-const CategoryResponseFormatter = (catResp: CategoryPagedResponse) => {
+const CategoryResponseFormatter = (catResp: ICategoryResponse) => {
   const data = catResp.results.map(element => {
     return {
       id: element.id,

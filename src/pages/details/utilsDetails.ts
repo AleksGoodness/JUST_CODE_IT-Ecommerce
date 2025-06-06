@@ -1,7 +1,7 @@
 export function formatPrice(currency: string, price: number): string {
   let formatedPrice = '';
   if (currency === 'BYN') {
-    formatedPrice = (price / 100).toFixed(2) + ' Br';
+    formatedPrice = (price / 100).toFixed(2) + ' BYN';
     return formatedPrice;
   }
   if (currency === 'RUB') {

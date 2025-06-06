@@ -2,6 +2,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { dynamicBaseQuery } from './dynamicBaseQuery';
+import { ICategoryResponse } from './interfaces';
 
 export const ecommerceApi = createApi({
   reducerPath: 'ecommerceApi',
@@ -42,7 +43,7 @@ export const ecommerceApi = createApi({
       invalidatesTags: ['Customer'],
     }),
 
-    getCategories: builder.query({
+    getCategories: builder.query<ICategoryResponse, unknown>({
       query: () => ({
         uri: `categories`,
         method: 'GET',
@@ -52,8 +53,8 @@ export const ecommerceApi = createApi({
     }),
 
     getProducts: builder.query({
-      query: query => ({
-        uri: `products${query}`,
+      query: (query: string) => ({
+        uri: `product-projections${query}`,
         method: 'GET',
         useAuthClient: false,
       }),

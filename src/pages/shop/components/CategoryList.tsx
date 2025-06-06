@@ -1,5 +1,6 @@
 import CrossIcon from '@mui/icons-material/ClearRounded';
 import { Box, List, Skeleton } from '@mui/material';
+import { useLocation } from 'react-router';
 
 import { Title } from '../../../components';
 import { useGetCategoriesQuery } from '../../../services/api';
@@ -13,6 +14,7 @@ interface Props {
 
 const CategoryList = ({ toggleDrawer, setCurrentCategoryId }: Props) => {
   const { data } = useGetCategoriesQuery({});
+  const location = useLocation();
 
   return (
     <Box sx={{ width: { sm: '45vw', md: '35vw', lg: '25vw' } }}>
@@ -38,7 +40,7 @@ const CategoryList = ({ toggleDrawer, setCurrentCategoryId }: Props) => {
             <CategoryItem
               name={'all'}
               onClick={() => setCurrentCategoryId('all')}
-              slug={'all'}
+              slug={'all' + location.search}
               toggleDrawer={toggleDrawer}
             />
             {CategoryResponseFormatter(data).map(category => (
@@ -46,7 +48,7 @@ const CategoryList = ({ toggleDrawer, setCurrentCategoryId }: Props) => {
                 key={category.id}
                 name={category.name}
                 onClick={() => setCurrentCategoryId(category.id)}
-                slug={category.slug}
+                slug={category.slug + location.search}
                 toggleDrawer={toggleDrawer}
               />
             ))}

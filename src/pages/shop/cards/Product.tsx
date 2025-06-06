@@ -14,19 +14,14 @@ export interface Props {
   name: string;
   description: string;
   price: string;
-  currencyCode?: string;
+  currency: string;
   images: Image[];
+  discount?: number;
 }
 
 export interface Image {
   url: string;
   label?: string;
-  dimensions: Dimensions;
-}
-
-export interface Dimensions {
-  w: number;
-  h: number;
 }
 
 const Product = ({
@@ -34,8 +29,9 @@ const Product = ({
   name,
   description,
   price,
-  currencyCode,
+  currency,
   images,
+  discount,
 }: Props) => {
   return (
     <Card
@@ -113,11 +109,28 @@ const Product = ({
           <Typography
             color="primary"
             fontWeight="bold"
-            sx={{ alignSelf: 'end' }}
+            sx={{
+              alignSelf: 'end',
+              textDecorationThickness: '2px',
+              textDecoration: discount ? 'line-through' : 'none',
+            }}
             variant="body2"
           >
-            {price} {currencyCode}
+            {price} {currency}
           </Typography>
+          {discount ? (
+            <Typography
+              sx={{
+                marginTop: '5px',
+                fontSize: '1rem',
+                fontWeight: '700',
+                lineHeight: '1',
+                color: 'red',
+              }}
+            >
+              {(discount / 100).toFixed(2)} {currency} Special Offer
+            </Typography>
+          ) : null}
         </CardContent>
       </CardActionArea>
     </Card>

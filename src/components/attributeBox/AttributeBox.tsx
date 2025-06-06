@@ -4,7 +4,7 @@ import EmojiNatureOutlinedIcon from '@mui/icons-material/EmojiNatureOutlined';
 import HeightOutlinedIcon from '@mui/icons-material/HeightOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import WaterDropOutlinedIcon from '@mui/icons-material/WaterDropOutlined';
-import Box from '@mui/material/Box';
+import { Card, Grid } from '@mui/material';
 import { SvgIconProps } from '@mui/material/SvgIcon';
 import Typography from '@mui/material/Typography';
 import { ComponentType } from 'react';
@@ -16,6 +16,23 @@ interface AttributesBox {
   value: string | number;
   icon?: ComponentType<SvgIconProps>;
 }
+
+const attributeNames = [
+  'soil type',
+  'optimal temperature °C',
+  ' native climate',
+  'light',
+  'average height (cm)',
+  'watering frequency',
+];
+const iconsArray = [
+  CompostOutlinedIcon,
+  DeviceThermostatOutlinedIcon,
+  EmojiNatureOutlinedIcon,
+  LightModeOutlinedIcon,
+  HeightOutlinedIcon,
+  WaterDropOutlinedIcon,
+];
 
 const AttributeBox = ({ attributes }: { attributes: Attribute[] }) => {
   const filteredAttributes: AttributesBox[] = attributes
@@ -32,23 +49,6 @@ const AttributeBox = ({ attributes }: { attributes: Attribute[] }) => {
           : String(attribute.value),
     }));
 
-  const attributeNames = [
-    'soil type',
-    'optimal temperature °C',
-    ' native climate',
-    'light',
-    'average height (cm)',
-    'watering frequency',
-  ];
-  const iconsArray = [
-    CompostOutlinedIcon,
-    DeviceThermostatOutlinedIcon,
-    EmojiNatureOutlinedIcon,
-    LightModeOutlinedIcon,
-    HeightOutlinedIcon,
-    WaterDropOutlinedIcon,
-  ];
-
   const updatedAttributes = filteredAttributes.map((attribute, index) => ({
     ...attribute,
     name: attributeNames[index] || attribute.name,
@@ -56,12 +56,16 @@ const AttributeBox = ({ attributes }: { attributes: Attribute[] }) => {
   }));
 
   return (
-    <Box
+    <Grid
+      component={Card}
+      container
+      direction={'column'}
+      elevation={5}
+      p={2}
+      spacing={1}
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '10px 15px',
-        border: '4px solid #46A358',
+        border: '3px solid',
+        borderColor: 'primary.main',
         borderRadius: '8px',
         '@media (max-width: 900px)': {
           justifyContent: 'center',
@@ -73,49 +77,27 @@ const AttributeBox = ({ attributes }: { attributes: Attribute[] }) => {
       }}
     >
       {updatedAttributes.map(item => (
-        <Box
-          key={item.name}
-          sx={{
-            display: 'flex',
-            maxWidth: '600px',
-            width: '100%',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <Box
+        <Grid alignItems={'center'} container key={item.name}>
+          <item.icon color="primary" />
+
+          <Typography
             sx={{
-              display: 'flex',
-              gap: '8px',
-              alignItems: 'center',
+              fontSize: '1rem',
+              fontWeight: '500',
+              lineHeight: '1',
+              color: 'primary',
             }}
           >
-            <span>
-              <item.icon
-                sx={{
-                  fontSize: '1.4rem',
-                  marginTop: '5px',
-                  color: '#46A358',
-                }}
-              />
-            </span>
-            <Typography
-              sx={{
-                fontSize: '1rem',
-                fontWeight: '500',
-                lineHeight: '1',
-                color: 'black',
-              }}
-            >
-              {item.name}:
-            </Typography>
-          </Box>
+            {item.name}:
+          </Typography>
           <Typography
             sx={{
               flexGrow: 1,
-              borderBottom: '2px dotted black',
-              mx: '10px',
-              marginTop: '8px',
+              borderBottom: '2px dotted',
+              borderColor: 'primary.main',
+              alignSelf: 'end',
+              mb: '0.4rem',
+              letterSpacing: '10px',
             }}
           />
           <Typography
@@ -123,14 +105,14 @@ const AttributeBox = ({ attributes }: { attributes: Attribute[] }) => {
               fontSize: '1rem',
               fontWeight: '500',
               lineHeight: '1',
-              color: 'black',
+              color: 'primary',
             }}
           >
             {item.value}
           </Typography>
-        </Box>
+        </Grid>
       ))}
-    </Box>
+    </Grid>
   );
 };
 

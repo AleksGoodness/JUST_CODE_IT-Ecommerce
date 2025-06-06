@@ -3,7 +3,6 @@ import { Outlet, useNavigation } from 'react-router';
 
 import BreadCrumbs from '../breadCrumbs/BreadCrumbs';
 import Header from '../header/Header';
-import Search from '../header/search/Search';
 import Loading from '../loading/Loading';
 
 const Layout = () => {
@@ -20,7 +19,6 @@ const Layout = () => {
         }}
       >
         <Header />
-        <Search />
         <Box
           component={'main'}
           sx={{

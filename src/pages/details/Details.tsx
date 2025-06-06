@@ -1,12 +1,11 @@
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-
-import Placeholder from './defaultimg/default.jpg';
 
 import AttributeBox from '../../components/attributeBox/AttributeBox';
 import Purchase from '../../components/purchase/Purchase';
@@ -14,8 +13,7 @@ import Slider from '../../components/slider/slider';
 import { useGetProductQuery } from '../../services/api';
 import CONSTANTS from '../../utils/CONSTANTS';
 import clearObject, { ProductDetails } from './clearObject';
-
-import Skeleton from '@mui/material/Skeleton';
+import Placeholder from './defaultimg/default.jpg';
 
 const Details = () => {
   const { category, plantName } = useParams();
@@ -68,7 +66,7 @@ const Details = () => {
               backgroundSize: 'contain',
               backgroundPosition: 'center',
               width: '100%',
-              height: '390px',
+              height: '24.5rem',
               borderRadius: '10px',
               backgroundRepeat: 'no-repeat',
               backgroundColor: '#f0f0f0',
@@ -116,7 +114,8 @@ const Details = () => {
                     color: 'red',
                   }}
                 >
-                  {(myProduct.discount / 100).toFixed(2)} Special Offer
+                  {(myProduct.discount / 100).toFixed(2)} {myProduct.currency}{' '}
+                  Special Offer
                 </Typography>
               ) : null}
             </Box>
