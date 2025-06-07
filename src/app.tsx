@@ -4,13 +4,13 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 
+import { CartProvider } from './components/cart_product/cart_context.tsx';
 import { tokenCache } from './ecommerce/clientBuilder.ts';
 import { useAppDispatch, useAppSelector } from './redux/hooks.ts';
 import { getThemeName } from './redux/selectors.ts';
 import loginSilent from './redux/slices/asyncThunks/loginSilent.ts';
 import { Router } from './router/router.tsx';
 import { darkTheme, lightTheme } from './theme/theme.ts';
-import { CartProvider } from './components/cart_product/cart_context.tsx';
 
 export const App = () => {
   const theme = useAppSelector(getThemeName);

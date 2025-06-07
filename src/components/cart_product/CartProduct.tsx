@@ -1,5 +1,5 @@
 //import Purchase from "../purchase/Purchase";
-import { useCart } from './cart_context';
+import { useCart } from '../../pages/cart/cart_utils';
 
 const CartProduct = () => {
   const { cartItems } = useCart();

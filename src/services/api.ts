@@ -69,6 +69,20 @@ export const ecommerceApi = createApi({
       }),
       providesTags: ['Product'],
     }),
+
+    createCart: builder.query({
+      query: () => ({
+        uri: `carts`,
+        method: 'POST',
+        useAuthClient: false,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: {
+          currency: 'BYN',
+        },
+      }),
+    }),
   }),
 });
 
@@ -79,4 +93,5 @@ export const {
   useGetProfileQuery,
   useUpdateProfileMutation,
   useUpdatePasswordMutation,
+  useCreateCartQuery,
 } = ecommerceApi;

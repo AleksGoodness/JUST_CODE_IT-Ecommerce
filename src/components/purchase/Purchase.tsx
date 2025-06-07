@@ -5,9 +5,10 @@ import Button from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-import { useCart } from '../cart_product/cart_context';
-import { ProductDetails } from '../../pages/details/clearObject';
 import { useNavigate } from 'react-router';
+
+import { ProductDetails } from '../../pages/details/clearObject';
+import { useCart } from '../../pages/cart/cart_utils';
 
 interface ListShop {
   purchases: number;
@@ -121,5 +122,4 @@ const Purchase = ({ purchases, product }: ListShop) => {
     </Box>
   );
 };
-
 export default Purchase;
