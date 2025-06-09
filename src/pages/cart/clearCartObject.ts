@@ -110,6 +110,7 @@ interface MoneyValue {
 
 export interface CartDetails {
   id: string;
+  version: number;
   customerID: string | undefined;
   products: ProductDetails[];
   discountPrice: number;
@@ -118,6 +119,7 @@ export interface CartDetails {
 const clearCartObject = (cart: Cart): CartDetails => {
   return {
     id: cart.id,
+    version: cart.version,
     customerID: cart.customerId,
     products: cart.lineItems,
     discountPrice: cart.totalPrice.centAmount,

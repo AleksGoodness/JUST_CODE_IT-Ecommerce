@@ -71,15 +71,16 @@ export const ecommerceApi = createApi({
     }),
 
     createCart: builder.query({
-      query: () => ({
-        uri: `carts`,
+      query: ({ currency = 'BYN', customerId }) => ({
+        uri: `me/carts`,
         method: 'POST',
-        useAuthClient: false,
+        useAuthClient: true,
         headers: {
           'Content-Type': 'application/json',
         },
         body: {
-          currency: 'BYN',
+          currency,
+          ...(customerId && { customerId }),
         },
       }),
     }),

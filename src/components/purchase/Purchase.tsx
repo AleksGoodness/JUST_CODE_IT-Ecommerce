@@ -4,11 +4,17 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import { ProductDetails } from '../../pages/details/clearObject';
 import { useCart } from '../../pages/cart/cart_utils';
+import {
+  checkAnonymousCart,
+  checkLoginUser,
+  createAnonymousCart,
+} from '../../pages/cart/cart_utils';
+import { useCartCreate } from '../../pages/cart/cart_utils';
+import { ProductDetails } from '../../pages/details/clearObject';
 
 interface ListShop {
   purchases: number;
@@ -27,7 +33,14 @@ const Purchase = ({ purchases, product }: ListShop) => {
   };
 
   const [activeButton, setActiveButton] = useState<'first' | 'second'>('first');
-  const { addToCart } = useCart();
+  const { saveCartId } = useCartCreate();
+  const { addToCart, setCartId } = useCart();
+
+  useEffect(() => {
+    const id = saveCartId();
+    if (id) setCartId(id);
+  }, [saveCartId, setCartId]);
+
   const navigate = useNavigate();
 
   return (
@@ -93,11 +106,23 @@ const Purchase = ({ purchases, product }: ListShop) => {
       >
         <Button
           onClick={() => {
-            if (product) {
+            if (product && checkAnonymousCart()) {
               addToCart(product);
               navigate('/cart');
+            } else if (product && checkLoginUser()) {
+              saveCartId();
+            } else if (product) {
+              createAnonymousCart();
             } else {
               console.error("Error: product isn't loaded!");
+            }
+            if (!product) {
+              console.error("Error: product isn't loaded!");
+            } else if (checkAnonymousCart()) {
+              addToCart(product);
+              navigate('/cart');
+            } else if (checkLoginUser()) {
+              console.log('hi');
             }
             setActiveButton('first');
           }}
@@ -107,8 +132,12 @@ const Purchase = ({ purchases, product }: ListShop) => {
         </Button>
         <Button
           onClick={() => {
-            if (product) {
+            if (product && checkAnonymousCart()) {
               addToCart(product);
+            } else if (product && checkLoginUser()) {
+              saveCartId();
+            } else if (product) {
+              createAnonymousCart();
             } else {
               console.error("Error: product isn't loaded!");
             }
