@@ -30,6 +30,7 @@ export const dynamicBaseQuery: BaseQueryFn<
       ? createClientWithToken()
       : createAnonymousClient();
 
+    console.log(client);
     const fullUri = args.uri.startsWith('/')
       ? args.uri
       : `/${projectKey}/${args.uri}`;

@@ -18,17 +18,15 @@ export const App = () => {
 
   useEffect(() => {
     const refreshToken = tokenCache.get().refreshToken;
+    const isAuth = localStorage.getItem('isAuth');
 
-    if (!refreshToken) return;
-    dispatch(loginSilent());
+    if (refreshToken && isAuth) dispatch(loginSilent());
   }, [dispatch]);
 
   const currentTheme = theme === 'light' ? lightTheme : darkTheme;
 
   return (
     <CartProvider>
-      {' '}
-      {/* Теперь корзина доступна во всех компонентах */}
       <ThemeProvider theme={currentTheme}>
         <CssBaseline />
         <Router />
