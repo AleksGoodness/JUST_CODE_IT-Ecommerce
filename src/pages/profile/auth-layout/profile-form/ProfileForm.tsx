@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { lazy } from 'react';
 const DatePicker = lazy(() =>
   import('@mui/x-date-pickers').then(module => ({
     default: module.DatePicker,
@@ -10,7 +11,6 @@ const DatePicker = lazy(() =>
 );
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
-import { lazy } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
