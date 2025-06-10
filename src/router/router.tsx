@@ -13,6 +13,7 @@ const Register = lazy(() => import('../pages/register/Register.tsx'));
 const Shop = lazy(() => import('../pages/shop/Shop.tsx'));
 const Profile = lazy(() => import('../pages/profile/Profile.tsx'));
 const Basket = lazy(() => import('../pages/cart/Basket.tsx'));
+const AboutUs = lazy(() => import('../pages/about-us/AboutUs.tsx'));
 
 const AppRouter = createBrowserRouter([
   {
@@ -30,6 +31,8 @@ const AppRouter = createBrowserRouter([
       },
       { path: 'profile', element: <Profile /> },
       { path: 'cart', element: <Basket /> },
+      { path: 'about', element: <AboutUs /> },
+
       {
         path: 'shop',
         element: <Shop />,
