@@ -1,3 +1,5 @@
+import { CartDetails } from './clearCartObject';
+
 const cartObject = {
   type: 'Cart',
   id: '3276b68c-4e7f-4406-8bc3-7a392bab5a25',
@@ -321,3 +323,296 @@ const cartObject = {
 };
 
 export default cartObject;
+
+export const cart1: CartDetails = {
+  id: 'cart-1',
+  version: 1,
+  customerID: 'customer-1',
+  products: [
+    {
+      id: 'product-1',
+      name: 'Product 1',
+      description: { en: 'Sample description', ru: 'Пример описания' },
+      attributes: [{ name: 'Color', value: 'Red' }],
+      images: [
+        {
+          url: 'https://www.greeninfo.ru/img/work/catalog/m_a_2227_58747.jpg',
+          dimensions: { w: 150, h: 150 },
+        },
+      ],
+      price: '100.00',
+      discountPrice: '90.00',
+      cost: 100,
+      discount: 15,
+      sku: 'SKU-1',
+      currency: 'BYN',
+      quantity: 3,
+    },
+  ],
+  discountPrice: 90,
+};
+
+export const cart2: CartDetails = {
+  id: 'cart-2',
+  version: 2,
+  customerID: 'customer-2',
+  products: [
+    {
+      id: 'product-2',
+      name: 'Product 2',
+      description: { en: 'Desc', ru: 'Описание' },
+      attributes: [{ name: 'Size', value: 'L' }],
+      images: [
+        {
+          url: 'https://naukatv.ru/upload/files/1%2853%29.jpg',
+          dimensions: { w: 150, h: 150 },
+        },
+      ],
+      price: '150.00',
+      discountPrice: '135.00',
+      cost: 150,
+      discount: 15,
+      sku: 'SKU-2',
+      currency: 'BYN',
+      quantity: 1,
+    },
+    {
+      id: 'product-3',
+      name: 'Product 3',
+      description: { en: 'Desc', ru: 'Описание' },
+      attributes: [{ name: 'Material', value: 'Cotton' }],
+      images: [
+        {
+          url: 'https://s10.stc.all.kpcdn.net/family/wp-content/uploads/2024/04/title-photo-in-plyumeriya-960x540-1-560x420.jpg',
+          dimensions: { w: 150, h: 150 },
+        },
+      ],
+      price: '120.00',
+      discountPrice: ' ',
+      cost: 120,
+      discount: undefined,
+      sku: 'SKU-3',
+      currency: 'BYN',
+      quantity: 2,
+    },
+    {
+      id: 'product-4',
+      name: 'Product 4',
+      description: { en: 'Desc', ru: 'Описание' },
+      attributes: [{ name: 'Brand', value: 'XYZ' }],
+      images: [
+        {
+          url: 'https://blog.tetra.net/ru/ru/wp-content/uploads/2024/01/akvariumnye-rasteniya-nastoyashchee-ukrashenie-akvariuma.jpg',
+          dimensions: { w: 150, h: 150 },
+        },
+      ],
+      price: '90.00',
+      discountPrice: ' ',
+      cost: 90,
+      discount: undefined,
+      sku: 'SKU-4',
+      currency: 'BYN',
+      quantity: 1,
+    },
+  ],
+  discountPrice: 324,
+};
+
+export const cart3: CartDetails = {
+  id: 'cart-3',
+  version: 3,
+  customerID: 'customer-3',
+  products: [
+    {
+      id: 'product-5',
+      name: 'Product 5',
+      description: { en: 'Desc', ru: 'Описание' },
+      attributes: [{ name: 'Weight', value: '1kg' }],
+      images: [
+        {
+          url: 'https://s15.stc.all.kpcdn.net/family/wp-content/uploads/2025/05/the-title-photo-pentas-tsvetok-960x540-1-560x420.jpg',
+          dimensions: { w: 150, h: 150 },
+        },
+      ],
+      price: '200.00',
+      discountPrice: '180.00',
+      cost: 200,
+      discount: 15,
+      sku: 'SKU-5',
+      currency: 'BYN',
+      quantity: 2,
+    },
+    {
+      id: 'product-6',
+      name: 'Product 6',
+      description: { en: 'Desc', ru: 'Описание' },
+      attributes: [{ name: 'Power', value: '500W' }],
+      images: [
+        {
+          url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRK7YL-PqltToIWp5E4xZpenwjpz4IfWCOLog&s',
+          dimensions: { w: 150, h: 150 },
+        },
+      ],
+      price: '250.00',
+      discountPrice: '225.00',
+      cost: 250,
+      discount: 15,
+      sku: 'SKU-6',
+      currency: 'BYN',
+      quantity: 1,
+    },
+    {
+      id: 'product-7',
+      name: 'Product 7',
+      description: { en: 'Desc', ru: 'Описание' },
+      attributes: [{ name: 'Type', value: 'Electronics' }],
+      images: [
+        {
+          url: 'https://img.dmclk.ru/s960x640q80/blog/81Miwl2NIgyyi3pG.webp',
+          dimensions: { w: 150, h: 150 },
+        },
+      ],
+      price: '300.00',
+      discountPrice: ' ',
+      cost: 300,
+      discount: undefined,
+      sku: 'SKU-7',
+      currency: 'BYN',
+      quantity: 1,
+    },
+    {
+      id: 'product-8',
+      name: 'Product 8',
+      description: { en: 'Desc', ru: 'Описание' },
+      attributes: [{ name: 'Voltage', value: '220V' }],
+      images: [
+        {
+          url: 'https://www.pnp.ru/upload/entities/2021/10/19/16/article/detailPicture/ea/33/4b/fc/d98ba31e1fd02289df3ef88addd54e14.jpg',
+          dimensions: { w: 150, h: 150 },
+        },
+      ],
+      price: '180.00',
+      discountPrice: ' ',
+      cost: 180,
+      discount: undefined,
+      sku: 'SKU-8',
+      currency: 'BYN',
+      quantity: 1,
+    },
+    {
+      id: 'product-9',
+      name: 'Product 9',
+      description: { en: 'Desc', ru: 'Описание' },
+      attributes: [{ name: 'Warranty', value: '2 years' }],
+      images: [
+        {
+          url: 'https://anapagorkogo11.ru/priroda-krasnodarskogo-kraya.jpg',
+          dimensions: { w: 150, h: 150 },
+        },
+      ],
+      price: '220.00',
+      discountPrice: ' ',
+      cost: 220,
+      discount: undefined,
+      sku: 'SKU-9',
+      currency: 'BYN',
+      quantity: 2,
+    },
+    {
+      id: 'product-5',
+      name: 'Product 5',
+      description: { en: 'Desc', ru: 'Описание' },
+      attributes: [{ name: 'Weight', value: '1kg' }],
+      images: [
+        {
+          url: 'https://s15.stc.all.kpcdn.net/family/wp-content/uploads/2025/05/the-title-photo-pentas-tsvetok-960x540-1-560x420.jpg',
+          dimensions: { w: 150, h: 150 },
+        },
+      ],
+      price: '200.00',
+      discountPrice: '180.00',
+      cost: 200,
+      discount: 15,
+      sku: 'SKU-5',
+      currency: 'BYN',
+      quantity: 1,
+    },
+    {
+      id: 'product-6',
+      name: 'Product 6',
+      description: { en: 'Desc', ru: 'Описание' },
+      attributes: [{ name: 'Power', value: '500W' }],
+      images: [
+        {
+          url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRK7YL-PqltToIWp5E4xZpenwjpz4IfWCOLog&s',
+          dimensions: { w: 150, h: 150 },
+        },
+      ],
+      price: '250.00',
+      discountPrice: '225.00',
+      cost: 250,
+      discount: 15,
+      sku: 'SKU-6',
+      currency: 'BYN',
+      quantity: 2,
+    },
+    {
+      id: 'product-7',
+      name: 'Product 7',
+      description: { en: 'Desc', ru: 'Описание' },
+      attributes: [{ name: 'Type', value: 'Electronics' }],
+      images: [
+        {
+          url: 'https://img.dmclk.ru/s960x640q80/blog/81Miwl2NIgyyi3pG.webp',
+          dimensions: { w: 150, h: 150 },
+        },
+      ],
+      price: '300.00',
+      discountPrice: ' ',
+      cost: 300,
+      discount: undefined,
+      sku: 'SKU-7',
+      currency: 'BYN',
+      quantity: 1,
+    },
+    {
+      id: 'product-8',
+      name: 'Product 8',
+      description: { en: 'Desc', ru: 'Описание' },
+      attributes: [{ name: 'Voltage', value: '220V' }],
+      images: [
+        {
+          url: 'https://www.pnp.ru/upload/entities/2021/10/19/16/article/detailPicture/ea/33/4b/fc/d98ba31e1fd02289df3ef88addd54e14.jpg',
+          dimensions: { w: 150, h: 150 },
+        },
+      ],
+      price: '180.00',
+      discountPrice: ' ',
+      cost: 180,
+      discount: undefined,
+      sku: 'SKU-8',
+      currency: 'BYN',
+      quantity: 1,
+    },
+    {
+      id: 'product-9',
+      name: 'Product 9',
+      description: { en: 'Desc', ru: 'Описание' },
+      attributes: [{ name: 'Warranty', value: '2 years' }],
+      images: [
+        {
+          url: 'https://anapagorkogo11.ru/priroda-krasnodarskogo-kraya.jpg',
+          dimensions: { w: 150, h: 150 },
+        },
+      ],
+      price: '220.00',
+      discountPrice: ' ',
+      cost: 220,
+      discount: undefined,
+      sku: 'SKU-9',
+      currency: 'BYN',
+      quantity: 2,
+    },
+  ],
+  discountPrice: 1035,
+};

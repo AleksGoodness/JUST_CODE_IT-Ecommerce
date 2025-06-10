@@ -56,7 +56,7 @@ interface ProductVariant {
   assets: string[];
 }
 
-interface Image {
+export interface Image {
   url: string;
   label?: string;
   dimensions: { w: number; h: number };

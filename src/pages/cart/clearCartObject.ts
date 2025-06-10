@@ -1,4 +1,4 @@
-import { ProductDetails } from '../details/clearObject';
+import { Attribute, Image } from '../details/clearObject';
 
 export interface Cart {
   type: 'Cart';
@@ -11,7 +11,7 @@ export interface Cart {
   lastModifiedBy: ClientInfo;
   createdBy: ClientInfo;
   customerId?: string;
-  lineItems: ProductDetails[];
+  lineItems: CartSummary[];
   cartState: 'Active';
   totalPrice: MoneyValue;
   discountOnTotalPrice?: DiscountOnTotalPrice;
@@ -108,11 +108,26 @@ interface MoneyValue {
   fractionDigits: number;
 }
 
+export interface CartSummary {
+  id: string;
+  name: string;
+  description: Record<string, string>;
+  attributes: Attribute[];
+  images: Image[];
+  price: string;
+  discountPrice: string;
+  cost: number;
+  discount: number | undefined;
+  sku: string;
+  currency: string;
+  quantity: number;
+}
+
 export interface CartDetails {
   id: string;
   version: number;
   customerID: string | undefined;
-  products: ProductDetails[];
+  products: CartSummary[];
   discountPrice: number;
 }
 
