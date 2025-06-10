@@ -4,12 +4,17 @@ import { useEffect } from 'react';
 import CartProduct from '../../components/cart_product/CartProduct';
 import { useCreateCartMutation, useGetCartQuery } from '../../services/api';
 
+enum ELocalStorage {
+  cartId = 'cartId',
+  anonymousId = 'anonymousId',
+}
+
 const Basket = () => {
   const { data: cart, isLoading } = useGetCartQuery(
     {
-      cartId: localStorage.getItem('cartId'),
+      cartId: localStorage.getItem(ELocalStorage.cartId),
     },
-    { skip: Boolean(!localStorage.getItem('cartId')) },
+    { skip: Boolean(!localStorage.getItem(ELocalStorage.cartId)) },
   );
   const [createCart] = useCreateCartMutation();
 
@@ -18,22 +23,25 @@ const Basket = () => {
       try {
         const cartResponse = await createCart({
           currency: 'BYN',
-          anonymousId: localStorage.getItem('anonymousID'),
+          anonymousId: localStorage.getItem(ELocalStorage.anonymousId),
           useAuthClient: false,
         }).unwrap();
 
         if (cartResponse.id) {
-          localStorage.setItem('cartId', cartResponse.id);
+          localStorage.setItem(ELocalStorage.cartId, cartResponse.id);
         }
         if (cartResponse.anonymousId) {
-          localStorage.setItem('anonymousId', cartResponse.anonymousId);
+          localStorage.setItem(
+            ELocalStorage.anonymousId,
+            cartResponse.anonymousId,
+          );
         }
       } catch (error) {
         console.log(error);
       }
     };
 
-    if (!localStorage.getItem('cartId')) createCartQuery();
+    if (!localStorage.getItem(ELocalStorage.cartId)) createCartQuery();
   }, [createCart]);
   console.log(cart);
   return (
