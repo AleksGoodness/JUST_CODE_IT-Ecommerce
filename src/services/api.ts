@@ -107,6 +107,7 @@ export const ecommerceApi = createApi({
         },
         body: actionBody,
       }),
+      invalidatesTags: ['Cart'],
     }),
     getActiveCart: builder.query<Cart, unknown>({
       query: () => ({
