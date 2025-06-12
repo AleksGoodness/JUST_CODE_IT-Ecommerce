@@ -20,6 +20,7 @@ const authSlice = createSlice({
   reducers: {
     logOut: state => {
       localStorage.removeItem('ctpTokenCache');
+      localStorage.removeItem('isAuth');
       state.customer = null;
     },
     setCustomer: (state, { payload }) => {
@@ -51,8 +52,10 @@ const authSlice = createSlice({
     builder.addCase(loginCustomer.fulfilled, (state, action) => {
       state.isLoading = false;
       state.customer = action.payload ?? null;
-      if (action.payload)
+      if (action.payload) {
+        localStorage.setItem('isAuth', 'true');
         toast.success(`Welcome back, ${action.payload.firstName}!`);
+      }
     });
     builder.addCase(loginCustomer.rejected, (state, action) => {
       state.isLoading = false;

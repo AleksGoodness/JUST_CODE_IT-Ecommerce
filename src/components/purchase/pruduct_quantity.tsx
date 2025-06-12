@@ -1,9 +1,10 @@
-import Fab from '@mui/material/Fab';
-import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import Box from '@mui/material/Box';
+import Fab from '@mui/material/Fab';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
+
 import { ListShop } from './Purchase';
 
 const ProductQuantity = ({ purchases }: ListShop) => {
@@ -32,7 +33,7 @@ const ProductQuantity = ({ purchases }: ListShop) => {
         aria-label="remove"
         color="primary"
         onClick={handleRemovePurchase}
-        size="medium"
+        size="small"
         sx={{
           zIndex: 0,
         }}
@@ -42,7 +43,7 @@ const ProductQuantity = ({ purchases }: ListShop) => {
       <Typography
         sx={{
           display: 'block',
-          fontSize: '1.5rem',
+          fontSize: '1.2rem',
           fontWeight: '400',
           minWidth: '2rem',
           textAlign: 'center',
@@ -54,7 +55,7 @@ const ProductQuantity = ({ purchases }: ListShop) => {
         aria-label="remove"
         color="primary"
         onClick={handleAddPurchase}
-        size="medium"
+        size="small"
         sx={{
           zIndex: 0,
         }}

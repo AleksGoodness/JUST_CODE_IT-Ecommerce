@@ -1,34 +1,15 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useState } from 'react';
 
-import { useCart } from '../../pages/cart/cart_utils';
-import {
-  checkAnonymousCart,
-  checkLoginUser,
-  createAnonymousCart,
-} from '../../pages/cart/cart_utils';
-import { useCartCreate } from '../../pages/cart/cart_utils';
-import { ProductDetails } from '../../pages/details/clearObject';
 import ProductQuantity from './pruduct_quantity';
 
 export interface ListShop {
   purchases: number;
-  product?: ProductDetails | null;
 }
 
-const Purchase = ({ purchases, product }: ListShop) => {
+const Purchase = ({ purchases }: ListShop) => {
   const [activeButton, setActiveButton] = useState<'first' | 'second'>('first');
-  const { saveCartId } = useCartCreate();
-  const { addToCart, setCartId } = useCart();
-
-  useEffect(() => {
-    const id = saveCartId();
-    if (id) setCartId(id);
-  }, [saveCartId, setCartId]);
-
-  const navigate = useNavigate();
 
   return (
     <Box
@@ -51,44 +32,14 @@ const Purchase = ({ purchases, product }: ListShop) => {
         }}
       >
         <Button
-          onClick={() => {
-            if (product && checkAnonymousCart()) {
-              addToCart(product);
-              navigate('/cart');
-            } else if (product && checkLoginUser()) {
-              saveCartId();
-            } else if (product) {
-              createAnonymousCart();
-            } else {
-              console.error("Error: product isn't loaded!");
-            }
-            if (!product) {
-              console.error("Error: product isn't loaded!");
-            } else if (checkAnonymousCart()) {
-              addToCart(product);
-              navigate('/cart');
-            } else if (checkLoginUser()) {
-              console.log('hi');
-            }
-            setActiveButton('first');
-          }}
+          onClick={() => setActiveButton('first')}
           variant={activeButton === 'first' ? 'contained' : 'outlined'}
         >
           BUY NOW
         </Button>
+
         <Button
-          onClick={() => {
-            if (product && checkAnonymousCart()) {
-              addToCart(product);
-            } else if (product && checkLoginUser()) {
-              saveCartId();
-            } else if (product) {
-              createAnonymousCart();
-            } else {
-              console.error("Error: product isn't loaded!");
-            }
-            setActiveButton('second');
-          }}
+          onClick={() => setActiveButton('second')}
           variant={activeButton === 'second' ? 'contained' : 'outlined'}
         >
           ADD TO CART

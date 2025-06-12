@@ -97,6 +97,8 @@ export const createAnonymousClient = () => {
         clientId: anonymousClientId,
         clientSecret: anonymousClientSecret,
       },
+
+      tokenCache: tokenCache,
       scopes: anonymousScopes,
     })
     .withHttpMiddleware({

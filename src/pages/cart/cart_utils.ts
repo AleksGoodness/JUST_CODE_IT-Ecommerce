@@ -1,18 +1,16 @@
 import { createContext, useContext } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
-import { useCreateCartQuery } from '../../services/api';
-import { ProductDetails } from '../details/clearObject';
 import { addToCartApi } from './cart_api';
+import { LineItemModified } from './clearCartObject';
 
 const authHeader = btoa(
   `${import.meta.env.VITE_CTP_CLIENT_ID}:${import.meta.env.VITE_CTP_CLIENT_SECRET}`,
 );
 
 export interface CartContextType {
-  cartItems: ProductDetails[];
-  setCartItems: (items: ProductDetails[]) => void;
-  addToCart: (item: ProductDetails) => void;
+  cartItems: LineItemModified[];
+  setCartItems: (items: LineItemModified[]) => void;
+  addToCart: (item: LineItemModified) => void;
   cartId: string | null;
   setCartId: (id: string | null) => void;
   version: number;
@@ -29,27 +27,10 @@ export const useCart = () => {
   return context;
 };
 
-export const useCartCreate = () => {
-  const { data, error } = useCreateCartQuery({ currency: 'BYN' });
-  const saveCartId = () => {
-    if (error) {
-      console.error('Failed to create cart', error);
-      return null;
-    }
-    const cartId = data?.id;
-    if (!cartId) {
-      console.error('Error: `cartId` is missing');
-      return null;
-    }
-    return cartId;
-  };
-  return { saveCartId };
-};
-
 export const useCartAdd = () => {
   const { cartId, setCartItems, setCartId, version, setVersion } = useCart();
 
-  const addItemToCart = async (item: ProductDetails) => {
+  const addItemToCart = async (item: LineItemModified) => {
     if (!cartId) {
       console.error('Error: `cartId` is missing');
       return;
@@ -87,49 +68,6 @@ export const getAnonymousToken = async (): Promise<string> => {
 
   const data = await response.json();
   return data.access_token;
-};
-
-const generateAnonymousId = (): string => {
-  const storedId = localStorage.getItem('anonymousId');
-  if (storedId) return storedId;
-
-  const newId = uuidv4();
-  localStorage.setItem('anonymousId', newId);
-  return newId;
-};
-
-export const createAnonymousCart = async () => {
-  try {
-    const token = await getAnonymousToken();
-    console.log(token);
-    const anonymousId = generateAnonymousId();
-    const response = await fetch(
-      `https://api.europe-west1.gcp.commercetools.com/justcodeit1313/me/carts
-    `,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          currency: 'BYN',
-          anonymousId,
-        }),
-      },
-    );
-
-    if (!response.ok) {
-      throw new Error(`Failed to create a cart: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log('New cart:', data);
-    return data;
-  } catch (error) {
-    console.error('Failed to create a cart:', error);
-    return null;
-  }
 };
 
 export const checkLoginUser = () => {

@@ -1,13 +1,14 @@
 // api/ecommerceApi.ts
 import { createApi } from '@reduxjs/toolkit/query/react';
 
+import { Cart } from '../pages/cart/clearCartObject';
 import { dynamicBaseQuery } from './dynamicBaseQuery';
 import { ICategoryResponse } from './interfaces';
 
 export const ecommerceApi = createApi({
   reducerPath: 'ecommerceApi',
   baseQuery: dynamicBaseQuery,
-  tagTypes: ['Customer', 'Products', 'Product', 'Categories'],
+  tagTypes: ['Customer', 'Products', 'Product', 'Categories', 'Cart'],
   endpoints: builder => ({
     getProfile: builder.query({
       query: () => ({
@@ -70,19 +71,48 @@ export const ecommerceApi = createApi({
       providesTags: ['Product'],
     }),
 
-    createCart: builder.query({
-      query: ({ currency = 'BYN', customerId }) => ({
+    createCart: builder.mutation<Cart, unknown>({
+      query: ({
+        currency = 'BYN',
+        anonymousId,
+        customerId,
+        useAuthClient,
+      }: {
+        currency: 'BYN' | 'RUB';
+        anonymousId?: string;
+        customerId?: string;
+        useAuthClient: boolean;
+      }) => ({
         uri: `me/carts`,
         method: 'POST',
-        useAuthClient: true,
+        useAuthClient: useAuthClient,
         headers: {
           'Content-Type': 'application/json',
         },
         body: {
           currency,
-          ...(customerId && { customerId }),
+          customerId,
+          anonymousId,
         },
       }),
+      invalidatesTags: ['Cart'],
+    }),
+    getCart: builder.query<Cart, unknown>({
+      query: ({
+        cartId,
+        useAuthClient,
+      }: {
+        cartId: string;
+        useAuthClient: boolean;
+      }) => ({
+        uri: `me/carts/${cartId}`,
+        method: 'GET',
+        useAuthClient: useAuthClient,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+      providesTags: ['Cart'],
     }),
   }),
 });
@@ -94,5 +124,6 @@ export const {
   useGetProfileQuery,
   useUpdateProfileMutation,
   useUpdatePasswordMutation,
-  useCreateCartQuery,
+  useCreateCartMutation,
+  useGetCartQuery,
 } = ecommerceApi;
