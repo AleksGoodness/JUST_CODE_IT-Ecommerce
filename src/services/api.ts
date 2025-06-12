@@ -2,8 +2,11 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { Cart } from '../pages/cart/clearCartObject';
+import { IProductResponse } from '../pages/details/clearObject';
+import { ICreateCartData } from './createCart.interface';
 import { dynamicBaseQuery } from './dynamicBaseQuery';
 import { ICategoryResponse } from './interfaces';
+import { IUpdateCart } from './updateCart.interface';
 
 export const ecommerceApi = createApi({
   reducerPath: 'ecommerceApi',
@@ -62,26 +65,21 @@ export const ecommerceApi = createApi({
       providesTags: ['Products'],
     }),
 
-    getProduct: builder.query({
-      query: query => ({
-        uri: `products${query}`,
+    getProduct: builder.query<IProductResponse, string>({
+      query: id => ({
+        uri: `products${id}`,
         method: 'GET',
         useAuthClient: false,
       }),
       providesTags: ['Product'],
     }),
 
-    createCart: builder.mutation<Cart, unknown>({
+    createCart: builder.mutation<Cart, ICreateCartData>({
       query: ({
         currency = 'BYN',
         anonymousId,
         customerId,
         useAuthClient,
-      }: {
-        currency: 'BYN' | 'RUB';
-        anonymousId?: string;
-        customerId?: string;
-        useAuthClient: boolean;
       }) => ({
         uri: `me/carts`,
         method: 'POST',
@@ -97,17 +95,24 @@ export const ecommerceApi = createApi({
       }),
       invalidatesTags: ['Cart'],
     }),
-    getCart: builder.query<Cart, unknown>({
-      query: ({
-        cartId,
-        useAuthClient,
-      }: {
-        cartId: string;
-        useAuthClient: boolean;
-      }) => ({
+    updateCart: builder.mutation<
+      Cart,
+      { cartId: string; actionBody: IUpdateCart }
+    >({
+      query: ({ cartId, actionBody }) => ({
         uri: `me/carts/${cartId}`,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: actionBody,
+      }),
+    }),
+    getActiveCart: builder.query<Cart, unknown>({
+      query: () => ({
+        uri: `me/active-cart`,
         method: 'GET',
-        useAuthClient: useAuthClient,
+        useAuthClient: false,
         headers: {
           'Content-Type': 'application/json',
         },
@@ -125,5 +130,6 @@ export const {
   useUpdateProfileMutation,
   useUpdatePasswordMutation,
   useCreateCartMutation,
-  useGetCartQuery,
+  useGetActiveCartQuery,
+  useUpdateCartMutation,
 } = ecommerceApi;

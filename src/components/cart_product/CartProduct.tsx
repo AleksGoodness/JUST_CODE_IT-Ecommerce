@@ -5,15 +5,21 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-import { CartDetails } from '../../pages/cart/clearCartObject';
+import { LineItemModified } from '../../pages/cart/clearCartObject';
 import ProductQuantity from '../purchase/pruduct_quantity';
+import Title from '../title/Title';
 
-const CartProduct = ({ cartItem }: { cartItem: CartDetails }) => {
+const CartProduct = ({ products }: { products: LineItemModified[] }) => {
   // const { cartItems } = useCart();
 
   return (
     <>
-      {cartItem.products.map((item, index) => {
+      {products.length === 0 ? (
+        <Title pt={'25%'} textAlign={'center'}>
+          No items yet
+        </Title>
+      ) : null}
+      {products.map((item, index) => {
         const price = ((item.price / 100) * item.quantity).toFixed(2);
         const discount = item.discount ? (item.discount / 100).toFixed(2) : '';
         console.log(discount);

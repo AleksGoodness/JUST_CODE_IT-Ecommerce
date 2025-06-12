@@ -122,7 +122,6 @@ const Details = () => {
           ) : (
             <Skeleton />
           )}
-
           <Typography
             sx={{
               marginTop: '10px',

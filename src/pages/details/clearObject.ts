@@ -1,6 +1,6 @@
 import { formatPrice } from './utilsDetails';
 
-interface TempObject {
+export interface IProductResponse {
   id: string;
   version: number;
   versionModifiedAt: string;
@@ -98,7 +98,7 @@ export interface ProductDetails {
   currency: string;
 }
 
-const clearObject = (tempObject: TempObject): ProductDetails => {
+const clearObject = (tempObject: IProductResponse): ProductDetails => {
   const priceProperty =
     tempObject.masterData.staged.masterVariant.prices[0].value.centAmount;
   const currencyProperty =

@@ -1,12 +1,42 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
+import { useParams } from 'react-router';
 
+import {
+  useGetActiveCartQuery,
+  useGetProductQuery,
+  useUpdateCartMutation,
+} from '../../services/api';
+import { ECartUpdateActions } from '../../services/updateCart.interface';
 import ProductQuantity from './pruduct_quantity';
 
 const Purchase = () => {
-  const [activeButton, setActiveButton] = useState<'first' | 'second'>('first');
+  const { plantName } = useParams();
+  const { data: product } = useGetProductQuery(`/${plantName}`);
+  const { data: cart } = useGetActiveCartQuery({});
+  const [updateCart] = useUpdateCartMutation();
 
+  const [activeButton, setActiveButton] = useState<'first' | 'second'>('first');
+  const handleAddProduct = () => {
+    setActiveButton('second');
+    if (cart && product) {
+      updateCart({
+        cartId: cart.id,
+        actionBody: {
+          version: cart.version,
+          actions: [
+            {
+              action: ECartUpdateActions.addNewProduct,
+              productId: product.id,
+              quantity: 1,
+              variantId: 1,
+            },
+          ],
+        },
+      });
+    }
+  };
   return (
     <Box
       sx={{
@@ -35,7 +65,7 @@ const Purchase = () => {
         </Button>
 
         <Button
-          onClick={() => setActiveButton('second')}
+          onClick={() => handleAddProduct()}
           variant={activeButton === 'second' ? 'contained' : 'outlined'}
         >
           ADD TO CART

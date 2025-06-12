@@ -1,0 +1,15 @@
+export interface IUpdateCart {
+  version: number;
+  actions: Action[];
+}
+
+interface Action {
+  action: string;
+  productId: string;
+  variantId: number;
+  quantity: number;
+}
+
+export enum ECartUpdateActions {
+  addNewProduct = 'addLineItem',
+}
