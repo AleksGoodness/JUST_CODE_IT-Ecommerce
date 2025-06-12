@@ -22,7 +22,6 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
       {products.map((item, index) => {
         const price = ((item.price / 100) * item.quantity).toFixed(2);
         const discount = item.discount ? (item.discount / 100).toFixed(2) : '';
-        console.log(discount);
         return (
           <Grid
             container
@@ -80,7 +79,7 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
                 paddingTop: '32px',
               }}
             >
-              <ProductQuantity />
+              <ProductQuantity amount={item.quantity} />
             </Grid>
             <Grid size={3}>
               <Typography sx={{ textAlign: 'center' }}>

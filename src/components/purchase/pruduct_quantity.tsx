@@ -3,10 +3,16 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const ProductQuantity = () => {
-  const [quantity, setQuantity] = useState(1);
+const ProductQuantity = ({
+  amount = 1,
+  setAmount,
+}: {
+  amount: number;
+  setAmount?: (v: number) => void;
+}) => {
+  const [quantity, setQuantity] = useState(amount);
 
   const handleRemovePurchase = () => {
     if (quantity > 1) setQuantity(prev => prev - 1);
@@ -15,6 +21,10 @@ const ProductQuantity = () => {
   const handleAddPurchase = () => {
     if (quantity < 99) setQuantity(prev => prev + 1);
   };
+
+  useEffect(() => {
+    if (setAmount) setAmount(quantity);
+  }, [quantity, setAmount]);
   return (
     <Box
       sx={{

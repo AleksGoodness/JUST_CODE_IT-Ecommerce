@@ -140,7 +140,7 @@ interface ProductType {
   version: number;
 }
 
-interface LineItem {
+export interface LineItem {
   id: string;
   productId: string;
   productKey: string;

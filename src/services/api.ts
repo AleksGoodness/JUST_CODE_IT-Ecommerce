@@ -13,6 +13,8 @@ export const ecommerceApi = createApi({
   baseQuery: dynamicBaseQuery,
   tagTypes: ['Customer', 'Products', 'Product', 'Categories', 'Cart'],
   endpoints: builder => ({
+    // profile actions
+
     getProfile: builder.query({
       query: () => ({
         uri: `me`,
@@ -47,6 +49,8 @@ export const ecommerceApi = createApi({
       invalidatesTags: ['Customer'],
     }),
 
+    //* categories actions
+
     getCategories: builder.query<ICategoryResponse, unknown>({
       query: () => ({
         uri: `categories`,
@@ -55,6 +59,8 @@ export const ecommerceApi = createApi({
       }),
       providesTags: ['Categories'],
     }),
+
+    //? Product actions
 
     getProducts: builder.query({
       query: (query: string) => ({
@@ -73,6 +79,7 @@ export const ecommerceApi = createApi({
       }),
       providesTags: ['Product'],
     }),
+    //! cart actions
 
     createCart: builder.mutation<Cart, ICreateCartData>({
       query: ({
@@ -95,6 +102,7 @@ export const ecommerceApi = createApi({
       }),
       invalidatesTags: ['Cart'],
     }),
+
     updateCart: builder.mutation<
       Cart,
       { cartId: string; actionBody: IUpdateCart }
@@ -109,6 +117,7 @@ export const ecommerceApi = createApi({
       }),
       invalidatesTags: ['Cart'],
     }),
+
     getActiveCart: builder.query<Cart, unknown>({
       query: () => ({
         uri: `me/active-cart`,

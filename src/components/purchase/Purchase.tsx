@@ -17,6 +17,8 @@ const Purchase = () => {
   const { data: cart } = useGetActiveCartQuery({});
   const [updateCart] = useUpdateCartMutation();
 
+  const [amount, setAmount] = useState(1);
+
   const [activeButton, setActiveButton] = useState<'first' | 'second'>('first');
   const handleAddProduct = () => {
     setActiveButton('second');
@@ -29,7 +31,7 @@ const Purchase = () => {
             {
               action: ECartUpdateActions.addNewProduct,
               productId: product.id,
-              quantity: 1,
+              quantity: amount,
               variantId: 1,
             },
           ],
@@ -47,7 +49,7 @@ const Purchase = () => {
         },
       }}
     >
-      <ProductQuantity />
+      <ProductQuantity amount={amount} setAmount={setAmount} />
       <Box
         sx={{
           display: 'flex',

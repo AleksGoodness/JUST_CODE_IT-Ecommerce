@@ -12,4 +12,5 @@ interface Action {
 
 export enum ECartUpdateActions {
   addNewProduct = 'addLineItem',
+  addDiscountCode = 'addDiscountCode',
 }

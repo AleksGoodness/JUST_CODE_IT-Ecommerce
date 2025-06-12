@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 import CartProduct from '../../components/cart_product/CartProduct';
 import Order from '../../components/Order/order';
+import { tokenCache } from '../../ecommerce/clientBuilder';
 import {
   useCreateCartMutation,
   useGetActiveCartQuery,
@@ -16,10 +17,15 @@ enum ELocalStorage {
 
 const Basket = () => {
   const { data: cart, isLoading, isError, refetch } = useGetActiveCartQuery({});
+  const refreshToken = tokenCache.get().refreshToken;
 
   const [clearCart, setClearCart] = useState(
     cart ? clearCartObject(cart) : undefined,
   );
+
+  useEffect(() => {
+    refetch();
+  }, [refreshToken, refetch]);
 
   const [createCart] = useCreateCartMutation();
 
