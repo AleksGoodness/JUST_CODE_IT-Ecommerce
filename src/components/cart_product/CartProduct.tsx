@@ -74,7 +74,7 @@ const CartProduct = ({ cartItem }: { cartItem: CartDetails }) => {
                 paddingTop: '32px',
               }}
             >
-              <ProductQuantity purchases={cartItem.products[index].quantity} />
+              <ProductQuantity />
             </Grid>
             <Grid size={3}>
               <Typography sx={{ textAlign: 'center' }}>

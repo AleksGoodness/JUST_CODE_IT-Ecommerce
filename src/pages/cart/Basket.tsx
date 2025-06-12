@@ -1,12 +1,10 @@
 import { Grid } from '@mui/material';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import CartProduct from '../../components/cart_product/CartProduct';
 import Order from '../../components/Order/order';
 import { useCreateCartMutation, useGetCartQuery } from '../../services/api';
-import cartObject from './cartObject';
 import clearCartObject from './clearCartObject';
-import { Cart } from './clearCartObject';
 
 enum ELocalStorage {
   cartId = 'cartId',
@@ -20,6 +18,11 @@ const Basket = () => {
     },
     { skip: Boolean(!localStorage.getItem(ELocalStorage.cartId)) },
   );
+
+  const [clearCart, setClearCart] = useState(
+    cart ? clearCartObject(cart) : undefined,
+  );
+
   const [createCart] = useCreateCartMutation();
 
   useEffect(() => {
@@ -47,7 +50,10 @@ const Basket = () => {
 
     if (!localStorage.getItem(ELocalStorage.cartId)) createCartQuery();
   }, [createCart]);
-  console.log(cart);
+
+  useEffect(() => {
+    if (cart) setClearCart(clearCartObject(cart));
+  }, [cart]);
   return (
     <>
       <h2>Products in the cart {isLoading ? 'loading...' : ''}</h2>
@@ -60,11 +66,7 @@ const Basket = () => {
             maxWidth: '700px',
           }}
         >
-          {cartObject ? (
-            <CartProduct cartItem={clearCartObject(cartObject as Cart)} />
-          ) : (
-            ''
-          )}
+          {clearCart ? <CartProduct cartItem={clearCart} /> : ''}
         </Grid>
         <Grid
           size={4}
@@ -80,11 +82,7 @@ const Basket = () => {
             maxHeight: '500px',
           }}
         >
-          {cartObject ? (
-            <Order cartItem={clearCartObject(cartObject as Cart)} />
-          ) : (
-            ''
-          )}
+          {clearCart ? <Order cartItem={clearCart} /> : ''}
         </Grid>
       </Grid>
     </>

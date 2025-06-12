@@ -4,11 +4,7 @@ import { useState } from 'react';
 
 import ProductQuantity from './pruduct_quantity';
 
-export interface ListShop {
-  purchases: number;
-}
-
-const Purchase = ({ purchases }: ListShop) => {
+const Purchase = () => {
   const [activeButton, setActiveButton] = useState<'first' | 'second'>('first');
 
   return (
@@ -21,7 +17,7 @@ const Purchase = ({ purchases }: ListShop) => {
         },
       }}
     >
-      <ProductQuantity purchases={purchases} />
+      <ProductQuantity />
       <Box
         sx={{
           display: 'flex',

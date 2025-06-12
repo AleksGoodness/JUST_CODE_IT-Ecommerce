@@ -3,15 +3,10 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import Typography from '@mui/material/Typography';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { ListShop } from './Purchase';
-
-const ProductQuantity = ({ purchases }: ListShop) => {
-  const [quantity, setQuantity] = useState(purchases);
-  useEffect(() => {
-    setQuantity(purchases);
-  }, [purchases]);
+const ProductQuantity = () => {
+  const [quantity, setQuantity] = useState(1);
 
   const handleRemovePurchase = () => {
     if (quantity > 1) setQuantity(prev => prev - 1);

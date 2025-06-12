@@ -48,7 +48,10 @@ const Order = ({ cartItem }: { cartItem: CartDetails }) => {
         Total
       </Typography>
       <Typography>
-        {(cartItem.finalPrice.centAmount / 100).toFixed(2)} BYN
+        {cartItem.totalPriceWithDiscount
+          ? (cartItem.totalPriceWithDiscount / 100).toFixed(2)
+          : (cartItem.finalPrice.centAmount / 100).toFixed(2)}{' '}
+        BYN
       </Typography>
       <Divider />
       <Button sx={{ minHeight: '40px' }} variant="contained">
