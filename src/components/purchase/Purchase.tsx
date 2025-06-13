@@ -51,11 +51,15 @@ const Purchase = () => {
         },
       }}
     >
-      <ProductQuantity
-        amount={amount}
-        lineItemId={product?.id}
-        setAmount={setAmount}
-      />
+      {product && (
+        <ProductQuantity
+          amount={amount}
+          lineItemId={product?.id}
+          productId={product?.id}
+          setAmount={setAmount}
+        />
+      )}
+
       <Box
         sx={{
           display: 'flex',
