@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import { useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import {
   useGetActiveCartQuery,
@@ -16,6 +17,7 @@ const Purchase = () => {
   const { data: product } = useGetProductQuery(`/${plantName}`);
   const { data: cart } = useGetActiveCartQuery({});
   const [updateCart] = useUpdateCartMutation();
+  const navigate = useNavigate();
 
   const [amount, setAmount] = useState(1);
 
@@ -49,7 +51,11 @@ const Purchase = () => {
         },
       }}
     >
-      <ProductQuantity amount={amount} setAmount={setAmount} />
+      <ProductQuantity
+        amount={amount}
+        lineItemId={product?.id}
+        setAmount={setAmount}
+      />
       <Box
         sx={{
           display: 'flex',
@@ -60,7 +66,11 @@ const Purchase = () => {
         }}
       >
         <Button
-          onClick={() => setActiveButton('first')}
+          onClick={() => {
+            handleAddProduct();
+            setActiveButton('first');
+            navigate('/cart');
+          }}
           variant={activeButton === 'first' ? 'contained' : 'outlined'}
         >
           BUY NOW

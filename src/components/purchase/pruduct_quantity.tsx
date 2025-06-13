@@ -5,21 +5,73 @@ import Fab from '@mui/material/Fab';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 
+import {
+  useGetActiveCartQuery,
+  useUpdateCartMutation,
+} from '../../services/api';
+import { ECartUpdateActions } from '../../services/updateCart.interface';
+
 const ProductQuantity = ({
-  amount = 1,
+  amount,
   setAmount,
+  lineItemId,
+  isCartLocation,
 }: {
   amount: number;
   setAmount?: (v: number) => void;
+  lineItemId?: string;
+  isCartLocation?: boolean;
 }) => {
   const [quantity, setQuantity] = useState(amount);
+  const { data: cart, isLoading } = useGetActiveCartQuery({});
+  const [updateCart] = useUpdateCartMutation();
 
   const handleRemovePurchase = () => {
-    if (quantity > 1) setQuantity(prev => prev - 1);
+    if (isLoading) return;
+    if (quantity > 1) {
+      setQuantity(prev => prev - 1);
+
+      if (cart && lineItemId && isCartLocation) {
+        updateCart({
+          cartId: cart.id,
+          actionBody: {
+            version: cart.version,
+            actions: [
+              {
+                action: ECartUpdateActions.removeProduct,
+                productId: lineItemId,
+                quantity: quantity,
+              },
+            ],
+          },
+        });
+      }
+    }
   };
 
   const handleAddPurchase = () => {
-    if (quantity < 99) setQuantity(prev => prev + 1);
+    if (quantity < 99) {
+      if (isLoading) return;
+
+      setQuantity(prev => prev + 1);
+
+      if (cart && lineItemId && isCartLocation) {
+        updateCart({
+          cartId: cart.id,
+          actionBody: {
+            version: cart.version,
+            actions: [
+              {
+                action: ECartUpdateActions.addNewProduct,
+                productId: lineItemId,
+                quantity: 1,
+                variantId: 1,
+              },
+            ],
+          },
+        });
+      }
+    }
   };
 
   useEffect(() => {

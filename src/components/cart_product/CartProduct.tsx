@@ -3,6 +3,7 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
 import { LineItemModified } from '../../pages/cart/clearCartObject';
@@ -20,8 +21,10 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
         </Title>
       ) : null}
       {products.map((item, index) => {
-        const price = ((item.price / 100) * item.quantity).toFixed(2);
-        const discount = item.discount ? (item.discount / 100).toFixed(2) : '';
+        const price = ((item.price * item.quantity) / 100).toFixed(2);
+        const discount = item.discount
+          ? ((item.discount / 100) * item.quantity).toFixed(2)
+          : '';
         return (
           <Grid
             container
@@ -39,7 +42,9 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
             }}
           >
             <Grid size={1}>
-              <DeleteIcon sx={{ justifySelf: 'center', display: 'block' }} />
+              <IconButton>
+                <DeleteIcon sx={{ justifySelf: 'center', display: 'block' }} />
+              </IconButton>
             </Grid>
             <Grid size={2}>
               <Box
@@ -79,7 +84,12 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
                 paddingTop: '32px',
               }}
             >
-              <ProductQuantity amount={item.quantity} />
+              <ProductQuantity
+                amount={item.quantity}
+                isCartLocation={true}
+                key={item.id}
+                lineItemId={item.id}
+              />
             </Grid>
             <Grid size={3}>
               <Typography sx={{ textAlign: 'center' }}>

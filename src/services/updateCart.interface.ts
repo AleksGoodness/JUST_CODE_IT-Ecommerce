@@ -6,11 +6,12 @@ export interface IUpdateCart {
 interface Action {
   action: string;
   productId: string;
-  variantId: number;
+  variantId?: number;
   quantity: number;
 }
 
 export enum ECartUpdateActions {
   addNewProduct = 'addLineItem',
+  removeProduct = 'removeLineItem',
   addDiscountCode = 'addDiscountCode',
 }
