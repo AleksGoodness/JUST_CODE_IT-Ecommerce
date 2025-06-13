@@ -194,7 +194,7 @@ export interface CartDetails {
 
 const clearLineItem = (clearCartObject: Cart): LineItemModified[] => {
   return clearCartObject.lineItems.map(product => ({
-    id: product.id,
+    id: product.productId,
     productId: product.productId,
     productKey: product.productKey,
     name: product.name['en-US'],
