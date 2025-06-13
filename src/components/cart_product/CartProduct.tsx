@@ -89,6 +89,7 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
                 isCartLocation={true}
                 key={item.id}
                 lineItemId={item.id}
+                productId={item.productId}
               />
             </Grid>
             <Grid size={3}>

@@ -5,7 +5,8 @@ export interface IUpdateCart {
 
 interface Action {
   action: string;
-  productId: string;
+  productId?: string;
+  lineItemId?: string;
   variantId?: number;
   quantity: number;
 }

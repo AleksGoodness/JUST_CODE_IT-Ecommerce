@@ -15,11 +15,14 @@ const ProductQuantity = ({
   amount,
   setAmount,
   lineItemId,
+  productId,
   isCartLocation,
 }: {
   amount: number;
   setAmount?: (v: number) => void;
-  lineItemId?: string;
+  lineItemId: string;
+  productId: string;
+
   isCartLocation?: boolean;
 }) => {
   const [quantity, setQuantity] = useState(amount);
@@ -28,10 +31,11 @@ const ProductQuantity = ({
 
   const handleRemovePurchase = () => {
     if (isLoading) return;
-    if (quantity > 1) {
-      setQuantity(prev => prev - 1);
 
-      if (cart && lineItemId && isCartLocation) {
+    if (quantity > 1 && !isCartLocation) setQuantity(prev => prev - 1);
+    if (isCartLocation) {
+      setQuantity(prev => prev - 1);
+      if (cart && lineItemId) {
         updateCart({
           cartId: cart.id,
           actionBody: {
@@ -39,8 +43,9 @@ const ProductQuantity = ({
             actions: [
               {
                 action: ECartUpdateActions.removeProduct,
-                productId: lineItemId,
-                quantity: quantity,
+                lineItemId,
+                quantity: 1,
+                variantId: 1,
               },
             ],
           },
@@ -63,7 +68,7 @@ const ProductQuantity = ({
             actions: [
               {
                 action: ECartUpdateActions.addNewProduct,
-                productId: lineItemId,
+                productId,
                 quantity: 1,
                 variantId: 1,
               },
