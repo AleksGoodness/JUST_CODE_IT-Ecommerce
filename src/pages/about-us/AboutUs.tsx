@@ -2,6 +2,9 @@ import { Grid, Paper, Typography } from '@mui/material';
 
 import { Title } from '../../components';
 import FlipCard from './flip-card/flipCard';
+import aleksAvatar from './imgs/ALEKS.png';
+import daniarAvatar from './imgs/DANIAR.png';
+import elenaAvatar from './imgs/LENA.png';
 
 const MOTTOS = [
   {
@@ -12,6 +15,21 @@ const MOTTOS = [
   },
   {
     text: 'React.useEffect() is magic, but we pretend we get it. Clean code is when console.logs are neatly formatted. And if you reload the page 100 times, the bug might vanish!',
+  },
+];
+
+const DEVELOPERS = [
+  {
+    name: 'Aleks Gomeniuk',
+    img: aleksAvatar,
+  },
+  {
+    name: 'Elena ',
+    img: elenaAvatar,
+  },
+  {
+    name: 'Daniar',
+    img: daniarAvatar,
   },
 ];
 
@@ -45,9 +63,9 @@ const AboutUs = () => {
           mt: 2,
         }}
       >
-        <FlipCard />
-        <FlipCard />
-        <FlipCard />
+        {...DEVELOPERS.map(developer => (
+          <FlipCard developer={developer} key={developer.name} />
+        ))}
       </Grid>
 
       <Grid container spacing={{ xs: 1, md: 2 }} sx={{ mt: 2 }}>

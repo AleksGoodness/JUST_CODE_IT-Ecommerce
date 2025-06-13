@@ -1,18 +1,35 @@
-import { Box, Grid, Paper } from '@mui/material';
+import {
+  Box,
+  Button,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Grid,
+} from '@mui/material';
 import { useState } from 'react';
+import { Link } from 'react-router';
 
 import styles from './flipCard.module.css';
 
-const FlipCard = () => {
+interface IFlipCardProps {
+  developer: {
+    img: string;
+    name: string;
+  };
+}
+
+const FlipCard = ({ developer: { img, name = 'aleks' } }: IFlipCardProps) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
-    <Grid size={{ xs: 12, sm: 4 }} sx={{ tabIndex: 0 }}>
-      <Box
+    <Grid component={Card} minHeight={340} size={{ xs: 12, sm: 4 }}>
+      <CardActionArea
         className={styles['flip-card']}
         onClick={() => setIsFlipped(!isFlipped)}
+        sx={{ bgcolor: 'transparent' }}
       >
-        <Paper
+        <Box
           className={styles['flip-card-inner']}
           style={{
             transform: isFlipped
@@ -20,10 +37,16 @@ const FlipCard = () => {
               : 'translateZ(-1rem)',
           }}
         >
-          <Box className={styles['flip-card-front']}>FRONT</Box>
-          <Box className={styles['flip-card-back']}>BACK</Box>
-        </Paper>
-      </Box>
+          <CardMedia className={styles['flip-card-front']} image={img}>
+            FRONT
+          </CardMedia>
+          <CardContent className={styles['flip-card-back']}>
+            <Button component={Link} to={name} variant="outlined">
+              read more
+            </Button>
+          </CardContent>
+        </Box>
+      </CardActionArea>
     </Grid>
   );
 };
