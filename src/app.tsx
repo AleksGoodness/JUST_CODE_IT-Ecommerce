@@ -4,7 +4,6 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 
-import { CartProvider } from './components/cart_product/cart_context.tsx';
 import { tokenCache } from './ecommerce/clientBuilder.ts';
 import { useAppDispatch, useAppSelector } from './redux/hooks.ts';
 import { getThemeName } from './redux/selectors.ts';
@@ -26,12 +25,10 @@ export const App = () => {
   const currentTheme = theme === 'light' ? lightTheme : darkTheme;
 
   return (
-    <CartProvider>
-      <ThemeProvider theme={currentTheme}>
-        <CssBaseline />
-        <Router />
-        <ToastContainer position="bottom-right" />
-      </ThemeProvider>
-    </CartProvider>
+    <ThemeProvider theme={currentTheme}>
+      <CssBaseline />
+      <Router />
+      <ToastContainer position="bottom-right" />
+    </ThemeProvider>
   );
 };

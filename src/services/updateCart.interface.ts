@@ -8,7 +8,7 @@ interface Action {
   productId?: string;
   lineItemId?: string;
   variantId?: number;
-  quantity: number;
+  quantity?: number;
 }
 
 export enum ECartUpdateActions {

@@ -1,18 +1,13 @@
-//import Purchase from "../purchase/Purchase";
-//import { useCart } from '../../pages/cart/cart_utils';
-import DeleteIcon from '@mui/icons-material/Delete';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
 import { LineItemModified } from '../../pages/cart/clearCartObject';
 import ProductQuantity from '../purchase/pruduct_quantity';
 import Title from '../title/Title';
+import DeleteCartItem from './delete_cart_item';
 
 const CartProduct = ({ products }: { products: LineItemModified[] }) => {
-  // const { cartItems } = useCart();
-
   return (
     <>
       {products.length === 0 ? (
@@ -42,9 +37,7 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
             }}
           >
             <Grid size={1}>
-              <IconButton>
-                <DeleteIcon sx={{ justifySelf: 'center', display: 'block' }} />
-              </IconButton>
+              <DeleteCartItem lineItemId={item.id} />
             </Grid>
             <Grid size={2}>
               <Box

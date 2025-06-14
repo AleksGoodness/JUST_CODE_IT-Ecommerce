@@ -31,7 +31,6 @@ const ProductQuantity = ({
 
   const handleRemovePurchase = () => {
     if (isLoading) return;
-
     if (quantity > 1 && !isCartLocation) setQuantity(prev => prev - 1);
     if (isCartLocation) {
       setQuantity(prev => prev - 1);
