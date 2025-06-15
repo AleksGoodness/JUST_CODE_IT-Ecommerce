@@ -16,3 +16,8 @@ export enum ECartUpdateActions {
   removeProduct = 'removeLineItem',
   addDiscountCode = 'addDiscountCode',
 }
+
+export enum ELocalStorage {
+  anonymousCartId = 'anonymousCartId',
+  anonymousId = 'anonymousId',
+}

@@ -25,6 +25,7 @@ const Purchase = () => {
   const handleAddProduct = () => {
     setActiveButton('second');
     if (cart && product) {
+      //todo
       updateCart({
         cartId: cart.id,
         actionBody: {
@@ -39,6 +40,7 @@ const Purchase = () => {
           ],
         },
       });
+      //todo
     }
   };
   return (
@@ -51,14 +53,14 @@ const Purchase = () => {
         },
       }}
     >
-      {product && (
+      {product ? (
         <ProductQuantity
           amount={amount}
           lineItemId={product?.id}
           productId={product?.id}
           setAmount={setAmount}
         />
-      )}
+      ) : null}
 
       <Box
         sx={{

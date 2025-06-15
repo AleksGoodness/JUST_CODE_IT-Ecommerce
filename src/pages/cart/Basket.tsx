@@ -8,12 +8,8 @@ import {
   useCreateCartMutation,
   useGetActiveCartQuery,
 } from '../../services/api';
+import { ELocalStorage } from '../../services/updateCart.interface';
 import clearCartObject from './clearCartObject';
-
-enum ELocalStorage {
-  anonymousCartId = 'anonymousCartId',
-  anonymousId = 'anonymousId',
-}
 
 const Basket = () => {
   const { data: cart, isLoading, isError, refetch } = useGetActiveCartQuery({});

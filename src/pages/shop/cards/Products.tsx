@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import { useLocation } from 'react-router';
 
 import {
+  useGetActiveCartQuery,
   useGetCategoriesQuery,
   useGetProductsQuery,
 } from '../../../services/api';
@@ -12,9 +13,17 @@ import { ICLearProduct } from './utils/clearProduct.interface';
 import clearProduct from './utils/clearProducts';
 
 const Products = () => {
-  const { category } = useParams();
+  const { category = 'all' } = useParams();
   const [goods, setGoods] = useState<ICLearProduct[]>([]);
   const location = useLocation();
+
+  const { data: cart } = useGetActiveCartQuery({});
+
+  const [itemsInCart, setItemsInCart] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (cart) setItemsInCart(cart.lineItems.map(item => item.productId));
+  }, [cart]);
 
   const { data: categoriesData } = useGetCategoriesQuery({});
 
@@ -49,10 +58,6 @@ const Products = () => {
     if (data) handleCleanResults(data.results);
   }, [data, location.search]);
 
-  if (!category) {
-    return <Typography>Please choose category</Typography>;
-  }
-
   return (
     <Grid container justifyContent={'center'} spacing={2}>
       <Grid display={'flex'} justifyContent={'end'} size={12}>
@@ -64,7 +69,7 @@ const Products = () => {
       <Grid> {data?.limit}</Grid>
 
       <Grid container>
-        {goods.length
+        {goods.length && cart
           ? goods.map(card => {
               const shortDescription = card.description.slice(0, 80);
               const formattedPrice = (card.price / 100).toFixed(2);
@@ -76,7 +81,12 @@ const Products = () => {
                 >
                   <Product
                     {...card}
+                    cartId={cart?.id}
+                    cartVersion={cart?.version}
                     description={`${shortDescription}...`}
+                    isInCart={Boolean(
+                      itemsInCart.find(item => item === card.id),
+                    )}
                     price={formattedPrice}
                   />
                 </Grid>

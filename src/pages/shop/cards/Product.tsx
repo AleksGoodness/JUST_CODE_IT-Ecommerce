@@ -1,12 +1,15 @@
-import { Box } from '@mui/material';
+import { Box, Button, CircularProgress } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import { useState } from 'react';
 import { Link } from 'react-router';
 
 import { Title } from '../../../components';
+import { useUpdateCartMutation } from '../../../services/api';
+import { ECartUpdateActions } from '../../../services/updateCart.interface';
 import PlaceHolderImage from './CardPlaceHolder.png';
 
 export interface Props {
@@ -17,6 +20,9 @@ export interface Props {
   currency: string;
   images: Image[];
   discount?: number;
+  isInCart: boolean;
+  cartId: string;
+  cartVersion: number;
 }
 
 export interface Image {
@@ -31,12 +37,43 @@ const Product = ({
   price,
   currency,
   images,
+  isInCart,
+  cartId,
+  cartVersion,
   discount,
 }: Props) => {
+  const [addToCart] = useUpdateCartMutation();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleAddToCart = () => {
+    if (isLoading) return;
+    setIsLoading(true);
+
+    (async () => {
+      await addToCart({
+        cartId: cartId,
+        actionBody: {
+          version: cartVersion,
+          actions: [
+            {
+              action: ECartUpdateActions.addNewProduct,
+              productId: id,
+              variantId: 1,
+              quantity: 1,
+            },
+          ],
+        },
+      });
+    })();
+
+    setIsLoading(false);
+  };
+
   return (
     <Card
       sx={{
         height: '100%',
+        flexDirection: 'column',
         display: 'flex',
         transition: 'transform 0.2s ease',
         '&:hover': {
@@ -133,6 +170,18 @@ const Product = ({
           ) : null}
         </CardContent>
       </CardActionArea>
+      <Button
+        disabled={isLoading}
+        onClick={() => handleAddToCart()}
+        sx={{
+          pointerEvents: isInCart ? 'none' : 'auto',
+          ':disabled': { bgcolor: 'primary.main', color: 'text.primary' },
+        }}
+        variant={!isInCart ? 'outlined' : 'contained'}
+      >
+        {isInCart ? 'In cart' : 'Add to cart'}
+        {isLoading ? <CircularProgress /> : null}
+      </Button>
     </Card>
   );
 };
