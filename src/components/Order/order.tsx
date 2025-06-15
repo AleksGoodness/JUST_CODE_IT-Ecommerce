@@ -2,10 +2,63 @@ import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useEffect, useState } from 'react';
 
 import { CartDetails } from '../../pages/cart/clearCartObject';
+import {
+  useGetActiveCartQuery,
+  useUpdateCartMutation,
+} from '../../services/api';
+import { ECartUpdateActions } from '../../services/updateCart.interface';
+import SendOrder from './send_order';
 
 const Order = ({ cartItem }: { cartItem: CartDetails }) => {
+  const { data: cart } = useGetActiveCartQuery({});
+  const [updateCart] = useUpdateCartMutation();
+  const [promoCode, setPromoCode] = useState(
+    localStorage.getItem('promoCode') || '',
+  );
+  const [error, setError] = useState('');
+  const [isPromoLocked, setIsPromoLocked] = useState(
+    !!localStorage.getItem('promoCode'),
+  );
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (!cart) {
+      setPromoCode('');
+      setIsPromoLocked(false);
+    }
+  }, [cart]);
+
+  const handleApplyPromocode = async () => {
+    setIsSubmitted(true);
+    if (!promoCode.trim()) {
+      setError('Enter promocode');
+      return;
+    }
+    if (cart) {
+      try {
+        await updateCart({
+          cartId: cart.id,
+          actionBody: {
+            version: cart.version,
+            actions: [
+              {
+                action: ECartUpdateActions.addDiscountCode,
+                code: promoCode,
+              },
+            ],
+          },
+        }).unwrap();
+        setError('');
+        setIsPromoLocked(true);
+        localStorage.setItem('promoCode', promoCode);
+      } catch {
+        setError('The discount code is not valid or cannot be applied');
+      }
+    }
+  };
   return (
     <>
       <Typography
@@ -18,12 +71,27 @@ const Order = ({ cartItem }: { cartItem: CartDetails }) => {
         PROMOCODE (greenery_promo)
       </Typography>
       <TextField
+        disabled={isPromoLocked}
+        error={isSubmitted ? !!error : false}
+        helperText={isSubmitted ? error : ''}
         id="promo"
         label="Enter promo code"
+        onChange={e => setPromoCode(e.target.value)}
         size="small"
+        sx={{
+          '& .MuiInputBase-input': {
+            color: 'primary.main',
+            fontWeight: '700',
+          },
+        }}
+        value={promoCode}
         variant="outlined"
       />
-      <Button sx={{ minHeight: '40px' }} variant="contained">
+      <Button
+        onClick={handleApplyPromocode}
+        sx={{ minHeight: '40px' }}
+        variant="contained"
+      >
         APPLY PROMOCODE
       </Button>
       <Divider />
@@ -54,9 +122,7 @@ const Order = ({ cartItem }: { cartItem: CartDetails }) => {
         BYN
       </Typography>
       <Divider />
-      <Button sx={{ minHeight: '40px' }} variant="contained">
-        PLACE ORDER
-      </Button>
+      <SendOrder />
     </>
   );
 };

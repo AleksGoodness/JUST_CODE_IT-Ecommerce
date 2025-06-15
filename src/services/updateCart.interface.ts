@@ -9,6 +9,7 @@ interface Action {
   lineItemId?: string;
   variantId?: number;
   quantity?: number;
+  code?: string;
 }
 
 export enum ECartUpdateActions {

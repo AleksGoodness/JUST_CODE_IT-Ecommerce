@@ -22,7 +22,6 @@ const ProductQuantity = ({
   setAmount?: (v: number) => void;
   lineItemId: string;
   productId: string;
-
   isCartLocation?: boolean;
 }) => {
   const [quantity, setQuantity] = useState(amount);
@@ -56,9 +55,7 @@ const ProductQuantity = ({
   const handleAddPurchase = () => {
     if (quantity < 99) {
       if (isLoading) return;
-
       setQuantity(prev => prev + 1);
-
       if (cart && lineItemId && isCartLocation) {
         updateCart({
           cartId: cart.id,

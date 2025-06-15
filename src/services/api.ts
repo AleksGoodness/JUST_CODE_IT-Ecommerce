@@ -118,6 +118,19 @@ export const ecommerceApi = createApi({
       invalidatesTags: ['Cart'],
     }),
 
+    deleteCart: builder.mutation<Cart, { cartId: string; cartVersion: number }>(
+      {
+        query: ({ cartId, cartVersion }) => ({
+          uri: `me/carts/${cartId}?version=${cartVersion}`,
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }),
+        invalidatesTags: ['Cart'],
+      },
+    ),
+
     getActiveCart: builder.query<Cart, unknown>({
       query: () => ({
         uri: `me/active-cart`,
@@ -142,4 +155,5 @@ export const {
   useCreateCartMutation,
   useGetActiveCartQuery,
   useUpdateCartMutation,
+  useDeleteCartMutation,
 } = ecommerceApi;
