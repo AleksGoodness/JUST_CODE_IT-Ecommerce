@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Button, CircularProgress } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
@@ -17,6 +17,9 @@ export interface Props {
   currency: string;
   images: Image[];
   discount?: number;
+  isInCart: boolean;
+  isLoading: boolean;
+  addToCart: (productId: string) => void;
 }
 
 export interface Image {
@@ -31,12 +34,20 @@ const Product = ({
   price,
   currency,
   images,
+  isInCart,
   discount,
+  addToCart,
+  isLoading,
 }: Props) => {
+  const handleAddToCart = () => {
+    addToCart(id);
+  };
+
   return (
     <Card
       sx={{
         height: '100%',
+        flexDirection: 'column',
         display: 'flex',
         transition: 'transform 0.2s ease',
         '&:hover': {
@@ -73,8 +84,9 @@ const Product = ({
             }
             sx={{
               width: '100%',
-              height: '100%',
+              // height: '100%',
               objectFit: 'cover',
+              height: '340px',
             }}
           />
         </Box>
@@ -133,6 +145,24 @@ const Product = ({
           ) : null}
         </CardContent>
       </CardActionArea>
+      <Button
+        disabled={isLoading}
+        onClick={() => handleAddToCart()}
+        sx={{
+          display: 'flex',
+          gap: 2,
+          pointerEvents: isInCart ? 'none' : 'auto',
+          bgcolor: isInCart ? 'primary.main' : 'inherit',
+          color: isInCart ? 'text.primary' : 'primary.main',
+          ':disabled': { bgcolor: 'inherit' },
+        }}
+        variant={!isInCart ? 'outlined' : 'contained'}
+      >
+        {isInCart ? 'In cart' : 'Add to cart'}
+        {isLoading && !isInCart ? (
+          <CircularProgress color={'warning'} size={'1rem'} />
+        ) : null}
+      </Button>
     </Card>
   );
 };

@@ -31,8 +31,10 @@ const Shop = () => {
         const current = categories.find(cat => cat.slug === category);
         if (current) setCurrentCategoryId(current.id);
       }
+      return;
     }
-  }, [category, data]);
+    navigate('all');
+  }, [category, data, navigate]);
 
   return (
     <>

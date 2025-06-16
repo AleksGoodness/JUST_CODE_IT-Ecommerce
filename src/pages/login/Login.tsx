@@ -25,7 +25,7 @@ import {
   useUpdateCartMutation,
   // useMergeCartMutation,
 } from '../../services/api';
-import { ECartUpdateActions } from '../../services/updateCart.interface';
+import { ECartUpdateActions } from '../../services/interfaces/updateCart.interface';
 import CONSTANTS from '../../utils/CONSTANTS';
 import schema from './login_schema';
 

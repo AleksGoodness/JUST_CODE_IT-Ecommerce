@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
-import { ELocalStorage } from '../../services/createCart.interface';
+import { ELocalStorage } from '../../services/interfaces/createCart.interface';
 import { AuthState } from '../interfaces';
 import loginCustomer from './asyncThunks/loginCustomer';
 import loginSilent from './asyncThunks/loginSilent';

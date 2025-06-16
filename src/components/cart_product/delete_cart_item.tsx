@@ -5,7 +5,7 @@ import {
   useGetActiveCartQuery,
   useUpdateCartMutation,
 } from '../../services/api';
-import { ECartUpdateActions } from '../../services/updateCart.interface';
+import { ECartUpdateActions } from '../../services/interfaces/updateCart.interface';
 
 const DeleteCartItem = ({ lineItemId }: { lineItemId: string }) => {
   const { data: cart } = useGetActiveCartQuery({});

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ELocalStorage } from '../../services/createCart.interface';
+import { ELocalStorage } from '../../services/interfaces/createCart.interface';
 
 const getTheme = (): 'light' | 'dark' => {
   const theme = localStorage.getItem(ELocalStorage.theme);

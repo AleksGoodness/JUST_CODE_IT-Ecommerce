@@ -14,7 +14,7 @@ import {
   useCreateCartMutation,
   useGetActiveCartQuery,
 } from './services/api.ts';
-import { ELocalStorage } from './services/createCart.interface.ts';
+import { ELocalStorage } from './services/interfaces/createCart.interface.ts';
 import { darkTheme, lightTheme } from './theme/theme.ts';
 
 export const App = () => {

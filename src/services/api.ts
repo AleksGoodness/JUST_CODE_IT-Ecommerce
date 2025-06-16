@@ -3,10 +3,14 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { Cart } from '../pages/cart/clearCartObject';
 import { IProductResponse } from '../pages/details/clearObject';
-import { ELocalStorage, ICreateCartData } from './createCart.interface';
 import { dynamicBaseQuery } from './dynamicBaseQuery';
 import { ICategoryResponse } from './interfaces';
-import { IUpdateCart } from './updateCart.interface';
+import {
+  ELocalStorage,
+  ICreateCartData,
+} from './interfaces/createCart.interface';
+import { IProductsResponse } from './interfaces/products.interfaces';
+import { IUpdateCart } from './interfaces/updateCart.interface';
 
 export const ecommerceApi = createApi({
   reducerPath: 'ecommerceApi',
@@ -62,7 +66,7 @@ export const ecommerceApi = createApi({
 
     //? Product actions
 
-    getProducts: builder.query({
+    getProducts: builder.query<IProductsResponse, string>({
       query: (query: string) => ({
         uri: `product-projections${query}`,
         method: 'GET',

@@ -5,7 +5,7 @@ import {
   TokenStore,
 } from '@commercetools/ts-client';
 
-import { ELocalStorage } from '../services/createCart.interface';
+import { ELocalStorage } from '../services/interfaces/createCart.interface';
 import { anonymousScopes, customerScopes } from './scopes';
 
 const clientId = import.meta.env.VITE_CTP_CLIENT_ID;

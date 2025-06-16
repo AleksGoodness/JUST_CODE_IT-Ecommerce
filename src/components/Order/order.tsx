@@ -9,7 +9,7 @@ import {
   useGetActiveCartQuery,
   useUpdateCartMutation,
 } from '../../services/api';
-import { ECartUpdateActions } from '../../services/updateCart.interface';
+import { ECartUpdateActions } from '../../services/interfaces/updateCart.interface';
 import SendOrder from './send_order';
 
 const Order = ({ cartItem }: { cartItem: CartDetails }) => {

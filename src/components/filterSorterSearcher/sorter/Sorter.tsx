@@ -2,17 +2,24 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 const Sorter = () => {
   const [sortOption, setSortOption] = useState('');
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    let initialSortOption = searchParams.get('sort') || '';
+    initialSortOption = initialSortOption.split(' ').join('-');
+
+    if (initialSortOption !== sortOption) setSortOption(initialSortOption);
+  }, [sortOption]);
+
   const handleChange = (event: SelectChangeEvent) => {
     const newValue = event.target.value;
     setSortOption(newValue);
-
     const searchParams = new URLSearchParams(location.search);
 
     if (newValue === 'price-desc') {

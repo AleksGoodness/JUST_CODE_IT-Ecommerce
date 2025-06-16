@@ -9,7 +9,7 @@ import {
   useGetProductQuery,
   useUpdateCartMutation,
 } from '../../services/api';
-import { ECartUpdateActions } from '../../services/updateCart.interface';
+import { ECartUpdateActions } from '../../services/interfaces/updateCart.interface';
 import ProductQuantity from './pruduct_quantity';
 
 const Purchase = () => {
@@ -25,6 +25,7 @@ const Purchase = () => {
   const handleAddProduct = () => {
     setActiveButton('second');
     if (cart && product) {
+      //todo
       updateCart({
         cartId: cart.id,
         actionBody: {
@@ -39,6 +40,7 @@ const Purchase = () => {
           ],
         },
       });
+      //todo
     }
   };
   return (
