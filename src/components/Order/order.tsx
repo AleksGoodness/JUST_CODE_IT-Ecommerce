@@ -79,10 +79,14 @@ const Order = ({ cartItem }: { cartItem: CartDetails }) => {
       <TextField
         disabled={isPromoLocked}
         error={isSubmitted ? !!error : false}
-        helperText={isSubmitted ? error : ''}
         id="promo"
-        label="Enter promo code"
+        label="Enter promocode"
         onChange={e => setPromoCode(e.target.value)}
+        onBlur={() => {
+          if (!promoCode.trim()) {
+            setError('');
+          }
+        }}
         size="small"
         sx={{
           '& .MuiInputBase-input': {
