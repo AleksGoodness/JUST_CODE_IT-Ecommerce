@@ -1,6 +1,7 @@
 import LoginIcon from '@mui/icons-material/LoginRounded';
 import LogoutIcon from '@mui/icons-material/LogoutRounded';
 import { Button, SxProps, Theme } from '@mui/material';
+import { useEffect } from 'react';
 import { NavLink } from 'react-router';
 
 import { useAppDispatch } from '../../redux/hooks.ts';
@@ -21,8 +22,11 @@ const LoginRegisterButton = ({ setIsOpen, sx, ...rest }: Props) => {
   const handleRedirect = () => {
     if (setIsOpen) setIsOpen(false);
     dispatch(logOut());
-    dispatch(ecommerceApi.util.invalidateTags(['Customer']));
   };
+
+  useEffect(() => {
+    dispatch(ecommerceApi.util.invalidateTags(['Customer', 'Cart']));
+  }, [customer, dispatch]);
   return (
     <Button
       component={NavLink}

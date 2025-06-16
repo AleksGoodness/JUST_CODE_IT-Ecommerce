@@ -73,13 +73,12 @@ const Details = () => {
             }}
           />
         </Grid>
-        <Grid size={{ md: 6, sm: 12, xs: 12 }}>
+        <Grid container direction={'column'} gap={2} size={{ md: 6, xs: 12 }}>
           {myProduct ? (
             <Typography
               component={'h1'}
               sx={{
                 lineHeight: '1',
-                marginBottom: '10px',
               }}
               variant="sectionTitle"
             >
@@ -92,7 +91,6 @@ const Details = () => {
             <Box sx={{ display: 'flex', gap: '20px' }}>
               <Typography
                 sx={{
-                  marginTop: '5px',
                   fontSize: '1.2rem',
                   fontWeight: '700',
                   lineHeight: '1',
@@ -107,7 +105,6 @@ const Details = () => {
               {myProduct.discount ? (
                 <Typography
                   sx={{
-                    marginTop: '5px',
                     fontSize: '1.2rem',
                     fontWeight: '700',
                     lineHeight: '1',
@@ -122,11 +119,8 @@ const Details = () => {
           ) : (
             <Skeleton />
           )}
-
           <Typography
             sx={{
-              marginTop: '10px',
-              marginBottom: '10px',
               fontSize: '1.2rem',
               fontWeight: '500',
             }}
@@ -137,9 +131,9 @@ const Details = () => {
             <Typography
               sx={{
                 fontSize: '1rem',
-                marginBottom: '30px',
                 textWrap: 'wrap',
                 lineHeight: '1.2',
+                flexGrow: 1,
               }}
             >
               {myProduct.description['en-US']}
@@ -147,7 +141,7 @@ const Details = () => {
           ) : (
             <Skeleton />
           )}
-          <Purchase purchases={0} />
+          <Grid component={Purchase} />
         </Grid>
         <Grid
           size={{ md: 6, sm: 12, xs: 12 }}
