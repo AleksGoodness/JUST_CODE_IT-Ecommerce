@@ -3,47 +3,15 @@ import { useEffect, useState } from 'react';
 
 import CartProduct from '../../components/cart_product/CartProduct';
 import Order from '../../components/Order/order';
-import { tokenCache } from '../../ecommerce/clientBuilder';
-import {
-  useCreateCartMutation,
-  useGetActiveCartQuery,
-} from '../../services/api';
-import { ELocalStorage } from '../../services/interfaces/updateCart.interface';
+import { useGetActiveCartQuery } from '../../services/api';
 import clearCartObject from './clearCartObject';
 
 const Basket = () => {
-  const { data: cart, isLoading, isError, refetch } = useGetActiveCartQuery({});
-  const refreshToken = tokenCache.get().refreshToken;
+  const { data: cart, isLoading, isError } = useGetActiveCartQuery({});
 
   const [clearCart, setClearCart] = useState(
     cart ? clearCartObject(cart) : undefined,
   );
-
-  useEffect(() => {
-    refetch();
-  }, [refreshToken, refetch]);
-
-  const [createCart] = useCreateCartMutation();
-
-  useEffect(() => {
-    const createCartQuery = async () => {
-      try {
-        const cartResponse = await createCart({
-          currency: 'BYN',
-          useAuthClient: false,
-        }).unwrap();
-
-        if (cartResponse.id) {
-          localStorage.setItem(ELocalStorage.anonymousCartId, cartResponse.id);
-        }
-        refetch();
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    if (isError) createCartQuery();
-  }, [createCart, refetch, isError]);
 
   useEffect(() => {
     if (cart) setClearCart(clearCartObject(cart));
@@ -57,16 +25,29 @@ const Basket = () => {
       </h2>
       <Grid container spacing={4}>
         <Grid
-          size={7}
+          container
+          size={{ md: 7, sm: 12, xs: 12 }}
+          spacing={1}
           sx={{
-            overflow: 'auto',
-            maxHeight: '500px',
+            overflowY: 'auto',
+            maxHeight: '480px',
+            paddingRight: '12px',
+            '&::-webkit-scrollbar': {
+              width: '8px',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: 'primary.main',
+              borderRadius: '4px',
+            },
+            '&::-webkit-scrollbar-track': {
+              background: 'rgba(0,0,0,0)',
+            },
           }}
         >
           {clearCart ? <CartProduct products={clearCart.products} /> : null}
         </Grid>
         <Grid
-          size={5}
+          size={{ md: 5, sm: 12, xs: 12 }}
           sx={{
             display: 'flex',
             flexDirection: 'column',

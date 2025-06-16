@@ -22,7 +22,6 @@ const ProductQuantity = ({
   setAmount?: (v: number) => void;
   lineItemId: string;
   productId: string;
-
   isCartLocation?: boolean;
 }) => {
   const [quantity, setQuantity] = useState(amount);
@@ -31,7 +30,6 @@ const ProductQuantity = ({
 
   const handleRemovePurchase = () => {
     if (isLoading) return;
-
     if (quantity > 1 && !isCartLocation) setQuantity(prev => prev - 1);
     if (isCartLocation) {
       setQuantity(prev => prev - 1);
@@ -57,9 +55,7 @@ const ProductQuantity = ({
   const handleAddPurchase = () => {
     if (quantity < 99) {
       if (isLoading) return;
-
       setQuantity(prev => prev + 1);
-
       if (cart && lineItemId && isCartLocation) {
         updateCart({
           cartId: cart.id,
@@ -88,7 +84,6 @@ const ProductQuantity = ({
         display: 'flex',
         alignItems: 'center',
         gap: 1,
-        pb: 4,
       }}
     >
       <Fab

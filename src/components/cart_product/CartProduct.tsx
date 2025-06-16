@@ -1,20 +1,14 @@
-//import Purchase from "../purchase/Purchase";
-//import { useCart } from '../../pages/cart/cart_utils';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
 import { LineItemModified } from '../../pages/cart/clearCartObject';
 import ProductQuantity from '../purchase/pruduct_quantity';
 import Title from '../title/Title';
+import DeleteCartItem from './delete_cart_item';
 
 const CartProduct = ({ products }: { products: LineItemModified[] }) => {
-  // const { cartItems } = useCart();
-
   return (
-    <>
+    <Grid container spacing={2} sx={{ width: '100%' }}>
       {products.length === 0 ? (
         <Title pt={'25%'} textAlign={'center'}>
           No items yet
@@ -27,61 +21,70 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
           : '';
         return (
           <Grid
-            container
             key={index}
             spacing={1}
             sx={{
-              alignItems: 'center',
-              maxWidth: '700px',
+              display: 'grid',
+              width: '100%',
+              gridTemplateAreas: {
+                xs: `
+    'pic pic name name name name'
+    'pic pic price price price price'
+    'pic pic number number number bin'
+  `,
+                md: `
+    'pic name name price price bin'
+    'pic name name number number bin'
+  `,
+              },
+              gridTemplateColumns: 'repeat(6, 1fr)',
+
               minHeight: '150px',
+              height: '150px',
               justifyItems: 'center',
-              marginBottom: '10px',
-              padding: '10px',
+              padding: 1,
               border: '2px solid green',
-              borderRadius: '8px',
+              borderRadius: 2,
+              rowGap: { sm: '10px' },
             }}
           >
-            <Grid size={1}>
-              <IconButton>
-                <DeleteIcon sx={{ justifySelf: 'center', display: 'block' }} />
-              </IconButton>
-            </Grid>
-            <Grid size={2}>
-              <Box
-                sx={{
-                  maxWidth: '150px',
-                  maxHeight: '150px',
+            <Grid
+              component={DeleteCartItem}
+              lineItemId={item.id}
+              sx={{ gridArea: 'bin', display: 'grid', placeContent: 'center' }}
+            />
+            <Grid
+              sx={{
+                gridArea: 'pic',
+                position: 'relative',
+                bgcolor: 'orange',
+                width: '100%',
+              }}
+            >
+              <img
+                alt="product"
+                loading="lazy"
+                src={item.image}
+                style={{
+                  position: 'absolute',
+                  objectFit: 'cover',
+                  objectPosition: '50% 75%',
                   width: '100%',
                   height: '100%',
-                  overflow: 'hidden',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
                 }}
-              >
-                <img
-                  alt="pruduct"
-                  src={item.image}
-                  style={{
-                    objectFit: 'cover',
-                    width: '100%',
-                    height: '100%',
-                  }}
-                />
-              </Box>
+              />
             </Grid>
-            <Grid size={3}>
+            <Grid sx={{ gridArea: 'name' }}>
               <Typography sx={{ justifySelf: 'center' }}>
                 {item.name}
               </Typography>
             </Grid>
             <Grid
-              size={3}
               sx={{
+                gridArea: 'number',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                paddingTop: '32px',
               }}
             >
               <ProductQuantity
@@ -92,29 +95,29 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
                 productId={item.productId}
               />
             </Grid>
-            <Grid size={3}>
-              <Typography sx={{ textAlign: 'center' }}>
-                {discount ? (
-                  <>
-                    <span
-                      style={{
-                        textDecoration: 'line-through',
-                        display: 'block',
-                      }}
-                    >
-                      {price} BYN
-                    </span>
-                    <span style={{ display: 'block' }}>{discount} BYN</span>
-                  </>
-                ) : (
-                  <span style={{ display: 'block' }}>{price} BYN</span>
-                )}
-              </Typography>
+            <Grid
+              container
+              sx={{ gridArea: 'price', justifyContent: 'center' }}
+            >
+              {discount ? (
+                <>
+                  <span
+                    style={{
+                      textDecoration: 'line-through',
+                    }}
+                  >
+                    {price} BYN
+                  </span>
+                  <span>{discount} BYN</span>
+                </>
+              ) : (
+                <span>{price} BYN</span>
+              )}
             </Grid>
           </Grid>
         );
       })}
-    </>
+    </Grid>
   );
 };
 

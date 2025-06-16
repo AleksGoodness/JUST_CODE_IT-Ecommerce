@@ -5,7 +5,10 @@ import { Cart } from '../pages/cart/clearCartObject';
 import { IProductResponse } from '../pages/details/clearObject';
 import { dynamicBaseQuery } from './dynamicBaseQuery';
 import { ICategoryResponse } from './interfaces';
-import { ICreateCartData } from './interfaces/createCart.interface';
+import {
+  ELocalStorage,
+  ICreateCartData,
+} from './interfaces/createCart.interface';
 import { IProductsResponse } from './interfaces/products.interfaces';
 import { IUpdateCart } from './interfaces/updateCart.interface';
 
@@ -56,7 +59,7 @@ export const ecommerceApi = createApi({
       query: () => ({
         uri: `categories`,
         method: 'GET',
-        useAuthClient: false,
+        useAuthClient: Boolean(localStorage.getItem(ELocalStorage.isAuth)),
       }),
       providesTags: ['Categories'],
     }),
@@ -67,7 +70,7 @@ export const ecommerceApi = createApi({
       query: (query: string) => ({
         uri: `product-projections${query}`,
         method: 'GET',
-        useAuthClient: false,
+        useAuthClient: Boolean(localStorage.getItem(ELocalStorage.isAuth)),
       }),
       providesTags: ['Products'],
     }),
@@ -76,22 +79,17 @@ export const ecommerceApi = createApi({
       query: id => ({
         uri: `products${id}`,
         method: 'GET',
-        useAuthClient: false,
+        useAuthClient: Boolean(localStorage.getItem(ELocalStorage.isAuth)),
       }),
       providesTags: ['Product'],
     }),
     //! cart actions
 
     createCart: builder.mutation<Cart, ICreateCartData>({
-      query: ({
-        currency = 'BYN',
-        anonymousId,
-        customerId,
-        useAuthClient,
-      }) => ({
+      query: ({ currency = 'BYN', anonymousId, customerId }) => ({
         uri: `me/carts`,
         method: 'POST',
-        useAuthClient: useAuthClient,
+        useAuthClient: Boolean(localStorage.getItem(ELocalStorage.isAuth)),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -104,6 +102,22 @@ export const ecommerceApi = createApi({
       invalidatesTags: ['Cart'],
     }),
 
+    mergeCart: builder.mutation<
+      Cart,
+      { customerId: string; anonymousCartId: string; currency?: 'BYN' }
+    >({
+      query: ({ customerId, anonymousCartId, currency = 'BYN' }) => ({
+        uri: `me/carts`,
+        method: 'POST',
+        useAuthClient: Boolean(localStorage.getItem(ELocalStorage.isAuth)),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: { customerId, anonymousCartId, currency },
+      }),
+      invalidatesTags: ['Cart'],
+    }),
+
     updateCart: builder.mutation<
       Cart,
       { cartId: string; actionBody: IUpdateCart }
@@ -111,6 +125,7 @@ export const ecommerceApi = createApi({
       query: ({ cartId, actionBody }) => ({
         uri: `me/carts/${cartId}`,
         method: 'POST',
+        useAuthClient: Boolean(localStorage.getItem(ELocalStorage.isAuth)),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -119,11 +134,25 @@ export const ecommerceApi = createApi({
       invalidatesTags: ['Cart'],
     }),
 
+    deleteCart: builder.mutation<Cart, { cartId: string; cartVersion: number }>(
+      {
+        query: ({ cartId, cartVersion }) => ({
+          uri: `me/carts/${cartId}?version=${cartVersion}`,
+          method: 'DELETE',
+          useAuthClient: Boolean(localStorage.getItem(ELocalStorage.isAuth)),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }),
+        invalidatesTags: ['Cart'],
+      },
+    ),
+
     getActiveCart: builder.query<Cart, unknown>({
       query: () => ({
         uri: `me/active-cart`,
         method: 'GET',
-        useAuthClient: false,
+        useAuthClient: Boolean(localStorage.getItem(ELocalStorage.isAuth)),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -143,4 +172,6 @@ export const {
   useCreateCartMutation,
   useGetActiveCartQuery,
   useUpdateCartMutation,
+  useDeleteCartMutation,
+  useMergeCartMutation,
 } = ecommerceApi;

@@ -46,11 +46,10 @@ const Purchase = () => {
   return (
     <Box
       sx={{
-        '@media (max-width: 900px)': {
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        },
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 2,
       }}
     >
       {product ? (

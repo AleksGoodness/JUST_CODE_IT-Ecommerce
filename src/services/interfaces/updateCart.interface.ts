@@ -8,16 +8,12 @@ interface Action {
   productId?: string;
   lineItemId?: string;
   variantId?: number;
-  quantity: number;
+  quantity?: number;
+  code?: string;
 }
 
 export enum ECartUpdateActions {
   addNewProduct = 'addLineItem',
   removeProduct = 'removeLineItem',
   addDiscountCode = 'addDiscountCode',
-}
-
-export enum ELocalStorage {
-  anonymousCartId = 'anonymousCartId',
-  anonymousId = 'anonymousId',
 }
