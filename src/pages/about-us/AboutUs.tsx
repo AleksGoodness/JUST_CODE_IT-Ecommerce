@@ -1,10 +1,12 @@
-import { Grid, Paper, Typography } from '@mui/material';
+import { Box, Grid, Link, Paper, Typography } from '@mui/material';
+import { Link as ReactLink } from 'react-router';
 
 import { Title } from '../../components';
 import FlipCard from './flip-card/flipCard';
 import aleksAvatar from './imgs/ALEKS.png';
 import daniarAvatar from './imgs/DANIAR.png';
 import elenaAvatar from './imgs/LENA.png';
+import rsLogo from './imgs/rss-logo.c19ce1b4.svg';
 
 const MOTTOS = [
   {
@@ -79,6 +81,27 @@ const AboutUs = () => {
             </Paper>
           </Grid>
         ))}
+      </Grid>
+
+      <Grid alignItems={'center'} container gap={2} justifyContent={'center'}>
+        <Link
+          color="inherit"
+          component={ReactLink}
+          p={2}
+          target="_blank"
+          to="https://rs.school/"
+          underline="none"
+        >
+          <Box
+            alignItems={'center'}
+            display={'flex'}
+            gap={2}
+            justifyItems={'center'}
+          >
+            <img alt="rs-school logo" height={50} src={rsLogo} width={50} />
+            <Typography variant="body1">The school that teach you!</Typography>
+          </Box>
+        </Link>
       </Grid>
     </Grid>
   );
