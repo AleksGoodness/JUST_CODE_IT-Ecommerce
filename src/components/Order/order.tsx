@@ -11,6 +11,7 @@ import {
 } from '../../services/api';
 import { ECartUpdateActions } from '../../services/updateCart.interface';
 import SendOrder from './send_order';
+import CleanCart from './clean_cart';
 
 const Order = ({ cartItem }: { cartItem: CartDetails }) => {
   const { data: cart } = useGetActiveCartQuery({});
@@ -128,6 +129,7 @@ const Order = ({ cartItem }: { cartItem: CartDetails }) => {
       </Typography>
       <Divider />
       <SendOrder onCartDeleted={handleCartDeleted} />
+      <CleanCart />
     </>
   );
 };
