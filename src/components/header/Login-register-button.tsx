@@ -21,7 +21,7 @@ const LoginRegisterButton = ({ setIsOpen, sx, ...rest }: Props) => {
 
   const handleRedirect = () => {
     if (setIsOpen) setIsOpen(false);
-    dispatch(logOut());
+    if (customer) dispatch(logOut());
   };
 
   useEffect(() => {
