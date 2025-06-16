@@ -14,6 +14,7 @@ import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
 
 import { Loading } from '../../components';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -21,8 +22,10 @@ import { getCustomer } from '../../redux/selectors';
 import loginCustomer from '../../redux/slices/asyncThunks/loginCustomer';
 import {
   useGetActiveCartQuery,
-  useMergeCartMutation,
+  useUpdateCartMutation,
+  // useMergeCartMutation,
 } from '../../services/api';
+import { ECartUpdateActions } from '../../services/updateCart.interface';
 import CONSTANTS from '../../utils/CONSTANTS';
 import schema from './login_schema';
 
@@ -34,8 +37,8 @@ interface IFormInputs {
 const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [mergeCarts] = useMergeCartMutation();
-  const { data: cart } = useGetActiveCartQuery({});
+  const { data: cart, refetch: refetchCart } = useGetActiveCartQuery({});
+  const [mergeCart] = useUpdateCartMutation();
 
   const { isLoading, customer } = useAppSelector(getCustomer);
   const [showPassword, setShowPassword] = useState(false);
@@ -56,19 +59,41 @@ const Login = () => {
   }, [customer, navigate]);
 
   const formSubmitHandler: SubmitHandler<IFormInputs> = async data => {
-    if (!isLoading) {
-      await dispatch(loginCustomer(data));
+    if (isLoading) return;
+    try {
+      const anonymousCartId = cart?.anonymousId;
+      const itemsToMerge = anonymousCartId ? cart.lineItems : [];
+
+      await dispatch(loginCustomer(data)).unwrap();
+
+      const newCart = await refetchCart().unwrap();
+
+      if (!newCart) {
+        throw new Error('Failed to fetch user cart');
+      }
+
+      if (itemsToMerge.length > 0) {
+        await mergeCart({
+          cartId: newCart.id,
+          actionBody: {
+            version: newCart.version,
+            actions: [
+              ...itemsToMerge.map(item => ({
+                action: ECartUpdateActions.addNewProduct,
+                productId: item.productId,
+                variantId: item.variant.id,
+                quantity: item.quantity,
+              })),
+            ],
+          },
+        }).unwrap();
+      }
+    } catch (error: unknown) {
+      console.log(error);
+      if (error instanceof Error)
+        toast.error('Failed to merge carts. Please try again.');
     }
   };
-
-  useEffect(() => {
-    if (customer && cart?.anonymousId) {
-      mergeCarts({
-        customerId: customer.id,
-        anonymousCartId: cart?.anonymousId,
-      });
-    }
-  }, [customer, cart?.anonymousId, mergeCarts]);
 
   return (
     <Container
