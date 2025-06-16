@@ -20,11 +20,9 @@
 
 .flip-card-front,
 .flip-card-back {
-  display: flex;
   position: absolute;
   top: 0;
-  justify-content: center;
-  align-items: center;
+
   backface-visibility: hidden;
   box-sizing: border-box;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);

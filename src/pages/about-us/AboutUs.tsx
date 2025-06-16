@@ -2,38 +2,9 @@ import { Box, Grid, Link, Paper, Typography } from '@mui/material';
 import { Link as ReactLink } from 'react-router';
 
 import { Title } from '../../components';
+import { COLLABORATION, DEVELOPERS, MOTTOS } from './data';
 import FlipCard from './flip-card/flipCard';
-import aleksAvatar from './imgs/ALEKS.png';
-import daniarAvatar from './imgs/DANIAR.png';
-import elenaAvatar from './imgs/LENA.png';
 import rsLogo from './imgs/rss-logo.c19ce1b4.svg';
-
-const MOTTOS = [
-  {
-    text: 'My code works, but I don’t know why — the important thing is it passes tests (sometimes). If you stare at TypeScript errors long enough, they might disappear on their own!',
-  },
-  {
-    text: 'We’re a young team united by a grand mission — to build a project that actually runs for everyone *simultaneously*. Git conflicts? Just our way of bonding!',
-  },
-  {
-    text: 'React.useEffect() is magic, but we pretend we get it. Clean code is when console.logs are neatly formatted. And if you reload the page 100 times, the bug might vanish!',
-  },
-];
-
-const DEVELOPERS = [
-  {
-    name: 'Aleks Gomeniuk',
-    img: aleksAvatar,
-  },
-  {
-    name: 'Elena ',
-    img: elenaAvatar,
-  },
-  {
-    name: 'Daniar',
-    img: daniarAvatar,
-  },
-];
 
 const AboutUs = () => {
   return (
@@ -58,6 +29,16 @@ const AboutUs = () => {
         </Typography>
         Team
       </Title>
+
+      <Grid container gap={2}>
+        <Title color="primary.main">Collaboration & Teamwork 🤝</Title>
+        {...COLLABORATION.map((paragraph, i) => (
+          <Typography key={i} variant="body1">
+            {paragraph}
+          </Typography>
+        ))}
+      </Grid>
+
       <Grid
         container
         spacing={{ xs: 1, md: 2 }}

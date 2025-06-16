@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Card,
   CardActionArea,
   CardContent,
@@ -8,18 +7,24 @@ import {
   Grid,
 } from '@mui/material';
 import { useState } from 'react';
-import { Link } from 'react-router';
 
+import BackSide from './backSide';
 import styles from './flipCard.module.css';
-
 interface IFlipCardProps {
   developer: {
     img: string;
     name: string;
+    role: string;
+    contributions: string[];
+    bio: string;
+    gitHub: string;
+    discord: string;
   };
 }
 
-const FlipCard = ({ developer: { img, name = 'aleks' } }: IFlipCardProps) => {
+const FlipCard = ({
+  developer: { img, name, role, bio, gitHub, discord },
+}: IFlipCardProps) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
@@ -37,13 +42,48 @@ const FlipCard = ({ developer: { img, name = 'aleks' } }: IFlipCardProps) => {
               : 'translateZ(-1rem)',
           }}
         >
-          <CardMedia className={styles['flip-card-front']} image={img}>
-            FRONT
+          <CardMedia
+            className={styles['flip-card-front']}
+            image={img}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <Box
+              bgcolor={'primary'}
+              borderRadius={'1rem'}
+              fontSize={{ xs: '1.6rem', sm: '0.9rem', md: '1.5rem' }}
+              fontWeight={'bold'}
+              paddingBlock={2}
+              paddingInline={1}
+            >
+              {role}
+            </Box>
+            <Box
+              bgcolor={'primary.main'}
+              borderRadius={'1rem 1rem 0 0'}
+              fontSize={{ xs: '1.6rem', sm: '0.9rem', md: '1.5rem' }}
+              fontWeight={'bold'}
+              paddingBlock={2}
+              paddingInline={1}
+            >
+              {name}
+            </Box>
           </CardMedia>
-          <CardContent className={styles['flip-card-back']}>
-            <Button component={Link} to={name} variant="outlined">
-              read more
-            </Button>
+          <CardContent
+            className={styles['flip-card-back']}
+            sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
+          >
+            <BackSide
+              bio={bio}
+              discordLink={discord}
+              gitHubLink={gitHub}
+              name={name}
+              role={role}
+            />
           </CardContent>
         </Box>
       </CardActionArea>
