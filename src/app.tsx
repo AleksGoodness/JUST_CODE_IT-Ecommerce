@@ -4,6 +4,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 
+import { Loading } from './components/index.ts';
 import { tokenCache } from './ecommerce/clientBuilder.ts';
 import { useAppDispatch, useAppSelector } from './redux/hooks.ts';
 import { getThemeName } from './redux/selectors.ts';
@@ -17,50 +18,36 @@ import { ELocalStorage } from './services/createCart.interface.ts';
 import { darkTheme, lightTheme } from './theme/theme.ts';
 
 export const App = () => {
-  const refreshToken = tokenCache.get().refreshToken;
-  const { isError, refetch } = useGetActiveCartQuery({});
+  const { isError, refetch: refetchCart } = useGetActiveCartQuery({});
 
   const theme = useAppSelector(getThemeName);
   const dispatch = useAppDispatch();
   const [createCart] = useCreateCartMutation();
 
   useEffect(() => {
-    refetch();
-  }, [refreshToken, refetch]);
-
-  useEffect(() => {
     const createCartQuery = async () => {
-      try {
-        const cartResponse = await createCart({
-          currency: 'BYN',
-          useAuthClient: false,
-        }).unwrap();
-
-        if (cartResponse.id) {
-          localStorage.setItem(ELocalStorage.anonymousCartId, cartResponse.id);
-        }
-        refetch();
-      } catch (error) {
-        console.log(error);
-      }
+      await createCart({
+        currency: 'BYN',
+        useAuthClient: Boolean(localStorage.getItem(ELocalStorage.isAuth)),
+      }).unwrap();
+      await refetchCart().unwrap();
     };
 
     if (isError) createCartQuery();
-  }, [createCart, refetch, isError]);
+  }, [createCart, isError, refetchCart]);
 
   useEffect(() => {
     const refreshToken = tokenCache.get().refreshToken;
-    const isAuth = localStorage.getItem('isAuth');
+    const isAuth = localStorage.getItem(ELocalStorage.isAuth);
 
     if (refreshToken && isAuth) dispatch(loginSilent());
   }, [dispatch]);
 
   const currentTheme = theme === 'light' ? lightTheme : darkTheme;
-
   return (
     <ThemeProvider theme={currentTheme}>
       <CssBaseline />
-      <Router />
+      {!isError ? <Router /> : <Loading />}
       <ToastContainer position="bottom-right" />
     </ThemeProvider>
   );

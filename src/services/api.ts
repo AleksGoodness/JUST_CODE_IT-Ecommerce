@@ -3,7 +3,7 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { Cart } from '../pages/cart/clearCartObject';
 import { IProductResponse } from '../pages/details/clearObject';
-import { ICreateCartData } from './createCart.interface';
+import { ELocalStorage, ICreateCartData } from './createCart.interface';
 import { dynamicBaseQuery } from './dynamicBaseQuery';
 import { ICategoryResponse } from './interfaces';
 import { IUpdateCart } from './updateCart.interface';
@@ -55,7 +55,7 @@ export const ecommerceApi = createApi({
       query: () => ({
         uri: `categories`,
         method: 'GET',
-        useAuthClient: false,
+        useAuthClient: Boolean(localStorage.getItem(ELocalStorage.isAuth)),
       }),
       providesTags: ['Categories'],
     }),
@@ -66,7 +66,7 @@ export const ecommerceApi = createApi({
       query: (query: string) => ({
         uri: `product-projections${query}`,
         method: 'GET',
-        useAuthClient: false,
+        useAuthClient: Boolean(localStorage.getItem(ELocalStorage.isAuth)),
       }),
       providesTags: ['Products'],
     }),
@@ -75,22 +75,17 @@ export const ecommerceApi = createApi({
       query: id => ({
         uri: `products${id}`,
         method: 'GET',
-        useAuthClient: false,
+        useAuthClient: Boolean(localStorage.getItem(ELocalStorage.isAuth)),
       }),
       providesTags: ['Product'],
     }),
     //! cart actions
 
     createCart: builder.mutation<Cart, ICreateCartData>({
-      query: ({
-        currency = 'BYN',
-        anonymousId,
-        customerId,
-        useAuthClient,
-      }) => ({
+      query: ({ currency = 'BYN', anonymousId, customerId }) => ({
         uri: `me/carts`,
         method: 'POST',
-        useAuthClient: useAuthClient,
+        useAuthClient: Boolean(localStorage.getItem(ELocalStorage.isAuth)),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -110,6 +105,7 @@ export const ecommerceApi = createApi({
       query: ({ customerId, anonymousCartId, currency = 'BYN' }) => ({
         uri: `me/carts`,
         method: 'POST',
+        useAuthClient: Boolean(localStorage.getItem(ELocalStorage.isAuth)),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -125,6 +121,7 @@ export const ecommerceApi = createApi({
       query: ({ cartId, actionBody }) => ({
         uri: `me/carts/${cartId}`,
         method: 'POST',
+        useAuthClient: Boolean(localStorage.getItem(ELocalStorage.isAuth)),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -138,6 +135,7 @@ export const ecommerceApi = createApi({
         query: ({ cartId, cartVersion }) => ({
           uri: `me/carts/${cartId}?version=${cartVersion}`,
           method: 'DELETE',
+          useAuthClient: Boolean(localStorage.getItem(ELocalStorage.isAuth)),
           headers: {
             'Content-Type': 'application/json',
           },
@@ -150,7 +148,7 @@ export const ecommerceApi = createApi({
       query: () => ({
         uri: `me/active-cart`,
         method: 'GET',
-        useAuthClient: false,
+        useAuthClient: Boolean(localStorage.getItem(ELocalStorage.isAuth)),
         headers: {
           'Content-Type': 'application/json',
         },

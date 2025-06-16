@@ -1,10 +1,10 @@
 import Button from '@mui/material/Button';
+import { toast } from 'react-toastify';
 
 import {
   useDeleteCartMutation,
   useGetActiveCartQuery,
 } from '../../services/api';
-import { toast } from 'react-toastify';
 
 const SendOrder = ({ onCartDeleted }: { onCartDeleted: () => void }) => {
   const { data: cart } = useGetActiveCartQuery({});

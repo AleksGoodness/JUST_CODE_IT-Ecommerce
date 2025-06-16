@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
+import { ELocalStorage } from '../../services/createCart.interface';
 import { AuthState } from '../interfaces';
 import loginCustomer from './asyncThunks/loginCustomer';
 import loginSilent from './asyncThunks/loginSilent';
@@ -19,8 +20,8 @@ const authSlice = createSlice({
 
   reducers: {
     logOut: state => {
-      localStorage.removeItem('ctpTokenCache');
-      localStorage.removeItem('isAuth');
+      localStorage.removeItem(ELocalStorage.ctpToken);
+      localStorage.removeItem(ELocalStorage.isAuth);
       state.customer = null;
     },
     setCustomer: (state, { payload }) => {
@@ -53,7 +54,7 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.customer = action.payload ?? null;
       if (action.payload) {
-        localStorage.setItem('isAuth', 'true');
+        localStorage.setItem(ELocalStorage.isAuth, 'true');
         toast.success(`Welcome back, ${action.payload.firstName}!`);
       }
     });

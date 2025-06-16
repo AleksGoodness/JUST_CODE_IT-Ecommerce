@@ -9,4 +9,6 @@ export enum ELocalStorage {
   anonymousCartId = 'anonymousCartId',
   anonymousId = 'anonymousId',
   ctpToken = 'ctpTokenCache',
+  isAuth = 'isAuth',
+  theme = 'theme',
 }
