@@ -8,7 +8,7 @@ import {
   useCreateCartMutation,
   useGetActiveCartQuery,
 } from '../../services/api';
-import { ELocalStorage } from '../../services/updateCart.interface';
+import { ELocalStorage } from '../../services/interfaces/updateCart.interface';
 import clearCartObject from './clearCartObject';
 
 const Basket = () => {

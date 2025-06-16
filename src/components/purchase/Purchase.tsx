@@ -9,7 +9,7 @@ import {
   useGetProductQuery,
   useUpdateCartMutation,
 } from '../../services/api';
-import { ECartUpdateActions } from '../../services/updateCart.interface';
+import { ECartUpdateActions } from '../../services/interfaces/updateCart.interface';
 import ProductQuantity from './pruduct_quantity';
 
 const Purchase = () => {

@@ -4,12 +4,9 @@ import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
 import { Link } from 'react-router';
 
 import { Title } from '../../../components';
-import { useUpdateCartMutation } from '../../../services/api';
-import { ECartUpdateActions } from '../../../services/updateCart.interface';
 import PlaceHolderImage from './CardPlaceHolder.png';
 
 export interface Props {
@@ -21,8 +18,8 @@ export interface Props {
   images: Image[];
   discount?: number;
   isInCart: boolean;
-  cartId: string;
-  cartVersion: number;
+  isLoading: boolean;
+  addToCart: (productId: string) => void;
 }
 
 export interface Image {
@@ -38,35 +35,12 @@ const Product = ({
   currency,
   images,
   isInCart,
-  cartId,
-  cartVersion,
   discount,
+  addToCart,
+  isLoading,
 }: Props) => {
-  const [addToCart] = useUpdateCartMutation();
-  const [isLoading, setIsLoading] = useState(false);
-
   const handleAddToCart = () => {
-    if (isLoading) return;
-    setIsLoading(true);
-
-    (async () => {
-      await addToCart({
-        cartId: cartId,
-        actionBody: {
-          version: cartVersion,
-          actions: [
-            {
-              action: ECartUpdateActions.addNewProduct,
-              productId: id,
-              variantId: 1,
-              quantity: 1,
-            },
-          ],
-        },
-      });
-    })();
-
-    setIsLoading(false);
+    addToCart(id);
   };
 
   return (
@@ -110,8 +84,9 @@ const Product = ({
             }
             sx={{
               width: '100%',
-              height: '100%',
+              // height: '100%',
               objectFit: 'cover',
+              height: '340px',
             }}
           />
         </Box>
@@ -174,13 +149,19 @@ const Product = ({
         disabled={isLoading}
         onClick={() => handleAddToCart()}
         sx={{
+          display: 'flex',
+          gap: 2,
           pointerEvents: isInCart ? 'none' : 'auto',
-          ':disabled': { bgcolor: 'primary.main', color: 'text.primary' },
+          bgcolor: isInCart ? 'primary.main' : 'inherit',
+          color: isInCart ? 'text.primary' : 'primary.main',
+          ':disabled': { bgcolor: 'inherit' },
         }}
         variant={!isInCart ? 'outlined' : 'contained'}
       >
         {isInCart ? 'In cart' : 'Add to cart'}
-        {isLoading ? <CircularProgress /> : null}
+        {isLoading && !isInCart ? (
+          <CircularProgress color={'warning'} size={'1rem'} />
+        ) : null}
       </Button>
     </Card>
   );

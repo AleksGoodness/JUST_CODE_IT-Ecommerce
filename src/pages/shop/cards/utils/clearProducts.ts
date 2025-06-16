@@ -1,6 +1,9 @@
-import { IClearProduct } from './clearProduct.interface';
+import {
+  ICLearProduct,
+  IProduct,
+} from '../../../../services/interfaces/products.interfaces';
 
-const clearProduct = (product: IClearProduct) => {
+const clearProduct = (product: IProduct): ICLearProduct => {
   return {
     id: product.id,
     description: product.description['en-US'],

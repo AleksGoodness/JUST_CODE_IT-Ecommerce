@@ -1,4 +1,12 @@
-export interface IClearProduct {
+export interface IProductsResponse {
+  limit: number;
+  offset: number;
+  count: number;
+  total: number;
+  results: IProduct[];
+}
+
+export interface IProduct {
   id: string;
   version: number;
   productType: ProductType;
@@ -20,6 +28,41 @@ export interface IClearProduct {
   priceMode: string;
   createdAt: string;
   lastModifiedAt: string;
+}
+
+export interface ICLearProduct {
+  id: string;
+  description: string;
+  name: string;
+  price: number;
+  currency: string;
+  images: {
+    url: string;
+    label: string;
+  }[];
+  discount?: number;
+}
+
+interface MasterVariant {
+  id: number;
+  sku: string;
+  key: string;
+  prices: Price[];
+  images: Image[];
+  attributes: Attribute[];
+  assets: unknown[];
+}
+
+interface Price {
+  value: Value;
+  discounted?: {
+    value: Value;
+  };
+}
+
+interface Value {
+  centAmount: number;
+  currencyCode: string;
 }
 
 interface ProductType {
@@ -52,72 +95,23 @@ interface MetaDescription {
   'en-US': string;
 }
 
-interface MasterVariant {
-  id: number;
-  sku: string;
-  key: string;
-  prices: Prices[];
-  images: Image[];
-  attributes: Attribute[];
-  assets: unknown[];
-}
-
 interface Image {
   url: string;
+  label?: string;
   dimensions: Dimensions;
 }
+
 interface Dimensions {
   w: number;
   h: number;
 }
+
 interface Attribute {
   name: string;
   value: Value[];
 }
 
 interface TaxCategory {
-  typeId: string;
-  id: string;
-}
-
-interface Value {
-  type: string;
-  currencyCode: string;
-  centAmount: number;
-  fractionDigits: number;
-}
-
-export interface ICLearProduct {
-  id: string;
-  description: string;
-  name: string;
-  price: number;
-  currency: string;
-  images: {
-    url: string;
-    label: string;
-  }[];
-  discount?: number;
-}
-interface Prices {
-  id: string;
-  value: Value;
-  key: string;
-  discounted?: Discounted;
-}
-
-interface Value {
-  type: string;
-  currencyCode: string;
-  centAmount: number;
-  fractionDigits: number;
-}
-
-interface Discounted {
-  value: Value;
-  discount: Discount;
-}
-interface Discount {
   typeId: string;
   id: string;
 }
