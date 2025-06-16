@@ -4,6 +4,7 @@ import {
   useDeleteCartMutation,
   useGetActiveCartQuery,
 } from '../../services/api';
+import { toast } from 'react-toastify';
 
 const SendOrder = ({ onCartDeleted }: { onCartDeleted: () => void }) => {
   const { data: cart } = useGetActiveCartQuery({});
@@ -20,6 +21,7 @@ const SendOrder = ({ onCartDeleted }: { onCartDeleted: () => void }) => {
         console.log('Response:', response);
         localStorage.removeItem('promoCode');
         onCartDeleted();
+        toast.success('Your order is accepted');
       } catch (error) {
         console.error('Cart deletion failed:', error);
       }
