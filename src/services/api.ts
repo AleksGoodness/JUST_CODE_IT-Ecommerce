@@ -103,6 +103,21 @@ export const ecommerceApi = createApi({
       invalidatesTags: ['Cart'],
     }),
 
+    mergeCart: builder.mutation<
+      Cart,
+      { customerId: string; anonymousCartId: string; currency?: 'BYN' }
+    >({
+      query: ({ customerId, anonymousCartId, currency = 'BYN' }) => ({
+        uri: `me/carts`,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: { customerId, anonymousCartId, currency },
+      }),
+      invalidatesTags: ['Cart'],
+    }),
+
     updateCart: builder.mutation<
       Cart,
       { cartId: string; actionBody: IUpdateCart }
@@ -156,4 +171,5 @@ export const {
   useGetActiveCartQuery,
   useUpdateCartMutation,
   useDeleteCartMutation,
+  useMergeCartMutation,
 } = ecommerceApi;

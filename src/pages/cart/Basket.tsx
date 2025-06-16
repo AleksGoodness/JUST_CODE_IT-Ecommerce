@@ -3,51 +3,15 @@ import { useEffect, useState } from 'react';
 
 import CartProduct from '../../components/cart_product/CartProduct';
 import Order from '../../components/Order/order';
-import { tokenCache } from '../../ecommerce/clientBuilder';
-import {
-  useCreateCartMutation,
-  useGetActiveCartQuery,
-} from '../../services/api';
+import { useGetActiveCartQuery } from '../../services/api';
 import clearCartObject from './clearCartObject';
 
-enum ELocalStorage {
-  anonymousCartId = 'anonymousCartId',
-  anonymousId = 'anonymousId',
-}
-
 const Basket = () => {
-  const { data: cart, isLoading, isError, refetch } = useGetActiveCartQuery({});
-  const refreshToken = tokenCache.get().refreshToken;
+  const { data: cart, isLoading, isError } = useGetActiveCartQuery({});
 
   const [clearCart, setClearCart] = useState(
     cart ? clearCartObject(cart) : undefined,
   );
-
-  useEffect(() => {
-    refetch();
-  }, [refreshToken, refetch]);
-
-  const [createCart] = useCreateCartMutation();
-
-  useEffect(() => {
-    const createCartQuery = async () => {
-      try {
-        const cartResponse = await createCart({
-          currency: 'BYN',
-          useAuthClient: false,
-        }).unwrap();
-
-        if (cartResponse.id) {
-          localStorage.setItem(ELocalStorage.anonymousCartId, cartResponse.id);
-        }
-        refetch();
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    if (isError) createCartQuery();
-  }, [createCart, refetch, isError]);
 
   useEffect(() => {
     if (cart) setClearCart(clearCartObject(cart));
@@ -61,13 +25,13 @@ const Basket = () => {
       </h2>
       <Grid container spacing={4}>
         <Grid
+          container
           size={{ md: 7, sm: 12, xs: 12 }}
+          spacing={1}
           sx={{
             overflowY: 'auto',
             maxHeight: '480px',
             paddingRight: '12px',
-            display: 'flex',
-            flexDirection: 'column',
             '&::-webkit-scrollbar': {
               width: '8px',
             },

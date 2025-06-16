@@ -8,7 +8,7 @@ import DeleteCartItem from './delete_cart_item';
 
 const CartProduct = ({ products }: { products: LineItemModified[] }) => {
   return (
-    <Grid container sx={{ gap: { xs: '10px' } }}>
+    <Grid container spacing={2} sx={{ width: '100%' }}>
       {products.length === 0 ? (
         <Title pt={'25%'} textAlign={'center'}>
           No items yet
@@ -21,50 +21,65 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
           : '';
         return (
           <Grid
-            container
             key={index}
             spacing={1}
             sx={{
-              display: { xs: 'grid', sm: 'flex' },
+              display: 'grid',
+              width: '100%',
               gridTemplateAreas: {
-                xs: `'pic pic name name name name'
-                  'pic pic price price price price'
-                    'pic pic  number number number bin'`,
+                xs: `
+    'pic pic name name name name'
+    'pic pic price price price price'
+    'pic pic number number number bin'
+  `,
+                md: `
+    'pic name name price price bin'
+    'pic name name number number bin'
+  `,
               },
-              gridTemplateColumns: {
-                xs: 'repeat(6, 1fr)',
-              },
-              alignItems: 'center',
-              maxWidth: '700px',
+              gridTemplateColumns: 'repeat(6, 1fr)',
+
               minHeight: '150px',
+              height: '150px',
               justifyItems: 'center',
-              padding: '10px',
+              padding: 1,
               border: '2px solid green',
-              borderRadius: '8px',
+              borderRadius: 2,
               rowGap: { sm: '10px' },
             }}
           >
-            <Grid size={{ md: 1, sm: 1, xs: 2 }} sx={{ gridArea: 'bin' }}>
-              <DeleteCartItem lineItemId={item.id} />
-            </Grid>
-            <Grid size={{ sm: 2 }} sx={{ gridArea: 'pic', height: '100%' }}>
+            <Grid
+              component={DeleteCartItem}
+              lineItemId={item.id}
+              sx={{ gridArea: 'bin', display: 'grid', placeContent: 'center' }}
+            />
+            <Grid
+              sx={{
+                gridArea: 'pic',
+                position: 'relative',
+                bgcolor: 'orange',
+                width: '100%',
+              }}
+            >
               <img
-                alt="pruduct"
+                alt="product"
+                loading="lazy"
                 src={item.image}
                 style={{
+                  position: 'absolute',
                   objectFit: 'cover',
+                  objectPosition: '50% 75%',
                   width: '100%',
                   height: '100%',
                 }}
               />
             </Grid>
-            <Grid size={{ sm: 3 }} sx={{ gridArea: 'name' }}>
+            <Grid sx={{ gridArea: 'name' }}>
               <Typography sx={{ justifySelf: 'center' }}>
                 {item.name}
               </Typography>
             </Grid>
             <Grid
-              size={{ sm: 'auto' }}
               sx={{
                 gridArea: 'number',
                 display: 'flex',
@@ -82,7 +97,6 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
             </Grid>
             <Grid
               container
-              size={{ sm: 3 }}
               sx={{ gridArea: 'price', justifyContent: 'center' }}
             >
               {discount ? (

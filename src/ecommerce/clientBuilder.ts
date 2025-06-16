@@ -5,6 +5,7 @@ import {
   TokenStore,
 } from '@commercetools/ts-client';
 
+import { ELocalStorage } from '../services/createCart.interface';
 import { anonymousScopes, customerScopes } from './scopes';
 
 const clientId = import.meta.env.VITE_CTP_CLIENT_ID;
@@ -24,13 +25,13 @@ const anonymousClientSecret = import.meta.env.VITE_CTP_ANONYMOUS_CLIENT_SECRET;
 
 export const tokenCache: TokenCache = {
   get: (): TokenStore => {
-    const cachedData = localStorage.getItem('ctpTokenCache');
+    const cachedData = localStorage.getItem(ELocalStorage.ctpToken);
     return cachedData
       ? JSON.parse(cachedData)
       : { token: '', expirationTime: 0 };
   },
   set: (cache: TokenStore): void => {
-    localStorage.setItem('ctpTokenCache', JSON.stringify(cache));
+    localStorage.setItem(ELocalStorage.ctpToken, JSON.stringify(cache));
   },
 };
 

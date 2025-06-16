@@ -19,6 +19,10 @@ import { Loading } from '../../components';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getCustomer } from '../../redux/selectors';
 import loginCustomer from '../../redux/slices/asyncThunks/loginCustomer';
+import {
+  useGetActiveCartQuery,
+  useMergeCartMutation,
+} from '../../services/api';
 import CONSTANTS from '../../utils/CONSTANTS';
 import schema from './login_schema';
 
@@ -30,6 +34,8 @@ interface IFormInputs {
 const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [mergeCarts] = useMergeCartMutation();
+  const { data: cart } = useGetActiveCartQuery({});
 
   const { isLoading, customer } = useAppSelector(getCustomer);
   const [showPassword, setShowPassword] = useState(false);
@@ -54,6 +60,15 @@ const Login = () => {
       await dispatch(loginCustomer(data));
     }
   };
+
+  useEffect(() => {
+    if (customer && cart?.anonymousId) {
+      mergeCarts({
+        customerId: customer.id,
+        anonymousCartId: cart?.anonymousId,
+      });
+    }
+  }, [customer, cart?.anonymousId, mergeCarts]);
 
   return (
     <Container

@@ -30,7 +30,7 @@ const DeleteCartItem = ({ lineItemId }: { lineItemId: string }) => {
   };
   return (
     <IconButton onClick={handleRemovePurchase}>
-      <DeleteIcon sx={{ justifySelf: 'center', display: 'block' }} />
+      <DeleteIcon />
     </IconButton>
   );
 };

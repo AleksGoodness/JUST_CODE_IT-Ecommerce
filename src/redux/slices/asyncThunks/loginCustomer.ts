@@ -3,6 +3,7 @@ const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY as string;
 
 import { loginCustomerClient } from '../../../ecommerce/clientBuilder';
 import { ICustomerDetails } from '../../../interfaces';
+import { ELocalStorage } from '../../../services/createCart.interface';
 
 export interface ILoginCredentials {
   email: string;
@@ -16,6 +17,7 @@ export interface ILoginResponse {
 const loginCustomer = createAsyncThunk(
   'auth/login',
   async (credentials: ILoginCredentials) => {
+    localStorage.removeItem(ELocalStorage.ctpToken);
     try {
       const client = loginCustomerClient(
         credentials.email,
