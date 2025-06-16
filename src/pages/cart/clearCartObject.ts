@@ -1,7 +1,7 @@
-import { ProductDetails } from '../details/clearObject';
+import { Attribute, Image } from '../details/clearObject';
 
 export interface Cart {
-  type: 'Cart';
+  type: string;
   id: string;
   version: number;
   versionModifiedAt: string;
@@ -11,7 +11,8 @@ export interface Cart {
   lastModifiedBy: ClientInfo;
   createdBy: ClientInfo;
   customerId?: string;
-  lineItems: ProductDetails[];
+  anonymousId?: string;
+  lineItems: LineItem[];
   cartState: 'Active';
   totalPrice: MoneyValue;
   discountOnTotalPrice?: DiscountOnTotalPrice;
@@ -75,7 +76,7 @@ interface CustomLineItem {
 
 interface DiscountCode {
   discountCode: Reference;
-  state: 'MatchesCart' | string;
+  state: 'MatchesCart' | 'NotApplicable' | 'Applied';
 }
 
 interface Discount {
@@ -108,21 +109,117 @@ interface MoneyValue {
   fractionDigits: number;
 }
 
+interface Variant {
+  id: number;
+  sku: string;
+  key: string;
+  prices: Price[];
+  images: Image[];
+  attributes: Attribute[];
+  assets: unknown[];
+}
+
+interface Price {
+  id: string;
+  value: MoneyValue;
+  key?: string;
+  discounted?: {
+    value: MoneyValue;
+    discount: {
+      typeId: string;
+      id: string;
+    };
+  };
+}
+
+type ProductName = Record<string, string>;
+
+interface ProductType {
+  typeId: string;
+  id: string;
+  version: number;
+}
+
+export interface LineItem {
+  id: string;
+  productId: string;
+  productKey: string;
+  name: ProductName;
+  productType: ProductType;
+  productSlug: ProductName;
+  variant: Variant;
+  price: Price;
+  quantity: number;
+  discountedPricePerQuantity: DiscountItem[];
+  perMethodTaxRate: TaxRate[];
+  addedAt: string;
+  lastModifiedAt: string;
+  state: State[];
+  priceMode: 'Platform';
+  lineItemMode: 'Standard';
+  totalPrice: MoneyValue;
+  taxedPricePortions: TaxRate[];
+}
+
+export interface LineItemModified {
+  id: string;
+  productId: string;
+  productKey: string;
+  name: string;
+  price: number;
+  discount: number | undefined;
+  image: string;
+  quantity: number;
+  totalPrice: number;
+}
+
+interface State {
+  quantity: number;
+  state: {
+    typeId: string;
+    id: string;
+  };
+}
+
 export interface CartDetails {
   id: string;
   version: number;
-  customerID: string | undefined;
-  products: ProductDetails[];
-  discountPrice: number;
+  customerId?: string;
+  anonymousId?: string;
+  products: LineItemModified[];
+  finalPrice: MoneyValue;
+  totalQuantity: number;
+  totalPriceWithDiscount: number;
 }
 
+const clearLineItem = (clearCartObject: Cart): LineItemModified[] => {
+  return clearCartObject.lineItems.map(product => ({
+    id: product.id,
+    productId: product.productId,
+    productKey: product.productKey,
+    name: product.name['en-US'],
+    price: product.variant.prices[0].value.centAmount,
+    discount: product.variant.prices[0].discounted?.value.centAmount,
+    image: product.variant.images[0].url,
+    quantity: product.quantity,
+    totalPrice: product.totalPrice.centAmount,
+  }));
+};
+
 const clearCartObject = (cart: Cart): CartDetails => {
+  let totalDiscount = 0;
+  if (cart.discountOnTotalPrice?.discountedAmount.centAmount) {
+    totalDiscount = cart.discountOnTotalPrice.discountedAmount.centAmount;
+  }
   return {
     id: cart.id,
     version: cart.version,
-    customerID: cart.customerId,
-    products: cart.lineItems,
-    discountPrice: cart.totalPrice.centAmount,
+    customerId: cart.customerId,
+    anonymousId: cart.anonymousId,
+    products: clearLineItem(cart),
+    finalPrice: cart.totalPrice,
+    totalQuantity: cart.totalLineItemQuantity,
+    totalPriceWithDiscount: cart.totalPrice.centAmount - totalDiscount,
   };
 };
 

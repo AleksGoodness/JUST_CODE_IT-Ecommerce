@@ -1,80 +1,66 @@
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Fab from '@mui/material/Fab';
-import Typography from '@mui/material/Typography';
 import { useState } from 'react';
+import { useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 
-interface ListShop {
-  purchases: number;
-}
+import {
+  useGetActiveCartQuery,
+  useGetProductQuery,
+  useUpdateCartMutation,
+} from '../../services/api';
+import { ECartUpdateActions } from '../../services/interfaces/updateCart.interface';
+import ProductQuantity from './pruduct_quantity';
 
-const Purchase = ({ purchases }: ListShop) => {
-  const [quantity, setQuantity] = useState(purchases);
-  const handleRemovePurchase = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
+const Purchase = () => {
+  const { plantName } = useParams();
+  const { data: product } = useGetProductQuery(`/${plantName}`);
+  const { data: cart } = useGetActiveCartQuery({});
+  const [updateCart] = useUpdateCartMutation();
+  const navigate = useNavigate();
+
+  const [amount, setAmount] = useState(1);
+
+  const [activeButton, setActiveButton] = useState<'first' | 'second'>('first');
+  const handleAddProduct = () => {
+    setActiveButton('second');
+    if (cart && product) {
+      //todo
+      updateCart({
+        cartId: cart.id,
+        actionBody: {
+          version: cart.version,
+          actions: [
+            {
+              action: ECartUpdateActions.addNewProduct,
+              productId: product.id,
+              quantity: amount,
+              variantId: 1,
+            },
+          ],
+        },
+      });
+      //todo
     }
   };
-  const handleAddPurchase = () => {
-    if (quantity < 99) setQuantity(Number(quantity) + 1);
-  };
-
-  const [activeButton] = useState<'first' | 'second'>('first');
-
   return (
     <Box
       sx={{
-        '@media (max-width: 900px)': {
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        },
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 2,
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 1,
-          pb: 4,
-        }}
-      >
-        <Fab
-          aria-label="remove"
-          color="primary"
-          onClick={handleRemovePurchase}
-          size="medium"
-          sx={{
-            zIndex: 0,
-          }}
-        >
-          <RemoveIcon />
-        </Fab>
-        <Typography
-          sx={{
-            display: 'block',
-            fontSize: '1.5rem',
-            fontWeight: '400',
-            minWidth: '2rem',
-            textAlign: 'center',
-          }}
-        >
-          {quantity}
-        </Typography>
-        <Fab
-          aria-label="remove"
-          color="primary"
-          onClick={handleAddPurchase}
-          size="medium"
-          sx={{
-            zIndex: 0,
-          }}
-        >
-          <AddIcon />
-        </Fab>
-      </Box>
+      {product ? (
+        <ProductQuantity
+          amount={amount}
+          lineItemId={product?.id}
+          productId={product?.id}
+          setAmount={setAmount}
+        />
+      ) : null}
+
       <Box
         sx={{
           display: 'flex',
@@ -84,10 +70,21 @@ const Purchase = ({ purchases }: ListShop) => {
           },
         }}
       >
-        <Button variant={activeButton === 'first' ? 'contained' : 'outlined'}>
+        <Button
+          onClick={() => {
+            handleAddProduct();
+            setActiveButton('first');
+            navigate('/cart');
+          }}
+          variant={activeButton === 'first' ? 'contained' : 'outlined'}
+        >
           BUY NOW
         </Button>
-        <Button variant={activeButton === 'second' ? 'contained' : 'outlined'}>
+
+        <Button
+          onClick={() => handleAddProduct()}
+          variant={activeButton === 'second' ? 'contained' : 'outlined'}
+        >
           ADD TO CART
         </Button>
       </Box>

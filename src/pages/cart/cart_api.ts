@@ -1,9 +1,9 @@
-import { ProductDetails } from '../details/clearObject';
+import { LineItemModified } from './clearCartObject';
 import clearCartObject from './clearCartObject';
 
 export const addToCartApi = async (
   cartId: string,
-  item: ProductDetails,
+  item: LineItemModified,
   version: number,
 ) => {
   try {

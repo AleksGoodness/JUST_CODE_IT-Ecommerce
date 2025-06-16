@@ -30,7 +30,6 @@ export const dynamicBaseQuery: BaseQueryFn<
       ? createClientWithToken()
       : createAnonymousClient();
 
-    console.log(client);
     const fullUri = args.uri.startsWith('/')
       ? args.uri
       : `/${projectKey}/${args.uri}`;
@@ -46,6 +45,10 @@ export const dynamicBaseQuery: BaseQueryFn<
   } catch (error: unknown) {
     if (isCommerceToolsError(error)) {
       const ctError = getCommerceToolsError(error);
+
+      if (ctError.message === 'No active cart exists.')
+        throw new Error(ctError.message);
+
       return {
         error: {
           status: ctError.statusCode,

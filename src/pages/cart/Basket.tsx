@@ -1,54 +1,67 @@
 import { Grid } from '@mui/material';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import CartProduct from '../../components/cart_product/CartProduct';
-import { useCreateCartMutation, useGetCartQuery } from '../../services/api';
-
-enum ELocalStorage {
-  cartId = 'cartId',
-  anonymousId = 'anonymousId',
-}
+import Order from '../../components/Order/order';
+import { useGetActiveCartQuery } from '../../services/api';
+import clearCartObject from './clearCartObject';
 
 const Basket = () => {
-  const { data: cart, isLoading } = useGetCartQuery(
-    {
-      cartId: localStorage.getItem(ELocalStorage.cartId),
-    },
-    { skip: Boolean(!localStorage.getItem(ELocalStorage.cartId)) },
+  const { data: cart, isLoading, isError } = useGetActiveCartQuery({});
+
+  const [clearCart, setClearCart] = useState(
+    cart ? clearCartObject(cart) : undefined,
   );
-  const [createCart] = useCreateCartMutation();
 
   useEffect(() => {
-    const createCartQuery = async () => {
-      try {
-        const cartResponse = await createCart({
-          currency: 'BYN',
-          anonymousId: localStorage.getItem(ELocalStorage.anonymousId),
-          useAuthClient: false,
-        }).unwrap();
+    if (cart) setClearCart(clearCartObject(cart));
+  }, [cart]);
 
-        if (cartResponse.id) {
-          localStorage.setItem(ELocalStorage.cartId, cartResponse.id);
-        }
-        if (cartResponse.anonymousId) {
-          localStorage.setItem(
-            ELocalStorage.anonymousId,
-            cartResponse.anonymousId,
-          );
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    if (!localStorage.getItem(ELocalStorage.cartId)) createCartQuery();
-  }, [createCart]);
-  console.log(cart);
   return (
-    <Grid>
-      <h1>Товары в корзине {isLoading ? 'loading...' : ''}</h1>
-      <CartProduct />
-    </Grid>
+    <>
+      <h2>
+        Products in the cart {isError ? 'error' : ''}{' '}
+        {isLoading ? 'loading...' : ''}
+      </h2>
+      <Grid container spacing={4}>
+        <Grid
+          container
+          size={{ md: 7, sm: 12, xs: 12 }}
+          spacing={1}
+          sx={{
+            overflowY: 'auto',
+            maxHeight: '480px',
+            paddingRight: '12px',
+            '&::-webkit-scrollbar': {
+              width: '8px',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: 'primary.main',
+              borderRadius: '4px',
+            },
+            '&::-webkit-scrollbar-track': {
+              background: 'rgba(0,0,0,0)',
+            },
+          }}
+        >
+          {clearCart ? <CartProduct products={clearCart.products} /> : null}
+        </Grid>
+        <Grid
+          size={{ md: 5, sm: 12, xs: 12 }}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '15px',
+            border: '2px solid green',
+            borderRadius: '8px',
+            padding: '20px',
+            maxHeight: '500px',
+          }}
+        >
+          {clearCart ? <Order cartItem={clearCart} /> : ''}
+        </Grid>
+      </Grid>
+    </>
   );
 };
 
