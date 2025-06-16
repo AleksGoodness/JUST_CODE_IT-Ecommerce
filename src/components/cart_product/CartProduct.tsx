@@ -5,13 +5,24 @@ import { LineItemModified } from '../../pages/cart/clearCartObject';
 import ProductQuantity from '../purchase/pruduct_quantity';
 import Title from '../title/Title';
 import DeleteCartItem from './delete_cart_item';
+import { useNavigate } from 'react-router';
 
 const CartProduct = ({ products }: { products: LineItemModified[] }) => {
+  const navigate = useNavigate();
   return (
     <Grid container spacing={2} sx={{ width: '100%' }}>
       {products.length === 0 ? (
-        <Title pt={'25%'} textAlign={'center'}>
-          No items yet
+        <Title
+          pt={'25%'}
+          textAlign={'center'}
+          onClick={() => navigate('/shop')}
+          style={{
+            cursor: 'pointer',
+            fontSize: '1.5rem',
+            textDecoration: 'underline',
+          }}
+        >
+          Your cart is empty — time to go shopping!
         </Title>
       ) : null}
       {products.map((item, index) => {
