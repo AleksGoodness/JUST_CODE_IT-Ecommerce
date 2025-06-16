@@ -61,16 +61,29 @@ const Basket = () => {
       </h2>
       <Grid container spacing={4}>
         <Grid
-          size={7}
+          size={{ md: 7, sm: 12, xs: 12 }}
           sx={{
-            overflow: 'auto',
-            maxHeight: '500px',
+            overflowY: 'auto',
+            maxHeight: '480px',
+            paddingRight: '12px',
+            display: 'flex',
+            flexDirection: 'column',
+            '&::-webkit-scrollbar': {
+              width: '8px',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: 'primary.main',
+              borderRadius: '4px',
+            },
+            '&::-webkit-scrollbar-track': {
+              background: 'rgba(0,0,0,0)',
+            },
           }}
         >
           {clearCart ? <CartProduct products={clearCart.products} /> : null}
         </Grid>
         <Grid
-          size={5}
+          size={{ md: 5, sm: 12, xs: 12 }}
           sx={{
             display: 'flex',
             flexDirection: 'column',

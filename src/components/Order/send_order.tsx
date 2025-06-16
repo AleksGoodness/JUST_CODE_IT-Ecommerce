@@ -5,7 +5,7 @@ import {
   useGetActiveCartQuery,
 } from '../../services/api';
 
-const SendOrder = () => {
+const SendOrder = ({ onCartDeleted }: { onCartDeleted: () => void }) => {
   const { data: cart } = useGetActiveCartQuery({});
   const [deleteCart] = useDeleteCartMutation();
 
@@ -19,6 +19,7 @@ const SendOrder = () => {
 
         console.log('Response:', response);
         localStorage.removeItem('promoCode');
+        onCartDeleted();
       } catch (error) {
         console.error('Cart deletion failed:', error);
       }

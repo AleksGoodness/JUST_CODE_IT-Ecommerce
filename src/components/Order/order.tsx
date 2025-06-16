@@ -31,6 +31,11 @@ const Order = ({ cartItem }: { cartItem: CartDetails }) => {
     }
   }, [cart]);
 
+  const handleCartDeleted = () => {
+    setPromoCode('');
+    setIsPromoLocked(false);
+  };
+
   const handleApplyPromocode = async () => {
     setIsSubmitted(true);
     if (!promoCode.trim()) {
@@ -122,7 +127,7 @@ const Order = ({ cartItem }: { cartItem: CartDetails }) => {
         BYN
       </Typography>
       <Divider />
-      <SendOrder />
+      <SendOrder onCartDeleted={handleCartDeleted} />
     </>
   );
 };

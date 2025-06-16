@@ -84,7 +84,6 @@ const ProductQuantity = ({
         display: 'flex',
         alignItems: 'center',
         gap: 1,
-        pb: 4,
       }}
     >
       <Fab

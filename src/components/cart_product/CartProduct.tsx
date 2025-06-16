@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
@@ -9,7 +8,7 @@ import DeleteCartItem from './delete_cart_item';
 
 const CartProduct = ({ products }: { products: LineItemModified[] }) => {
   return (
-    <>
+    <Grid container sx={{ gap: { xs: '10px' } }}>
       {products.length === 0 ? (
         <Title pt={'25%'} textAlign={'center'}>
           No items yet
@@ -26,55 +25,51 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
             key={index}
             spacing={1}
             sx={{
+              display: { xs: 'grid', sm: 'flex' },
+              gridTemplateAreas: {
+                xs: `'pic pic name name name name'
+                  'pic pic price price price price'
+                    'pic pic  number number number bin'`,
+              },
+              gridTemplateColumns: {
+                xs: 'repeat(6, 1fr)',
+              },
               alignItems: 'center',
               maxWidth: '700px',
               minHeight: '150px',
               justifyItems: 'center',
-              marginBottom: '10px',
               padding: '10px',
               border: '2px solid green',
               borderRadius: '8px',
+              rowGap: { sm: '10px' },
             }}
           >
-            <Grid size={1}>
+            <Grid size={{ md: 1, sm: 1, xs: 2 }} sx={{ gridArea: 'bin' }}>
               <DeleteCartItem lineItemId={item.id} />
             </Grid>
-            <Grid size={2}>
-              <Box
-                sx={{
-                  maxWidth: '150px',
-                  maxHeight: '150px',
+            <Grid size={{ sm: 2 }} sx={{ gridArea: 'pic', height: '100%' }}>
+              <img
+                alt="pruduct"
+                src={item.image}
+                style={{
+                  objectFit: 'cover',
                   width: '100%',
                   height: '100%',
-                  overflow: 'hidden',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
                 }}
-              >
-                <img
-                  alt="pruduct"
-                  src={item.image}
-                  style={{
-                    objectFit: 'cover',
-                    width: '100%',
-                    height: '100%',
-                  }}
-                />
-              </Box>
+              />
             </Grid>
-            <Grid size={3}>
+            <Grid size={{ sm: 3 }} sx={{ gridArea: 'name' }}>
               <Typography sx={{ justifySelf: 'center' }}>
                 {item.name}
               </Typography>
             </Grid>
             <Grid
-              size={3}
+              size={{ sm: 'auto' }}
               sx={{
+                gridArea: 'number',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                paddingTop: '32px',
               }}
             >
               <ProductQuantity
@@ -85,29 +80,30 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
                 productId={item.productId}
               />
             </Grid>
-            <Grid size={3}>
-              <Typography sx={{ textAlign: 'center' }}>
-                {discount ? (
-                  <>
-                    <span
-                      style={{
-                        textDecoration: 'line-through',
-                        display: 'block',
-                      }}
-                    >
-                      {price} BYN
-                    </span>
-                    <span style={{ display: 'block' }}>{discount} BYN</span>
-                  </>
-                ) : (
-                  <span style={{ display: 'block' }}>{price} BYN</span>
-                )}
-              </Typography>
+            <Grid
+              container
+              size={{ sm: 3 }}
+              sx={{ gridArea: 'price', justifyContent: 'center' }}
+            >
+              {discount ? (
+                <>
+                  <span
+                    style={{
+                      textDecoration: 'line-through',
+                    }}
+                  >
+                    {price} BYN
+                  </span>
+                  <span>{discount} BYN</span>
+                </>
+              ) : (
+                <span>{price} BYN</span>
+              )}
             </Grid>
           </Grid>
         );
       })}
-    </>
+    </Grid>
   );
 };
 
