@@ -4,6 +4,7 @@ import {
   useUpdateCartMutation,
   useGetActiveCartQuery,
 } from '../../services/api';
+import { toast } from 'react-toastify';
 
 const CleanCart = () => {
   const { data: cart } = useGetActiveCartQuery({});
@@ -23,6 +24,9 @@ const CleanCart = () => {
           actions: updateActions,
         },
       });
+      toast.success('Your cart is empty');
+    } else {
+      toast.warning('Your cart is already empty!');
     }
   };
 
