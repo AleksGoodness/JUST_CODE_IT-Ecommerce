@@ -19,6 +19,13 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
         const discount = item.discount
           ? ((item.discount / 100) * item.quantity).toFixed(2)
           : '';
+        const pricePerItem =
+          item.quantity === 1 ? '' : (item.price / 100).toFixed(2);
+        const discountPerItem =
+          item.quantity === 1
+            ? ''
+            : (Number(discount) / item.quantity).toFixed(2);
+        console.log(discountPerItem);
         return (
           <Grid
             key={index}
@@ -38,7 +45,6 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
   `,
               },
               gridTemplateColumns: 'repeat(6, 1fr)',
-
               minHeight: '150px',
               height: '150px',
               justifyItems: 'center',
@@ -57,7 +63,6 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
               sx={{
                 gridArea: 'pic',
                 position: 'relative',
-                bgcolor: 'orange',
                 width: '100%',
               }}
             >
@@ -75,7 +80,7 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
               />
             </Grid>
             <Grid sx={{ gridArea: 'name' }}>
-              <Typography sx={{ justifySelf: 'center' }}>
+              <Typography sx={{ justifySelf: 'center', fontWeight: 'bold' }}>
                 {item.name}
               </Typography>
             </Grid>
@@ -104,14 +109,23 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
                   <span
                     style={{
                       textDecoration: 'line-through',
+                      textDecorationColor: 'red',
                     }}
                   >
-                    {price} BYN
+                    {pricePerItem} {price}
                   </span>
-                  <span>{discount} BYN</span>
+                  <span style={{ marginLeft: '5px', fontWeight: 'bold' }}>
+                    {discountPerItem} {discount} BYN
+                  </span>
                 </>
               ) : (
-                <span>{price} BYN</span>
+                <span
+                  style={{
+                    fontWeight: 'bold',
+                  }}
+                >
+                  {pricePerItem} {price} BYN
+                </span>
               )}
             </Grid>
           </Grid>
