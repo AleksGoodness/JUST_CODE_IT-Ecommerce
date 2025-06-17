@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router';
 
 import ErrorBoundaryFallback from '../components/errorBoundaryFallback/ErrorBoundaryFallback.tsx';
 import { Layout, Loading, LoginRegisterLayout } from '../components/index.ts';
+import AboutUsDetails from '../pages/about-us/about-us-details/AboutUsDetails.tsx';
 import Cards from '../pages/shop/cards/Products.tsx';
 
 const Home = lazy(() => import('../pages/home/Home.tsx'));
@@ -13,6 +14,7 @@ const Register = lazy(() => import('../pages/register/Register.tsx'));
 const Shop = lazy(() => import('../pages/shop/Shop.tsx'));
 const Profile = lazy(() => import('../pages/profile/Profile.tsx'));
 const Basket = lazy(() => import('../pages/cart/Basket.tsx'));
+const AboutUs = lazy(() => import('../pages/about-us/AboutUs.tsx'));
 
 const AppRouter = createBrowserRouter([
   {
@@ -30,6 +32,17 @@ const AppRouter = createBrowserRouter([
       },
       { path: 'profile', element: <Profile /> },
       { path: 'cart', element: <Basket /> },
+      {
+        path: 'about',
+        children: [
+          { element: <AboutUs />, index: true },
+          {
+            path: ':developer',
+            element: <AboutUsDetails />,
+          },
+        ],
+      },
+
       {
         path: 'shop',
         element: <Shop />,

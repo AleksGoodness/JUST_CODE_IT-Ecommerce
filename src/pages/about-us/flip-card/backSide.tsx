@@ -1,0 +1,35 @@
+import { Button, Grid, List, ListItemText, Typography } from '@mui/material';
+import { useNavigate } from 'react-router';
+
+import { IDeveloper } from '../about-us-details/AboutUsDetails';
+import ContactMe from '../components/Contact-me';
+
+const BackSide = (props: IDeveloper) => {
+  const { bio, name, role, gitHub, discord, slug } = props;
+  const navigate = useNavigate();
+
+  return (
+    <>
+      <Typography>{bio}</Typography>
+      <Grid component={List} flexGrow={1}>
+        <ListItemText>Name: {name}</ListItemText>
+        <ListItemText>Role: {role}</ListItemText>
+      </Grid>
+      <ContactMe discord={discord} gitHub={gitHub} />
+
+      <Button
+        onClick={() =>
+          navigate(slug, {
+            state: {
+              developerData: props,
+            },
+          })
+        }
+        variant="outlined"
+      >
+        read more
+      </Button>
+    </>
+  );
+};
+export default BackSide;
