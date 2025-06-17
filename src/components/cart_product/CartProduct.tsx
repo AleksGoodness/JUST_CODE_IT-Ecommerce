@@ -4,8 +4,8 @@ import Typography from '@mui/material/Typography';
 import { LineItemModified } from '../../pages/cart/clearCartObject';
 import ProductQuantity from '../purchase/pruduct_quantity';
 import Title from '../title/Title';
-import DeleteCartItem from './delete_cart_item';
 import { useNavigate } from 'react-router';
+import Bin from './bin';
 
 const CartProduct = ({ products }: { products: LineItemModified[] }) => {
   const navigate = useNavigate();
@@ -66,10 +66,10 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
             }}
           >
             <Grid
-              component={DeleteCartItem}
-              lineItemId={item.id}
               sx={{ gridArea: 'bin', display: 'grid', placeContent: 'center' }}
-            />
+            >
+              <Bin lineItemId={item.id} />
+            </Grid>
             <Grid
               sx={{
                 gridArea: 'pic',
