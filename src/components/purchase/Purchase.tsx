@@ -1,8 +1,8 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
-import { useParams } from 'react-router';
 import { useNavigate } from 'react-router';
+import { useLocation } from 'react-router';
 
 import {
   useGetActiveCartQuery,
@@ -13,8 +13,11 @@ import { ECartUpdateActions } from '../../services/interfaces/updateCart.interfa
 import ProductQuantity from './pruduct_quantity';
 
 const Purchase = () => {
-  const { plantName } = useParams();
-  const { data: product } = useGetProductQuery(`/${plantName}`);
+  const location = useLocation();
+  console.log(location.state);
+  const { data: product } = useGetProductQuery(`/${location.state}`, {
+    skip: !location.state,
+  });
   const { data: cart } = useGetActiveCartQuery({});
   const [updateCart] = useUpdateCartMutation();
   const navigate = useNavigate();

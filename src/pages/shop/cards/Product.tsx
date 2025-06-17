@@ -4,7 +4,7 @@ import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Link } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { Title } from '../../../components';
 import PlaceHolderImage from './CardPlaceHolder.png';
@@ -43,6 +43,8 @@ const Product = ({
     addToCart(id);
   };
 
+  const navigate = useNavigate();
+
   return (
     <Card
       sx={{
@@ -57,7 +59,7 @@ const Product = ({
       }}
     >
       <CardActionArea
-        component={Link}
+        onClick={() => navigate(`${name}`, { state: id })}
         sx={{
           height: '100%',
           display: 'grid',
@@ -65,7 +67,6 @@ const Product = ({
           gridTemplateColumns: '1fr',
           gap: 0,
         }}
-        to={`${id}`}
       >
         <Box
           sx={{

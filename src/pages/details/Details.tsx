@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
+import { useLocation } from 'react-router';
 
 import AttributeBox from '../../components/attributeBox/AttributeBox';
 import Purchase from '../../components/purchase/Purchase';
@@ -16,8 +17,12 @@ import clearObject, { ProductDetails } from './clearObject';
 import Placeholder from './defaultimg/default.jpg';
 
 const Details = () => {
-  const { category, plantName } = useParams();
-  const { data } = useGetProductQuery(`/${plantName}`);
+  const { category } = useParams();
+  const location = useLocation();
+  console.log(location.state);
+  const { data } = useGetProductQuery(`/${location.state}`, {
+    skip: !location.state,
+  });
   const navigate = useNavigate();
 
   const [myProduct, setProduct] = useState<null | ProductDetails>(null);
@@ -30,7 +35,7 @@ const Details = () => {
   }, [data]);
 
   useEffect(() => {
-    if (!category && !plantName) {
+    if (!category && !location.state) {
       navigate(CONSTANTS.shop);
       return;
     }
@@ -39,11 +44,11 @@ const Details = () => {
       return;
     }
 
-    if (!plantName) {
+    if (!location) {
       navigate(`${CONSTANTS.shop}/${category}`);
       return;
     }
-  }, [navigate, plantName, category]);
+  }, [navigate, location, category]);
 
   return (
     <Container
