@@ -60,7 +60,7 @@ const FlipCard = ({ developer }: IFlipCardProps) => {
           </CardMedia>
           <CardContent
             className={styles['flip-card-back']}
-            sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
+            sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}
           >
             <BackSide {...developer} />
           </CardContent>
