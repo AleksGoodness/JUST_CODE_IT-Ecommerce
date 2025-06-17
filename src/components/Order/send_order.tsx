@@ -8,10 +8,11 @@ import {
 
 const SendOrder = ({ onCartDeleted }: { onCartDeleted: () => void }) => {
   const { data: cart } = useGetActiveCartQuery({});
+  const products = cart?.lineItems;
   const [deleteCart] = useDeleteCartMutation();
 
   const handleDeleteCart = async () => {
-    if (cart) {
+    if (cart && products && products.length > 0) {
       try {
         const response = await deleteCart({
           cartId: cart.id,
@@ -25,6 +26,8 @@ const SendOrder = ({ onCartDeleted }: { onCartDeleted: () => void }) => {
       } catch (error) {
         console.error('Cart deletion failed:', error);
       }
+    } else {
+      toast.warning('Your cart is empty');
     }
   };
 
