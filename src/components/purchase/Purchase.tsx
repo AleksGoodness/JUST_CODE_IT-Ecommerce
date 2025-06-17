@@ -11,6 +11,7 @@ import {
 } from '../../services/api';
 import { ECartUpdateActions } from '../../services/interfaces/updateCart.interface';
 import ProductQuantity from './pruduct_quantity';
+import Bin from '../cart_product/bin';
 
 const Purchase = () => {
   const location = useLocation();
@@ -19,6 +20,7 @@ const Purchase = () => {
     skip: !location.state,
   });
   const { data: cart } = useGetActiveCartQuery({});
+  const lineItem = cart?.lineItems.find(item => item.productId === product?.id);
   const [updateCart] = useUpdateCartMutation();
   const navigate = useNavigate();
 
@@ -90,6 +92,7 @@ const Purchase = () => {
         >
           ADD TO CART
         </Button>
+        <Button>{lineItem ? <Bin lineItemId={lineItem.id} /> : null}</Button>
       </Box>
     </Box>
   );

@@ -1,17 +1,14 @@
-import DeleteIcon from '@mui/icons-material/Delete';
-import IconButton from '@mui/material/IconButton';
-
 import {
   useGetActiveCartQuery,
   useUpdateCartMutation,
 } from '../../services/api';
 import { ECartUpdateActions } from '../../services/interfaces/updateCart.interface';
 
-const DeleteCartItem = ({ lineItemId }: { lineItemId: string }) => {
+const useDeleteCartItem = () => {
   const { data: cart } = useGetActiveCartQuery({});
   const [updateCart] = useUpdateCartMutation();
 
-  const handleRemovePurchase = () => {
+  const deleteItem = (lineItemId: string) => {
     if (cart && lineItemId) {
       updateCart({
         cartId: cart.id,
@@ -28,11 +25,7 @@ const DeleteCartItem = ({ lineItemId }: { lineItemId: string }) => {
       });
     }
   };
-  return (
-    <IconButton onClick={handleRemovePurchase}>
-      <DeleteIcon />
-    </IconButton>
-  );
-};
 
-export default DeleteCartItem;
+  return deleteItem;
+};
+export default useDeleteCartItem;
