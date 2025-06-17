@@ -1,52 +1,29 @@
 import BeeIcon from '@mui/icons-material/EmojiNature';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
-import { Outlet, useNavigate, useParams } from 'react-router';
+import { Outlet, useNavigate } from 'react-router';
+import { useParams } from 'react-router';
 
-import Filter from '../../components/filterSorterSearcher/filter/Filter';
-import Searcher from '../../components/filterSorterSearcher/searcher/Searcher';
-import Sorter from '../../components/filterSorterSearcher/sorter/Sorter';
-import { useGetCategoriesQuery } from '../../services/api';
 import CategoryList from './components/CategoryList';
-import CategoryResponseFormatter from './components/CategoryResponse';
+import Filters from './components/Filters';
 
 const Shop = () => {
-  const { data } = useGetCategoriesQuery({});
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
-
-  const [currentCategoryId, setCurrentCategoryId] = useState<string>();
   const { category } = useParams();
+  const navigate = useNavigate();
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
 
   useEffect(() => {
-    if (category) {
-      if (typeof data === 'object' && data !== null && 'results' in data) {
-        const categories = CategoryResponseFormatter(data);
-        const current = categories.find(cat => cat.slug === category);
-        if (current) setCurrentCategoryId(current.id);
-      }
-      return;
-    }
-    navigate('all');
-  }, [category, data, navigate]);
-
+    if (!category) navigate('all');
+  }, [navigate, category]);
   return (
     <Box animate={{ scale: 1 }} component={motion.div} initial={{ scale: 0 }}>
-      <Box
-        sx={{
-          display: 'flex',
-          gap: '1rem',
-          flexWrap: 'wrap',
-          width: '100%',
-          px: 0,
-        }}
-      >
+      <Grid container justifyContent={'space-between'}>
         <Button
           endIcon={<BeeIcon />}
           onClick={toggleDrawer(true)}
@@ -55,29 +32,15 @@ const Shop = () => {
         >
           Categories
         </Button>
-
-        <Filter />
-        <Sorter />
-        <Searcher />
-        <Button
-          onClick={() => {
-            navigate({ search: undefined, pathname: '/shop/all' });
-          }}
-        >
-          resetFilters
-        </Button>
-      </Box>
-      <Box>
-        <Box>
-          <Drawer onClose={toggleDrawer(false)} open={open}>
-            <CategoryList
-              setCurrentCategoryId={setCurrentCategoryId}
-              toggleDrawer={toggleDrawer(false)}
-            />
-          </Drawer>
-          <Outlet context={currentCategoryId} />
-        </Box>
-      </Box>
+        <Grid component={Typography} variant="sectionTitle">
+          {category ? category.replaceAll('-', ' ') : 'no category'}
+        </Grid>
+      </Grid>
+      <Filters />
+      <Drawer onClose={toggleDrawer(false)} open={open}>
+        <CategoryList toggleDrawer={toggleDrawer(false)} />
+      </Drawer>
+      <Outlet />
     </Box>
   );
 };

@@ -1,4 +1,4 @@
-import Box from '@mui/material/Box';
+import { Grid } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
@@ -27,17 +27,8 @@ const Searcher = () => {
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'end',
-        gap: 1,
-        alignItems: 'center',
-        flexGrow: '1',
-      }}
-    >
+    <Grid container>
       <TextField
-        label="Search"
         onChange={e => {
           setQuery(e.target.value);
         }}
@@ -47,10 +38,7 @@ const Searcher = () => {
           }
         }}
         size="small"
-        sx={{
-          maxWidth: 'clamp(200px, 40%, 500px)',
-          width: '100%',
-        }}
+        sx={{ flexGrow: 1 }}
         value={query}
         variant="outlined"
       />
@@ -58,13 +46,12 @@ const Searcher = () => {
       <IconButton
         onClick={() => handleSearch(query)}
         sx={{
-          p: { xs: 0, sm: 1 },
           color: 'primary.main',
         }}
       >
         <Magnifier />
       </IconButton>
-    </Box>
+    </Grid>
   );
 };
 export default Searcher;

@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useLocation } from 'react-router';
@@ -102,15 +102,6 @@ const Products = () => {
 
   return (
     <Grid container justifyContent={'center'} spacing={2}>
-      <Grid
-        component={Typography}
-        size={12}
-        textAlign={'end'}
-        variant="sectionTitle"
-      >
-        {category ? category.replaceAll('-', ' ') : 'no category'}
-      </Grid>
-
       <select onChange={e => handleChangeLimit(e.target.value)}>
         <option>6</option>
         <option>9</option>

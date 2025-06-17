@@ -9,10 +9,9 @@ import CategoryResponseFormatter from './CategoryResponse';
 
 interface Props {
   toggleDrawer: (value: boolean) => void;
-  setCurrentCategoryId: (categoryID: string) => void;
 }
 
-const CategoryList = ({ toggleDrawer, setCurrentCategoryId }: Props) => {
+const CategoryList = ({ toggleDrawer }: Props) => {
   const { data } = useGetCategoriesQuery({});
   const location = useLocation();
 
@@ -39,7 +38,6 @@ const CategoryList = ({ toggleDrawer, setCurrentCategoryId }: Props) => {
           <>
             <CategoryItem
               name={'all'}
-              onClick={() => setCurrentCategoryId('all')}
               slug={'all' + location.search}
               toggleDrawer={toggleDrawer}
             />
@@ -47,7 +45,6 @@ const CategoryList = ({ toggleDrawer, setCurrentCategoryId }: Props) => {
               <CategoryItem
                 key={category.id}
                 name={category.name}
-                onClick={() => setCurrentCategoryId(category.id)}
                 slug={category.slug + location.search}
                 toggleDrawer={toggleDrawer}
               />

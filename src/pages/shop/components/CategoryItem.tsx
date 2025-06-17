@@ -6,12 +6,10 @@ interface Props {
   slug: string;
   name: string;
   toggleDrawer: (value: boolean) => void;
-  onClick: () => void;
 }
 
-const CategoryItem = ({ slug, name, toggleDrawer, onClick }: Props) => {
+const CategoryItem = ({ slug, name, toggleDrawer }: Props) => {
   const handleClick = () => {
-    onClick();
     toggleDrawer(false);
   };
 

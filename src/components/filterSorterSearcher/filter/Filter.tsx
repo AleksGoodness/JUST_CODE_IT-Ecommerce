@@ -3,10 +3,11 @@ import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 import { useDebounceCallback } from '../../../hooks/useDebounceCallback';
+import extractPriceRange from './utils/extract-price-range';
 const Filter = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [priceRange, setPriceRange] = useState<number[]>([50, 200]);
@@ -22,6 +23,7 @@ const Filter = () => {
   };
   const debouncedApplyFilters = useDebounceCallback((range: number[]) => {
     const searchParams = new URLSearchParams(location.search);
+    console.log(priceRange);
 
     searchParams.set(
       'filter',
@@ -37,11 +39,19 @@ const Filter = () => {
     debouncedApplyFilters(newValue);
   };
 
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const filterParams = searchParams.get('filter');
+    if (!filterParams) return;
+    const oldValue = extractPriceRange(filterParams);
+    if (oldValue) setPriceRange([oldValue.min, oldValue.max]);
+  }, [location.search]);
+
   const open = Boolean(anchorEl);
 
   return (
     <>
-      <Button onClick={handleOpen} variant="outlined">
+      <Button fullWidth onClick={handleOpen} size="large" variant="outlined">
         Filter
       </Button>
       <Popover

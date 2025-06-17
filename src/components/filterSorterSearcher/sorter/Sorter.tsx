@@ -35,12 +35,7 @@ const Sorter = () => {
     navigate({ search: searchParams.toString() });
   };
   return (
-    <FormControl
-      size="small"
-      sx={{
-        minWidth: '10rem',
-      }}
-    >
+    <FormControl fullWidth size="small">
       <InputLabel id="sort-label">Sort</InputLabel>
       <Select
         label="Sort"
