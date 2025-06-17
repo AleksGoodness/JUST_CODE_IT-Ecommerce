@@ -10,8 +10,8 @@ import {
   useUpdateCartMutation,
 } from '../../services/api';
 import { ECartUpdateActions } from '../../services/interfaces/updateCart.interface';
-import ProductQuantity from './pruduct_quantity';
 import Bin from '../cart_product/bin';
+import ProductQuantity from './pruduct_quantity';
 
 const Purchase = () => {
   const location = useLocation();
