@@ -10,8 +10,8 @@ import {
   useUpdateCartMutation,
 } from '../../services/api';
 import { ECartUpdateActions } from '../../services/interfaces/updateCart.interface';
-import SendOrder from './send_order';
 import CleanCart from './clean_cart';
+import SendOrder from './send_order';
 
 const Order = ({ cartItem }: { cartItem: CartDetails }) => {
   const { data: cart } = useGetActiveCartQuery({});
@@ -74,19 +74,19 @@ const Order = ({ cartItem }: { cartItem: CartDetails }) => {
           fontWeight: '500',
         }}
       >
-        PROMOCODE (greenery_promo)
+        PROMOCODE
       </Typography>
       <TextField
         disabled={isPromoLocked}
         error={isSubmitted ? !!error : false}
         id="promo"
         label="Enter promocode"
-        onChange={e => setPromoCode(e.target.value)}
         onBlur={() => {
           if (!promoCode.trim()) {
             setError('');
           }
         }}
+        onChange={e => setPromoCode(e.target.value)}
         size="small"
         sx={{
           '& .MuiInputBase-input': {

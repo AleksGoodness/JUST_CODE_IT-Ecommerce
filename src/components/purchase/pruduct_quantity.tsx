@@ -91,9 +91,7 @@ const ProductQuantity = ({
         color="primary"
         onClick={handleRemovePurchase}
         size="small"
-        sx={{
-          zIndex: 0,
-        }}
+        sx={{}}
       >
         <RemoveIcon />
       </Fab>
@@ -113,9 +111,7 @@ const ProductQuantity = ({
         color="primary"
         onClick={handleAddPurchase}
         size="small"
-        sx={{
-          zIndex: 0,
-        }}
+        sx={{}}
       >
         <AddIcon />
       </Fab>

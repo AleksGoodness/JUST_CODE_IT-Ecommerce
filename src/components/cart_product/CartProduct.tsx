@@ -45,28 +45,45 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
               display: 'grid',
               width: '100%',
               gridTemplateAreas: {
-                xs: `
-    'pic pic name name name name'
-    'pic pic price price price price'
-    'pic pic number number number bin'
+                sm: `
+    'name  name  price price price price'
+    'pic pic  price price price price'
+    'pic pic  price price price price'
+    'pic pic  price price price price'
+    'pic pic  price price price price'
+    'pic pic  nember number number bin'
+    'pic pic  nember number number bin'
   `,
-                md: `
-    'pic name name price price bin'
-    'pic name name number number bin'
+                xs: `
+    'name  name name price price price price'
+    'pic pic pic price price price price'
+    'pic pic pic price price price price'
+    'pic pic pic price price price price'
+    'pic pic pic price price price price'
+    'pic pic pic nember number bin bin'
+    'pic pic pic nember number bin bin'
   `,
               },
-              gridTemplateColumns: 'repeat(6, 1fr)',
+              gridTemplateColumns: {
+                sm: 'repeat(6, 1fr)',
+                xs: 'repeat(7, 1fr)',
+              },
               minHeight: '150px',
               height: '150px',
-              justifyItems: 'center',
+              // justifyItems: 'center',
               padding: 1,
               border: '2px solid green',
               borderRadius: 2,
-              rowGap: { sm: '10px' },
+              // rowGap: { sm: '10px' },
             }}
           >
             <Grid
-              sx={{ gridArea: 'bin', display: 'grid', placeContent: 'center' }}
+              sx={{
+                gridArea: 'bin',
+                display: 'grid',
+                placeContent: 'center',
+                justifyContent: 'end',
+              }}
             >
               <Bin lineItemId={item.id} />
             </Grid>
@@ -83,14 +100,14 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
                 src={item.image}
                 style={{
                   position: 'absolute',
-                  objectFit: 'cover',
-                  objectPosition: '50% 75%',
+                  objectFit: 'contain',
+                  // objectPosition: '50% 75%',
                   width: '100%',
                   height: '100%',
                 }}
               />
             </Grid>
-            <Grid sx={{ gridArea: 'name' }}>
+            <Grid sx={{ gridArea: 'name', justifyContent: 'center' }}>
               <Typography sx={{ justifySelf: 'center', fontWeight: 'bold' }}>
                 {item.name}
               </Typography>
@@ -113,9 +130,9 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
             </Grid>
             <Grid
               container
-              sx={{ gridArea: 'price', justifyContent: 'center' }}
+              sx={{ gridArea: 'price', justifyContent: 'center', p: 0 }}
             >
-              {discount ? (
+              {discount && item.quantity > 1 ? (
                 <>
                   <span
                     style={{
@@ -125,16 +142,36 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
                   >
                     {pricePerItem} {price}
                   </span>
-                  <span style={{ marginLeft: '5px', fontWeight: 'bold' }}>
-                    {discountPerItem} {discount} BYN
+                  <span
+                    style={{
+                      marginLeft: '5px',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    {discountPerItem} {`(${discount})`} BYN
+                  </span>
+                </>
+              ) : discount ? (
+                <>
+                  <span
+                    style={{
+                      textDecoration: 'line-through',
+                      textDecorationColor: 'red',
+                    }}
+                  >
+                    {price} BYN
+                  </span>
+                  <span
+                    style={{
+                      marginLeft: '5px',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    {discount} BYN
                   </span>
                 </>
               ) : (
-                <span
-                  style={{
-                    fontWeight: 'bold',
-                  }}
-                >
+                <span style={{ fontWeight: 'bold' }}>
                   {pricePerItem} {price} BYN
                 </span>
               )}

@@ -15,7 +15,7 @@ const Bin = ({ lineItemId }: BinProps) => {
   };
 
   return (
-    <IconButton onClick={handleDelete}>
+    <IconButton onClick={handleDelete} sx={{ p: 0 }}>
       <DeleteIcon />
     </IconButton>
   );
