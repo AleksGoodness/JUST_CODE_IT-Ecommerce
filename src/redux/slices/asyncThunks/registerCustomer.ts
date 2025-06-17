@@ -5,6 +5,7 @@ import {
   createRegistrationClient,
   loginCustomerClient,
 } from '../../../ecommerce/clientBuilder';
+import { ELocalStorage } from '../../../services/interfaces/createCart.interface';
 import { IRegisterData } from '../../interfaces';
 import { ILoginResponse } from './loginCustomer';
 
@@ -22,6 +23,7 @@ const registerCustomer = createAsyncThunk(
       if (response.statusCode === 201) {
         const autoLogin = async () => {
           try {
+            localStorage.removeItem(ELocalStorage.ctpToken);
             const client = loginCustomerClient(
               customer.email,
               customer.password,

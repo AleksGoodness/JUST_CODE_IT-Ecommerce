@@ -1,10 +1,10 @@
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router';
 
 import { LineItemModified } from '../../pages/cart/clearCartObject';
 import ProductQuantity from '../purchase/pruduct_quantity';
 import Title from '../title/Title';
-import { useNavigate } from 'react-router';
 import Bin from './bin';
 
 const CartProduct = ({ products }: { products: LineItemModified[] }) => {
@@ -13,14 +13,14 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
     <Grid container spacing={2} sx={{ width: '100%' }}>
       {products.length === 0 ? (
         <Title
-          pt={'25%'}
-          textAlign={'center'}
           onClick={() => navigate('/shop')}
+          pt={'25%'}
           style={{
             cursor: 'pointer',
             fontSize: '1.5rem',
             textDecoration: 'underline',
           }}
+          textAlign={'center'}
         >
           Your cart is empty — time to go shopping!
         </Title>
