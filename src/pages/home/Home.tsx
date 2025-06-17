@@ -1,14 +1,10 @@
+import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { motion } from 'motion/react';
 const Home = () => {
   return (
-    <Box
-      animate={{ scale: 1 }}
-      component={motion.div}
-      initial={{ scale: 0 }}
-      sx={{ padding: '26px 0' }}
-    >
+    <Box animate={{ scale: 1 }} component={motion.div} initial={{ scale: 0 }}>
       <Typography
         component="h1"
         sx={{ textAlign: 'center' }}
@@ -19,20 +15,14 @@ const Home = () => {
       <Typography sx={{ color: 'green', textAlign: 'center' }}>
         This is example of usage Material UI
       </Typography>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          marginTop: '20px',
-        }}
-      >
+      <Grid direction={'column'}>
         <Typography variant="sectionTitle">Promocode</Typography>
         <Typography
           sx={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'primary.main' }}
         >
           greenery_promo
         </Typography>
-      </Box>
+      </Grid>
     </Box>
   );
 };

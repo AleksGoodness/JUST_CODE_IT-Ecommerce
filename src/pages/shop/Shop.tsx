@@ -37,7 +37,7 @@ const Shop = () => {
   }, [category, data, navigate]);
 
   return (
-    <>
+    <Box animate={{ scale: 1 }} component={motion.div} initial={{ scale: 0 }}>
       <Box
         sx={{
           display: 'flex',
@@ -67,7 +67,7 @@ const Shop = () => {
           resetFilters
         </Button>
       </Box>
-      <Box animate={{ scale: 1 }} component={motion.div} initial={{ scale: 0 }}>
+      <Box>
         <Box>
           <Drawer onClose={toggleDrawer(false)} open={open}>
             <CategoryList
@@ -78,7 +78,7 @@ const Shop = () => {
           <Outlet context={currentCategoryId} />
         </Box>
       </Box>
-    </>
+    </Box>
   );
 };
 export default Shop;
