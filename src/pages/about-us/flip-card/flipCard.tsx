@@ -1,35 +1,19 @@
-import {
-  Box,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Grid,
-} from '@mui/material';
+import { Box, Card, CardContent, CardMedia, Grid } from '@mui/material';
 import { useState } from 'react';
 
+import { IDeveloper } from '../about-us-details/AboutUsDetails';
 import BackSide from './backSide';
 import styles from './flipCard.module.css';
 interface IFlipCardProps {
-  developer: {
-    img: string;
-    name: string;
-    role: string;
-    contributions: string[];
-    bio: string;
-    gitHub: string;
-    discord: string;
-  };
+  developer: IDeveloper;
 }
 
-const FlipCard = ({
-  developer: { img, name, role, bio, gitHub, discord },
-}: IFlipCardProps) => {
+const FlipCard = ({ developer }: IFlipCardProps) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
     <Grid component={Card} minHeight={340} size={{ xs: 12, sm: 4 }}>
-      <CardActionArea
+      <Box
         className={styles['flip-card']}
         onClick={() => setIsFlipped(!isFlipped)}
         sx={{ bgcolor: 'transparent' }}
@@ -44,12 +28,13 @@ const FlipCard = ({
         >
           <CardMedia
             className={styles['flip-card-front']}
-            image={img}
+            image={developer.img}
             sx={{
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
               alignItems: 'center',
+              backgroundPosition: 'center top',
             }}
           >
             <Box
@@ -60,7 +45,7 @@ const FlipCard = ({
               paddingBlock={2}
               paddingInline={1}
             >
-              {role}
+              {developer.role}
             </Box>
             <Box
               bgcolor={'primary.main'}
@@ -70,23 +55,17 @@ const FlipCard = ({
               paddingBlock={2}
               paddingInline={1}
             >
-              {name}
+              {developer.name}
             </Box>
           </CardMedia>
           <CardContent
             className={styles['flip-card-back']}
             sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
           >
-            <BackSide
-              bio={bio}
-              discordLink={discord}
-              gitHubLink={gitHub}
-              name={name}
-              role={role}
-            />
+            <BackSide {...developer} />
           </CardContent>
         </Box>
-      </CardActionArea>
+      </Box>
     </Grid>
   );
 };

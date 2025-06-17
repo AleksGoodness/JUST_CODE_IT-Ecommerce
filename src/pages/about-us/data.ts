@@ -27,6 +27,7 @@ const MOTTOS = [
 const DEVELOPERS = [
   {
     name: 'Aleksei Gomeniuk',
+    slug: 'aleksgoodomens',
     role: 'Frontend/React Developer',
     bio: 'Experienced React developer specializing in state management and UI implementation.',
     img: aleksAvatar,
@@ -49,6 +50,7 @@ const DEVELOPERS = [
   },
   {
     name: 'Elena Khadasevich',
+    slug: 'lena523',
     role: 'Frontend Developer',
     bio: 'Skilled in form handling and user authentication flows.',
     img: elenaAvatar,
@@ -66,6 +68,7 @@ const DEVELOPERS = [
   },
   {
     name: 'Daniyar Hapurzhonau',
+    slug: 'hapurzhonau',
     role: 'Team Lead',
     bio: 'Full-stack oriented developer with strong leadership skills.',
     img: daniarAvatar,

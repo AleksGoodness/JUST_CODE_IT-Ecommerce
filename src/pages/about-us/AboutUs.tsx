@@ -30,24 +30,18 @@ const AboutUs = () => {
         Team
       </Title>
 
-      <Grid container gap={2}>
+      <Grid container paddingBlock={4} spacing={{ xs: 1, md: 2 }}>
+        {...DEVELOPERS.map(developer => (
+          <FlipCard developer={developer} key={developer.name} />
+        ))}
+      </Grid>
+
+      <Grid container gap={2} paddingBlock={2}>
         <Title color="primary.main">Collaboration & Teamwork 🤝</Title>
         {...COLLABORATION.map((paragraph, i) => (
           <Typography key={i} variant="body1">
             {paragraph}
           </Typography>
-        ))}
-      </Grid>
-
-      <Grid
-        container
-        spacing={{ xs: 1, md: 2 }}
-        sx={{
-          mt: 2,
-        }}
-      >
-        {...DEVELOPERS.map(developer => (
-          <FlipCard developer={developer} key={developer.name} />
         ))}
       </Grid>
 

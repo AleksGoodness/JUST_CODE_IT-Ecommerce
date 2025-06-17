@@ -1,47 +1,35 @@
-import GitHubIcon from '@mui/icons-material/GitHub';
-import MessageIcon from '@mui/icons-material/Message';
-import {
-  Button,
-  Grid,
-  IconButton,
-  List,
-  ListItemText,
-  Stack,
-  Typography,
-} from '@mui/material';
-import { Link } from 'react-router';
+import { Button, Grid, List, ListItemText, Typography } from '@mui/material';
+import { useNavigate } from 'react-router';
 
-interface Props {
-  bio: string;
-  name: string;
-  role: string;
-  gitHubLink: string;
-  discordLink: string;
-}
+import { IDeveloper } from '../about-us-details/AboutUsDetails';
+import ContactMe from '../components/Contact-me';
 
-const BackSide = ({ bio, name, role, gitHubLink, discordLink }: Props) => (
-  <>
-    <Typography>{bio}</Typography>
-    <Grid component={List} flexGrow={1}>
-      <ListItemText>Name: {name}</ListItemText>
-      <ListItemText>Role: {role}</ListItemText>
-    </Grid>
-    <Stack direction={'row'} justifyContent={'center'}>
-      <Link target="_blank" to={gitHubLink}>
-        <IconButton>
-          <GitHubIcon />
-        </IconButton>
-      </Link>
+const BackSide = (props: IDeveloper) => {
+  const { bio, name, role, gitHub, discord, slug } = props;
+  const navigate = useNavigate();
 
-      <Link target="_blank" to={discordLink}>
-        <IconButton>
-          <MessageIcon />
-        </IconButton>
-      </Link>
-    </Stack>
-    <Button component={Link} to={name} variant="outlined">
-      read more
-    </Button>
-  </>
-);
+  return (
+    <>
+      <Typography>{bio}</Typography>
+      <Grid component={List} flexGrow={1}>
+        <ListItemText>Name: {name}</ListItemText>
+        <ListItemText>Role: {role}</ListItemText>
+      </Grid>
+      <ContactMe discord={discord} gitHub={gitHub} />
+
+      <Button
+        onClick={() =>
+          navigate(slug, {
+            state: {
+              developerData: props,
+            },
+          })
+        }
+        variant="outlined"
+      >
+        read more
+      </Button>
+    </>
+  );
+};
 export default BackSide;
