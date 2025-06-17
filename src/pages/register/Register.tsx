@@ -2,7 +2,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { motion } from 'motion/react';
 import { ChangeEvent, useEffect } from 'react';
@@ -119,11 +118,7 @@ export const Register = () => {
   };
 
   return (
-    <Container
-      animate={{ scale: 1 }}
-      component={motion.div}
-      initial={{ scale: 0 }}
-    >
+    <Box animate={{ scale: 1 }} component={motion.div} initial={{ scale: 0 }}>
       {isLoading ? <Loading /> : null}
       <Box
         sx={{
@@ -302,7 +297,7 @@ export const Register = () => {
           </Box>
         </FormProvider>
       </Box>
-    </Container>
+    </Box>
   );
 };
 

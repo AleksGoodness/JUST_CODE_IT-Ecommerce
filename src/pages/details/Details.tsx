@@ -1,5 +1,4 @@
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
@@ -51,127 +50,124 @@ const Details = () => {
   }, [navigate, location, category]);
 
   return (
-    <Container
+    <Grid
       animate={{ scale: 1 }}
       component={motion.div}
+      container
+      direction="row"
       initial={{ scale: 0 }}
+      spacing={4}
+      sx={{
+        marginTop: '30px',
+      }}
     >
-      <Grid
-        container
-        direction="row"
-        spacing={4}
-        sx={{
-          marginTop: '30px',
-        }}
-      >
-        <Grid size={{ md: 6, sm: 12, xs: 12 }}>
-          <Box
+      <Grid size={{ md: 6, sm: 12, xs: 12 }}>
+        <Box
+          sx={{
+            backgroundImage: `url(${myProduct?.images[0].url || Placeholder})`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            width: '100%',
+            height: '24.5rem',
+            borderRadius: '10px',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: '#f0f0f0',
+          }}
+        />
+      </Grid>
+      <Grid container direction={'column'} gap={2} size={{ md: 6, xs: 12 }}>
+        {myProduct ? (
+          <Typography
+            component={'h1'}
             sx={{
-              backgroundImage: `url(${myProduct?.images[0].url || Placeholder})`,
-              backgroundSize: 'contain',
-              backgroundPosition: 'center',
-              width: '100%',
-              height: '24.5rem',
-              borderRadius: '10px',
-              backgroundRepeat: 'no-repeat',
-              backgroundColor: '#f0f0f0',
+              lineHeight: '1',
             }}
-          />
-        </Grid>
-        <Grid container direction={'column'} gap={2} size={{ md: 6, xs: 12 }}>
-          {myProduct ? (
+            variant="sectionTitle"
+          >
+            {myProduct.name}
+          </Typography>
+        ) : (
+          <Skeleton />
+        )}
+        {myProduct ? (
+          <Box sx={{ display: 'flex', gap: '20px' }}>
             <Typography
-              component={'h1'}
               sx={{
+                fontSize: '1.2rem',
+                fontWeight: '700',
                 lineHeight: '1',
+                textDecoration: myProduct.discount ? 'line-through' : 'none',
+                textDecorationColor: 'red',
+                textDecorationThickness: '2px',
+                color: 'primary.main',
               }}
-              variant="sectionTitle"
             >
-              {myProduct.name}
+              {myProduct.price}
             </Typography>
-          ) : (
-            <Skeleton />
-          )}
-          {myProduct ? (
-            <Box sx={{ display: 'flex', gap: '20px' }}>
+            {myProduct.discount ? (
               <Typography
                 sx={{
                   fontSize: '1.2rem',
                   fontWeight: '700',
                   lineHeight: '1',
-                  textDecoration: myProduct.discount ? 'line-through' : 'none',
-                  textDecorationColor: 'red',
-                  textDecorationThickness: '2px',
-                  color: 'primary.main',
+                  color: 'red',
                 }}
               >
-                {myProduct.price}
+                {(myProduct.discount / 100).toFixed(2)} {myProduct.currency}{' '}
+                Special Offer
               </Typography>
-              {myProduct.discount ? (
-                <Typography
-                  sx={{
-                    fontSize: '1.2rem',
-                    fontWeight: '700',
-                    lineHeight: '1',
-                    color: 'red',
-                  }}
-                >
-                  {(myProduct.discount / 100).toFixed(2)} {myProduct.currency}{' '}
-                  Special Offer
-                </Typography>
-              ) : null}
-            </Box>
-          ) : (
-            <Skeleton />
-          )}
-          <Typography
-            sx={{
-              fontSize: '1.2rem',
-              fontWeight: '500',
-            }}
-          >
-            Description:
-          </Typography>
-          {myProduct ? (
-            <Typography
-              sx={{
-                fontSize: '1rem',
-                textWrap: 'wrap',
-                lineHeight: '1.2',
-                flexGrow: 1,
-              }}
-            >
-              {myProduct.description['en-US']}
-            </Typography>
-          ) : (
-            <Skeleton />
-          )}
-          <Grid component={Purchase} />
-        </Grid>
-        <Grid
-          size={{ md: 6, sm: 12, xs: 12 }}
+            ) : null}
+          </Box>
+        ) : (
+          <Skeleton />
+        )}
+        <Typography
           sx={{
-            '@media (max-width: 900px)': {
-              display: 'flex',
-              justifyContent: 'center',
-            },
+            fontSize: '1.2rem',
+            fontWeight: '500',
           }}
         >
-          {myProduct ? (
-            <Slider images={myProduct.images.map(pic => pic.url)} />
-          ) : (
-            <Skeleton />
-          )}
-        </Grid>
-        <Grid size={{ md: 6, sm: 12, xs: 12 }}>
-          {myProduct ? (
-            <AttributeBox attributes={myProduct.attributes} />
-          ) : (
-            Array.from({ length: 7 }).map((_, i) => <Skeleton key={i} />)
-          )}
-        </Grid>
+          Description:
+        </Typography>
+        {myProduct ? (
+          <Typography
+            sx={{
+              fontSize: '1rem',
+              textWrap: 'wrap',
+              lineHeight: '1.2',
+              flexGrow: 1,
+            }}
+          >
+            {myProduct.description['en-US']}
+          </Typography>
+        ) : (
+          <Skeleton />
+        )}
+        <Grid component={Purchase} />
       </Grid>
-    </Container>
+      <Grid
+        size={{ md: 6, sm: 12, xs: 12 }}
+        sx={{
+          '@media (max-width: 900px)': {
+            display: 'flex',
+            justifyContent: 'center',
+          },
+        }}
+      >
+        {myProduct ? (
+          <Slider images={myProduct.images.map(pic => pic.url)} />
+        ) : (
+          <Skeleton />
+        )}
+      </Grid>
+      <Grid size={{ md: 6, sm: 12, xs: 12 }}>
+        {myProduct ? (
+          <AttributeBox attributes={myProduct.attributes} />
+        ) : (
+          Array.from({ length: 7 }).map((_, i) => <Skeleton key={i} />)
+        )}
+      </Grid>
+    </Grid>
   );
 };
 

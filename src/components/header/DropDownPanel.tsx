@@ -1,6 +1,5 @@
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import { useEffect } from 'react';
 
@@ -46,7 +45,7 @@ const DropDownPanel = ({ setIsOpen, isOpen }: IProps) => {
         height: '100svh',
       }}
     >
-      <Container
+      <Box
         sx={{
           position: 'absolute',
           p: '1vw',
@@ -112,7 +111,7 @@ const DropDownPanel = ({ setIsOpen, isOpen }: IProps) => {
             justifySelf: 'center',
           }}
         />
-      </Container>
+      </Box>
     </Box>
   );
 };

@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useLocation } from 'react-router';
@@ -102,23 +102,27 @@ const Products = () => {
 
   return (
     <Grid container justifyContent={'center'} spacing={2}>
-      <Grid display={'flex'} justifyContent={'end'} size={12}>
-        <Typography variant="sectionTitle">
-          {category ? category.replaceAll('-', ' ') : 'no category'}
-        </Typography>
+      <Grid
+        component={Typography}
+        size={12}
+        textAlign={'end'}
+        variant="sectionTitle"
+      >
+        {category ? category.replaceAll('-', ' ') : 'no category'}
       </Grid>
 
       <select onChange={e => handleChangeLimit(e.target.value)}>
-        <option>3</option>
         <option>6</option>
         <option>9</option>
         <option>12</option>
       </select>
 
-      <Grid> {products?.limit}</Grid>
-      <Grid> {products?.count}</Grid>
-      <Grid> {products?.offset}</Grid>
-      <Grid> {products?.total}</Grid>
+      <Grid>
+        Total items
+        <Box color={'primary.main'} component={'span'}>
+          {products?.total}
+        </Box>
+      </Grid>
 
       <Grid container>
         {goods.length && cart
@@ -126,11 +130,7 @@ const Products = () => {
               const shortDescription = card.description.slice(0, 80);
               const formattedPrice = (card.price / 100).toFixed(2);
               return (
-                <Grid
-                  container
-                  key={card.id}
-                  size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
-                >
+                <Grid key={card.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                   <Product
                     isLoading={isLoadingProcess}
                     {...card}

@@ -1,4 +1,5 @@
 import { Grid } from '@mui/material';
+import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 
 import CartProduct from '../../components/cart_product/CartProduct';
@@ -23,7 +24,13 @@ const Basket = () => {
         Products in the cart {isError ? 'error' : ''}{' '}
         {isLoading ? 'loading...' : ''}
       </h2>
-      <Grid container spacing={4}>
+      <Grid
+        animate={{ scale: 1 }}
+        component={motion.div}
+        container
+        initial={{ scale: 0 }}
+        spacing={4}
+      >
         <Grid
           container
           size={{ md: 7, sm: 12, xs: 12 }}

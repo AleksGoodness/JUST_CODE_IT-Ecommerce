@@ -1,13 +1,11 @@
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { motion } from 'motion/react';
 const Home = () => {
   return (
-    <Container
+    <Box
       animate={{ scale: 1 }}
       component={motion.div}
-      disableGutters
       initial={{ scale: 0 }}
       sx={{ padding: '26px 0' }}
     >
@@ -35,7 +33,7 @@ const Home = () => {
           greenery_promo
         </Typography>
       </Box>
-    </Container>
+    </Box>
   );
 };
 export default Home;

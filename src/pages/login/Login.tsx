@@ -2,8 +2,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {
+  Box,
   Button,
-  Container,
   Grid,
   IconButton,
   InputAdornment,
@@ -96,11 +96,7 @@ const Login = () => {
   };
 
   return (
-    <Container
-      animate={{ scale: 1 }}
-      component={motion.div}
-      initial={{ scale: 0 }}
-    >
+    <Box animate={{ scale: 1 }} component={motion.div} initial={{ scale: 0 }}>
       {isLoading ? <Loading /> : null}
 
       <Typography
@@ -164,7 +160,7 @@ const Login = () => {
           Login
         </Grid>
       </Grid>
-    </Container>
+    </Box>
   );
 };
 
