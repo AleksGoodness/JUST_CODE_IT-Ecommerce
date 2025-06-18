@@ -1,8 +1,9 @@
 import { Grid } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useLocation } from 'react-router';
 
 import {} from '../../../services/api';
 import Magnifier from '../../header/Magnifier/Magnifier';
@@ -11,6 +12,7 @@ const Searcher = () => {
   const [query, setQuery] = useState('');
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSearch = async (keyword: string) => {
     const currentSearch = new URLSearchParams(location.search);
@@ -25,6 +27,12 @@ const Searcher = () => {
     }
     navigate({ search: currentSearch.toString() });
   };
+
+  useEffect(() => {
+    const currentSearch = new URLSearchParams(location.search);
+    const searchQuery = currentSearch.get('text.en-US');
+    if (searchQuery) setQuery(searchQuery);
+  }, [location.search]);
 
   return (
     <Grid container>

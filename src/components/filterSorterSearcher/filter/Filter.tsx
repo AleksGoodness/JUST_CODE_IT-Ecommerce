@@ -23,7 +23,6 @@ const Filter = () => {
   };
   const debouncedApplyFilters = useDebounceCallback((range: number[]) => {
     const searchParams = new URLSearchParams(location.search);
-    console.log(priceRange);
 
     searchParams.set(
       'filter',

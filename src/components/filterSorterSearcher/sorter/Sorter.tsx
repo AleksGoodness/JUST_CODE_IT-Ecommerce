@@ -3,11 +3,13 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
 import { useNavigate } from 'react-router';
 
 const Sorter = () => {
   const [sortOption, setSortOption] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -15,7 +17,7 @@ const Sorter = () => {
     initialSortOption = initialSortOption.split(' ').join('-');
 
     if (initialSortOption !== sortOption) setSortOption(initialSortOption);
-  }, [sortOption]);
+  }, [sortOption, location.search]);
 
   const handleChange = (event: SelectChangeEvent) => {
     const newValue = event.target.value;
