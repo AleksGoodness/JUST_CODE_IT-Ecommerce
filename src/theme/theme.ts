@@ -49,7 +49,7 @@ const commonComponents: Components<Theme> = {
   MuiButton: {
     styleOverrides: {
       root: {
-        textTransform: 'capitalize',
+        textTransform: 'uppercase',
         fontWeight: '500',
       },
     },
@@ -154,7 +154,7 @@ export const lightTheme = createTheme({
     },
     background: {
       default: '#FFFFFF',
-      paper: '#FBFBFB',
+      paper: '#f2fcf4',
     },
   },
 });
@@ -179,7 +179,7 @@ export const darkTheme = createTheme({
     },
     background: {
       default: '#1E1E1E',
-      paper: '#1E1E1E',
+      paper: '#1a1919',
     },
   },
 });

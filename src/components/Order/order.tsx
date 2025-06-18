@@ -68,6 +68,7 @@ const Order = ({ cartItem }: { cartItem: CartDetails }) => {
   };
   return (
     <Grid
+      bgcolor={'background.paper'}
       border={'2px solid'}
       borderColor={'primary.main'}
       borderRadius={2}

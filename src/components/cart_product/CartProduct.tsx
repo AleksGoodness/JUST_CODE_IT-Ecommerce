@@ -41,6 +41,7 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
             key={index}
             spacing={1}
             sx={{
+              bgcolor: 'background.paper',
               display: 'grid',
               width: '100%',
               gridTemplateAreas: {
