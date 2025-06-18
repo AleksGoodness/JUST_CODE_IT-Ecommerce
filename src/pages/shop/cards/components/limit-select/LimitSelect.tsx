@@ -11,7 +11,7 @@ import { useLocation, useNavigate } from 'react-router';
 const LimitSelect = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [limit, setLimit] = useState(6);
+  const [limit, setLimit] = useState(4);
 
   const handleChange = (event: SelectChangeEvent<number>) => {
     const newLimit = Number(event.target.value);
@@ -25,7 +25,7 @@ const LimitSelect = () => {
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const oldLimit = searchParams.get('limit');
-    const parsedLimit = oldLimit ? parseInt(oldLimit) : 6;
+    const parsedLimit = oldLimit ? parseInt(oldLimit) : 4;
 
     if (!isNaN(parsedLimit)) {
       setLimit(parsedLimit);
@@ -42,8 +42,8 @@ const LimitSelect = () => {
         onChange={handleChange}
         value={limit}
       >
-        <MenuItem value={6}>6</MenuItem>
-        <MenuItem value={9}>9</MenuItem>
+        <MenuItem value={4}>4</MenuItem>
+        <MenuItem value={8}>8</MenuItem>
         <MenuItem value={12}>12</MenuItem>
       </Select>
     </FormControl>

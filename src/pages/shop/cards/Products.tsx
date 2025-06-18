@@ -1,4 +1,4 @@
-import { Badge, Grid, Typography } from '@mui/material';
+import { Badge, Box, Grid, Skeleton, Typography } from '@mui/material';
 import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router';
 import { useLocation } from 'react-router';
@@ -9,10 +9,6 @@ import {
   useGetProductsQuery,
   useUpdateCartMutation,
 } from '../../../services/api';
-import {
-  ICLearProduct,
-  IProduct,
-} from '../../../services/interfaces/products.interfaces';
 import { ECartUpdateActions } from '../../../services/interfaces/updateCart.interface';
 import Pagination from '../Pagination/Pagination';
 import LimitSelect from './components/limit-select/LimitSelect';
@@ -22,7 +18,6 @@ import clearProduct from './utils/clearProducts';
 const Products = () => {
   const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const { category } = useParams();
-  const [goods, setGoods] = useState<ICLearProduct[]>([]);
   const location = useLocation();
 
   const { data: categoriesData } = useGetCategoriesQuery({});
@@ -38,10 +33,18 @@ const Products = () => {
     return found?.id;
   }, [category, categoriesData]);
 
+  const [limitSkeleton, setLimitSkeleton] = useState(4);
+
   const searchParams = useMemo(() => {
     const params = new URLSearchParams(location.search);
     const limit = params.get('limit');
-    if (!limit) params.set('limit', '6');
+
+    if (!limit) {
+      params.set('limit', '4');
+    } else {
+      setLimitSkeleton(Number(limit));
+    }
+
     if (currentCategoryId) {
       params.set('filter.query', `categories.id:"${currentCategoryId}"`);
     } else {
@@ -51,9 +54,12 @@ const Products = () => {
     return params.toString();
   }, [location.search, currentCategoryId]);
   //! get new products
-  const { data: products } = useGetProductsQuery(`/search?${searchParams}`, {
-    skip: !category,
-  });
+  const { data: products, isFetching } = useGetProductsQuery(
+    `/search?${searchParams}`,
+    {
+      skip: !category,
+    },
+  );
 
   const handleAddToCart = async (productId: string) => {
     if (cart && !isLoadingProcess) {
@@ -84,14 +90,6 @@ const Products = () => {
     }
   }, [cart]);
 
-  useEffect(() => {
-    const handleCleanResults = (value: IProduct[]) => {
-      const formattedData = value.map(item => clearProduct(item));
-      setGoods(formattedData);
-    };
-    if (products) handleCleanResults(products.results);
-  }, [products, location.search]);
-
   return (
     <Grid
       container
@@ -100,10 +98,10 @@ const Products = () => {
       paddingBlock={2}
       spacing={2}
     >
-      <Grid alignItems={'center'} container justifyContent={'center'}>
+      <Grid alignItems={'center'} container gap={5} justifyContent={'center'}>
         <LimitSelect />
 
-        <Typography>Total items</Typography>
+        <Typography>Total items: </Typography>
         <Badge
           badgeContent={
             <Typography fontSize={'2rem'}>{products?.total}</Typography>
@@ -120,8 +118,50 @@ const Products = () => {
       )}
 
       <Grid container>
-        {goods.length && cart
-          ? goods.map(card => {
+        {isFetching
+          ? [...Array.from(Array(limitSkeleton))].map(item => (
+              <Grid
+                height={540}
+                key={item}
+                size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
+                sx={{
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                }}
+              >
+                <Skeleton
+                  sx={{
+                    height: 360,
+                    width: '100%',
+                    transform: 'scale(1)',
+                  }}
+                  variant="rectangular"
+                />
+
+                <Box
+                  sx={{
+                    height: 180,
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px',
+                  }}
+                >
+                  <Skeleton height={24} width="70%" />
+                  <Skeleton height={20} width="90%" />
+                  <Box sx={{ flexGrow: 1 }} />
+                  <Skeleton
+                    height={20}
+                    sx={{ alignSelf: 'flex-end' }}
+                    width="40%"
+                  />
+                </Box>
+              </Grid>
+            ))
+          : null}
+        {products?.results && cart && !isFetching
+          ? products.results.map(product => {
+              const card = clearProduct(product);
               const shortDescription = card.description.slice(0, 80);
               const formattedPrice = (card.price / 100).toFixed(2);
               return (
