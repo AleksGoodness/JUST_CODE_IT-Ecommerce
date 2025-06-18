@@ -14,7 +14,6 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
       {products.length === 0 ? (
         <Title
           onClick={() => navigate('/shop')}
-          pt={'25%'}
           style={{
             cursor: 'pointer',
             fontSize: '1.5rem',

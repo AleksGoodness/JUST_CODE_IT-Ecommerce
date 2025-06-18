@@ -93,10 +93,16 @@ const Products = () => {
   }, [products, location.search]);
 
   return (
-    <Grid container justifyContent={'center'} paddingBlock={2} spacing={2}>
-      <LimitSelect />
+    <Grid
+      container
+      direction={'column'}
+      justifyContent={'center'}
+      paddingBlock={2}
+      spacing={2}
+    >
+      <Grid alignItems={'center'} container justifyContent={'center'}>
+        <LimitSelect />
 
-      <Grid alignItems={'center'} container>
         <Typography>Total items</Typography>
         <Badge
           badgeContent={
