@@ -110,7 +110,7 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
               <Link
                 component={'button'}
                 onClick={() =>
-                  navigate(`/shop/${item.name}`, { state: item.productId })
+                  navigate(`/shop/all/${item.name}`, { state: item.productId })
                 }
                 sx={{
                   justifySelf: 'center',
