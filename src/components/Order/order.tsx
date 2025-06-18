@@ -1,3 +1,4 @@
+import { Grid } from '@mui/material';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
@@ -10,8 +11,8 @@ import {
   useUpdateCartMutation,
 } from '../../services/api';
 import { ECartUpdateActions } from '../../services/interfaces/updateCart.interface';
-import CleanCart from './clean_cart';
-import SendOrder from './send_order';
+import CleanCart from './components/clean_cart';
+import SendOrder from './components/send_order';
 
 const Order = ({ cartItem }: { cartItem: CartDetails }) => {
   const { data: cart } = useGetActiveCartQuery({});
@@ -66,7 +67,16 @@ const Order = ({ cartItem }: { cartItem: CartDetails }) => {
     }
   };
   return (
-    <>
+    <Grid
+      border={'2px solid'}
+      borderColor={'primary.main'}
+      borderRadius={2}
+      container
+      direction={'column'}
+      gap={2}
+      p={2}
+      size={{ md: 5, sm: 12, xs: 12 }}
+    >
       <Typography
         sx={{
           textAlign: 'center',
@@ -134,7 +144,7 @@ const Order = ({ cartItem }: { cartItem: CartDetails }) => {
       <Divider />
       <SendOrder onCartDeleted={handleCartDeleted} />
       <CleanCart />
-    </>
+    </Grid>
   );
 };
 

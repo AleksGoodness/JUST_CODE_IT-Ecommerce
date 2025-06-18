@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import { useNavigate } from 'react-router';
 
 import { LineItemModified } from '../../pages/cart/clearCartObject';
-import ProductQuantity from '../purchase/pruduct_quantity';
+import ProductQuantity from '../purchase/product_quantity';
 import Title from '../title/Title';
 import Bin from './bin';
 

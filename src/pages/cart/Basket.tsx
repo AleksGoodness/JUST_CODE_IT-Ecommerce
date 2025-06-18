@@ -53,20 +53,8 @@ const Basket = () => {
         >
           {clearCart ? <CartProduct products={clearCart.products} /> : null}
         </Grid>
-        <Grid
-          size={{ md: 5, sm: 12, xs: 12 }}
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '15px',
-            border: '2px solid green',
-            borderRadius: '8px',
-            padding: '20px',
-            maxHeight: '500px',
-          }}
-        >
-          {clearCart ? <Order cartItem={clearCart} /> : ''}
-        </Grid>
+
+        {clearCart ? <Order cartItem={clearCart} /> : null}
       </Grid>
     </>
   );
