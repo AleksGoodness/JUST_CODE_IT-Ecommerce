@@ -136,7 +136,9 @@ const Products = () => {
       </Grid>
 
       {products ? (
-        <Pagination limit={products.limit} total={products.total} />
+        <Grid container justifyContent={'center'}>
+          <Pagination limit={products.limit} total={products.total} />
+        </Grid>
       ) : (
         ''
       )}
