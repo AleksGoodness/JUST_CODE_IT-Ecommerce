@@ -1,4 +1,3 @@
-import { Grid, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
@@ -12,7 +11,7 @@ import {
 } from '../../services/api';
 import { ECartUpdateActions } from '../../services/interfaces/updateCart.interface';
 import Bin from '../cart_product/bin';
-import ProductQuantity from './pruduct_quantity';
+import ProductQuantity from './product_quantity';
 
 const Purchase = () => {
   const location = useLocation();
@@ -94,14 +93,10 @@ const Purchase = () => {
           sx={{ minWidth: 'fit-content' }}
           variant={activeButton === 'second' ? 'contained' : 'outlined'}
         >
-          ADD TO CART
+          {lineItem ? 'UPDATE IN CART' : 'ADD TO CART'}
         </Button>
-        <Grid container sx={{ minWidth: 'fit-content' }}>
-          {lineItem ? (
-            <Typography color="warning">In the Cart</Typography>
-          ) : null}
-          {lineItem ? <Bin lineItemId={lineItem.id} /> : null}
-        </Grid>
+
+        {lineItem ? <Bin lineItemId={lineItem.id} /> : null}
       </Box>
     </Box>
   );
