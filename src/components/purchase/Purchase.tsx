@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
@@ -69,6 +69,7 @@ const Purchase = () => {
       <Box
         sx={{
           display: 'flex',
+          flexWrap: 'wrap',
           alignItems: 'center',
           gap: 2,
           '@media (max-width: 480px)': {
@@ -82,22 +83,25 @@ const Purchase = () => {
             setActiveButton('first');
             navigate('/cart');
           }}
+          sx={{ minWidth: 'fit-content' }}
           variant={activeButton === 'first' ? 'contained' : 'outlined'}
         >
           BUY NOW
         </Button>
 
-        {lineItem ? (
-          <Typography>In the Cart</Typography>
-        ) : (
-          <Button
-            onClick={() => handleAddProduct()}
-            variant={activeButton === 'second' ? 'contained' : 'outlined'}
-          >
-            ADD TO CART
-          </Button>
-        )}
-        {lineItem ? <Bin lineItemId={lineItem.id} /> : null}
+        <Button
+          onClick={() => handleAddProduct()}
+          sx={{ minWidth: 'fit-content' }}
+          variant={activeButton === 'second' ? 'contained' : 'outlined'}
+        >
+          ADD TO CART
+        </Button>
+        <Grid container sx={{ minWidth: 'fit-content' }}>
+          {lineItem ? (
+            <Typography color="warning">In the Cart</Typography>
+          ) : null}
+          {lineItem ? <Bin lineItemId={lineItem.id} /> : null}
+        </Grid>
       </Box>
     </Box>
   );
