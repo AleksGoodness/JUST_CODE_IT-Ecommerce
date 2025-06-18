@@ -132,17 +132,26 @@ const Product = ({
             {price} {currency}
           </Typography>
           {discount ? (
-            <Typography
-              sx={{
-                marginTop: '5px',
-                fontSize: '1rem',
-                fontWeight: '700',
-                lineHeight: '1',
-                color: 'red',
-              }}
-            >
-              {(discount / 100).toFixed(2)} {currency} Special Offer
-            </Typography>
+            <>
+              <Typography
+                color="error"
+                sx={{
+                  fontWeight: '700',
+                  lineHeight: '1',
+                }}
+              >
+                Special Offer
+              </Typography>
+              <Typography
+                color="error"
+                sx={{
+                  fontWeight: '700',
+                  lineHeight: '1',
+                }}
+              >
+                {(discount / 100).toFixed(2)} {currency}
+              </Typography>
+            </>
           ) : null}
         </CardContent>
       </CardActionArea>

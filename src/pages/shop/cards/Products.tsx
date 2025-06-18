@@ -123,7 +123,7 @@ const Products = () => {
               <Grid
                 height={540}
                 key={item}
-                size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
+                size={{ xs: 12, sm: 6, md: 3 }}
                 sx={{
                   borderRadius: '8px',
                   overflow: 'hidden',
@@ -165,7 +165,7 @@ const Products = () => {
               const shortDescription = card.description.slice(0, 80);
               const formattedPrice = (card.price / 100).toFixed(2);
               return (
-                <Grid key={card.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                <Grid key={card.id} size={{ xs: 12, sm: 6, md: 3 }}>
                   <Product
                     isLoading={isLoadingProcess}
                     {...card}
