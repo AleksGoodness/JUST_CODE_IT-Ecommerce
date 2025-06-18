@@ -1,6 +1,6 @@
 import { Box, Grid } from '@mui/material';
 import { useEffect, useMemo, useState } from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { useLocation } from 'react-router';
 
 import {
@@ -15,11 +15,11 @@ import {
 } from '../../../services/interfaces/products.interfaces';
 import { ECartUpdateActions } from '../../../services/interfaces/updateCart.interface';
 import Pagination from '../Pagination/Pagination';
+import LimitSelect from './components/limit-select/LimitSelect';
 import Product from './Product';
 import clearProduct from './utils/clearProducts';
 
 const Products = () => {
-  const navigate = useNavigate();
   const [isLoadingProcess, setIsLoadingProcess] = useState(false);
   const { category } = useParams();
   const [goods, setGoods] = useState<ICLearProduct[]>([]);
@@ -75,16 +75,6 @@ const Products = () => {
 
   const [itemsInCart, setItemsInCart] = useState<string[]>([]);
 
-  const handleChangeLimit = (v: string) => {
-    const searchParams = new URLSearchParams(location.search);
-
-    searchParams.set('limit', v);
-
-    console.log(v, searchParams);
-
-    navigate({ search: searchParams.toString() });
-  };
-
   useEffect(() => {
     if (cart) {
       setItemsInCart(cart.lineItems.map(item => item.productId));
@@ -102,11 +92,7 @@ const Products = () => {
 
   return (
     <Grid container justifyContent={'center'} spacing={2}>
-      <select onChange={e => handleChangeLimit(e.target.value)}>
-        <option>6</option>
-        <option>9</option>
-        <option>12</option>
-      </select>
+      <LimitSelect />
 
       <Grid>
         Total items

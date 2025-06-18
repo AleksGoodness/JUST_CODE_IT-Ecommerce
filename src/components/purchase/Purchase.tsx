@@ -15,7 +15,6 @@ import ProductQuantity from './pruduct_quantity';
 
 const Purchase = () => {
   const location = useLocation();
-  console.log(location.state);
   const { data: product } = useGetProductQuery(`/${location.state}`, {
     skip: !location.state,
   });

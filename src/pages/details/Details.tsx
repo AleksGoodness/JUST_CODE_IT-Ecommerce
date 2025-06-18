@@ -18,7 +18,6 @@ import Placeholder from './defaultimg/default.jpg';
 const Details = () => {
   const { category } = useParams();
   const location = useLocation();
-  console.log(location.state);
   const { data } = useGetProductQuery(`/${location.state}`, {
     skip: !location.state,
   });
