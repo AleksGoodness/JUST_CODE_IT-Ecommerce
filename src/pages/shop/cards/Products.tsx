@@ -1,4 +1,4 @@
-import { Box, Grid } from '@mui/material';
+import { Badge, Grid, Typography } from '@mui/material';
 import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router';
 import { useLocation } from 'react-router';
@@ -40,6 +40,8 @@ const Products = () => {
 
   const searchParams = useMemo(() => {
     const params = new URLSearchParams(location.search);
+    const limit = params.get('limit');
+    if (!limit) params.set('limit', '6');
     if (currentCategoryId) {
       params.set('filter.query', `categories.id:"${currentCategoryId}"`);
     } else {
@@ -94,11 +96,14 @@ const Products = () => {
     <Grid container justifyContent={'center'} spacing={2}>
       <LimitSelect />
 
-      <Grid>
-        Total items
-        <Box color={'primary.main'} component={'span'}>
-          {products?.total}
-        </Box>
+      <Grid alignItems={'center'} container>
+        <Typography>Total items</Typography>
+        <Badge
+          badgeContent={
+            <Typography fontSize={'2rem'}>{products?.total}</Typography>
+          }
+          color="primary"
+        />
       </Grid>
 
       <Grid container>
