@@ -1,5 +1,5 @@
+import { Link } from '@mui/material';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router';
 
 import { LineItemModified } from '../../pages/cart/clearCartObject';
@@ -107,9 +107,21 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
               />
             </Grid>
             <Grid sx={{ gridArea: 'name', justifyContent: 'center' }}>
-              <Typography sx={{ justifySelf: 'center', fontWeight: 'bold' }}>
+              <Link
+                component={'button'}
+                onClick={() =>
+                  navigate(`/shop/${item.name}`, { state: item.productId })
+                }
+                sx={{
+                  justifySelf: 'center',
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                  display: 'block',
+                }}
+                underline="none"
+              >
                 {item.name}
-              </Typography>
+              </Link>
             </Grid>
             <Grid
               sx={{

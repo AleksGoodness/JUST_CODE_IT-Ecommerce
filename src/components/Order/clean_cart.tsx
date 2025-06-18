@@ -1,10 +1,11 @@
 import Button from '@mui/material/Button';
+import { toast } from 'react-toastify';
+
 //import { toast } from 'react-toastify';
 import {
-  useUpdateCartMutation,
   useGetActiveCartQuery,
+  useUpdateCartMutation,
 } from '../../services/api';
-import { toast } from 'react-toastify';
 
 const CleanCart = () => {
   const { data: cart } = useGetActiveCartQuery({});
@@ -33,7 +34,8 @@ const CleanCart = () => {
   return (
     <Button
       onClick={handleClearCart}
-      sx={{ minHeight: '40px', backgroundColor: 'red' }}
+      size="large"
+      sx={{ backgroundColor: 'error.main' }}
       variant="contained"
     >
       CLEAR CART
