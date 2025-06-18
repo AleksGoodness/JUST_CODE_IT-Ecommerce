@@ -33,6 +33,7 @@ const Basket = () => {
       >
         <Grid
           container
+          direction={'column'}
           size={{ md: 7, sm: 12, xs: 12 }}
           spacing={1}
           sx={{

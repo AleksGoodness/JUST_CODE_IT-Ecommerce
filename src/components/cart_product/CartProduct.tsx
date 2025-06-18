@@ -1,4 +1,4 @@
-import { Link } from '@mui/material';
+import { Box, Link } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useNavigate } from 'react-router';
 
@@ -45,22 +45,16 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
               width: '100%',
               gridTemplateAreas: {
                 sm: `
-    'name  name  price price price price'
-    'pic pic  price price price price'
-    'pic pic  price price price price'
-    'pic pic  price price price price'
-    'pic pic  price price price price'
-    'pic pic  nember number number bin'
-    'pic pic  nember number number bin'
+    'pic  name  name name name name'
+    'pic  price  price price price price'
+    'pic price  price price price price'
+    'pic .  number number number bin'
   `,
                 xs: `
-    'name  name name price price price price'
-    'pic pic pic price price price price'
-    'pic pic pic price price price price'
-    'pic pic pic price price price price'
-    'pic pic pic price price price price'
-    'pic pic pic nember number bin bin'
-    'pic pic pic nember number bin bin'
+    'name  name name name name name name'
+    'pic  pic price price price price price'
+    'pic pic price price price price price'
+    'pic pic number number number number bin'
   `,
               },
               gridTemplateColumns: {
@@ -93,16 +87,18 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
                 width: '100%',
               }}
             >
-              <img
+              <Box
                 alt="product"
+                component={'img'}
                 loading="lazy"
                 src={item.image}
-                style={{
+                sx={{
                   position: 'absolute',
-                  objectFit: 'contain',
-                  // objectPosition: '50% 75%',
-                  width: '100%',
+                  objectFit: 'cover',
                   height: '100%',
+                  width: '100%',
+                  borderRadius: 2,
+                  aspectRatio: '1/1',
                 }}
               />
             </Grid>
