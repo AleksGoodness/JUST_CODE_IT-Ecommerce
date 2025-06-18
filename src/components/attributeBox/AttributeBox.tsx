@@ -61,7 +61,7 @@ const AttributeBox = ({ attributes }: { attributes: Attribute[] }) => {
       container
       direction={'column'}
       elevation={5}
-      p={2}
+      p={{ xs: 1, md: 2 }}
       spacing={1}
       sx={{
         border: '3px solid',
@@ -81,8 +81,8 @@ const AttributeBox = ({ attributes }: { attributes: Attribute[] }) => {
           <item.icon color="primary" />
 
           <Typography
+            fontSize={{ xs: '0.8rem', sm: '1rem' }}
             sx={{
-              fontSize: '1rem',
               fontWeight: '500',
               lineHeight: '1',
               color: 'primary',
@@ -101,8 +101,8 @@ const AttributeBox = ({ attributes }: { attributes: Attribute[] }) => {
             }}
           />
           <Typography
+            fontSize={{ xs: '0.8rem', md: '1rem' }}
             sx={{
-              fontSize: '1rem',
               fontWeight: '500',
               lineHeight: '1',
               color: 'primary',

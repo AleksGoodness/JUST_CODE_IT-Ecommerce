@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
@@ -68,6 +69,7 @@ const Purchase = () => {
       <Box
         sx={{
           display: 'flex',
+          alignItems: 'center',
           gap: 2,
           '@media (max-width: 480px)': {
             justifyContent: 'center',
@@ -85,13 +87,17 @@ const Purchase = () => {
           BUY NOW
         </Button>
 
-        <Button
-          onClick={() => handleAddProduct()}
-          variant={activeButton === 'second' ? 'contained' : 'outlined'}
-        >
-          ADD TO CART
-        </Button>
-        <Button>{lineItem ? <Bin lineItemId={lineItem.id} /> : null}</Button>
+        {lineItem ? (
+          <Typography>In the Cart</Typography>
+        ) : (
+          <Button
+            onClick={() => handleAddProduct()}
+            variant={activeButton === 'second' ? 'contained' : 'outlined'}
+          >
+            ADD TO CART
+          </Button>
+        )}
+        {lineItem ? <Bin lineItemId={lineItem.id} /> : null}
       </Box>
     </Box>
   );

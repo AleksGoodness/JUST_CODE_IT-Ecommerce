@@ -36,7 +36,6 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
           item.quantity === 1
             ? ''
             : (Number(discount) / item.quantity).toFixed(2);
-        console.log(discountPerItem);
         return (
           <Grid
             key={index}
