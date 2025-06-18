@@ -11,6 +11,7 @@ import {
   useUpdateCartMutation,
 } from '../../services/api';
 import { ECartUpdateActions } from '../../services/interfaces/updateCart.interface';
+import Title from '../title/Title';
 import CleanCart from './components/clean_cart';
 import SendOrder from './components/send_order';
 
@@ -68,6 +69,7 @@ const Order = ({ cartItem }: { cartItem: CartDetails }) => {
   };
   return (
     <Grid
+      alignSelf={'flex-start'}
       bgcolor={'background.paper'}
       border={'2px solid'}
       borderColor={'primary.main'}
@@ -75,18 +77,17 @@ const Order = ({ cartItem }: { cartItem: CartDetails }) => {
       container
       direction={'column'}
       gap={2}
-      p={2}
-      size={{ md: 5, sm: 12, xs: 12 }}
+      p={{ xs: 2, sm: 1, md: 2 }}
+      size={{ xs: 12, sm: 4, md: 6 }}
     >
-      <Typography
+      <Title
         sx={{
           textAlign: 'center',
-          fontSize: '1.3rem',
-          fontWeight: '500',
         }}
+        variant="subheader"
       >
-        PROMOCODE
-      </Typography>
+        PROMO CODE
+      </Title>
       <TextField
         disabled={isPromoLocked}
         error={isSubmitted ? !!error : false}
@@ -110,38 +111,44 @@ const Order = ({ cartItem }: { cartItem: CartDetails }) => {
       />
       <Button
         onClick={handleApplyPromocode}
-        sx={{ minHeight: '40px' }}
+        sx={{ fontSize: '0.8rem' }}
         variant="contained"
       >
-        APPLY PROMOCODE
+        APPLY PROMO CODE
       </Button>
       <Divider />
-      <Typography
-        sx={{
-          fontSize: '1.1rem',
-          textAlign: 'center',
-        }}
-      >
-        Order total
-      </Typography>
-      <Typography>
-        {(cartItem.finalPrice.centAmount / 100).toFixed(2)} BYN
-      </Typography>
-      <Divider />
-      <Typography
-        sx={{
-          fontSize: '1.1rem',
-          textAlign: 'center',
-        }}
-      >
-        Total
-      </Typography>
-      <Typography>
-        {cartItem.totalPriceWithDiscount
-          ? (cartItem.totalPriceWithDiscount / 100).toFixed(2)
-          : (cartItem.finalPrice.centAmount / 100).toFixed(2)}{' '}
-        BYN
-      </Typography>
+      <Grid container>
+        <Grid size={{ xs: 12, md: 6 }}>
+          <Typography
+            sx={{
+              fontSize: '1.1rem',
+              textAlign: 'center',
+            }}
+          >
+            Order total
+          </Typography>
+          <Typography>
+            {(cartItem.finalPrice.centAmount / 100).toFixed(2)} BYN
+          </Typography>
+        </Grid>
+        {/* <Grid component={Divider} size={12} /> */}
+        <Grid size={{ xs: 12, md: 6 }}>
+          <Typography
+            sx={{
+              fontSize: '1.1rem',
+              textAlign: 'center',
+            }}
+          >
+            Total
+          </Typography>
+          <Typography>
+            {cartItem.totalPriceWithDiscount
+              ? (cartItem.totalPriceWithDiscount / 100).toFixed(2)
+              : (cartItem.finalPrice.centAmount / 100).toFixed(2)}{' '}
+            BYN
+          </Typography>
+        </Grid>
+      </Grid>
       <Divider />
       <SendOrder onCartDeleted={handleCartDeleted} />
       <CleanCart />

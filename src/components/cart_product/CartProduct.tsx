@@ -10,7 +10,7 @@ import Bin from './bin';
 const CartProduct = ({ products }: { products: LineItemModified[] }) => {
   const navigate = useNavigate();
   return (
-    <Grid container spacing={2} sx={{ width: '100%' }}>
+    <Grid container spacing={2}>
       {products.length === 0 ? (
         <Title
           onClick={() => navigate('/shop')}
@@ -28,12 +28,13 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
         const price = ((item.price * item.quantity) / 100).toFixed(2);
         const discount = item.discount
           ? ((item.discount / 100) * item.quantity).toFixed(2)
-          : '';
+          : null;
         const pricePerItem =
           item.quantity === 1 ? '' : (item.price / 100).toFixed(2);
+
         const discountPerItem =
-          item.quantity === 1
-            ? ''
+          item.quantity === 1 || !discount
+            ? null
             : (Number(discount) / item.quantity).toFixed(2);
         return (
           <Grid
@@ -48,7 +49,7 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
     'pic  name  name name name name'
     'pic  price  price price price price'
     'pic price  price price price price'
-    'pic .  number number number bin'
+    'pic .  number number bin .'
   `,
                 xs: `
     'name  name name name name name name'
@@ -62,12 +63,9 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
                 xs: 'repeat(7, 1fr)',
               },
               minHeight: '150px',
-              height: '150px',
-              // justifyItems: 'center',
               padding: 1,
               border: '2px solid green',
               borderRadius: 2,
-              // rowGap: { sm: '10px' },
             }}
           >
             <Grid
@@ -137,51 +135,53 @@ const CartProduct = ({ products }: { products: LineItemModified[] }) => {
             </Grid>
             <Grid
               container
-              sx={{ gridArea: 'price', justifyContent: 'center', p: 0 }}
+              fontSize={{ xs: '1rem', sm: 'clamp(0.8rem, 1.5vw, 1rem)' }}
+              sx={{ gridArea: 'price', padding: 2 }}
             >
-              {discount && item.quantity > 1 ? (
-                <>
-                  <span
-                    style={{
-                      textDecoration: 'line-through',
-                      textDecorationColor: 'red',
-                    }}
-                  >
-                    {pricePerItem} {price}
-                  </span>
-                  <span
-                    style={{
-                      marginLeft: '5px',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    {discountPerItem} {`(${discount})`} BYN
-                  </span>
-                </>
-              ) : discount ? (
-                <>
-                  <span
-                    style={{
-                      textDecoration: 'line-through',
-                      textDecorationColor: 'red',
-                    }}
-                  >
-                    {price} BYN
-                  </span>
-                  <span
-                    style={{
-                      marginLeft: '5px',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    {discount} BYN
-                  </span>
-                </>
-              ) : (
-                <span style={{ fontWeight: 'bold' }}>
-                  {pricePerItem} {price} BYN
-                </span>
-              )}
+              {pricePerItem ? (
+                <Grid
+                  color={discount ? 'warning.main' : 'primary.main'}
+                  size={{ xs: 12, sm: 6 }}
+                  sx={{
+                    textDecoration: discount ? 'line-through' : 'none',
+                  }}
+                >
+                  <span>Item: </span>
+                  {pricePerItem}
+                  <span> {item.currency}</span>
+                </Grid>
+              ) : null}
+
+              <Grid
+                color={discount ? 'warning.main' : 'error.main'}
+                fontWeight={discount ? 400 : 900}
+                size={{ xs: 12, sm: 6 }}
+                sx={{ textDecoration: discount ? 'line-through' : 'none' }}
+              >
+                <span>Total: </span>
+                {price}
+                <span> {item.currency}</span>
+              </Grid>
+
+              {discountPerItem ? (
+                <Grid color={'primary.main'} size={{ xs: 12, sm: 6 }}>
+                  <span>Item: </span>
+                  {discountPerItem}
+                  <span> {item.currency}</span>
+                </Grid>
+              ) : null}
+
+              {discount ? (
+                <Grid
+                  fontWeight={900}
+                  size={{ xs: 12, sm: 6 }}
+                  sx={{ color: 'error.main' }}
+                >
+                  <span>Total: </span>
+                  {discount}
+                  <span> {item.currency}</span>
+                </Grid>
+              ) : null}
             </Grid>
           </Grid>
         );

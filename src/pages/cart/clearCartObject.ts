@@ -171,6 +171,7 @@ export interface LineItemModified {
   image: string;
   quantity: number;
   totalPrice: number;
+  currency: string;
 }
 
 interface State {
@@ -203,6 +204,7 @@ const clearLineItem = (clearCartObject: Cart): LineItemModified[] => {
     image: product.variant.images[0].url,
     quantity: product.quantity,
     totalPrice: product.totalPrice.centAmount,
+    currency: product.price.value.currencyCode,
   }));
 };
 

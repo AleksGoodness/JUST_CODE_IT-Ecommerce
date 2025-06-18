@@ -51,7 +51,7 @@ const DropDownPanel = ({ setIsOpen, isOpen }: IProps) => {
           p: '1vw',
           right: '0',
           top: '0',
-          width: { sm: '60vw' },
+          width: { xs: '100vw', sm: '60vw' },
           backgroundColor: 'background.default',
           borderRadius: 4,
           boxShadow: 3,
@@ -66,7 +66,7 @@ const DropDownPanel = ({ setIsOpen, isOpen }: IProps) => {
             justifyContent: 'space-between',
           }}
         >
-          <Logo sx={{ display: { sm: 'none' } }} />
+          <Logo sx={{ display: { sm: 'none' }, paddingLeft: '1rem' }} />
           <ClearRoundedIcon
             onClick={() => {
               setIsOpen(!isOpen);

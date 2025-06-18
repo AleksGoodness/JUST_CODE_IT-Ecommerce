@@ -28,13 +28,14 @@ const Basket = () => {
         animate={{ scale: 1 }}
         component={motion.div}
         container
+        direction={{ xs: 'column-reverse', sm: 'row' }}
         initial={{ scale: 0 }}
-        spacing={4}
+        rowSpacing={2}
       >
         <Grid
           container
           direction={'column'}
-          size={{ md: 7, sm: 12, xs: 12 }}
+          size={{ xs: 12, sm: 8, md: 6 }}
           spacing={1}
           sx={{
             overflowY: 'auto',

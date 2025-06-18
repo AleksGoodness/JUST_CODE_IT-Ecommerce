@@ -134,10 +134,20 @@ const typography = {
     lineHeight: 1.7,
   },
 };
+const breakpoints = {
+  values: {
+    xs: 0,
+    sm: 600,
+    md: 900,
+    lg: 1200,
+    xl: 1536,
+  },
+};
 
 export const lightTheme = createTheme({
   typography: typography,
   components: commonComponents,
+  breakpoints,
   palette: {
     mode: 'light',
     primary: {
@@ -162,6 +172,7 @@ export const lightTheme = createTheme({
 export const darkTheme = createTheme({
   components: commonComponents,
   typography: typography,
+  breakpoints,
 
   palette: {
     mode: 'dark',

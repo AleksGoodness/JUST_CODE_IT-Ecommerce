@@ -99,6 +99,7 @@ const Product = ({
             gap: 0.5,
             p: 2,
             alignContent: 'start',
+            height: '100%',
           }}
         >
           <Title component="h3" sx={{ lineHeight: 1.2 }} variant="subheader">
