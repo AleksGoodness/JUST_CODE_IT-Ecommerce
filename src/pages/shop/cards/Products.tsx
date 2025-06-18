@@ -111,6 +111,13 @@ const Products = () => {
           color="primary"
         />
       </Grid>
+      {products ? (
+        <Grid container justifyContent={'center'}>
+          <Pagination limit={products.limit} total={products.total} />
+        </Grid>
+      ) : (
+        ''
+      )}
 
       <Grid container>
         {goods.length && cart
@@ -134,14 +141,6 @@ const Products = () => {
             })
           : null}
       </Grid>
-
-      {products ? (
-        <Grid container justifyContent={'center'}>
-          <Pagination limit={products.limit} total={products.total} />
-        </Grid>
-      ) : (
-        ''
-      )}
     </Grid>
   );
 };
