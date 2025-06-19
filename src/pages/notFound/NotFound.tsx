@@ -27,32 +27,31 @@ const NotFound = () => {
         placeItems: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
+        margin: '0 auto',
       }}
     >
-      <>
-        <Typography
-          sx={theme => ({
-            fontSize: 'clamp(1rem, 2.5vw, 2.5rem)',
-            textAlign: 'center',
-            color: theme.palette.action.active,
-          })}
-          variant="sectionTitle"
+      <Typography
+        sx={theme => ({
+          fontSize: 'clamp(1rem, 2.5vw, 2.5rem)',
+          textAlign: 'center',
+          color: theme.palette.action.active,
+        })}
+        variant="sectionTitle"
+      >
+        PAGE NOT FOUND
+      </Typography>
+      <Saver />
+      <Link to="/">
+        <Button
+          sx={{
+            fontSize: 'clamp(0.9rem, 1.6vw, 1.3rem)',
+          }}
+          variant="contained"
         >
-          PAGE NOT FOUND
-        </Typography>
-        <Saver />
-        <Link to="/">
-          <Button
-            sx={{
-              fontSize: 'clamp(0.9rem, 1.6vw, 1.3rem)',
-            }}
-            variant="contained"
-          >
-            <Home />
-            home
-          </Button>
-        </Link>
-      </>
+          <Home />
+          home
+        </Button>
+      </Link>
     </Box>
   );
 };
