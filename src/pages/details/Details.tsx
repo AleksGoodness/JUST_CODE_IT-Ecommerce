@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useLocation } from 'react-router';
 
-import AttributeBox from '../../components/attributeBox/AttributeBox';
+import AttributeBox from '../../components/attribute-box/AttributeBox';
 import Purchase from '../../components/purchase/Purchase';
 import Slider from '../../components/slider/slider';
 import { useGetProductQuery } from '../../services/api';

@@ -1,8 +1,8 @@
 import { Button, Grid, List, ListItemText, Typography } from '@mui/material';
 import { useNavigate } from 'react-router';
 
-import { IDeveloper } from '../about-us-details/AboutUsDetails';
-import ContactMe from '../components/Contact-me';
+import { IDeveloper } from '../../about-us-details/AboutUsDetails';
+import ContactMe from '../../contact-me/ContactMe';
 
 const BackSide = (props: IDeveloper) => {
   const { bio, name, role, gitHub, discord, slug } = props;

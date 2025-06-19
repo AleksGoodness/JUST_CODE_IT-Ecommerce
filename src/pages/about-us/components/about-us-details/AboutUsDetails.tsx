@@ -11,8 +11,8 @@ import {
 import { useState } from 'react';
 import { useLocation } from 'react-router';
 
-import { Title } from '../../../components';
-import ContactMe from '../components/Contact-me';
+import { Title } from '../../../../components';
+import ContactMe from '../contact-me/ContactMe';
 
 export interface IDeveloper {
   name: string;

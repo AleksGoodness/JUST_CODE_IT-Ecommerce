@@ -1,6 +1,6 @@
 import aleksAvatar from './imgs/ALEKS.png';
-import daniarAvatar from './imgs/DANIAR.png';
-import elenaAvatar from './imgs/LENA.png';
+import daniarAvatar from './imgs/DANIAR.jpg';
+import elenaAvatar from './imgs/LENA.jpg';
 
 const COLLABORATION = [
   'Our team demonstrated outstanding collaboration throughout the project, combining dedication, discipline, and a shared commitment to success. Despite starting as complete strangers, we quickly formed a motivated and cohesive unit, working 5-8 hours daily to ensure steady progress.',
