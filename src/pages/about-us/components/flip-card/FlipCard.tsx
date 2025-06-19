@@ -2,7 +2,7 @@ import { Box, Card, CardContent, CardMedia, Grid } from '@mui/material';
 import { useState } from 'react';
 
 import { IDeveloper } from '../about-us-details/AboutUsDetails';
-import BackSide from './back-side/BackSide';
+import BackSide from './back-side/backSide';
 import styles from './flipCard.module.css';
 interface IFlipCardProps {
   developer: IDeveloper;
