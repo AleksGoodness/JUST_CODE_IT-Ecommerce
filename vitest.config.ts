@@ -42,6 +42,7 @@ export default defineConfig({
         'src/utils/CONSTANTS.ts',
         'src/redux/{hooks,store}.ts',
         'src/**/*.ts',
+        'src/**/*schema.tsx',
       ],
     },
   },

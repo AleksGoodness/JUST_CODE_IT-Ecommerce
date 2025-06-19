@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { IDeveloper } from '../../about-us-details/AboutUsDetails';
-import BackSide from './backSide';
+import BackSide from './BackSide';
 
 const mockProps: IDeveloper = {
   name: 'Test Developer',

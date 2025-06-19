@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { Link as ReactLink } from 'react-router';
 
 import { Title } from '../../components';
-import FlipCard from './components/flip-card/flipCard';
+import FlipCard from './components/flip-card/FlipCard';
 import { COLLABORATION, DEVELOPERS, MOTTOS } from './data';
 import rsLogo from './imgs/rss-logo.c19ce1b4.svg';
 

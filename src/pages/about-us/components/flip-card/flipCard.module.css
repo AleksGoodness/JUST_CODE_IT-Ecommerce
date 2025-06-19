@@ -3,8 +3,6 @@
   transform-style: preserve-3d;
   perspective: 1000px;
   cursor: pointer;
-  background-color: transparent;
-  height: 100%;
   overflow: visible;
 }
 
