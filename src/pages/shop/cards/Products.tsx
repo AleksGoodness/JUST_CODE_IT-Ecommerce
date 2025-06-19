@@ -119,10 +119,10 @@ const Products = () => {
 
       <Grid container>
         {isFetching
-          ? [...Array.from(Array(limitSkeleton))].map(item => (
+          ? [...Array.from(Array(limitSkeleton))].map((_, i) => (
               <Grid
                 height={540}
-                key={item}
+                key={i}
                 size={{ xs: 12, sm: 6, md: 3 }}
                 sx={{
                   borderRadius: '8px',
