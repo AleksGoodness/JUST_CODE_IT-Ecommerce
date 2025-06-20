@@ -9,8 +9,8 @@ import {
   useGetProductsQuery,
   useUpdateCartMutation,
 } from '@/services/api';
+import { ECartUpdateActions } from '@/services/interfaces/updateCart.interface';
 
-import { ECartUpdateActions } from '../../../../services/interfaces/updateCart.interface';
 import LimitSelect from '../limit-select/LimitSelect';
 import Pagination from '../pagination/Pagination';
 import Product from '../product/Product';

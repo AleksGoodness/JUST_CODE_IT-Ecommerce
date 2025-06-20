@@ -6,7 +6,8 @@ import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
-import { useDebounceCallback } from '../../../hooks/useDebounceCallback';
+import { useDebounceCallback } from '@/hooks/useDebounceCallback';
+
 import extractPriceRange from './utils/extract-price-range';
 const Filter = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

@@ -5,12 +5,13 @@ import { Badge } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import { NavLink } from 'react-router';
 
-import { LineItem } from '../../pages/basket/utils/clearCartObject.ts';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks.ts';
-import { getCustomer, getThemeName } from '../../redux/selectors.ts';
-import { setTheme } from '../../redux/slices/themeSlice.ts';
-import { useGetActiveCartQuery } from '../../services/api.ts';
-import CONSTANTS from '../../utils/CONSTANTS.ts';
+import { LineItem } from '@/pages/basket/utils/clearCartObject.ts';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks.ts';
+import { getCustomer, getThemeName } from '@/redux/selectors.ts';
+import { setTheme } from '@/redux/slices/themeSlice.ts';
+import { useGetActiveCartQuery } from '@/services/api.ts';
+import CONSTANTS from '@/utils/CONSTANTS.ts';
+
 import Cart from './Cart/Cart.tsx';
 const IconsStack = () => {
   const { customer } = useAppSelector(getCustomer);

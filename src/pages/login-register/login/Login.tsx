@@ -20,13 +20,10 @@ import Loading from '@/components/loading/Loading';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { getCustomer } from '@/redux/selectors';
 import loginCustomer from '@/redux/slices/asyncThunks/loginCustomer';
+import { useGetActiveCartQuery, useUpdateCartMutation } from '@/services/api';
 import { ECartUpdateActions } from '@/services/interfaces/updateCart.interface';
+import CONSTANTS from '@/utils/CONSTANTS';
 
-import {
-  useGetActiveCartQuery,
-  useUpdateCartMutation,
-} from '../../../services/api';
-import CONSTANTS from '../../../utils/CONSTANTS';
 import schema from './login_schema';
 
 interface IFormInputs {

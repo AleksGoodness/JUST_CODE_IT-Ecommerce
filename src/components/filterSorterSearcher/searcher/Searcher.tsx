@@ -2,11 +2,9 @@ import { Grid } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
-import {} from '../../../services/api';
-import Magnifier from '../../header/Magnifier/Magnifier';
+import Magnifier from '@/components/header/Magnifier/Magnifier';
 
 const Searcher = () => {
   const [query, setQuery] = useState('');

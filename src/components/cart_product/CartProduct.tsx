@@ -2,7 +2,8 @@ import { Box, Link } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useNavigate } from 'react-router';
 
-import { LineItemModified } from '../../pages/basket/utils/clearCartObject';
+import { LineItemModified } from '@/pages/basket/utils/clearCartObject';
+
 import ProductQuantity from '../purchase/product_quantity';
 import Title from '../title/Title';
 import Bin from './bin';

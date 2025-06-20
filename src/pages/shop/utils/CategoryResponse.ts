@@ -1,4 +1,4 @@
-import { ICategoryResponse } from '../../../services/interfaces';
+import { ICategoryResponse } from '@services/interfaces';
 
 const CategoryResponseFormatter = (catResp: ICategoryResponse) => {
   const data = catResp.results.map(element => {

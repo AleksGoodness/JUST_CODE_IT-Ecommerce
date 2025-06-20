@@ -3,10 +3,7 @@ import Button from '@mui/material/Button';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import {
-  useGetActiveCartQuery,
-  useUpdateCartMutation,
-} from '../../../services/api';
+import { useGetActiveCartQuery, useUpdateCartMutation } from '@/services/api';
 
 const CleanCart = () => {
   const { data: cart } = useGetActiveCartQuery({});

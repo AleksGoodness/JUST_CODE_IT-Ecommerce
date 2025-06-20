@@ -1,8 +1,5 @@
-import {
-  useGetActiveCartQuery,
-  useUpdateCartMutation,
-} from '../../services/api';
-import { ECartUpdateActions } from '../../services/interfaces/updateCart.interface';
+import { useGetActiveCartQuery, useUpdateCartMutation } from '@/services/api';
+import { ECartUpdateActions } from '@/services/interfaces/updateCart.interface';
 
 const useDeleteCartItem = () => {
   const { data: cart } = useGetActiveCartQuery({});

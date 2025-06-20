@@ -1,6 +1,6 @@
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 
-import { createAnonymousClient } from '../../ecommerce/clientBuilder';
+import { createAnonymousClient } from '@/ecommerce/clientBuilder';
 
 const projectKey = import.meta.env.VITE_CTP_PROJECT_KEY;
 

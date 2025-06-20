@@ -4,11 +4,10 @@ import { Button, SxProps, Theme } from '@mui/material';
 import { useEffect } from 'react';
 import { NavLink } from 'react-router';
 
-import { useAppDispatch } from '../../redux/hooks.ts';
-import { useAppSelector } from '../../redux/hooks.ts';
-import { getCustomer } from '../../redux/selectors.ts';
-import { logOut } from '../../redux/slices/authSlice.ts';
-import { ecommerceApi } from '../../services/api.ts';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks.ts';
+import { getCustomer } from '@/redux/selectors.ts';
+import { logOut } from '@/redux/slices/authSlice.ts';
+import { ecommerceApi } from '@/services/api.ts';
 
 interface Props {
   setIsOpen?: (value: boolean) => void;

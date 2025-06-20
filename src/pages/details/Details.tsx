@@ -4,8 +4,7 @@ import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 
 import AttributeBox from '@/components/attribute-box/AttributeBox';
 import Purchase from '@/components/purchase/Purchase';

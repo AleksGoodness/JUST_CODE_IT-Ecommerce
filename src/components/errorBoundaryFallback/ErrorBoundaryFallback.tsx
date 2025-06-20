@@ -1,7 +1,7 @@
 import { Button, Container, Typography } from '@mui/material';
 import { Link } from 'react-router';
 
-import CONSTANTS from '../../utils/CONSTANTS';
+import CONSTANTS from '@/utils/CONSTANTS';
 
 const ErrorBoundaryFallback = () => {
   return (

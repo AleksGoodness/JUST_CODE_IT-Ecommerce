@@ -15,7 +15,7 @@ import dayjs from 'dayjs';
 import { lazy, useState } from 'react';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
 
-import { RegisterInputProps } from '../../pages/login-register/register/interfaces';
+import { RegisterInputProps } from '@/pages/login-register/register/interfaces';
 
 const DatePicker = lazy(() =>
   import('@mui/x-date-pickers').then(module => ({
