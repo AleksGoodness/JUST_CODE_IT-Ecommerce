@@ -8,12 +8,12 @@ import { ChangeEvent, useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
-import { FormInput, Loading } from '../../components';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { IRegisterData } from '../../redux/interfaces';
-import { getCustomer } from '../../redux/selectors';
-import registerUser from '../../redux/slices/asyncThunks/registerCustomer';
-import CONSTANTS from '../../utils/CONSTANTS';
+import { FormInput, Loading } from '../../../components';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { IRegisterData } from '../../../redux/interfaces';
+import { getCustomer } from '../../../redux/selectors';
+import registerCustomer from '../../../redux/slices/asyncThunks/registerCustomer';
+import CONSTANTS from '../../../utils/CONSTANTS';
 import { countries, RegisterInputProps } from './interfaces';
 import schema from './register_schema';
 
@@ -114,7 +114,7 @@ export const Register = () => {
       billingAddresses,
       shippingAddresses,
     };
-    await dispatch(registerUser(properObject));
+    await dispatch(registerCustomer(properObject));
   };
 
   return (

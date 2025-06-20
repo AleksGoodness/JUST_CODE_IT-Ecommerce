@@ -2,15 +2,18 @@ import { lazy, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 
 import ErrorBoundaryFallback from '../components/errorBoundaryFallback/ErrorBoundaryFallback.tsx';
-import { Layout, Loading, LoginRegisterLayout } from '../components/index.ts';
+import { Layout, Loading } from '../components/index.ts';
 import AboutUsDetails from '../pages/about-us/components/about-us-details/AboutUsDetails.tsx';
+import LoginRegisterLayout from '../pages/login-register/login-register-layout.tsx';
 import Cards from '../pages/shop/cards/Products.tsx';
 
 const Home = lazy(() => import('../pages/home/Home.tsx'));
 const Details = lazy(() => import('../pages/details/Details.tsx'));
-const Login = lazy(() => import('../pages/login/Login.tsx'));
+const Login = lazy(() => import('../pages/login-register/login/Login.tsx'));
 const NotFound = lazy(() => import('../pages/notFound/NotFound.tsx'));
-const Register = lazy(() => import('../pages/register/Register.tsx'));
+const Register = lazy(
+  () => import('../pages/login-register/register/Register.tsx'),
+);
 const Shop = lazy(() => import('../pages/shop/Shop.tsx'));
 const Profile = lazy(() => import('../pages/profile/Profile.tsx'));
 const Basket = lazy(() => import('../pages/cart/Basket.tsx'));

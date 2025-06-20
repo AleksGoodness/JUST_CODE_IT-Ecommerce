@@ -8,7 +8,6 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
-    "baseUrl": "src",
 
     /* Bundler mode */
     "moduleResolution": "bundler",

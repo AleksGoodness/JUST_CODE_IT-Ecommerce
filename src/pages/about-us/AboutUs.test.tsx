@@ -1,9 +1,9 @@
 import { render } from '@testing-library/react';
-import { IDeveloper } from 'pages/about-us/components/about-us-details/AboutUsDetails';
 import { MemoryRouter } from 'react-router';
 import { describe, expect, it } from 'vitest';
 
 import AboutUs from './AboutUs';
+import { IDeveloper } from './components/about-us-details/AboutUsDetails';
 
 describe('about us page', () => {
   const mockDeveloper: IDeveloper = {

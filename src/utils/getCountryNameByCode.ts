@@ -1,4 +1,4 @@
-import { countries } from '../pages/register/interfaces';
+import { countries } from '../pages/login-register/register/interfaces';
 
 const countryCodes = Object.fromEntries(
   Object.entries(countries).map(([name, code]) => [code, name]),
