@@ -1,0 +1,53 @@
+export interface ICustomerDetails {
+  id: string;
+  version: number;
+  versionModifiedAt: string;
+  lastMessageSequenceNumber: number;
+  createdAt: string;
+  lastModifiedAt: string;
+  lastModifiedBy: LastModifiedBy;
+  createdBy: CreatedBy;
+  email: string;
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  password: string;
+  addresses: Address[];
+  defaultShippingAddressId: string;
+  defaultBillingAddressId: string;
+  shippingAddressIds: string[];
+  billingAddressIds: string[];
+  isEmailVerified: boolean;
+  customerGroupAssignments: unknown[];
+  stores: unknown[];
+  authenticationMode: string;
+}
+
+export interface CustomerUpdateData {
+  version: number;
+  actions: {
+    action: string;
+    address?: Address;
+    firstName?: string;
+    lastName?: string;
+    dateOfBirth?: string;
+  }[];
+}
+
+export interface LastModifiedBy {
+  clientId: string;
+  isPlatformClient: boolean;
+}
+
+export interface CreatedBy {
+  clientId: string;
+  isPlatformClient: boolean;
+}
+
+export interface Address {
+  id: string;
+  streetName: string;
+  postalCode: string;
+  city: string;
+  country: string;
+}

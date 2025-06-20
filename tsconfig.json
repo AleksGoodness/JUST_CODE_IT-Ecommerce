@@ -1,8 +1,14 @@
 {
   "files": [],
+  "include": [".react-router/types/**/*"],
+
+  "compilerOptions": {
+    "types": ["vitest", "vitest/globals", "@testing-library/jest-dom/vitest"],
+    "rootDirs": [".", "./.react-router/types"],
+    "verbatimModuleSyntax": true
+  },
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
   ]
 }
-

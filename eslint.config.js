@@ -1,4 +1,4 @@
-import js from '@eslint/js';
+import eslint from '@eslint/js';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import eslintReact from 'eslint-plugin-react';
@@ -7,7 +7,6 @@ import tsParser from '@typescript-eslint/parser';
 import jsxAlly from 'eslint-plugin-jsx-a11y';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
-import jestPlugin from 'eslint-plugin-jest';
 import testingLibrary from 'eslint-plugin-testing-library';
 import vitest from 'eslint-plugin-vitest';
 
@@ -19,26 +18,22 @@ export default tseslint.config(
       'dist/**',
       '**/*.js',
       'node_modules',
-      'src/ecommerce',
-      'jest.setup.ts',
+      'vitest.setup.ts',
+      'vitest.config.ts',
     ],
   },
 
-  js.configs.recommended,
-  ...tseslint.configs.recommended,
-  ...tseslint.configs.strictTypeChecked,
-  ...tseslint.configs.stylisticTypeChecked,
+  eslint.configs.recommended,
+  tseslint.configs.strict,
+  tseslint.configs.stylistic,
   eslintReact.configs.flat.recommended,
-
   jsxAlly.flatConfigs.recommended,
-  eslintConfigPrettier,
 
   {
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       'simple-import-sort': simpleImportSort,
-      jest: jestPlugin,
       vitest,
       'testing-library': testingLibrary,
     },
@@ -46,7 +41,6 @@ export default tseslint.config(
   {
     files: ['**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}'],
     languageOptions: {
-      globals: jestPlugin.environments.globals.globals,
       parser: tsParser,
       parserOptions: {
         project: ['./tsconfig.node.json', './tsconfig.app.json'],
@@ -56,11 +50,6 @@ export default tseslint.config(
       sourceType: 'module',
     },
     rules: {
-      'jest/no-disabled-tests': 'warn',
-      'jest/no-focused-tests': 'warn',
-      'jest/no-identical-title': 'warn',
-      'jest/prefer-to-have-length': 'warn',
-      'jest/valid-expect': 'warn',
       'testing-library/await-async-queries': 'warn',
       'testing-library/no-await-sync-queries': 'warn',
       'testing-library/no-debugging-utils': 'warn',
@@ -157,17 +146,17 @@ export default tseslint.config(
       ],
 
       '@typescript-eslint/consistent-type-assertions': [
-        'warn',
+        'off',
         { assertionStyle: 'never' },
       ],
-      '@typescript-eslint/no-unused-vars': 'warn',
-      '@typescript-eslint/array-type': 'warn',
-      '@typescript-eslint/member-ordering': 'warn',
-      '@typescript-eslint/no-non-null-assertion': 'off',
-      '@typescript-eslint/no-unsafe-call': 'off',
-      '@typescript-eslint/no-unsafe-assignment': 'off',
-      '@typescript-eslint/no-unsafe-member-access': 'off',
+      // '@typescript-eslint/array-type': 'warn',
+      // '@typescript-eslint/member-ordering': 'warn',
+      // '@typescript-eslint/no-unsafe-return': 'off',
+      // '@typescript-eslint/no-unsafe-assignment': 'off',
+      // '@typescript-eslint/no-unsafe-call': 'off',
+      // '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-floating-promises': 'off',
+      '@typescript-eslint/no-misused-spread': 'off',
       '@typescript-eslint/no-misused-promises': [
         'error',
         {
@@ -177,4 +166,5 @@ export default tseslint.config(
       '@typescript-eslint/no-base-to-string': 'off',
     },
   },
+  eslintConfigPrettier,
 );

@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY;
+const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY as string;
 
 import { loginCustomerClient } from '../../../ecommerce/clientBuilder';
-import { ICustomer } from '../../interfaces';
+import { ICustomerDetails } from '../../../interfaces';
 
 export interface ILoginCredentials {
   email: string;
@@ -10,7 +10,7 @@ export interface ILoginCredentials {
 }
 
 export interface ILoginResponse {
-  body?: ICustomer;
+  body?: ICustomerDetails;
 }
 
 const loginCustomer = createAsyncThunk(
@@ -28,11 +28,11 @@ const loginCustomer = createAsyncThunk(
       });
       if (response.body) {
         return response.body;
+      } else throw new Error('login failed:');
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
       }
-      throw new Error('login failed:');
-    } catch (error) {
-      console.error('login failed:', error);
-      throw error;
     }
   },
 );

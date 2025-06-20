@@ -1,9 +1,9 @@
 const CONSTANTS = {
   home: '/',
-  preview: '/preview',
+  profile: '/profile',
   shop: '/shop',
   login: '/login',
   register: '/register',
-};
+} as const;
 
 export default CONSTANTS;

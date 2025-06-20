@@ -1,8 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, Checkbox, Container, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import { motion } from 'motion/react';
 import { ChangeEvent, useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { NavLink, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { FormInput, Loading } from '../../components';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -31,6 +36,7 @@ export const Register = () => {
   }, [customer, navigate]);
 
   const methods = useForm<RegisterInputProps>({
+    mode: 'all',
     resolver: yupResolver(schema),
     defaultValues: {
       email: '',
@@ -113,7 +119,11 @@ export const Register = () => {
   };
 
   return (
-    <Container>
+    <Container
+      animate={{ scale: 1 }}
+      component={motion.div}
+      initial={{ scale: 0 }}
+    >
       {isLoading ? <Loading /> : null}
       <Box
         sx={{
@@ -125,40 +135,6 @@ export const Register = () => {
         }}
       >
         <FormProvider {...methods}>
-          <Box
-            sx={{
-              display: 'grid',
-              placeContent: 'center',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(auto, 150px))',
-              gap: 5,
-              paddingBottom: 2,
-            }}
-          >
-            <Button
-              component={NavLink}
-              sx={{
-                fontSize: '1.2rem',
-              }}
-              to="/login"
-              variant="outlined"
-            >
-              Login
-            </Button>
-            <Button
-              component={NavLink}
-              sx={theme => ({
-                fontSize: '1.2rem',
-                '&.active': {
-                  bgcolor: theme.palette.action.active,
-                  color: theme.palette.primary.contrastText,
-                },
-              })}
-              to="/register"
-              variant="outlined"
-            >
-              Register
-            </Button>
-          </Box>
           <Typography
             component="h3"
             sx={{ textAlign: 'center', paddingBlock: 3 }}
@@ -196,25 +172,25 @@ export const Register = () => {
                 name="shippingAddress.country"
                 options={Object.keys(countries)}
               />
-              <Typography color="error" variant="body2">
+              <Typography color="error" sx={{ fontSize: '0.8rem' }}>
                 {methods.formState.errors.shippingAddress?.country?.message}
               </Typography>
             </Box>
             <Box>
               <FormInput label="Street" name="shippingAddress.streetName" />
-              <Typography color="error" variant="body2">
+              <Typography color="error" sx={{ fontSize: '0.8rem' }}>
                 {methods.formState.errors.shippingAddress?.streetName?.message}
               </Typography>
             </Box>
             <Box>
               <FormInput label="City" name="shippingAddress.city" />
-              <Typography color="error" variant="body2">
+              <Typography color="error" sx={{ fontSize: '0.8rem' }}>
                 {methods.formState.errors.shippingAddress?.city?.message}
               </Typography>
             </Box>
             <Box>
               <FormInput label="Postcode" name="shippingAddress.postalCode" />
-              <Typography color="error" variant="body2">
+              <Typography color="error" sx={{ fontSize: '0.8rem' }}>
                 {methods.formState.errors.shippingAddress?.postalCode?.message}
               </Typography>
             </Box>
@@ -258,25 +234,25 @@ export const Register = () => {
                 name="billingAddress.country"
                 options={Object.keys(countries)}
               />
-              <Typography color="error" variant="body2">
+              <Typography color="error" sx={{ fontSize: '0.8rem' }}>
                 {methods.formState.errors.billingAddress?.country?.message}
               </Typography>
             </Box>
             <Box>
               <FormInput label="Street" name="billingAddress.streetName" />
-              <Typography color="error" variant="body2">
+              <Typography color="error" sx={{ fontSize: '0.8rem' }}>
                 {methods.formState.errors.billingAddress?.streetName?.message}
               </Typography>
             </Box>
             <Box>
               <FormInput label="City" name="billingAddress.city" />
-              <Typography color="error" variant="body2">
+              <Typography color="error" sx={{ fontSize: '0.8rem' }}>
                 {methods.formState.errors.billingAddress?.city?.message}
               </Typography>
             </Box>
             <Box>
               <FormInput label="Postcode" name="billingAddress.postalCode" />
-              <Typography color="error" variant="body2">
+              <Typography color="error" sx={{ fontSize: '0.8rem' }}>
                 {methods.formState.errors.billingAddress?.postalCode?.message}
               </Typography>
             </Box>

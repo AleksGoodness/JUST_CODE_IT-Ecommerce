@@ -1,10 +1,11 @@
 import {
   ClientBuilder,
+  type HttpMiddlewareOptions,
   TokenCache,
   TokenStore,
-  type HttpMiddlewareOptions,
 } from '@commercetools/ts-client';
-import { customerScopes } from './scopes';
+
+import { anonymousScopes, customerScopes } from './scopes';
 
 const clientId = import.meta.env.VITE_CTP_CLIENT_ID;
 const clientSecret = import.meta.env.VITE_CTP_CLIENT_SECRET;
@@ -17,6 +18,9 @@ const hostApi: string = import.meta.env.VITE_CTP_API_URL;
 
 const customerClientId = import.meta.env.VITE_CTP_CUSTOMER_CLIENT_ID;
 const customerClientSecret = import.meta.env.VITE_CTP_CUSTOMER_CLIENT_SECRET;
+
+const anonymousClientId = import.meta.env.VITE_CTP_ANONYMOUS_CLIENT_ID;
+const anonymousClientSecret = import.meta.env.VITE_CTP_ANONYMOUS_CLIENT_SECRET;
 
 export const tokenCache: TokenCache = {
   get: (): TokenStore => {
@@ -34,7 +38,6 @@ const httpMiddlewareOptions: HttpMiddlewareOptions = {
   host: hostApi,
   httpClient: fetch,
 };
-// Configure authMiddlewareOptions
 export const createRegistrationClient = () => {
   return new ClientBuilder()
     .withClientCredentialsFlow({
@@ -69,13 +72,36 @@ export const loginCustomerClient = (email: string, password: string) => {
     .build();
 };
 
-export const checkAuthClient = () => {
-  const tokenStore = tokenCache.get();
-  console.log(tokenStore);
+export const createClientWithToken = () => {
   return new ClientBuilder()
-    .withExistingTokenFlow(tokenStore.token, {
-      force: true,
+    .withRefreshTokenFlow({
+      host: hostAuth,
+      projectKey,
+      credentials: {
+        clientId: customerClientId,
+        clientSecret: customerClientSecret,
+      },
+      refreshToken: tokenCache.get().refreshToken || '',
+      tokenCache: tokenCache,
     })
-    .withHttpMiddleware({ host: hostAuth, httpClient: fetch })
+    .withHttpMiddleware(httpMiddlewareOptions)
+    .build();
+};
+
+export const createAnonymousClient = () => {
+  return new ClientBuilder()
+    .withAnonymousSessionFlow({
+      host: hostAuth,
+      projectKey,
+      credentials: {
+        clientId: anonymousClientId,
+        clientSecret: anonymousClientSecret,
+      },
+      scopes: anonymousScopes,
+    })
+    .withHttpMiddleware({
+      host: hostApi,
+      httpClient: fetch,
+    })
     .build();
 };

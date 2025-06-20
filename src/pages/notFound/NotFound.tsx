@@ -2,6 +2,7 @@ import Home from '@mui/icons-material/Home';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import { motion } from 'motion/react';
 import { Link } from 'react-router';
 
 import Saver from '../../components/saver/saver';
@@ -9,7 +10,10 @@ import Saver from '../../components/saver/saver';
 const NotFound = () => {
   return (
     <Container
+      animate={{ scale: 1 }}
+      component={motion.div}
       disableGutters
+      initial={{ scale: 0 }}
       maxWidth={false}
       sx={{
         color: '#2F1829',
