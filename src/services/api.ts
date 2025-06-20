@@ -175,3 +175,4 @@ export const {
   useDeleteCartMutation,
   useMergeCartMutation,
 } = ecommerceApi;
+export default ecommerceApi;
