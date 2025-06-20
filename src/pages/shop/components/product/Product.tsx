@@ -4,6 +4,7 @@ import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
 
 import Title from '@/components/title/Title';
@@ -48,6 +49,9 @@ const Product = ({
 
   return (
     <Card
+      animate={{ opacity: 1 }}
+      component={motion.article}
+      initial={{ opacity: 0 }}
       sx={{
         height: '100%',
         flexDirection: 'column',

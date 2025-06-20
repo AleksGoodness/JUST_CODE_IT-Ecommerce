@@ -18,6 +18,7 @@ const CategoryItem = ({ slug, name, toggleDrawer }: Props) => {
       <Link
         component={NavLink}
         onClick={handleClick}
+        state={{ page: 1 }}
         sx={{
           maxWidth: '100%',
           width: '100%',

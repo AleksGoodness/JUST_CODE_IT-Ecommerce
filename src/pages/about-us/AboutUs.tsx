@@ -11,9 +11,9 @@ import rsLogo from './imgs/rss-logo.c19ce1b4.svg';
 const AboutUs = () => {
   return (
     <Grid
-      animate={{ scale: 1 }}
+      animate={{ opacity: 1 }}
       component={motion.section}
-      initial={{ scale: 0 }}
+      initial={{ opacity: 0 }}
     >
       <Title
         sx={{ fontSize: 'clamp(1.2rem, calc(1.4vw + 1rem), 4rem)' }}

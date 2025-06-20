@@ -1,5 +1,5 @@
 import PaginationMui from '@mui/material/Pagination';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 interface IProps {
@@ -15,13 +15,19 @@ const Pagination = ({ limit, total }: IProps) => {
     () => new URLSearchParams(location.search),
     [location.search],
   );
-
   const currentPage = useMemo(() => {
     const offset = parseInt(searchParams.get('offset') || '0', 10);
     return Math.floor(offset / limit) + 1;
   }, [searchParams, limit]);
 
   const pageCount = Math.ceil(total / limit);
+
+  useEffect(() => {
+    if (location.state?.page) {
+      searchParams.set('offset', '0');
+      navigate(`${location.pathname}?${searchParams.toString()}`);
+    }
+  }, [location.state, searchParams, navigate, location.pathname]);
 
   const handleChange = (_event: React.ChangeEvent<unknown>, page: number) => {
     const newOffset = (page - 1) * limit;

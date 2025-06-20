@@ -1,28 +1,30 @@
 import BeeIcon from '@mui/icons-material/EmojiNature';
 import { Box, Button, Grid, Typography } from '@mui/material';
-import Drawer from '@mui/material/Drawer';
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router';
 import { useParams } from 'react-router';
 
-import CategoryList from './components/CategoryList';
-import Filters from './components/Filters';
+import CategoryList from './components/category-list/CategoryList';
+import Filters from './components/filters/Filters';
 
 const Shop = () => {
-  const [open, setOpen] = useState(false);
   const { category, plantName } = useParams();
   const navigate = useNavigate();
 
-  const toggleDrawer = (newOpen: boolean) => () => {
-    setOpen(newOpen);
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleDrawer = (v: boolean) => () => {
+    setIsOpen(v);
   };
-
   useEffect(() => {
     if (!category) navigate('all');
   }, [navigate, category]);
   return (
-    <Box animate={{ scale: 1 }} component={motion.div} initial={{ scale: 0 }}>
+    <Box
+      animate={{ opacity: 1 }}
+      component={motion.div}
+      initial={{ opacity: 0 }}
+    >
       {!plantName ? (
         <>
           <Grid
@@ -48,9 +50,8 @@ const Shop = () => {
             </Grid>
           </Grid>
           <Filters />
-          <Drawer onClose={toggleDrawer(false)} open={open}>
-            <CategoryList toggleDrawer={toggleDrawer(false)} />
-          </Drawer>
+
+          <CategoryList isOpen={isOpen} toggleDrawer={toggleDrawer(false)} />
         </>
       ) : null}
       <Outlet />

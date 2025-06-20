@@ -25,11 +25,11 @@ const Basket = () => {
         {isLoading ? 'loading...' : ''}
       </h2>
       <Grid
-        animate={{ scale: 1 }}
+        animate={{ opacity: 1 }}
         component={motion.div}
         container
         direction={{ xs: 'column-reverse', sm: 'row' }}
-        initial={{ scale: 0 }}
+        initial={{ opacity: 0 }}
         rowSpacing={2}
       >
         <Grid

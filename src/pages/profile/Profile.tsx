@@ -15,7 +15,11 @@ const Profile = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <Box animate={{ scale: 1 }} component={motion.div} initial={{ scale: 0 }}>
+    <Box
+      animate={{ opacity: 1 }}
+      component={motion.div}
+      initial={{ opacity: 0 }}
+    >
       <Stack alignItems={'center'} direction={'row'}>
         <Title variant="main">Profile</Title>
         <Chip

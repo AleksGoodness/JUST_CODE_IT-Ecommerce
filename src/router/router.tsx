@@ -6,7 +6,7 @@ import Layout from '@/components/layout/Layout.tsx';
 import Loading from '@/components/loading/Loading.tsx';
 import AboutUsDetails from '@/pages/about-us/components/about-us-details/AboutUsDetails.tsx';
 import LoginRegisterLayout from '@/pages/login-register/login-register-layout.tsx';
-import Products from '@/pages/shop/cards/Products.tsx';
+import Products from '@/pages/shop/components/products/Products.tsx';
 
 const Home = lazy(() => import('../pages/home/Home.tsx'));
 const Details = lazy(() => import('../pages/details/Details.tsx'));

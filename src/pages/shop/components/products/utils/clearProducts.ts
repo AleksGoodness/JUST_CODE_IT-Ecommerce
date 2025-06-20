@@ -1,7 +1,7 @@
 import {
   ICLearProduct,
   IProduct,
-} from '../../../../services/interfaces/products.interfaces';
+} from '../../../../../services/interfaces/products.interfaces';
 
 const clearProduct = (product: IProduct): ICLearProduct => {
   return {

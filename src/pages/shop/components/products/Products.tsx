@@ -8,11 +8,12 @@ import {
   useGetCategoriesQuery,
   useGetProductsQuery,
   useUpdateCartMutation,
-} from '../../../services/api';
-import { ECartUpdateActions } from '../../../services/interfaces/updateCart.interface';
-import Pagination from '../Pagination/Pagination';
-import LimitSelect from './components/limit-select/LimitSelect';
-import Product from './Product';
+} from '@/services/api';
+
+import { ECartUpdateActions } from '../../../../services/interfaces/updateCart.interface';
+import LimitSelect from '../limit-select/limit-select/LimitSelect';
+import Pagination from '../pagination/Pagination';
+import Product from '../product/Product';
 import clearProduct from './utils/clearProducts';
 
 const Products = () => {

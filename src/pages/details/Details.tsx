@@ -50,11 +50,11 @@ const Details = () => {
 
   return (
     <Grid
-      animate={{ scale: 1 }}
+      animate={{ opacity: 1 }}
       component={motion.div}
       container
       direction="row"
-      initial={{ scale: 0 }}
+      initial={{ opacity: 0 }}
       spacing={4}
       sx={{
         marginTop: '30px',

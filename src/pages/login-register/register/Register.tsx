@@ -120,7 +120,11 @@ export const Register = () => {
   };
 
   return (
-    <Box animate={{ scale: 1 }} component={motion.div} initial={{ scale: 0 }}>
+    <Box
+      animate={{ opacity: 1 }}
+      component={motion.div}
+      initial={{ opacity: 0 }}
+    >
       {isLoading ? <Loading /> : null}
       <Box
         sx={{

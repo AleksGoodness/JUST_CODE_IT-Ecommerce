@@ -10,9 +10,9 @@ import Saver from '@/components/saver/saver';
 const NotFound = () => {
   return (
     <Box
-      animate={{ scale: 1 }}
+      animate={{ opacity: 1 }}
       component={motion.div}
-      initial={{ scale: 0 }}
+      initial={{ opacity: 0 }}
       sx={{
         color: '#2F1829',
         borderRadius: '10px',
