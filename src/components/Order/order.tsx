@@ -6,11 +6,9 @@ import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 
 import { CartDetails } from '@/pages/basket/utils/clearCartObject';
-import {
-  useGetActiveCartQuery,
-  useUpdateCartMutation,
-} from '../../services/api';
-import { ECartUpdateActions } from '../../services/interfaces/updateCart.interface';
+import { useGetActiveCartQuery, useUpdateCartMutation } from '@/services/api';
+import { ECartUpdateActions } from '@/services/interfaces/updateCart.interface';
+
 import Title from '../title/Title';
 import CleanCart from './components/clean_cart';
 import SendOrder from './components/send_order';
@@ -42,7 +40,7 @@ const Order = ({ cartItem }: { cartItem: CartDetails }) => {
   const handleApplyPromocode = async () => {
     setIsSubmitted(true);
     if (!promoCode.trim()) {
-      setError('Enter promocode');
+      setError('Enter promo-code');
       return;
     }
     if (cart) {
@@ -92,7 +90,7 @@ const Order = ({ cartItem }: { cartItem: CartDetails }) => {
         disabled={isPromoLocked}
         error={isSubmitted ? !!error : false}
         id="promo"
-        label="Enter promocode"
+        label="Enter promo-code"
         onBlur={() => {
           if (!promoCode.trim()) {
             setError('');

@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 
-import ErrorBoundaryFallback from '@/components/errorBoundaryFallback/ErrorBoundaryFallback.tsx';
+import ErrorBoundaryFallback from '@/components/error-Boundary/ErrorBoundary.tsx';
 import Layout from '@/components/layout/Layout.tsx';
 import Loading from '@/components/loading/Loading.tsx';
 import AboutUsDetails from '@/pages/about-us/components/about-us-details/AboutUsDetails.tsx';

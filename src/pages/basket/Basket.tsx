@@ -2,9 +2,10 @@ import { Grid } from '@mui/material';
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 
-import CartProduct from '../../components/cart_product/CartProduct';
-import Order from '../../components/Order/order';
-import { useGetActiveCartQuery } from '../../services/api';
+import CartProduct from '@/components/cart_product/CartProduct';
+import Order from '@/components/order/order';
+import { useGetActiveCartQuery } from '@/services/api';
+
 import clearCartObject from './utils/clearCartObject';
 
 const Basket = () => {

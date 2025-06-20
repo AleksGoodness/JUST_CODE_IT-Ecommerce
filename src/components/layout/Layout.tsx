@@ -1,7 +1,7 @@
 import { Box, Container, Typography } from '@mui/material';
 import { Outlet } from 'react-router';
 
-import BreadCrumbs from '../breadCrumbs/BreadCrumbs';
+import BreadCrumbs from '../bread-crumbs/BreadCrumbs';
 import Header from '../header/Header';
 
 const Layout = () => {
