@@ -15,7 +15,7 @@ import {
 import { Title } from '../../../../components';
 import { Address } from '../../../../interfaces';
 import { getCountryNameByCode } from '../../../../utils/getCountryNameByCode';
-import AddressForm from '../address-form/existed-address/ExistedAddress';
+import ExistedAddress from '../address-form/existed-address/ExistedAddress';
 
 interface IProps {
   addresses: Address[];
@@ -25,7 +25,7 @@ interface IProps {
   isEditMode: boolean;
 }
 
-const Addresses = ({
+const AddressList = ({
   addresses,
   defaultBillingAddressId,
   defaultShippingAddressId,
@@ -114,7 +114,7 @@ const Addresses = ({
                   </Box>
                 </Grid>
                 {isEditMode ? (
-                  <AddressForm
+                  <ExistedAddress
                     addressToEdit={{
                       country,
                       streetName,
@@ -136,4 +136,4 @@ const Addresses = ({
   );
 };
 
-export default Addresses;
+export default AddressList;

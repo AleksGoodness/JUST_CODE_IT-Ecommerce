@@ -20,7 +20,7 @@ interface Props {
 const ExistedAddress = ({ addressToEdit, version }: Props) => {
   const [updateProfile] = useUpdateProfileMutation();
   const dispatch = useAppDispatch();
-
+  console.log(addressToEdit);
   const handleDeleteAddress = (id: string) => {
     if (!version) return;
     updateProfile({
