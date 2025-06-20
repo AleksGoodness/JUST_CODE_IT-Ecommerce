@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 
 import CartProduct from '@/components/cart_product/CartProduct';
-import Order from '@/components/order/order';
+import Order from '@/components/order/Order';
 import { useGetActiveCartQuery } from '@/services/api';
 
 import clearCartObject from './utils/clearCartObject';
