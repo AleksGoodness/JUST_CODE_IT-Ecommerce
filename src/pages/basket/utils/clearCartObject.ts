@@ -1,4 +1,4 @@
-import { Attribute, Image } from '../details/clearObject';
+import { Attribute, Image } from '@/interfaces/productDetails.interface';
 
 export interface Cart {
   type: string;

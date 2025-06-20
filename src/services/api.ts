@@ -1,8 +1,8 @@
 // api/ecommerceApi.ts
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import { Cart } from '../pages/cart/clearCartObject';
-import { IProductResponse } from '../pages/details/clearObject';
+import { Cart } from '../pages/basket/utils/clearCartObject';
+import { IProductResponse } from '../pages/details/utils/clearObject';
 import { dynamicBaseQuery } from './dynamicBaseQuery';
 import { ICategoryResponse } from './interfaces';
 import {

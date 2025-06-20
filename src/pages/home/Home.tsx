@@ -16,11 +16,11 @@ const Home = () => {
       >
         Hello JustCodeIt team
       </Typography>
-      <Typography sx={{ color: 'green', textAlign: 'center' }}>
+      <Typography sx={{ color: 'primary.main', textAlign: 'center' }}>
         This is example of usage Material UI
       </Typography>
       <Grid direction={'column'}>
-        <Typography variant="sectionTitle">Promocode</Typography>
+        <Typography variant="sectionTitle">Promo code</Typography>
         <Typography
           sx={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'primary.main' }}
         >

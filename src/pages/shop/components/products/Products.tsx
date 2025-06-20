@@ -11,7 +11,7 @@ import {
 } from '@/services/api';
 
 import { ECartUpdateActions } from '../../../../services/interfaces/updateCart.interface';
-import LimitSelect from '../limit-select/limit-select/LimitSelect';
+import LimitSelect from '../limit-select/LimitSelect';
 import Pagination from '../pagination/Pagination';
 import Product from '../product/Product';
 import clearProduct from './utils/clearProducts';

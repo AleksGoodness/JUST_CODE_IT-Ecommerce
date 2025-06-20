@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router';
 
 import Title from '@/components/title/Title';
 
-import PlaceHolderImage from './CardPlaceHolder.png';
+import PlaceHolderImage from './img/CardPlaceHolder.png';
 
 export interface Props {
   id: string;

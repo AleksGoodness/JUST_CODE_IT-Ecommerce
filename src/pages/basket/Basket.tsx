@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import CartProduct from '../../components/cart_product/CartProduct';
 import Order from '../../components/Order/order';
 import { useGetActiveCartQuery } from '../../services/api';
-import clearCartObject from './clearCartObject';
+import clearCartObject from './utils/clearCartObject';
 
 const Basket = () => {
   const { data: cart, isLoading, isError } = useGetActiveCartQuery({});

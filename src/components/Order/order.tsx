@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 
-import { CartDetails } from '../../pages/cart/clearCartObject';
+import { CartDetails } from '../../pages/basket/utils/clearCartObject';
 import {
   useGetActiveCartQuery,
   useUpdateCartMutation,

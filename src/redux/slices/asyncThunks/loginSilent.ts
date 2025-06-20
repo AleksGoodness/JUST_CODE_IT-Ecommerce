@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { createClientWithToken } from '../../../ecommerce/clientBuilder';
-import { ICustomerDetails } from '../../../interfaces';
+import { ICustomerDetails } from '../../../interfaces/customerDeteils.interface';
 import { ILoginResponse } from './loginCustomer';
 
 const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY as string;

@@ -11,13 +11,13 @@ import Products from '@/pages/shop/components/products/Products.tsx';
 const Home = lazy(() => import('../pages/home/Home.tsx'));
 const Details = lazy(() => import('../pages/details/Details.tsx'));
 const Login = lazy(() => import('../pages/login-register/login/Login.tsx'));
-const NotFound = lazy(() => import('../pages/notFound/NotFound.tsx'));
+const NotFound = lazy(() => import('../pages/not-found/NotFound.tsx'));
 const Register = lazy(
   () => import('../pages/login-register/register/Register.tsx'),
 );
 const Shop = lazy(() => import('../pages/shop/Shop.tsx'));
 const Profile = lazy(() => import('../pages/profile/Profile.tsx'));
-const Basket = lazy(() => import('../pages/cart/Basket.tsx'));
+const Basket = lazy(() => import('../pages/basket/Basket.tsx'));
 const AboutUs = lazy(() => import('../pages/about-us/AboutUs.tsx'));
 
 const AppRouter = createBrowserRouter([

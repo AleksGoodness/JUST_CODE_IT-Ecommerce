@@ -5,8 +5,8 @@ import { Link as ReactLink } from 'react-router';
 import Title from '@/components/title/Title';
 
 import FlipCard from './components/flip-card/FlipCard';
-import { COLLABORATION, DEVELOPERS, MOTTOS } from './data';
 import rsLogo from './imgs/rss-logo.c19ce1b4.svg';
+import { COLLABORATION, DEVELOPERS, MOTTOS } from './utils/data';
 
 const AboutUs = () => {
   return (

@@ -7,13 +7,15 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useLocation } from 'react-router';
 
-import AttributeBox from '../../components/attribute-box/AttributeBox';
-import Purchase from '../../components/purchase/Purchase';
-import Slider from '../../components/slider/slider';
-import { useGetProductQuery } from '../../services/api';
-import CONSTANTS from '../../utils/CONSTANTS';
-import clearObject, { ProductDetails } from './clearObject';
-import Placeholder from './defaultimg/default.jpg';
+import AttributeBox from '@/components/attribute-box/AttributeBox';
+import Purchase from '@/components/purchase/Purchase';
+import Slider from '@/components/slider/slider';
+import { ProductDetails } from '@/interfaces/productDetails.interface';
+import { useGetProductQuery } from '@/services/api';
+import CONSTANTS from '@/utils/CONSTANTS';
+
+import Placeholder from './img/default.jpg';
+import clearObject from './utils/clearObject';
 
 const Details = () => {
   const { category } = useParams();

@@ -9,7 +9,7 @@ import { SvgIconProps } from '@mui/material/SvgIcon';
 import Typography from '@mui/material/Typography';
 import { ComponentType } from 'react';
 
-import { Attribute } from '../../pages/details/clearObject';
+import { Attribute } from '../../pages/details/utils/clearObject';
 
 interface AttributesBox {
   name: string;

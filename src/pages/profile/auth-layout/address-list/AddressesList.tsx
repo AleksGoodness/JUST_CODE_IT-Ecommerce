@@ -15,7 +15,7 @@ import {
 import Title from '@/components/title/Title';
 import { getCountryNameByCode } from '@/utils/getCountryNameByCode';
 
-import { Address } from '../../../../interfaces';
+import { Address } from '../../../../interfaces/customerDeteils.interface';
 import ExistedAddress from '../address-form/existed-address/ExistedAddress';
 
 interface IProps {
