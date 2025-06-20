@@ -12,8 +12,12 @@ const BackSide = (props: IDeveloper) => {
     <>
       <Typography>{bio}</Typography>
       <Grid component={List} flexGrow={1}>
-        <ListItemText>Name: {name}</ListItemText>
-        <ListItemText>Role: {role}</ListItemText>
+        <ListItemText>
+          <Typography color="primary.main">Name:</Typography> {name}
+        </ListItemText>
+        <ListItemText>
+          <Typography color="primary.main">Role:</Typography> {role}
+        </ListItemText>
       </Grid>
       <ContactMe discord={discord} gitHub={gitHub} />
 

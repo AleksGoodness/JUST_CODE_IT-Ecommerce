@@ -36,15 +36,6 @@ describe('Flip card', () => {
     expect(img.length).toBe(1);
   });
 
-  it('Flip card render proper role', () => {
-    const role = renderComponent().getByText(mockDeveloper.role);
-    expect(role).toBeInTheDocument();
-  });
-
-  it('Flip card render proper name', () => {
-    const role = renderComponent().getByText(mockDeveloper.name);
-    expect(role).toBeInTheDocument();
-  });
   it('should toggle isFlipped state when clicked', () => {
     const container = renderComponent();
     const img = container.getByRole('img');

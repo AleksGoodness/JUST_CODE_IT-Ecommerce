@@ -15,7 +15,7 @@ const FlipCard = ({ developer }: IFlipCardProps) => {
     <Grid
       className={styles['flip-card']}
       component={Card}
-      minHeight={340}
+      minHeight={{ xs: '22rem', sm: '30rem', md: '22rem' }}
       onClick={() => setIsFlipped(!isFlipped)}
       size={{ xs: 12, sm: 4 }}
       sx={{ bgcolor: 'transparent' }}

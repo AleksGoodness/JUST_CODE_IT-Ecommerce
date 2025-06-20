@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react';
+import { IDeveloper } from 'pages/about-us/components/about-us-details/AboutUsDetails';
 import { MemoryRouter } from 'react-router';
 import { describe, expect, it } from 'vitest';
 
-import { IDeveloper } from '../about-us-details/AboutUsDetails';
 import AboutUs from './AboutUs';
 
 describe('about us page', () => {
