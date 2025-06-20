@@ -2,8 +2,9 @@ import CrossIcon from '@mui/icons-material/ClearRounded';
 import { Box, List, Skeleton } from '@mui/material';
 import { useLocation } from 'react-router';
 
-import { Title } from '../../../components';
-import { useGetCategoriesQuery } from '../../../services/api';
+import Title from '@/components/title/Title';
+import { useGetCategoriesQuery } from '@/services/api';
+
 import CategoryItem from './CategoryItem';
 import CategoryResponseFormatter from './CategoryResponse';
 

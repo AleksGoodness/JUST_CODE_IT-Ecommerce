@@ -6,7 +6,8 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { store } from '../../../../redux/store';
+import { store } from '@/redux/store';
+
 import ProfileForm from './ProfileForm';
 
 vi.mock('react-toastify');

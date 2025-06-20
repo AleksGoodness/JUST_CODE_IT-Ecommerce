@@ -1,8 +1,9 @@
 import { Box } from '@mui/material';
 
-import { Loading } from '../../../components';
-import { useAppSelector } from '../../../redux/hooks';
-import { getCustomer } from '../../../redux/selectors';
+import Loading from '@/components/loading/Loading';
+import { useAppSelector } from '@/redux/hooks';
+import { getCustomer } from '@/redux/selectors';
+
 import NewAddress from './address-form/new-address/NewAddress';
 import AddressesList from './address-list/AddressesList';
 import PasswordChanger from './password-changer/PasswordChanger';

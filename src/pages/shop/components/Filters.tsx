@@ -7,10 +7,10 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router';
 
-import { Title } from '../../../components';
-import Filter from '../../../components/filterSorterSearcher/filter/Filter';
-import Searcher from '../../../components/filterSorterSearcher/searcher/Searcher';
-import Sorter from '../../../components/filterSorterSearcher/sorter/Sorter';
+import Filter from '@/components/filterSorterSearcher/filter/Filter';
+import Searcher from '@/components/filterSorterSearcher/searcher/Searcher';
+import Sorter from '@/components/filterSorterSearcher/sorter/Sorter';
+import Title from '@/components/title/Title';
 
 const Filters = () => {
   const navigate = useNavigate();

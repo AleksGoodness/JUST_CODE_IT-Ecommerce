@@ -4,8 +4,8 @@ import { styled } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 
-import { Navigation } from '../index.ts';
 import Logo from '../logo/Logo.tsx';
+import Navigation from '../navigation/Navigation.tsx';
 import DropDownPanel from './DropDownPanel.tsx';
 import IconsStack from './Icons-stack.tsx';
 import LoginRegisterButton from './Login-register-button.tsx';

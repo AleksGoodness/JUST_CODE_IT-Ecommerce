@@ -12,9 +12,10 @@ import {
   Typography,
 } from '@mui/material';
 
-import { Title } from '../../../../components';
+import Title from '@/components/title/Title';
+import { getCountryNameByCode } from '@/utils/getCountryNameByCode';
+
 import { Address } from '../../../../interfaces';
-import { getCountryNameByCode } from '../../../../utils/getCountryNameByCode';
 import ExistedAddress from '../address-form/existed-address/ExistedAddress';
 
 interface IProps {

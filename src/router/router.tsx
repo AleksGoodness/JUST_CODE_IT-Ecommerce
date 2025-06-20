@@ -1,11 +1,12 @@
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 
-import ErrorBoundaryFallback from '../components/errorBoundaryFallback/ErrorBoundaryFallback.tsx';
-import { Layout, Loading } from '../components/index.ts';
-import AboutUsDetails from '../pages/about-us/components/about-us-details/AboutUsDetails.tsx';
-import LoginRegisterLayout from '../pages/login-register/login-register-layout.tsx';
-import Cards from '../pages/shop/cards/Products.tsx';
+import ErrorBoundaryFallback from '@/components/errorBoundaryFallback/ErrorBoundaryFallback.tsx';
+import Layout from '@/components/layout/Layout.tsx';
+import Loading from '@/components/loading/Loading.tsx';
+import AboutUsDetails from '@/pages/about-us/components/about-us-details/AboutUsDetails.tsx';
+import LoginRegisterLayout from '@/pages/login-register/login-register-layout.tsx';
+import Products from '@/pages/shop/cards/Products.tsx';
 
 const Home = lazy(() => import('../pages/home/Home.tsx'));
 const Details = lazy(() => import('../pages/details/Details.tsx'));
@@ -54,7 +55,7 @@ const AppRouter = createBrowserRouter([
           {
             path: ':category',
             children: [
-              { index: true, element: <Cards /> },
+              { index: true, element: <Products /> },
               {
                 path: ':plantName',
                 element: <Details />,

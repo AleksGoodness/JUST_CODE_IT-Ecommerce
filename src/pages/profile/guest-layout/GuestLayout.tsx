@@ -2,7 +2,7 @@ import { Button, Grid, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import { Title } from '../../../components';
+import Title from '@/components/title/Title';
 
 const GuestLayout = () => {
   const navigate = useNavigate();

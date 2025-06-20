@@ -16,15 +16,16 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
-import { Loading } from '../../../components';
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { getCustomer } from '../../../redux/selectors';
-import loginCustomer from '../../../redux/slices/asyncThunks/loginCustomer';
+import Loading from '@/components/loading/Loading';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { getCustomer } from '@/redux/selectors';
+import loginCustomer from '@/redux/slices/asyncThunks/loginCustomer';
+import { ECartUpdateActions } from '@/services/interfaces/updateCart.interface';
+
 import {
   useGetActiveCartQuery,
   useUpdateCartMutation,
 } from '../../../services/api';
-import { ECartUpdateActions } from '../../../services/interfaces/updateCart.interface';
 import CONSTANTS from '../../../utils/CONSTANTS';
 import schema from './login_schema';
 

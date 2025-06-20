@@ -6,7 +6,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router';
 
-import { Title } from '../../../components';
+import Title from '@/components/title/Title';
+
 import PlaceHolderImage from './CardPlaceHolder.png';
 
 export interface Props {
