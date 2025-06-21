@@ -1,10 +1,11 @@
 import { Box } from '@mui/material';
 
-import { Loading } from '../../../components';
-import { useAppSelector } from '../../../redux/hooks';
-import { getCustomer } from '../../../redux/selectors';
+import Loading from '@/components/loading/Loading';
+import { useAppSelector } from '@/redux/hooks';
+import { getCustomer } from '@/redux/selectors';
+
 import NewAddress from './address-form/new-address/NewAddress';
-import Addresses from './address-list/Addresses';
+import AddressesList from './address-list/AddressesList';
 import PasswordChanger from './password-changer/PasswordChanger';
 import ProfileForm from './profile-form/ProfileForm';
 
@@ -17,7 +18,7 @@ const AuthLayout = () => {
       <Box>
         <PasswordChanger />
         <ProfileForm />
-        <Addresses
+        <AddressesList
           addresses={customer.addresses}
           defaultBillingAddressId={customer.defaultBillingAddressId}
           defaultShippingAddressId={customer.defaultShippingAddressId}

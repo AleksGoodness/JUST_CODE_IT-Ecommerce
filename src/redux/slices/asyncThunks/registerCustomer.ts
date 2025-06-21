@@ -4,9 +4,10 @@ const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY as string;
 import {
   createRegistrationClient,
   loginCustomerClient,
-} from '../../../ecommerce/clientBuilder';
-import { ELocalStorage } from '../../../services/interfaces/createCart.interface';
-import { IRegisterData } from '../../interfaces';
+} from '@/ecommerce/clientBuilder';
+import { IRegisterData } from '@/redux/interfaces';
+import { ELocalStorage } from '@/services/interfaces/createCart.interface';
+
 import { ILoginResponse } from './loginCustomer';
 
 const registerCustomer = createAsyncThunk(

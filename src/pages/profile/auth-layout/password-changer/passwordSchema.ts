@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-import { noSpacesRegex } from '../../../register/interfaces';
+import { noSpacesRegex } from '@/pages/login-register/register/interfaces';
 
 const passwordSchema = yup.object().shape({
   oldPassword: yup

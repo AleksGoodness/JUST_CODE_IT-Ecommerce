@@ -1,9 +1,8 @@
-import { Button, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 
-import { Title } from '../../../components';
-import CONSTANTS from '../../../utils/CONSTANTS';
+import Title from '@/components/title/Title';
 
 const GuestLayout = () => {
   const navigate = useNavigate();
@@ -41,21 +40,31 @@ const GuestLayout = () => {
   }, [countdown, navigate]);
 
   return (
-    <>
-      <Title>To see your profile please Login or Register</Title>
+    <Grid alignItems={'center'} container>
+      <Grid component={Title} size={12}>
+        To see your profile please Login or Register
+      </Grid>
 
-      <Button
+      <Grid
+        component={Button}
+        offset={4}
         onClick={() => navigate(-1)}
+        size={4}
         sx={{ margin: '2rem auto 0 auto', display: 'block' }}
         variant="contained"
       >
         Go Back
-        <Typography color="error" component={'span'}>
-          {countdown}
-        </Typography>
-      </Button>
-      <Button component={Link} to={CONSTANTS.login} />
-    </>
+      </Grid>
+
+      <Grid
+        color="error.main"
+        component={Typography}
+        size={12}
+        textAlign={'center'}
+      >
+        Auto return after: {countdown}
+      </Grid>
+    </Grid>
   );
 };
 

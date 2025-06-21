@@ -3,14 +3,12 @@ import { Grid } from '@mui/material';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { Title } from '../../../../../components';
-import { useAppDispatch } from '../../../../../redux/hooks';
-import {
-  setCustomer,
-  setIsEditProfile,
-} from '../../../../../redux/slices/authSlice';
-import { useUpdateProfileMutation } from '../../../../../services/api';
-import { getCountryCodeByName } from '../../../../../utils/getCountryNameByCode';
+import Title from '@/components/title/Title';
+import { useAppDispatch } from '@/redux/hooks';
+import { setCustomer, setIsEditProfile } from '@/redux/slices/authSlice';
+import { useUpdateProfileMutation } from '@/services/api';
+import { getCountryCodeByName } from '@/utils/getCountryNameByCode';
+
 import AddressForm from '../AddressForm';
 import baseSchema from '../baseSchema';
 

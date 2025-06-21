@@ -49,7 +49,7 @@ const commonComponents: Components<Theme> = {
   MuiButton: {
     styleOverrides: {
       root: {
-        textTransform: 'capitalize',
+        textTransform: 'uppercase',
         fontWeight: '500',
       },
     },
@@ -134,10 +134,20 @@ const typography = {
     lineHeight: 1.7,
   },
 };
+const breakpoints = {
+  values: {
+    xs: 0,
+    sm: 600,
+    md: 900,
+    lg: 1200,
+    xl: 1536,
+  },
+};
 
 export const lightTheme = createTheme({
   typography: typography,
   components: commonComponents,
+  breakpoints,
   palette: {
     mode: 'light',
     primary: {
@@ -154,7 +164,7 @@ export const lightTheme = createTheme({
     },
     background: {
       default: '#FFFFFF',
-      paper: '#FBFBFB',
+      paper: '#f2fcf4',
     },
   },
 });
@@ -162,6 +172,7 @@ export const lightTheme = createTheme({
 export const darkTheme = createTheme({
   components: commonComponents,
   typography: typography,
+  breakpoints,
 
   palette: {
     mode: 'dark',
@@ -179,7 +190,7 @@ export const darkTheme = createTheme({
     },
     background: {
       default: '#1E1E1E',
-      paper: '#1E1E1E',
+      paper: '#1a1919',
     },
   },
 });

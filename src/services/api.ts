@@ -1,8 +1,9 @@
 // api/ecommerceApi.ts
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import { Cart } from '../pages/cart/clearCartObject';
-import { IProductResponse } from '../pages/details/clearObject';
+import { IProductResponse } from '@/interfaces/productDetails.interface';
+
+import { Cart } from '../pages/basket/utils/clearCartObject';
 import { dynamicBaseQuery } from './dynamicBaseQuery';
 import { ICategoryResponse } from './interfaces';
 import {
@@ -175,3 +176,4 @@ export const {
   useDeleteCartMutation,
   useMergeCartMutation,
 } = ecommerceApi;
+export default ecommerceApi;

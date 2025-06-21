@@ -1,14 +1,20 @@
 import { Box, Grid, Link, Paper, Typography } from '@mui/material';
+import { motion } from 'motion/react';
 import { Link as ReactLink } from 'react-router';
 
-import { Title } from '../../components';
-import { COLLABORATION, DEVELOPERS, MOTTOS } from './data';
-import FlipCard from './flip-card/flipCard';
+import Title from '@/components/title/Title';
+
+import FlipCard from './components/flip-card/FlipCard';
 import rsLogo from './imgs/rss-logo.c19ce1b4.svg';
+import { COLLABORATION, DEVELOPERS, MOTTOS } from './utils/data';
 
 const AboutUs = () => {
   return (
-    <Grid>
+    <Grid
+      animate={{ opacity: 1 }}
+      component={motion.section}
+      initial={{ opacity: 0 }}
+    >
       <Title
         sx={{ fontSize: 'clamp(1.2rem, calc(1.4vw + 1rem), 4rem)' }}
         textAlign={'center'}

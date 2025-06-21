@@ -2,7 +2,17 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "types": ["vitest/globals"],
-    "composite": true
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@assets/*": ["src/assets/*"],
+      "@pages/*": ["src/pages/*"],
+      "@ecommerce/*": ["src/ecommerce/*"],
+      "@redux/*": ["src/redux/*"],
+      "@services/*": ["src/services/*"]
+    }
   },
   "include": ["src", "tests"]
 }

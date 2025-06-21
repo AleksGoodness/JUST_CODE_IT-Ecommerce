@@ -10,12 +10,11 @@ import {
   useUpdateCartMutation,
 } from '../../services/api';
 import { ECartUpdateActions } from '../../services/interfaces/updateCart.interface';
-import Bin from '../cart_product/bin';
-import ProductQuantity from './pruduct_quantity';
+import Bin from '../cart_product/components/bin/Bin';
+import ProductQuantity from '../product-quantity/ProductQuantity';
 
 const Purchase = () => {
   const location = useLocation();
-  console.log(location.state);
   const { data: product } = useGetProductQuery(`/${location.state}`, {
     skip: !location.state,
   });
@@ -69,6 +68,8 @@ const Purchase = () => {
       <Box
         sx={{
           display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'center',
           gap: 2,
           '@media (max-width: 480px)': {
             justifyContent: 'center',
@@ -81,6 +82,7 @@ const Purchase = () => {
             setActiveButton('first');
             navigate('/cart');
           }}
+          sx={{ minWidth: 'fit-content' }}
           variant={activeButton === 'first' ? 'contained' : 'outlined'}
         >
           BUY NOW
@@ -88,11 +90,13 @@ const Purchase = () => {
 
         <Button
           onClick={() => handleAddProduct()}
+          sx={{ minWidth: 'fit-content' }}
           variant={activeButton === 'second' ? 'contained' : 'outlined'}
         >
-          ADD TO CART
+          {lineItem ? 'UPDATE IN CART' : 'ADD TO CART'}
         </Button>
-        <Button>{lineItem ? <Bin lineItemId={lineItem.id} /> : null}</Button>
+
+        {lineItem ? <Bin lineItemId={lineItem.id} /> : null}
       </Box>
     </Box>
   );

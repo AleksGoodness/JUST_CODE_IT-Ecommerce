@@ -2,6 +2,7 @@ import './saver.css';
 const Saver = () => {
   return (
     <svg
+      data-testid="saver"
       fill="none"
       height="100%"
       viewBox="0 0 636 324"

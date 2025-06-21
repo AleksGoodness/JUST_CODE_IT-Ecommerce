@@ -1,0 +1,34 @@
+import { ListItem } from '@mui/material';
+import Link from '@mui/material/Link';
+import { NavLink } from 'react-router';
+
+interface Props {
+  slug: string;
+  name: string;
+  toggleDrawer: (value: boolean) => void;
+}
+
+const CategoryItem = ({ slug, name, toggleDrawer }: Props) => {
+  const handleClick = () => {
+    toggleDrawer(false);
+  };
+
+  return (
+    <ListItem sx={{ cursor: 'pointer' }}>
+      <Link
+        component={NavLink}
+        onClick={handleClick}
+        state={{ page: 1 }}
+        sx={{
+          maxWidth: '100%',
+          width: '100%',
+        }}
+        to={slug}
+        variant="categoryLink"
+      >
+        {name}
+      </Link>
+    </ListItem>
+  );
+};
+export default CategoryItem;

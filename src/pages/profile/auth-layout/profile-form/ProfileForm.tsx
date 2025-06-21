@@ -14,13 +14,11 @@ import dayjs from 'dayjs';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
-import { getCustomer } from '../../../../redux/selectors';
-import {
-  setCustomer,
-  setIsEditProfile,
-} from '../../../../redux/slices/authSlice';
-import { useUpdateProfileMutation } from '../../../../services/api';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { getCustomer } from '@/redux/selectors';
+import { setCustomer, setIsEditProfile } from '@/redux/slices/authSlice';
+import { useUpdateProfileMutation } from '@/services/api';
+
 import profileFormSchema from './profileFormSchema';
 
 interface IInputProps {

@@ -13,11 +13,12 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
-import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
-import { getCustomer } from '../../../../redux/selectors';
-import { logOut } from '../../../../redux/slices/authSlice';
-import { useUpdatePasswordMutation } from '../../../../services/api';
-import CONSTANTS from '../../../../utils/CONSTANTS';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { getCustomer } from '@/redux/selectors';
+import { logOut } from '@/redux/slices/authSlice';
+import { useUpdatePasswordMutation } from '@/services/api';
+import CONSTANTS from '@/utils/CONSTANTS';
+
 import passwordSchema from './passwordSchema';
 
 const initState = { oldPassword: '', password: '', confirmPassword: '' };

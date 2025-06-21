@@ -1,96 +1,61 @@
 import BeeIcon from '@mui/icons-material/EmojiNature';
-import { Box, Button, Container } from '@mui/material';
-import Drawer from '@mui/material/Drawer';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
-import { Outlet, useNavigate, useParams } from 'react-router';
+import { Outlet, useNavigate } from 'react-router';
+import { useParams } from 'react-router';
 
-import Filter from '../../components/filterSorterSearcher/filter/Filter';
-import Searcher from '../../components/filterSorterSearcher/searcher/Searcher';
-import Sorter from '../../components/filterSorterSearcher/sorter/Sorter';
-import { useGetCategoriesQuery } from '../../services/api';
-import CategoryList from './components/CategoryList';
-import CategoryResponseFormatter from './components/CategoryResponse';
+import CategoryList from './components/category-list/CategoryList';
+import Filters from './components/filters/Filters';
 
 const Shop = () => {
-  const { data } = useGetCategoriesQuery({});
-  const [open, setOpen] = useState(false);
+  const { category, plantName } = useParams();
   const navigate = useNavigate();
 
-  const [currentCategoryId, setCurrentCategoryId] = useState<string>();
-  const { category } = useParams();
-
-  const toggleDrawer = (newOpen: boolean) => () => {
-    setOpen(newOpen);
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleDrawer = (v: boolean) => () => {
+    setIsOpen(v);
   };
-
   useEffect(() => {
-    if (category) {
-      if (typeof data === 'object' && data !== null && 'results' in data) {
-        const categories = CategoryResponseFormatter(data);
-        const current = categories.find(cat => cat.slug === category);
-        if (current) setCurrentCategoryId(current.id);
-      }
-      return;
-    }
-    navigate('all');
-  }, [category, data, navigate]);
-
+    if (!category) navigate('all');
+  }, [navigate, category]);
   return (
-    <>
-      <Box
-        sx={{
-          display: 'flex',
-          gap: '1rem',
-          flexWrap: 'wrap',
-          width: '100%',
-          px: 0,
-        }}
-      >
-        <Button
-          endIcon={<BeeIcon />}
-          onClick={toggleDrawer(true)}
-          sx={{ maxWidth: 'fit-content' }}
-          variant="outlined"
-        >
-          Categories
-        </Button>
+    <Box
+      animate={{ opacity: 1 }}
+      component={motion.div}
+      initial={{ opacity: 0 }}
+    >
+      {!plantName ? (
+        <>
+          <Grid
+            alignItems={'center'}
+            container
+            gap={2}
+            justifyContent={'space-between'}
+          >
+            <Button
+              endIcon={<BeeIcon />}
+              onClick={toggleDrawer(true)}
+              sx={{ maxWidth: 'fit-content' }}
+              variant="outlined"
+            >
+              Categories
+            </Button>
+            <Grid
+              component={Typography}
+              fontSize={{ xs: '1rem', sm: '1.6', md: '1.8rem' }}
+              variant="sectionTitle"
+            >
+              {category ? category.replaceAll('-', ' ') : 'no category'}
+            </Grid>
+          </Grid>
+          <Filters />
 
-        <Filter />
-        <Sorter />
-        <Searcher />
-        <Button
-          onClick={() => {
-            navigate({ search: undefined, pathname: '/shop/all' });
-          }}
-        >
-          resetFilters
-        </Button>
-      </Box>
-      <Container
-        animate={{ scale: 1 }}
-        component={motion.div}
-        initial={{ scale: 0 }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            gap: '1rem',
-            flexDirection: 'column',
-            pt: '1rem',
-            alignItems: 'center',
-          }}
-        >
-          <Drawer onClose={toggleDrawer(false)} open={open}>
-            <CategoryList
-              setCurrentCategoryId={setCurrentCategoryId}
-              toggleDrawer={toggleDrawer(false)}
-            />
-          </Drawer>
-          <Outlet context={currentCategoryId} />
-        </Box>
-      </Container>
-    </>
+          <CategoryList isOpen={isOpen} toggleDrawer={toggleDrawer(false)} />
+        </>
+      ) : null}
+      <Outlet />
+    </Box>
   );
 };
 export default Shop;

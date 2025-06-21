@@ -1,17 +1,17 @@
+import { Grid } from '@mui/material';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 
-import { CartDetails } from '../../pages/cart/clearCartObject';
-import {
-  useGetActiveCartQuery,
-  useUpdateCartMutation,
-} from '../../services/api';
-import { ECartUpdateActions } from '../../services/interfaces/updateCart.interface';
-import CleanCart from './clean_cart';
-import SendOrder from './send_order';
+import { CartDetails } from '@/pages/basket/utils/clearCartObject';
+import { useGetActiveCartQuery, useUpdateCartMutation } from '@/services/api';
+import { ECartUpdateActions } from '@/services/interfaces/updateCart.interface';
+
+import Title from '../title/Title';
+import CleanCart from './components/clean_cart';
+import SendOrder from './components/send_order';
 
 const Order = ({ cartItem }: { cartItem: CartDetails }) => {
   const { data: cart } = useGetActiveCartQuery({});
@@ -40,7 +40,7 @@ const Order = ({ cartItem }: { cartItem: CartDetails }) => {
   const handleApplyPromocode = async () => {
     setIsSubmitted(true);
     if (!promoCode.trim()) {
-      setError('Enter promocode');
+      setError('Enter promo-code');
       return;
     }
     if (cart) {
@@ -66,21 +66,31 @@ const Order = ({ cartItem }: { cartItem: CartDetails }) => {
     }
   };
   return (
-    <>
-      <Typography
+    <Grid
+      alignSelf={'flex-start'}
+      bgcolor={'background.paper'}
+      border={'2px solid'}
+      borderColor={'primary.main'}
+      borderRadius={2}
+      container
+      direction={'column'}
+      gap={2}
+      p={{ xs: 2, sm: 1, md: 2 }}
+      size={{ xs: 12, sm: 4, md: 6 }}
+    >
+      <Title
         sx={{
           textAlign: 'center',
-          fontSize: '1.3rem',
-          fontWeight: '500',
         }}
+        variant="subheader"
       >
-        PROMOCODE
-      </Typography>
+        PROMO CODE
+      </Title>
       <TextField
         disabled={isPromoLocked}
         error={isSubmitted ? !!error : false}
         id="promo"
-        label="Enter promocode"
+        label="Enter promo-code"
         onBlur={() => {
           if (!promoCode.trim()) {
             setError('');
@@ -99,42 +109,48 @@ const Order = ({ cartItem }: { cartItem: CartDetails }) => {
       />
       <Button
         onClick={handleApplyPromocode}
-        sx={{ minHeight: '40px' }}
+        sx={{ fontSize: '0.8rem' }}
         variant="contained"
       >
-        APPLY PROMOCODE
+        APPLY PROMO CODE
       </Button>
       <Divider />
-      <Typography
-        sx={{
-          fontSize: '1.1rem',
-          textAlign: 'center',
-        }}
-      >
-        Order total
-      </Typography>
-      <Typography>
-        {(cartItem.finalPrice.centAmount / 100).toFixed(2)} BYN
-      </Typography>
-      <Divider />
-      <Typography
-        sx={{
-          fontSize: '1.1rem',
-          textAlign: 'center',
-        }}
-      >
-        Total
-      </Typography>
-      <Typography>
-        {cartItem.totalPriceWithDiscount
-          ? (cartItem.totalPriceWithDiscount / 100).toFixed(2)
-          : (cartItem.finalPrice.centAmount / 100).toFixed(2)}{' '}
-        BYN
-      </Typography>
+      <Grid container>
+        <Grid size={{ xs: 12, md: 6 }}>
+          <Typography
+            sx={{
+              fontSize: '1.1rem',
+              textAlign: 'center',
+            }}
+          >
+            Order total
+          </Typography>
+          <Typography>
+            {(cartItem.finalPrice.centAmount / 100).toFixed(2)} BYN
+          </Typography>
+        </Grid>
+        {/* <Grid component={Divider} size={12} /> */}
+        <Grid size={{ xs: 12, md: 6 }}>
+          <Typography
+            sx={{
+              fontSize: '1.1rem',
+              textAlign: 'center',
+            }}
+          >
+            Total
+          </Typography>
+          <Typography>
+            {cartItem.totalPriceWithDiscount
+              ? (cartItem.totalPriceWithDiscount / 100).toFixed(2)
+              : (cartItem.finalPrice.centAmount / 100).toFixed(2)}{' '}
+            BYN
+          </Typography>
+        </Grid>
+      </Grid>
       <Divider />
       <SendOrder onCartDeleted={handleCartDeleted} />
       <CleanCart />
-    </>
+    </Grid>
   );
 };
 

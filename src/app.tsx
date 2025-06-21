@@ -4,7 +4,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 
-import { Loading } from './components/index.ts';
+import Loading from './components/loading/Loading.tsx';
 import { tokenCache } from './ecommerce/clientBuilder.ts';
 import { useAppDispatch, useAppSelector } from './redux/hooks.ts';
 import { getThemeName } from './redux/selectors.ts';

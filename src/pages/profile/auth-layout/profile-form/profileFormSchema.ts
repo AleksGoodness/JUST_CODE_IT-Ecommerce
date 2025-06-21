@@ -1,6 +1,9 @@
 import * as yup from 'yup';
 
-import { domainRegex, onlyLettersRegex } from '../../../register/interfaces';
+import {
+  domainRegex,
+  onlyLettersRegex,
+} from '@/pages/login-register/register/interfaces';
 
 export const profileFormSchema = yup.object().shape({
   firstName: yup
