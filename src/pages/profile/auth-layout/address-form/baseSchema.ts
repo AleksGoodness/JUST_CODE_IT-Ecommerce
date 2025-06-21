@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import {
   onlyLettersRegex,
   postalCodeRegex,
-} from '../../../register/interfaces';
+} from '@/pages/login-register/register/interfaces';
 
 const baseSchema = yup.object().shape({
   country: yup.string().required('Country is required'),

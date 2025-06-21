@@ -1,6 +1,9 @@
 :root {
   color-scheme: light dark;
 }
+html {
+  overflow-y: scroll;
+}
 
 body {
   margin: 0;

@@ -1,40 +1,35 @@
 import { Box, Container, Typography } from '@mui/material';
-import { Outlet, useNavigation } from 'react-router';
+import { Outlet } from 'react-router';
 
-import BreadCrumbs from '../breadCrumbs/BreadCrumbs';
+import BreadCrumbs from '../bread-crumbs/BreadCrumbs';
 import Header from '../header/Header';
-import Loading from '../loading/Loading';
 
 const Layout = () => {
-  const navigation = useNavigation();
   return (
-    <>
-      {navigation.state === 'loading' ? <Loading /> : null}
-      <Container
+    <Container
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100svh',
+        position: 'relative',
+      }}
+    >
+      <Header />
+      <Box
+        component={'main'}
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: '100svh',
-          position: 'relative',
+          flexGrow: 1,
+          paddingTop: '0.5rem',
         }}
       >
-        <Header />
-        <Box
-          component={'main'}
-          sx={{
-            flexGrow: 1,
-            paddingTop: '0.5rem',
-          }}
-        >
-          <BreadCrumbs />
-          <Outlet />
-        </Box>
-        <Box component={'footer'} sx={{ p: 2, textAlign: 'center' }}>
-          <Typography>Under maintenance</Typography>
-          <Typography color="primary">{new Date().getFullYear()}</Typography>
-        </Box>
-      </Container>
-    </>
+        <BreadCrumbs />
+        <Outlet />
+      </Box>
+      <Box component={'footer'} sx={{ p: 2, textAlign: 'center' }}>
+        <Typography>Developed by JustCodeIt</Typography>
+        <Typography color="primary">{new Date().getFullYear()}</Typography>
+      </Box>
+    </Container>
   );
 };
 

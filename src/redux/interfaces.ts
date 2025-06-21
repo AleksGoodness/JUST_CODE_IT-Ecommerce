@@ -1,4 +1,4 @@
-import { ICustomerDetails } from '../interfaces';
+import { ICustomerDetails } from '../interfaces/customerDeteils.interface';
 
 export interface Customer {
   id: string;

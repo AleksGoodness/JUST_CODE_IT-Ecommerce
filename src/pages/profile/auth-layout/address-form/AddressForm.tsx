@@ -78,6 +78,7 @@ const AddressForm = ({
               control={
                 <Switch
                   {...register('isDefaultShipping')}
+                  checked={defaultValue.isDefaultShipping}
                   checkedIcon={
                     <LocalShippingIcon
                       color="warning"
@@ -105,6 +106,7 @@ const AddressForm = ({
               control={
                 <Switch
                   {...register('isDefaultBilling')}
+                  checked={defaultValue.isDefaultBilling}
                   checkedIcon={
                     <CabinIcon
                       color="warning"

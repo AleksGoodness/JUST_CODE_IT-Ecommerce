@@ -2,13 +2,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { useAppDispatch } from '../../../../../redux/hooks';
-import { setCustomer } from '../../../../../redux/slices/authSlice';
-import { useUpdateProfileMutation } from '../../../../../services/api';
+import { useAppDispatch } from '@/redux/hooks';
+import { setCustomer } from '@/redux/slices/authSlice';
+import { useUpdateProfileMutation } from '@/services/api';
 import {
   getCountryCodeByName,
   getCountryNameByCode,
-} from '../../../../../utils/getCountryNameByCode';
+} from '@/utils/getCountryNameByCode';
+
 import AddressForm, { AddressFormValues } from '../AddressForm';
 import baseSchema from '../baseSchema';
 
@@ -20,7 +21,7 @@ interface Props {
 const ExistedAddress = ({ addressToEdit, version }: Props) => {
   const [updateProfile] = useUpdateProfileMutation();
   const dispatch = useAppDispatch();
-
+  console.log(addressToEdit);
   const handleDeleteAddress = (id: string) => {
     if (!version) return;
     updateProfile({

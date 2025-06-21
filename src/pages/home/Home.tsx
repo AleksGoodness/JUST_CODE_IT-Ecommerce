@@ -1,14 +1,13 @@
-import Container from '@mui/material/Container';
+import { Grid } from '@mui/material';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { motion } from 'motion/react';
 const Home = () => {
   return (
-    <Container
-      animate={{ scale: 1 }}
+    <Box
+      animate={{ opacity: 1 }}
       component={motion.div}
-      disableGutters
-      initial={{ scale: 0 }}
-      sx={{ padding: '26px 0' }}
+      initial={{ opacity: 0 }}
     >
       <Typography
         component="h1"
@@ -17,10 +16,16 @@ const Home = () => {
       >
         Hello JustCodeIt team
       </Typography>
-      <Typography sx={{ color: 'green', textAlign: 'center' }}>
+      <Typography sx={{ color: 'primary.main', textAlign: 'center' }}>
         This is example of usage Material UI
       </Typography>
-    </Container>
+      <Grid direction={'column'}>
+        <Typography variant="sectionTitle">Promo code</Typography>
+        <Typography color="primary.main" fontSize="1.5rem" fontWeight="bold">
+          greenery_promo
+        </Typography>
+      </Grid>
+    </Box>
   );
 };
 export default Home;

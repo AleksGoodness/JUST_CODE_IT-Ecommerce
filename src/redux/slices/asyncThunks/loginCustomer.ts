@@ -1,8 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 const projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY as string;
 
-import { loginCustomerClient } from '../../../ecommerce/clientBuilder';
-import { ICustomerDetails } from '../../../interfaces';
+import { loginCustomerClient } from '@/ecommerce/clientBuilder';
+import { ICustomerDetails } from '@/interfaces/customerDeteils.interface';
+import { ELocalStorage } from '@/services/interfaces/createCart.interface';
 
 export interface ILoginCredentials {
   email: string;
@@ -17,6 +18,7 @@ const loginCustomer = createAsyncThunk(
   'auth/login',
   async (credentials: ILoginCredentials) => {
     try {
+      localStorage.removeItem(ELocalStorage.ctpToken);
       const client = loginCustomerClient(
         credentials.email,
         credentials.password,

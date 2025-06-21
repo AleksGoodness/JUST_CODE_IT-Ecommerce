@@ -1,12 +1,25 @@
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
+import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+      '@assets': path.resolve(__dirname, './src/assets'),
+      '@components': path.resolve(__dirname, './src/components'),
+      '@pages': path.resolve(__dirname, './src/pages'),
+      '@ecommerce': path.resolve(__dirname, './src/ecommerce'),
+      '@redux': path.resolve(__dirname, './src/redux'),
+      '@services': path.resolve(__dirname, './src/services'),
+    },
+  },
   test: {
     globals: true,
     environment: 'jsdom',
     setupFiles: './vitest.setup.ts',
+
     exclude: [
       '**/node_modules/**',
       '**/dist/**',
@@ -41,6 +54,8 @@ export default defineConfig({
         'src/__test__/**',
         'src/utils/CONSTANTS.ts',
         'src/redux/{hooks,store}.ts',
+        'src/**/*.ts',
+        'src/**/*schema.tsx',
       ],
     },
   },

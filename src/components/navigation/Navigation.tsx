@@ -12,6 +12,7 @@ interface NavigationProps {
 const links = [
   { name: 'home', path: CONSTANTS.home },
   { name: 'shop', path: CONSTANTS.shop },
+  { name: 'about us', path: CONSTANTS.about },
 ];
 
 const Navigation = ({ sx, ...rest }: NavigationProps) => {
