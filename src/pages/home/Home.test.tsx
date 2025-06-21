@@ -116,10 +116,8 @@ describe('Home Component', () => {
   it('has proper semantic structure', () => {
     renderWithProviders(<Home />);
 
-    // Check for h1 heading
     expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
 
-    // Check that all text elements are present
     expect(screen.getByText('Hello JustCodeIt team')).toBeInTheDocument();
     expect(
       screen.getByText('This is example of usage Material UI'),

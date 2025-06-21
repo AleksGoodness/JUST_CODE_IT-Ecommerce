@@ -15,7 +15,11 @@ const Bin = ({ lineItemId }: BinProps) => {
   };
 
   return (
-    <IconButton onClick={handleDelete} sx={{ p: 0 }}>
+    <IconButton
+      aria-label="delete product from cart"
+      onClick={handleDelete}
+      sx={{ p: 0 }}
+    >
       <DeleteIcon />
     </IconButton>
   );

@@ -10,7 +10,7 @@ import {
   useUpdateCartMutation,
 } from '../../services/api';
 import { ECartUpdateActions } from '../../services/interfaces/updateCart.interface';
-import Bin from '../cart_product/bin';
+import Bin from '../cart_product/Bin';
 import ProductQuantity from '../product-quantity/ProductQuantity';
 
 const Purchase = () => {
