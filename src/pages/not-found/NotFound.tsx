@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { motion } from 'motion/react';
 import { Link } from 'react-router';
 
-import Saver from '@/components/saver/saver';
+import Saver from '@/components/saver/Saver';
 
 const NotFound = () => {
   return (
