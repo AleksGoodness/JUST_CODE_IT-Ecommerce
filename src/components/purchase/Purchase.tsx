@@ -11,7 +11,7 @@ import {
 } from '../../services/api';
 import { ECartUpdateActions } from '../../services/interfaces/updateCart.interface';
 import Bin from '../cart_product/bin';
-import ProductQuantity from './product_quantity';
+import ProductQuantity from '../product-quantity/ProductQuantity';
 
 const Purchase = () => {
   const location = useLocation();

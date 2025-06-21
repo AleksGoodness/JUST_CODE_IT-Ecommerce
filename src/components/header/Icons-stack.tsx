@@ -12,7 +12,7 @@ import { setTheme } from '@/redux/slices/themeSlice.ts';
 import { useGetActiveCartQuery } from '@/services/api.ts';
 import CONSTANTS from '@/utils/CONSTANTS.ts';
 
-import Cart from './Cart/Cart.tsx';
+import Cart from './cart/Cart.tsx';
 const IconsStack = () => {
   const { customer } = useAppSelector(getCustomer);
   const theme = useAppSelector(getThemeName);

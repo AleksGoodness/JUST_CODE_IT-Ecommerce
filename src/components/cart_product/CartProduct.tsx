@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 
 import { LineItemModified } from '@/pages/basket/utils/clearCartObject';
 
-import ProductQuantity from '../purchase/product_quantity';
+import ProductQuantity from '../product-quantity/ProductQuantity';
 import Title from '../title/Title';
 import Bin from './bin';
 
