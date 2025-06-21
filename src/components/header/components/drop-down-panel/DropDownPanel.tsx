@@ -3,10 +3,10 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import { useEffect } from 'react';
 
-import Logo from '../logo/Logo';
-import Navigation from '../navigation/Navigation';
-import IconsStack from './Icons-stack';
-import LoginRegisterButton from './Login-register-button';
+import Logo from '../../../logo/Logo';
+import Navigation from '../../../navigation/Navigation';
+import IconsStack from '../icon-stack/Icons-stack';
+import LoginRegisterButton from '../login-register-button/Login-register-button';
 
 interface IProps {
   setIsOpen: (value: boolean) => void;

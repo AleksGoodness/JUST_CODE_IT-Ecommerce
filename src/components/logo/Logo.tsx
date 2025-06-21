@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import { SxProps, Theme } from '@mui/material/styles';
 import { NavLink } from 'react-router';
 
-import LogoMain from '../header/LogoMain.svg';
+import LogoMain from './LogoMain.svg';
 interface Props {
   sx?: SxProps<Theme>;
 }
