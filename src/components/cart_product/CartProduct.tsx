@@ -6,7 +6,7 @@ import { LineItemModified } from '@/pages/basket/utils/clearCartObject';
 
 import ProductQuantity from '../product-quantity/ProductQuantity';
 import Title from '../title/Title';
-import Bin from './Bin';
+import Bin from './components/bin/Bin';
 
 const CartProduct = ({ products }: { products: LineItemModified[] }) => {
   const navigate = useNavigate();

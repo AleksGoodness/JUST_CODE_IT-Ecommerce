@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { store } from '@/redux/store';
 
 import Bin from './Bin';
-import useDeleteCartItem from './useDeleteCartitem';
+import useDeleteCartItem from './useDeleteCartItem';
 
 vi.mock('./useDeleteCartitem', () => ({
   default: vi.fn(() => vi.fn()),
