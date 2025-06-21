@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest';
 import { store } from '@/redux/store';
 import { lightTheme } from '@/theme/theme';
 
-import Magnifier from './Magnifier';
+import MagnifierIcon from './Magnifier';
 
 const renderWithProviders = (component: React.ReactElement) => {
   return render(
@@ -18,7 +18,7 @@ const renderWithProviders = (component: React.ReactElement) => {
 
 describe('Magnifier Component', () => {
   it('renders', () => {
-    const { container } = renderWithProviders(<Magnifier />);
+    const { container } = renderWithProviders(<MagnifierIcon />);
     const svgIcon = container.querySelector('[class*="MuiSvgIcon"]');
     expect(svgIcon).toBeInTheDocument();
   });
