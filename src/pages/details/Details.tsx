@@ -97,7 +97,7 @@ const Details = () => {
                 fontWeight: '700',
                 lineHeight: '1',
                 textDecoration: myProduct.discount ? 'line-through' : 'none',
-                textDecorationColor: 'red',
+                textDecorationColor: 'warning.main',
                 textDecorationThickness: '2px',
                 color: 'primary.main',
               }}
@@ -110,7 +110,7 @@ const Details = () => {
                   fontSize: '1.2rem',
                   fontWeight: '700',
                   lineHeight: '1',
-                  color: 'red',
+                  color: 'error.main',
                 }}
               >
                 {(myProduct.discount / 100).toFixed(2)} {myProduct.currency}{' '}

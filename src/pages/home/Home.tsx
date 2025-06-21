@@ -21,9 +21,7 @@ const Home = () => {
       </Typography>
       <Grid direction={'column'}>
         <Typography variant="sectionTitle">Promo code</Typography>
-        <Typography
-          sx={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'primary.main' }}
-        >
+        <Typography color="primary.main" fontSize="1.5rem" fontWeight="bold">
           greenery_promo
         </Typography>
       </Grid>
