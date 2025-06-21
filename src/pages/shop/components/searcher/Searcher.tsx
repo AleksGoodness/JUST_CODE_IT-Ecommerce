@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
-import Magnifier from '@/components/header/Magnifier/Magnifier';
+import Magnifier from '@/components/header/components/magnifier/Magnifier';
 
 const Searcher = () => {
   const [query, setQuery] = useState('');

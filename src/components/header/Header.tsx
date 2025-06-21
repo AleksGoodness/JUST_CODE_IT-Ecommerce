@@ -7,7 +7,7 @@ import { useLocation } from 'react-router';
 import Logo from '../logo/Logo.tsx';
 import Navigation from '../navigation/Navigation.tsx';
 import DropDownPanel from './components/drop-down-panel/DropDownPanel.tsx';
-import IconsStack from './components/icon-stack/Icons-stack.tsx';
+import IconsStack from './components/icon-stack/IconsStack.tsx';
 import LoginRegisterButton from './components/login-register-button/Login-register-button.tsx';
 
 const StyledHeader = styled('header')(({ theme }) => ({

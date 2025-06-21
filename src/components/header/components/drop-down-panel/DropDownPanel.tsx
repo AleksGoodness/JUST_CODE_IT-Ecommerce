@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 
 import Logo from '../../../logo/Logo';
 import Navigation from '../../../navigation/Navigation';
-import IconsStack from '../icon-stack/Icons-stack';
+import IconsStack from '../icon-stack/IconsStack';
 import LoginRegisterButton from '../login-register-button/Login-register-button';
 
 interface IProps {
@@ -35,6 +35,7 @@ const DropDownPanel = ({ setIsOpen, isOpen }: IProps) => {
   }, [setIsOpen]);
   return (
     <Box
+      data-testid="dropdown-panel"
       onClick={handleOutsideClick}
       sx={{
         position: 'fixed',
