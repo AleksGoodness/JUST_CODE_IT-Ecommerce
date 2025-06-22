@@ -54,7 +54,7 @@ const Banner = () => {
           favorite plants!
         </Typography>
 
-        <Grid container gap={2}>
+        <Grid container direction={{ xs: 'column', sm: 'row' }} gap={2} pt={4}>
           <Button
             component={Link}
             sx={{ width: 'fit-content' }}
@@ -63,10 +63,12 @@ const Banner = () => {
           >
             Shop Now
           </Button>
-          <Typography fontWeight={700} p={1}>
-            promo-code:
-          </Typography>
-          <Badge badgeContent={'greenery_promo'} color={'warning'} />
+          <Box alignItems={'center'} display={'flex'} gap={1}>
+            <Typography component={'span'} fontWeight={700} paddingRight={7}>
+              Promo-code:
+            </Typography>
+            <Badge badgeContent={'greenery_promo'} color={'warning'} />
+          </Box>
         </Grid>
       </Grid>
       <Grid size={{ xs: 12, sm: 6, md: 5 }}>
