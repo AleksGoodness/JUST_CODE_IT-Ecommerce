@@ -8,7 +8,7 @@ import { useLocation, useNavigate, useParams } from 'react-router';
 
 import AttributeBox from '@/components/attribute-box/AttributeBox';
 import Purchase from '@/components/purchase/Purchase';
-import Slider from '@/components/slider/slider';
+import Slider from '@/components/slider/Slider';
 import { ProductDetails } from '@/interfaces/productDetails.interface';
 import { useGetProductQuery } from '@/services/api';
 import CONSTANTS from '@/utils/CONSTANTS';

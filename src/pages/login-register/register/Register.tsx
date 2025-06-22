@@ -8,8 +8,8 @@ import { ChangeEvent, useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
+import FormInput from '@/components/form-input/FormInput';
 import Loading from '@/components/loading/Loading';
-import FormInput from '@/components/login_register_inputs/FormInput';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { IRegisterData } from '@/redux/interfaces';
 import { getCustomer } from '@/redux/selectors';
