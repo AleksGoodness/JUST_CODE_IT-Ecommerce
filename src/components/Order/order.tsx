@@ -10,8 +10,8 @@ import { useGetActiveCartQuery, useUpdateCartMutation } from '@/services/api';
 import { ECartUpdateActions } from '@/services/interfaces/updateCart.interface';
 
 import Title from '../title/Title';
-import CleanCart from './components/clean_cart';
-import SendOrder from './components/send_order';
+import CleanCart from './components/CleanCart';
+import SendOrder from './components/SendOrder';
 
 const Order = ({ cartItem }: { cartItem: CartDetails }) => {
   const { data: cart } = useGetActiveCartQuery({});

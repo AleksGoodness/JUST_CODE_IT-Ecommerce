@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { expect, it } from 'vitest';
 
 import { Wrapper } from '../../__test__/test_utils';
-import FormInput from './form_input';
+import FormInput from './FormInput';
 
 it('FormInput renders correctly', () => {
   render(

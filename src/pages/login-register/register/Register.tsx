@@ -9,7 +9,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
 import Loading from '@/components/loading/Loading';
-import FormInput from '@/components/login_register_inputs/form_input';
+import FormInput from '@/components/login_register_inputs/FormInput';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { IRegisterData } from '@/redux/interfaces';
 import { getCustomer } from '@/redux/selectors';

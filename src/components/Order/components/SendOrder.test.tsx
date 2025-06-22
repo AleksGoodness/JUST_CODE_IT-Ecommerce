@@ -6,7 +6,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { ecommerceApi } from '@/services/api';
 
-import SendOrder from './send_order';
+import SendOrder from './SendOrder';
 
 // Mock react-toastify
 vi.mock('react-toastify', () => ({
