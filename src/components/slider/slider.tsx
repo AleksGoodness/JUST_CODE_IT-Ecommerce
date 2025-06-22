@@ -1,4 +1,3 @@
-import 'swiper/swiper-bundle.css';
 import './slider.css';
 
 import CloseIcon from '@mui/icons-material/Close';

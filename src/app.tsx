@@ -1,4 +1,5 @@
 import './index.css';
+import 'swiper/swiper-bundle.css';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { useEffect } from 'react';
