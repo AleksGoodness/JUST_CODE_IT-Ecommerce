@@ -20,6 +20,35 @@ vi.mock('motion/react', () => ({
   },
 }));
 
+// Mock Swiper components
+vi.mock('swiper/react', () => ({
+  Swiper: ({ children }: React.PropsWithChildren) => (
+    <div data-testid="swiper">{children}</div>
+  ),
+  SwiperSlide: ({ children }: React.PropsWithChildren) => (
+    <div data-testid="swiper-slide">{children}</div>
+  ),
+}));
+
+// Mock Swiper modules
+vi.mock('swiper/modules', () => ({
+  Autoplay: {},
+  EffectFade: {},
+}));
+
+// Mock react-router Link
+vi.mock('react-router', () => ({
+  Link: ({
+    children,
+    to,
+    ...props
+  }: React.PropsWithChildren<{ to: string }>) => (
+    <a href={to} {...props}>
+      {children}
+    </a>
+  ),
+}));
+
 const renderWithProviders = (component: React.ReactElement) => {
   return render(
     <Provider store={store}>
@@ -31,98 +60,90 @@ const renderWithProviders = (component: React.ReactElement) => {
 describe('Home Component', () => {
   it('renders without crashing', () => {
     renderWithProviders(<Home />);
-    expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
+    expect(screen.getByTestId('swiper')).toBeInTheDocument();
   });
 
-  it('displays the main title correctly', () => {
+  it('displays the welcome message correctly', () => {
     renderWithProviders(<Home />);
-    const mainTitle = screen.getByRole('heading', { level: 1 });
-    expect(mainTitle).toHaveTextContent('Hello JustCodeIt team');
+    const welcomeText = screen.getByText(/welcome to/i);
+    expect(welcomeText).toBeInTheDocument();
   });
 
-  it('displays the subtitle with correct content', () => {
+  it('displays the JustGreen branding', () => {
     renderWithProviders(<Home />);
-    const subtitle = screen.getByText('This is example of usage Material UI');
-    expect(subtitle).toBeInTheDocument();
+    const justGreenText = screen.getByText('JustGreen!');
+    expect(justGreenText).toBeInTheDocument();
+  });
+
+  it('displays the planet text in the main title', () => {
+    renderWithProviders(<Home />);
+    const planetText = screen.getByText('Planet');
+    expect(planetText).toBeInTheDocument();
+  });
+
+  it('displays the shop description', () => {
+    renderWithProviders(<Home />);
+    const description = screen.getByText(
+      /We are an online plant shop offering a wide range of cheap and trendy plants/i,
+    );
+    expect(description).toBeInTheDocument();
+  });
+
+  it('displays the Shop Now button', () => {
+    renderWithProviders(<Home />);
+    const shopButton = screen.getByRole('link', { name: /shop now/i });
+    expect(shopButton).toBeInTheDocument();
+    expect(shopButton).toHaveAttribute('href', '/shop');
   });
 
   it('displays the promo code section', () => {
     renderWithProviders(<Home />);
-    const promoTitle = screen.getByText('Promo code');
-    const promoCode = screen.getByText('greenery_promo');
-
-    expect(promoTitle).toBeInTheDocument();
-    expect(promoCode).toBeInTheDocument();
+    const promoLabel = screen.getByText('Promo-code:');
+    expect(promoLabel).toBeInTheDocument();
   });
 
-  it('has correct styling classes and structure', () => {
-    const { container } = renderWithProviders(<Home />);
-
-    // Check that the main container has motion div
-    const mainContainer = container.firstChild as HTMLElement;
-    expect(mainContainer).toBeInTheDocument();
-
-    // Check that we have the expected number of Typography components
-    const typographyElements = container.querySelectorAll(
-      '[class*="MuiTypography"]',
-    );
-    expect(typographyElements).toHaveLength(4); // main title, subtitle, promo title, promo code
-  });
-
-  it('applies correct text alignment to main title', () => {
+  it('displays the promo code badge', () => {
     renderWithProviders(<Home />);
-    const mainTitle = screen.getByRole('heading', { level: 1 });
-    expect(mainTitle).toHaveStyle({ textAlign: 'center' });
+    const promoBadge = screen.getByText('greenery_promo');
+    expect(promoBadge).toBeInTheDocument();
   });
 
-  it('applies correct text alignment to subtitle', () => {
+  it('renders the banner carousel', () => {
     renderWithProviders(<Home />);
-    const subtitle = screen.getByText('This is example of usage Material UI');
-    expect(subtitle).toHaveStyle({ textAlign: 'center' });
+    const swiper = screen.getByTestId('swiper');
+    expect(swiper).toBeInTheDocument();
   });
 
-  it('applies correct styling to promo code', () => {
+  it('renders banner images in the carousel', () => {
     renderWithProviders(<Home />);
-    const promoCode = screen.getByText('greenery_promo');
-    expect(promoCode).toHaveStyle({
-      fontSize: '1.5rem',
-      fontWeight: '700',
-    });
+    const swiperSlides = screen.getAllByTestId('swiper-slide');
+    expect(swiperSlides.length).toBeGreaterThan(0);
   });
 
-  it('has motion animation props', () => {
+  it('has proper semantic structure with main content and carousel', () => {
+    renderWithProviders(<Home />);
+
+    // Check for main content elements
+    expect(screen.getByText(/welcome to/i)).toBeInTheDocument();
+    expect(screen.getByText('JustGreen!')).toBeInTheDocument();
+
+    expect(screen.getByText('Planet')).toBeInTheDocument();
+    expect(
+      screen.getByText(/We are an online plant shop/i),
+    ).toBeInTheDocument();
+
+    // Check for interactive elements
+    expect(screen.getByRole('link', { name: /shop now/i })).toBeInTheDocument();
+    expect(screen.getByText('Promo-code:')).toBeInTheDocument();
+    expect(screen.getByText('greenery_promo')).toBeInTheDocument();
+
+    // Check for carousel
+    expect(screen.getByTestId('swiper')).toBeInTheDocument();
+  });
+
+  it('applies motion animation props to the main container', () => {
     const { container } = renderWithProviders(<Home />);
     const motionDiv = container.firstChild as HTMLElement;
-
-    // Check that motion props are applied (these would be passed to the motion.div)
     expect(motionDiv).toBeInTheDocument();
-  });
-
-  it('renders all expected text content', () => {
-    renderWithProviders(<Home />);
-
-    const expectedTexts = [
-      'Hello JustCodeIt team',
-      'This is example of usage Material UI',
-      'Promo code',
-      'greenery_promo',
-    ];
-
-    expectedTexts.forEach(text => {
-      expect(screen.getByText(text)).toBeInTheDocument();
-    });
-  });
-
-  it('has proper semantic structure', () => {
-    renderWithProviders(<Home />);
-
-    expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
-
-    expect(screen.getByText('Hello JustCodeIt team')).toBeInTheDocument();
-    expect(
-      screen.getByText('This is example of usage Material UI'),
-    ).toBeInTheDocument();
-    expect(screen.getByText('Promo code')).toBeInTheDocument();
-    expect(screen.getByText('greenery_promo')).toBeInTheDocument();
   });
 });
